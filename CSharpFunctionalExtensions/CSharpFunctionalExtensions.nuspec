@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>CSharpFunctionalExtensions</id>
+        <version>$version$</version>
+        <authors>Vladimir Khorikov</authors>
+        <owners>Vladimir Khorikov</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <licenseUrl>todo</licenseUrl>
+        <projectUrl>todo</projectUrl>
+        <description>
+          CSharpFunctionalExtensions - functional extensions for C#.
+        </description>
+        <language>en-US</language>
+        <tags>C# Functional</tags>
+    </metadata>
+</package>
