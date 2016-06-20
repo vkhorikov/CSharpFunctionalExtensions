@@ -3,7 +3,42 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFunctionalExtensions", "CSharpFunctionalExtensions\CSharpFunctionalExtensions.csproj", "{EA754E02-4F61-4609-A749-B5AA388E3F88}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B3869EEE-ED84-4C7C-8291-D4289E4852FE}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BF17ECA8-9692-45AB-ABD6-8283F158B774}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release 3.0|Any CPU = Release 3.0|Any CPU
+		Release 3.5|Any CPU = Release 3.5|Any CPU
+		Release 4.0|Any CPU = Release 4.0|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release 3.0|Any CPU.ActiveCfg = Release 3.0|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release 3.0|Any CPU.Build.0 = Release 3.0|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release 3.5|Any CPU.ActiveCfg = Release 3.5|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release 3.5|Any CPU.Build.0 = Release 3.5|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release 4.0|Any CPU.ActiveCfg = Release 4.0|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release 4.0|Any CPU.Build.0 = Release 4.0|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
