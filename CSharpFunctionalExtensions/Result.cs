@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions
         protected Result(bool isSuccess, string error)
         {
             if (error == null)
-                throw new ArgumentNullException("error");
+                throw new ArgumentNullException(nameof(error));
             if (isSuccess && error != string.Empty)
                 throw new InvalidOperationException();
             if (!isSuccess && error == string.Empty)
