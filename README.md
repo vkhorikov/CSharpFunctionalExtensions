@@ -14,19 +14,33 @@ Available on [nuget](https://www.nuget.org/packages/CSharpFunctionalExtensions/)
 ## Get rid of primitive obsession
 
 ```csharp
-Code samples coming soon
+Result<CustomerName> name = CustomerName.Create(model.Name);
+Result<Email> email = Email.Create(model.PrimaryEmail);
+
+Result result = Result.Combine(name, email);
+if (result.IsFailure)
+    return Error(result.Error);
+
+var customer = new Customer(name.Value, email.Value);
 ```
 
 ## Make nulls explicit with the Maybe type
 
 ```csharp
-Code samples coming soon
+Maybe<Customer> customerOrNothing = _customerRepository.GetById(id);
+if (customerOrNothing.HasNoValue)
+    return Error("Customer with such Id is not found: " + id);
 ```
 
-## Make failures explicit with the Result type
+## Compose multiple operations in a single chain
 
 ```csharp
-Code samples coming soon
+return _customerRepository.GetById(id)
+    .ToResult("Customer with such Id is not found: " + id)
+    .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
+    .OnSuccess(customer => customer.Promote())
+    .OnSuccess(customer => _emailGateway.SendPromotionNotification(customer.PrimaryEmail, customer.Status))
+    .OnBoth(result => result.IsSuccess ? Ok() : Error(result.Error));
 ```
 
 ## Readings and watchings
