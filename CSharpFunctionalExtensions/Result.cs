@@ -64,9 +64,7 @@ namespace CSharpFunctionalExtensions
         private readonly ResultCommonLogic _logic;
 
         public bool IsFailure => _logic.IsFailure;
-
         public bool IsSuccess => _logic.IsSuccess;
-
         public string Error => _logic.Error;
 
         [DebuggerStepThrough]
@@ -151,15 +149,13 @@ namespace CSharpFunctionalExtensions
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic _logic;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly T _value;
 
         public bool IsFailure => _logic.IsFailure;
-
         public bool IsSuccess => _logic.IsSuccess;
-
         public string Error => _logic.Error;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly T _value;
         public T Value
         {
             [DebuggerStepThrough]
@@ -175,14 +171,13 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         internal Result(bool isFailure, T value, string error)
         {
-            _logic = new ResultCommonLogic(isFailure, error);
-
             if (!isFailure)
             {
                 if (value == null)
                     throw new ArgumentNullException(nameof(value));
             }
 
+            _logic = new ResultCommonLogic(isFailure, error);
             _value = value;
         }
     }
