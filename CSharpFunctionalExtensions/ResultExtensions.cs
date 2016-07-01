@@ -21,26 +21,34 @@ namespace CSharpFunctionalExtensions
             return func(result.Value);
         }
 
+        public static Result<K> OnSuccess<T, K>(this Result<T> result, Func<Result<K>> func)
+        {
+            if (result.IsFailure)
+                return result.MapFailure<K>();
+
+            return func();
+        }
+
         public static Result OnSuccess<T>(this Result<T> result, Func<T, Result> func)
         {
             if (result.IsFailure)
-                return result;
+                return Result.Fail(result.Error);
 
             return func(result.Value);
         }
 
-        public static Result<T> Ensure<T>(this Result<T> result, Func<T, bool> predicate, string errorMessage)
+        public static Result<T> Ensure<T>(this IResult<T> result, Func<T, bool> predicate, string errorMessage)
         {
             if (result.IsFailure)
-                return result;
+                return Result.Fail<T>(result.Error);
 
             if (!predicate(result.Value))
                 return Result.Fail<T>(errorMessage);
 
-            return result;
+            return Result.Ok(result.Value);
         }
 
-        public static Result<K> Map<T, K>(this Result<T> result, Func<T, K> func)
+        public static Result<K> Map<T, K>(this IResult<T> result, Func<T, K> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K>(result.Error);
@@ -48,7 +56,7 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(func(result.Value));
         }
 
-        public static Result<T> MapFailure<T>(this Result result)
+        public static Result<T> MapFailure<T>(this IResult result)
         {
             if (result.IsSuccess)
                 throw new InvalidOperationException();
@@ -56,7 +64,8 @@ namespace CSharpFunctionalExtensions
             return Result.Fail<T>(result.Error);
         }
 
-        public static Result<T> OnSuccess<T>(this Result<T> result, Action<T> action)
+        public static TResult OnSuccess<TResult, T>(this TResult result, Action<T> action)
+            where TResult : IResult<T>
         {
             if (result.IsSuccess)
             {
@@ -66,12 +75,13 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static T OnBoth<T>(this Result result, Func<Result, T> func)
+        public static T OnBoth<T>(this IResult result, Func<IResult, T> func)
         {
             return func(result);
         }
 
-        public static Result OnSuccess(this Result result, Action action)
+        public static TResult OnSuccess<TResult>(this TResult result, Action action)
+            where TResult : IResult
         {
             if (result.IsSuccess)
             {

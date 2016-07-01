@@ -45,10 +45,10 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             Action action3 = () => { Result.Fail<MyClass>(null); };
             Action action4 = () => { Result.Fail<MyClass>(string.Empty); };
 
-            action1.ShouldThrow<InvalidOperationException>();
-            action2.ShouldThrow<InvalidOperationException>();
-            action3.ShouldThrow<InvalidOperationException>();
-            action4.ShouldThrow<InvalidOperationException>();
+            action1.ShouldThrow<ArgumentNullException>();
+            action2.ShouldThrow<ArgumentNullException>();
+            action3.ShouldThrow<ArgumentNullException>();
+            action4.ShouldThrow<ArgumentNullException>();
         }
 
 

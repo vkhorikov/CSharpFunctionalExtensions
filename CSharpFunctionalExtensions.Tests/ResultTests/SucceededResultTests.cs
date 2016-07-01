@@ -12,7 +12,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             Result result = Result.Ok();
 
-            result.Error.Should().BeEmpty();
             result.IsFailure.Should().Be(false);
             result.IsSuccess.Should().Be(true);
         }
@@ -24,7 +23,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Result<MyClass> result = Result.Ok(myClass);
 
-            result.Error.Should().BeEmpty();
             result.IsFailure.Should().Be(false);
             result.IsSuccess.Should().Be(true);
             result.Value.Should().Be(myClass);
@@ -35,7 +33,33 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             Action action = () => { Result.Ok((MyClass)null); };
 
-            action.ShouldThrow<InvalidOperationException>();;
+            action.ShouldThrow<ArgumentNullException>();;
+        }
+
+        [Fact]
+        public void Cannot_access_Error_non_generic_version()
+        {
+            Result result = Result.Ok();
+
+            Action action = () =>
+            {
+                string error = result.Error;
+            };
+
+            action.ShouldThrow<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void Cannot_access_Error_generic_version()
+        {
+            Result<MyClass> result = Result.Ok(new MyClass());
+
+            Action action = () =>
+            {
+                string error = result.Error;
+            };
+
+            action.ShouldThrow<InvalidOperationException>();
         }
 
 
