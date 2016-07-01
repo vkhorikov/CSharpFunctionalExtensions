@@ -50,3 +50,5 @@ return _customerRepository.GetById(id)
  * [Functional C#: Handling failures, input errors](http://enterprisecraftsmanship.com/2015/03/20/functional-c-handling-failures-input-errors/)
  * [Applying Functional Principles in C# Pluralsight course](http://pluralsight.com/courses/csharp-applying-functional-principles)
  
+## Contributors
+Thanks to [yakimovim](https://github.com/yakimovim) for contribution!
