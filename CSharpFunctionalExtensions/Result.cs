@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions
         protected Result(bool isSuccess, string error)
         {
             if (error == null)
-                throw new ArgumentNullException(nameof(error));
+                throw new InvalidOperationException();
             if (isSuccess && error != string.Empty)
                 throw new InvalidOperationException();
             if (!isSuccess && error == string.Empty)
@@ -72,6 +72,9 @@ namespace CSharpFunctionalExtensions
         internal Result(T value, bool isSuccess, string error)
             : base(isSuccess, error)
         {
+            if (isSuccess && value == null)
+                throw new InvalidOperationException();
+
             _value = value;
         }
     }

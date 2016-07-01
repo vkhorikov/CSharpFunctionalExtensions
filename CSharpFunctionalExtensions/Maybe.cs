@@ -56,6 +56,11 @@ namespace CSharpFunctionalExtensions
 
         public override bool Equals(object obj)
         {
+            if (obj is T)
+            {
+                obj = new Maybe<T>((T)obj);
+            }
+
             if (!(obj is Maybe<T>))
                 return false;
 
@@ -76,6 +81,9 @@ namespace CSharpFunctionalExtensions
 
         public override int GetHashCode()
         {
+            if (HasNoValue)
+                return 0;
+
             return _value.GetHashCode();
         }
 
@@ -85,19 +93,6 @@ namespace CSharpFunctionalExtensions
                 return "No value";
 
             return Value.ToString();
-        }
-
-        public T Unwrap()
-        {
-            return Unwrap(x => x);
-        }
-
-        public K Unwrap<K>(Func<T, K> selector)
-        {
-            if (HasValue)
-                return selector(Value);
-
-            return default(K);
         }
     }
 }
