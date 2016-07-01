@@ -45,7 +45,7 @@ namespace CSharpFunctionalExtensions
         {
             if (isFailure)
             {
-                if (string.IsNullOrWhiteSpace(error))
+                if (string.IsNullOrEmpty(error))
                     throw new ArgumentNullException(nameof(error), "There must be error message for failure.");
             }
             else
@@ -129,7 +129,7 @@ namespace CSharpFunctionalExtensions
             if (!failedResults.Any())
                 return Ok();
 
-            string errorMessage = string.Join(errorMessagesSeparator, failedResults.Select(x => x.Error));
+            string errorMessage = string.Join(errorMessagesSeparator, failedResults.Select(x => x.Error).ToArray());
             return Fail(errorMessage);
         }
 
