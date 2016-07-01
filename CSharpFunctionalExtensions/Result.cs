@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
+using System.Linq;
 
 
 namespace CSharpFunctionalExtensions
@@ -11,6 +12,7 @@ namespace CSharpFunctionalExtensions
         bool IsSuccess { get; }
         string Error { get; }
     }
+
 
     public interface IResult<out T> : IResult
     {
@@ -24,7 +26,6 @@ namespace CSharpFunctionalExtensions
         private readonly string _error;
 
         public bool IsFailure { get; }
-
         public bool IsSuccess => !IsFailure;
 
         public string Error
@@ -57,6 +58,7 @@ namespace CSharpFunctionalExtensions
             _error = error;
         }
     }
+
 
     public struct Result : IResult
     {
@@ -104,7 +106,7 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         public static Result FirstFailureOrSuccess(params IResult[] results)
         {
-            foreach (var result in results)
+            foreach (IResult result in results)
             {
                 if (result.IsFailure)
                     return Fail(result.Error);
@@ -122,28 +124,22 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         public static Result Combine(string errorMessagesSeparator, params IResult[] results)
         {
-            StringBuilder errorMessageBuilder = null;
+            List<IResult> failedResults = results.Where(x => x.IsFailure).ToList();
 
-            foreach (var result in results)
-            {
-                if (result.IsFailure)
-                {
-                    if (errorMessageBuilder == null)
-                    { errorMessageBuilder = new StringBuilder(); }
+            if (!failedResults.Any())
+                return Ok();
 
-                    if (errorMessageBuilder.Length > 0)
-                    { errorMessageBuilder.Append(errorMessagesSeparator); }
+            string errorMessage = string.Join(errorMessagesSeparator, failedResults.Select(x => x.Error));
+            return Fail(errorMessage);
+        }
 
-                    errorMessageBuilder.Append(result.Error);
-                }
-            }
-
-            if (errorMessageBuilder == null)
-            { return Ok(); }
-
-            return Fail(errorMessageBuilder.ToString());
+        [DebuggerStepThrough]
+        public static Result Combine(params IResult[] results)
+        {
+            return Combine(",", results);
         }
     }
+
 
     public struct Result<T> : IResult<T>
     {
@@ -156,6 +152,7 @@ namespace CSharpFunctionalExtensions
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly T _value;
+
         public T Value
         {
             [DebuggerStepThrough]
@@ -171,11 +168,8 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         internal Result(bool isFailure, T value, string error)
         {
-            if (!isFailure)
-            {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
-            }
+            if (!isFailure && value == null)
+                throw new ArgumentNullException(nameof(value));
 
             _logic = new ResultCommonLogic(isFailure, error);
             _value = value;

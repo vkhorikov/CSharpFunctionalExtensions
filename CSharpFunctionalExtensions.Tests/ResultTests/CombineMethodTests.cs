@@ -43,5 +43,17 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be("Failure 1;Failure 2");
         }
+
+        [Fact]
+        public void Combine_returns_Ok_if_no_failures()
+        {
+            Result result1 = Result.Ok();
+            Result result2 = Result.Ok();
+            Result<string> result3 = Result.Ok("Some string");
+
+            Result result = Result.Combine(";", result1, result2, result3);
+
+            result.IsSuccess.Should().BeTrue();
+        }
     }
 }

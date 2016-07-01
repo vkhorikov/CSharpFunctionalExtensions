@@ -51,7 +51,7 @@ namespace CSharpFunctionalExtensions
         public static Result<K> Map<T, K>(this IResult<T> result, Func<T, K> func)
         {
             if (result.IsFailure)
-                return Result.Fail<K>(result.Error);
+                return result.MapFailure<K>();
 
             return Result.Ok(func(result.Value));
         }
