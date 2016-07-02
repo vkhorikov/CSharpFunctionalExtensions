@@ -41,7 +41,7 @@ namespace CSharpFunctionalExtensions
             return null;
         }
 
-        public static Maybe<K> Map<T, K>(this Maybe<T> maybe, Func<T, K> selector)
+        public static Maybe<K> Select<T, K>(this Maybe<T> maybe, Func<T, K> selector)
             where T : class
             where K : class
         {
@@ -49,6 +49,25 @@ namespace CSharpFunctionalExtensions
                 return null;
 
             return selector(maybe.Value);
+        }
+
+        public static Maybe<K> Select<T, K>(this Maybe<T> maybe, Func<T, Maybe<K>> selector)
+            where T : class
+            where K : class
+        {
+            if (maybe.HasNoValue)
+                return null;
+
+            return selector(maybe.Value);
+        }
+
+        public static void Execute<T>(this Maybe<T> maybe, Action<T> action)
+            where T : class
+        {
+            if (maybe.HasNoValue)
+                return;
+
+            action(maybe.Value);
         }
     }
 }

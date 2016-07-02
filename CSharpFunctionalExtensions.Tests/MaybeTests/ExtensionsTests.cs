@@ -94,14 +94,62 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public void Map_returns_new_maybe()
+        public void Select_returns_new_maybe()
         {
             Maybe<MyClass> maybe = new MyClass { Property = "Some value" };
 
-            Maybe<string> maybe2 = maybe.Map(x => x.Property);
+            Maybe<string> maybe2 = maybe.Select(x => x.Property);
 
             maybe2.HasValue.Should().BeTrue();
             maybe2.Value.Should().Be("Some value");
+        }
+
+        [Fact]
+        public void Select_returns_no_value_if_no_value_passed_in()
+        {
+            Maybe<MyClass> maybe = null;
+
+            Maybe<string> maybe2 = maybe.Select(x => x.Property);
+
+            maybe2.HasValue.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Bind_returns_new_maybe()
+        {
+            Maybe<MyClass> maybe = new MyClass { Property = "Some value" };
+
+            Maybe<string> maybe2 = maybe.Select(x => GetPropertyIfExists(x));
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Value.Should().Be("Some value");
+        }
+
+        [Fact]
+        public void Bind_returns_no_value_if_internal_method_returns_no_value()
+        {
+            Maybe<MyClass> maybe = new MyClass { Property = null };
+
+            Maybe<string> maybe2 = maybe.Select(x => GetPropertyIfExists(x));
+
+            maybe2.HasValue.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Execute_executes_action()
+        {
+            string property = null;
+            Maybe<MyClass> maybe = new MyClass { Property = "Some value" };
+
+            maybe.Execute(x => property = x.Property);
+
+            property.Should().Be("Some value");
+        }
+
+
+        private static Maybe<string> GetPropertyIfExists(MyClass myClass)
+        {
+            return myClass.Property;
         }
 
 

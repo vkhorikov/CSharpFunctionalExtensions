@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>CSharpFunctionalExtensions</id>
-        <version>1.2.0</version>
+        <version>1.3.0</version>
         <authors>Vladimir Khorikov</authors>
         <owners>Vladimir Khorikov</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
