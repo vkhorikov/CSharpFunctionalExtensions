@@ -35,13 +35,14 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         public void Combine_combines_all_errors_together()
         {
             Result result1 = Result.Ok();
-            Result result2 = Result.Fail("Failure 1");
-            Result result3 = Result.Fail("Failure 2");
+            Result result2 = Result.Fail("Failure 1", "Private failure 1");
+            Result result3 = Result.Fail("Failure 2", "Private failure 2");
 
             Result result = Result.Combine(";", result1, result2, result3);
 
             result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be("Failure 1;Failure 2");
+            result.PrivateError.Should().Be("Private failure 1;Private failure 2");
         }
 
         [Fact]
