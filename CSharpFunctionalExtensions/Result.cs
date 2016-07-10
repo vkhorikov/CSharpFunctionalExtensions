@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 
 namespace CSharpFunctionalExtensions
@@ -62,6 +63,8 @@ namespace CSharpFunctionalExtensions
 
     public struct Result : IResult
     {
+        private static readonly Result OkResult = new Result(false, null);
+
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic _logic;
 
@@ -78,7 +81,7 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         public static Result Ok()
         {
-            return new Result(false, null);
+            return OkResult;
         }
 
         [DebuggerStepThrough]
@@ -136,7 +139,7 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         public static Result Combine(params IResult[] results)
         {
-            return Combine(",", results);
+            return Combine(", ", results);
         }
     }
 
