@@ -14,19 +14,19 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(maybe.Value);
         }
 
-        public static T Unwrap<T>(this Maybe<T> maybe)
+        public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = null)
             where T : class
         {
-            return maybe.Unwrap(x => x);
+            return maybe.Unwrap(x => x, defaultValue);
         }
 
-        public static K Unwrap<T, K>(this Maybe<T> maybe, Func<T, K> selector)
+        public static K Unwrap<T, K>(this Maybe<T> maybe, Func<T, K> selector, K defaultValue = default(K))
             where T : class
         {
             if (maybe.HasValue)
                 return selector(maybe.Value);
 
-            return default(K);
+            return defaultValue;
         }
 
         public static Maybe<T> Where<T>(this Maybe<T> maybe, Func<T, bool> predicate)

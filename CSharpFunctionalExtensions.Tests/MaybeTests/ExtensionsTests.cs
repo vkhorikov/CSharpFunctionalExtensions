@@ -38,6 +38,16 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
+        public void Can_use_default_value_in_Unwrap()
+        {
+            Maybe<string> maybe = null;
+
+            string value = maybe.Unwrap("");
+
+            value.Should().Be("");
+        }
+
+        [Fact]
         public void ToResult_returns_success_if_value_exists()
         {
             var instance = new MyClass();
