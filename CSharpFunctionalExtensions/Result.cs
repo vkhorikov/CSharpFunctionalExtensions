@@ -12,6 +12,8 @@ namespace CSharpFunctionalExtensions
         bool IsFailure { get; }
         bool IsSuccess { get; }
         string Error { get; }
+
+        string PrivateError { get; }
     }
 
 
@@ -25,6 +27,8 @@ namespace CSharpFunctionalExtensions
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly string _error;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly string _privateError;
 
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
@@ -41,8 +45,21 @@ namespace CSharpFunctionalExtensions
             }
         }
 
+        public string PrivateError
+        {
+            [DebuggerStepThrough]
+            get
+            {
+                if (IsSuccess)
+                    throw new InvalidOperationException("There is no private error message for success.");
+
+                return _privateError;
+            }
+        }
+
+
         [DebuggerStepThrough]
-        public ResultCommonLogic(bool isFailure, string error)
+        public ResultCommonLogic(bool isFailure, string error, string privateError = null)
         {
             if (isFailure)
             {
@@ -53,10 +70,13 @@ namespace CSharpFunctionalExtensions
             {
                 if (error != null)
                     throw new ArgumentException("There should be no error message for success.", nameof(error));
+                if (privateError != null)
+                    throw new ArgumentException("There should be no private error message for success.", nameof(privateError));
             }
 
             IsFailure = isFailure;
             _error = error;
+            _privateError = privateError ?? error;
         }
     }
 
@@ -71,11 +91,12 @@ namespace CSharpFunctionalExtensions
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
         public string Error => _logic.Error;
+        public string PrivateError => _logic.PrivateError;
 
         [DebuggerStepThrough]
-        private Result(bool isFailure, string error)
+        private Result(bool isFailure, string error, string privateError = null)
         {
-            _logic = new ResultCommonLogic(isFailure, error);
+            _logic = new ResultCommonLogic(isFailure, error, privateError);
         }
 
         [DebuggerStepThrough]
@@ -85,9 +106,17 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerStepThrough]
-        public static Result Fail(string error)
+        public static Result Fail(string error, string privateError = null)
         {
-            return new Result(true, error);
+            return new Result(true, error, privateError);
+        }
+
+        [DebuggerStepThrough]
+        public static Result Fail(Exception ex)
+        {
+            if (ex == null) throw new ArgumentNullException(nameof(ex), "Exception can't be null");
+
+            return new Result(true, ex.Message, ex.ToString());
         }
 
         [DebuggerStepThrough]
@@ -97,9 +126,17 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerStepThrough]
-        public static Result<T> Fail<T>(string error)
+        public static Result<T> Fail<T>(string error, string privateError = null)
         {
-            return new Result<T>(true, default(T), error);
+            return new Result<T>(true, default(T), error, privateError);
+        }
+
+        [DebuggerStepThrough]
+        public static Result<T> Fail<T>(Exception ex)
+        {
+            if (ex == null) throw new ArgumentNullException(nameof(ex), "Exception can't be null");
+
+            return new Result<T>(true, default(T), ex.Message, ex.ToString());
         }
 
         /// <summary>
@@ -133,13 +170,43 @@ namespace CSharpFunctionalExtensions
                 return Ok();
 
             string errorMessage = string.Join(errorMessagesSeparator, failedResults.Select(x => x.Error).ToArray());
-            return Fail(errorMessage);
+            string privateErrorMessage = string.Join(errorMessagesSeparator, failedResults.Select(x => x.PrivateError).ToArray());
+            return Fail(errorMessage, privateErrorMessage);
         }
 
         [DebuggerStepThrough]
         public static Result Combine(params IResult[] results)
         {
             return Combine(", ", results);
+        }
+
+        public static Result FailOnException(Action action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            try
+            {
+                action();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Fail(ex);
+            }
+        }
+
+        public static Result<T> FailOnException<T>(Func<T> func)
+        {
+            if (func == null) throw new ArgumentNullException(nameof(func));
+
+            try
+            {
+                return Ok(func());
+            }
+            catch (Exception ex)
+            {
+                return Fail<T>(ex);
+            }
         }
     }
 
@@ -152,6 +219,7 @@ namespace CSharpFunctionalExtensions
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
         public string Error => _logic.Error;
+        public string PrivateError => _logic.PrivateError;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly T _value;
@@ -169,12 +237,12 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerStepThrough]
-        internal Result(bool isFailure, T value, string error)
+        internal Result(bool isFailure, T value, string error, string privateError = null)
         {
             if (!isFailure && value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            _logic = new ResultCommonLogic(isFailure, error);
+            _logic = new ResultCommonLogic(isFailure, error, privateError);
             _value = value;
         }
     }
