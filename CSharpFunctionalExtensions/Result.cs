@@ -2,32 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 
 namespace CSharpFunctionalExtensions
 {
-    public interface IResult
-    {
-        bool IsFailure { get; }
-        bool IsSuccess { get; }
-        string Error { get; }
-    }
-
-
-    public interface IResult<out T> : IResult
-    {
-        T Value { get; }
-    }
-
-
     internal sealed class ResultCommonLogic
     {
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly string _error;
-
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly string _error;
 
         public string Error
         {
@@ -61,7 +46,7 @@ namespace CSharpFunctionalExtensions
     }
 
 
-    public struct Result : IResult
+    public struct Result
     {
         private static readonly Result OkResult = new Result(false, null);
 
@@ -107,9 +92,9 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         /// <param name="results">List of results.</param>
         [DebuggerStepThrough]
-        public static Result FirstFailureOrSuccess(params IResult[] results)
+        public static Result FirstFailureOrSuccess(params Result[] results)
         {
-            foreach (IResult result in results)
+            foreach (Result result in results)
             {
                 if (result.IsFailure)
                     return Fail(result.Error);
@@ -125,9 +110,9 @@ namespace CSharpFunctionalExtensions
         /// <param name="errorMessagesSeparator">Separator for error messages.</param>
         /// <param name="results">List of results.</param>
         [DebuggerStepThrough]
-        public static Result Combine(string errorMessagesSeparator, params IResult[] results)
+        public static Result Combine(string errorMessagesSeparator, params Result[] results)
         {
-            List<IResult> failedResults = results.Where(x => x.IsFailure).ToList();
+            List<Result> failedResults = results.Where(x => x.IsFailure).ToList();
 
             if (!failedResults.Any())
                 return Ok();
@@ -137,14 +122,14 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerStepThrough]
-        public static Result Combine(params IResult[] results)
+        public static Result Combine(params Result[] results)
         {
             return Combine(", ", results);
         }
     }
 
 
-    public struct Result<T> : IResult<T>
+    public struct Result<T>
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic _logic;
@@ -176,6 +161,14 @@ namespace CSharpFunctionalExtensions
 
             _logic = new ResultCommonLogic(isFailure, error);
             _value = value;
+        }
+
+        public static implicit operator Result(Result<T> result)
+        {
+            if (result.IsSuccess)
+                return Result.Ok();
+            else
+                return Result.Fail(result.Error);
         }
     }
 }
