@@ -109,11 +109,6 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static T OnBoth<T>(this Result result, Func<Result, T> func)
-        {
-            return func(result);
-        }
-
         public static Result OnSuccess(this Result result, Action action)
         {
             if (result.IsSuccess)
@@ -122,6 +117,16 @@ namespace CSharpFunctionalExtensions
             }
 
             return result;
+        }
+
+        public static T OnBoth<T>(this Result result, Func<Result, T> func)
+        {
+            return func(result);
+        }
+
+        public static K OnBoth<T, K>(this Result<T> result, Func<Result<T>, K> func)
+        {
+            return func(result);
         }
     }
 }
