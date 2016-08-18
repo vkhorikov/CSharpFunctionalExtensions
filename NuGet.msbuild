@@ -68,14 +68,6 @@
             <Package>CSharpFunctionalExtensions</Package>
             <Destination>lib\net45</Destination>
         </PackageBinaries>  
-        <PackageBinaries Include='$(OutDir)\CSharpFunctionalExtensions\4.0\CSharpFunctionalExtensions.dll'>
-            <Package>CSharpFunctionalExtensions</Package>
-            <Destination>lib\net40</Destination>
-        </PackageBinaries>  
-        <PackageBinaries Include='$(OutDir)\CSharpFunctionalExtensions\3.5\CSharpFunctionalExtensions.dll'>
-            <Package>CSharpFunctionalExtensions</Package>
-            <Destination>lib\net35</Destination>
-        </PackageBinaries>
     </ItemGroup>
 
     <Target Name="CopyBinaries" Inputs="%(PackageBinaries.Identity)" Outputs="_DO_IT_">
