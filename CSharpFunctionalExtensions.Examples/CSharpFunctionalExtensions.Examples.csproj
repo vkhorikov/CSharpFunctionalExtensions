@@ -43,6 +43,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultExtensions\AsyncUsageExamples.cs" />
     <Compile Include="ResultExtensions\ExampleFromPluralsightCourse.cs" />
+    <Compile Include="ResultExtensions\ExampleWithOnFailureMethod.cs" />
     <Compile Include="ResultExtensions\PassingResultThroughOnSuccessMethods.cs" />
   </ItemGroup>
   <ItemGroup>

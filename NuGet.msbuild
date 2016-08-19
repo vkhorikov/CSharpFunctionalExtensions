@@ -21,7 +21,7 @@
         <OutDir>out\$(Configuration)</OutDir>
         
         <DefaultPackageVersion>1.0.0-internal</DefaultPackageVersion>   
-        <PackageVersion>1.4.0</PackageVersion>   
+        <PackageVersion>1.5.0</PackageVersion>   
         
         <NuGetPackagesDir>$(OutDir)\NuGet</NuGetPackagesDir>
         <PackageOutDir>$(OutDir)\Packages</PackageOutDir>
