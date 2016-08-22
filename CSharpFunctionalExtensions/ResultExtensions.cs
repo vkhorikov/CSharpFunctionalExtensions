@@ -129,6 +129,16 @@ namespace CSharpFunctionalExtensions
             return func(result);
         }
 
+        public static Result OnFailure(this Result result, Action action)
+        {
+            if (result.IsFailure)
+            {
+                action();
+            }
+
+            return result;
+        }
+
         public static Result<T> OnFailure<T>(this Result<T> result, Action action)
         {
             if (result.IsFailure)
@@ -139,11 +149,11 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result OnFailure(this Result result, Action action)
+        public static Result OnFailure<T>(this Result<T> result, Action<Result<T>> action)
         {
             if (result.IsFailure)
             {
-                action();
+                action(result);
             }
 
             return result;
