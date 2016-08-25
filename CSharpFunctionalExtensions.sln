@@ -29,6 +29,7 @@ Global
 		Release 3.0|Any CPU = Release 3.0|Any CPU
 		Release 3.5|Any CPU = Release 3.5|Any CPU
 		Release 4.0|Any CPU = Release 4.0|Any CPU
+		Release portable|Any CPU = Release portable|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -40,6 +41,8 @@ Global
 		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release 3.5|Any CPU.Build.0 = Release|Any CPU
 		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release 4.0|Any CPU.ActiveCfg = Release|Any CPU
 		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release 4.0|Any CPU.Build.0 = Release|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release portable|Any CPU.ActiveCfg = Release portable|Any CPU
+		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release portable|Any CPU.Build.0 = Release portable|Any CPU
 		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA754E02-4F61-4609-A749-B5AA388E3F88}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E371FC3E-5EA8-4271-BCE2-97F10BF87C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -50,6 +53,8 @@ Global
 		{E371FC3E-5EA8-4271-BCE2-97F10BF87C82}.Release 3.5|Any CPU.Build.0 = Release|Any CPU
 		{E371FC3E-5EA8-4271-BCE2-97F10BF87C82}.Release 4.0|Any CPU.ActiveCfg = Release|Any CPU
 		{E371FC3E-5EA8-4271-BCE2-97F10BF87C82}.Release 4.0|Any CPU.Build.0 = Release|Any CPU
+		{E371FC3E-5EA8-4271-BCE2-97F10BF87C82}.Release portable|Any CPU.ActiveCfg = Release portable|Any CPU
+		{E371FC3E-5EA8-4271-BCE2-97F10BF87C82}.Release portable|Any CPU.Build.0 = Release portable|Any CPU
 		{E371FC3E-5EA8-4271-BCE2-97F10BF87C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E371FC3E-5EA8-4271-BCE2-97F10BF87C82}.Release|Any CPU.Build.0 = Release|Any CPU
 		{47F3BC83-00CA-4FE0-AAA3-7838D16C94FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -60,6 +65,8 @@ Global
 		{47F3BC83-00CA-4FE0-AAA3-7838D16C94FF}.Release 3.5|Any CPU.Build.0 = Release|Any CPU
 		{47F3BC83-00CA-4FE0-AAA3-7838D16C94FF}.Release 4.0|Any CPU.ActiveCfg = Release|Any CPU
 		{47F3BC83-00CA-4FE0-AAA3-7838D16C94FF}.Release 4.0|Any CPU.Build.0 = Release|Any CPU
+		{47F3BC83-00CA-4FE0-AAA3-7838D16C94FF}.Release portable|Any CPU.ActiveCfg = Release portable|Any CPU
+		{47F3BC83-00CA-4FE0-AAA3-7838D16C94FF}.Release portable|Any CPU.Build.0 = Release portable|Any CPU
 		{47F3BC83-00CA-4FE0-AAA3-7838D16C94FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47F3BC83-00CA-4FE0-AAA3-7838D16C94FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
