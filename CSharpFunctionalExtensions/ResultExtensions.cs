@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace CSharpFunctionalExtensions
 {
     public static class ResultExtensions
@@ -144,6 +143,16 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
             {
                 action();
+            }
+
+            return result;
+        }
+
+        public static Result<T> OnFailure<T>(this Result<T> result, Action<string> action)
+        {
+            if (result.IsFailure)
+            {
+                action(result.Error);
             }
 
             return result;

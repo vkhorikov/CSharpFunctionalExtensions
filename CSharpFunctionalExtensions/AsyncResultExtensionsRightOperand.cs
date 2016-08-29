@@ -159,5 +159,15 @@ namespace CSharpFunctionalExtensions
 
             return result;
         }
+
+        public static async Task<Result<T>> OnFailure<T>(this Result<T> result, Func<string, Task> func)
+        {
+            if (result.IsFailure)
+            {
+                await func(result.Error).ConfigureAwait(false);
+            }
+
+            return result;
+        }
     }
 }

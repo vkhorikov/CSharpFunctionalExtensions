@@ -192,5 +192,17 @@ namespace CSharpFunctionalExtensions
 
             return result;
         }
+
+        public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> resultTask, Func<string, Task> func)
+        {
+            Result<T> result = await resultTask.ConfigureAwait(false);
+
+            if (result.IsFailure)
+            {
+                await func(result.Error).ConfigureAwait(false);
+            }
+
+            return result;
+        }
     }
 }
