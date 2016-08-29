@@ -64,6 +64,10 @@
         <PackageBinaries Include='CSharpFunctionalExtensions\CSharpFunctionalExtensions.nuspec'>
             <Package>CSharpFunctionalExtensions</Package>
         </PackageBinaries>
+        <PackageBinaries Include='$(OutDir)\CSharpFunctionalExtensions\portable\CSharpFunctionalExtensions.dll'>
+            <Package>CSharpFunctionalExtensions</Package>
+            <Destination>lib\dotnet</Destination>
+        </PackageBinaries>
         <PackageBinaries Include='$(OutDir)\CSharpFunctionalExtensions\4.5\CSharpFunctionalExtensions.dll'>
             <Package>CSharpFunctionalExtensions</Package>
             <Destination>lib\net45</Destination>
