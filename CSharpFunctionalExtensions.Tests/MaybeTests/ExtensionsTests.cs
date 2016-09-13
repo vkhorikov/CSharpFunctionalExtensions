@@ -156,6 +156,15 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             property.Should().Be("Some value");
         }
 
+        [Fact]
+        public void Execute_returns_func_result()
+        {
+            Maybe<MyClass> maybe = new MyClass { Property = "Some value" };
+
+            string property = maybe.Execute(x => x.Property);
+
+            property.Should().Be("Some value");
+        }
 
         private static Maybe<string> GetPropertyIfExists(MyClass myClass)
         {
