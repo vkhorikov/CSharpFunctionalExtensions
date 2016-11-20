@@ -14,3 +14,6 @@ _ReSharper*
 *.ncrunchproject
 /packages/*/*
 /Tools/*/*
+project.lock.json
+project.fragment.lock.json
+.vs
