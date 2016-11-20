@@ -1,0 +1,21 @@
+{
+  "version": "1.6.3",
+  "authors": [ "Vladimir Khorikov" ],
+  "description": "CSharpFunctionalExtensions - functional extensions for C#.",
+  "language": "en-US",
+
+  "packOptions": {
+    "owners": [ "Vladimir Khorikov" ],
+    "requireLicenseAcceptance": false,
+    "licenseUrl": "https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE",
+    "projectUrl": "https://www.pluralsight.com/courses/csharp-applying-functional-principles",
+    "tags": [ "C#", "Functional" ]
+  },
+  "supports": {},
+  "dependencies": {
+    "NETStandard.Library": "1.6.0"
+  },
+  "frameworks": {
+    "netstandard1.0": {}
+  }
+}

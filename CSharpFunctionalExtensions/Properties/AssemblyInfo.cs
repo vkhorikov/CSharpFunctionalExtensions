@@ -1,16 +1,30 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-
-[assembly: AssemblyTitle("CSharpFunctionalExtensions")]
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+[assembly: AssemblyTitle("CSharpFunctionalExtensions.Core")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("CSharpFunctionalExtensions")]
-[assembly: AssemblyCopyright("Copyright © Vladimir Khorikov. Since 2016")]
-[assembly: AssemblyTrademark("CSharpFunctionalExtensions")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("CSharpFunctionalExtensions.Core")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: ComVisible(false)]
-[assembly: Guid("ea754e02-4f61-4609-a749-b5aa388e3f88")]
-[assembly: AssemblyVersion("1.6.2")]
-[assembly: AssemblyFileVersion("1.6.2")]
+[assembly: NeutralResourcesLanguage("en")]
+
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Build and Revision Numbers 
+// by using the '*' as shown below:
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
