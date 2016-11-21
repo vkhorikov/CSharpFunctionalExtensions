@@ -2,7 +2,6 @@
 using FluentAssertions;
 using Xunit;
 
-
 namespace CSharpFunctionalExtensions.Tests.MaybeTests
 {
     public class BasicTests

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 
-
 namespace CSharpFunctionalExtensions.Examples.ResultExtensions
 {
     public class AsyncUsageExamples
