@@ -1,5 +1,5 @@
 {
-  "version": "1.6.3",
+  "version": "1.7.0",
   "authors": [ "Vladimir Khorikov" ],
   "description": "CSharpFunctionalExtensions - functional extensions for C#.",
   "language": "en-US",
@@ -13,7 +13,11 @@
   },
   "supports": {},
   "dependencies": {
-    "NETStandard.Library": "1.6.0"
+    "System.Runtime": "4.3.0",
+    "System.Threading": "4.3.0",
+    "System.Linq": "4.3.0",
+    "System.Resources.ResourceManager": "4.3.0",
+    "System.Diagnostics.Debug": "4.3.0"
   },
   "frameworks": {
     "netstandard1.0": {}
