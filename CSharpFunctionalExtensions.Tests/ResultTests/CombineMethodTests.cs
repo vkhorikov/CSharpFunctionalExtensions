@@ -55,5 +55,26 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             result.IsSuccess.Should().BeTrue();
         }
+
+        [Fact]
+        public void Combine_works_with_array_of_Generic_results_success()
+        {
+            Result<string>[] results = new Result<string>[]{ Result.Ok(""), Result.Ok("") };
+
+            Result result = Result.Combine(";", results);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+
+        [Fact]
+        public void Combine_works_with_array_of_Generic_results_failure()
+        {
+            Result<string>[] results = new Result<string>[] { Result.Ok(""), Result.Fail<string>("m") };
+
+            Result result = Result.Combine(";", results);
+
+            result.IsSuccess.Should().BeFalse();
+        }
     }
 }
