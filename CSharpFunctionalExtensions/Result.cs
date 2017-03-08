@@ -137,7 +137,7 @@ namespace CSharpFunctionalExtensions
         public static Result Combine<T>(string errorMessagesSeparator, params Result<T>[] results)
         {
             Result[] untyped = results.Select(result => (Result)result).ToArray();
-            return Result.Combine(", ", untyped);
+            return Combine(errorMessagesSeparator, untyped);
         }
     }
 
