@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests
@@ -38,6 +39,24 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             myResult.OnFailure(error => myError = error);
 
             myError.Should().Be(_errorMessage);
+        }
+
+        [Fact]
+        public void Can_return_inner_result_type_synchronous()
+        {
+            Result<string> combinedString = Result.Ok("string")
+                .FlatMap(str => Result.Ok($"{str} appended"));
+
+            combinedString.Value.Should().BeEquivalentTo("string appended");
+        }
+
+        [Fact]
+        public async Task Can_return_inner_result_type_asynchronous()
+        {
+            Result<string> combinedString = await Task.Run(() => Result.Ok("string"))
+                .FlatMap(str => Task.Run(() => Result.Ok($"{str} appended")));
+
+            combinedString.Value.Should().BeEquivalentTo("string appended");
         }
 
 

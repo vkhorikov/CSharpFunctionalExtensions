@@ -157,5 +157,18 @@ namespace CSharpFunctionalExtensions
 
             return result;
         }
+
+        public static Result<K> FlatMap<T, K>(this Result<T> result, Func<T, Result<K>> func)
+        {
+            if (result.IsFailure)
+                return Result.Fail<K>(result.Error);
+
+            Result<K> newResult = func(result.Value);
+
+            if (newResult.IsFailure)
+                return newResult;
+
+            return Result.Ok(newResult.Value);
+        }
     }
 }
