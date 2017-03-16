@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>CSharpFunctionalExtensions</id>
+    <version>1.7.1</version>
+    <authors>Vladimir Khorikov</authors>
+    <owners>Vladimir Khorikov</owners>
+    <licenseUrl>https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://www.pluralsight.com/courses/csharp-applying-functional-principles</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>CSharpFunctionalExtensions - functional extensions for C#.</description>
+    <tags>C# Functional</tags>
+    <language>en-US</language>
+  </metadata>
+  <files>
+    <file src="bin\Debug\CSharpFunctionalExtensions.dll" target="lib\netstandard1.0\CSharpFunctionalExtensions.dll" />
+  </files>
+</package>
