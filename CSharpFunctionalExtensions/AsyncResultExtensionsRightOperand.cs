@@ -169,5 +169,18 @@ namespace CSharpFunctionalExtensions
 
             return result;
         }
+
+        public static async Task<Result<K>> FlatMap<T, K>(this Result<T> result, Func<T, Task<Result<K>>> func)
+        {
+            if (result.IsFailure)
+                return Result.Fail<K>(result.Error);
+
+            Result<K> newResult = await func(result.Value).ConfigureAwait(false);
+
+            if (newResult.IsFailure)
+                return newResult;
+
+            return Result.Ok(newResult.Value);
+        }
     }
 }
