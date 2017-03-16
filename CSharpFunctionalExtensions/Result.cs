@@ -126,6 +126,19 @@ namespace CSharpFunctionalExtensions
         {
             return Combine(", ", results);
         }
+
+        [DebuggerStepThrough]
+        public static Result Combine<T>(params Result<T>[] results)
+        {
+            return Combine(", ", results);
+        }
+
+        [DebuggerStepThrough]
+        public static Result Combine<T>(string errorMessagesSeparator, params Result<T>[] results)
+        {
+            Result[] untyped = results.Select(result => (Result)result).ToArray();
+            return Combine(errorMessagesSeparator, untyped);
+        }
     }
 
 
