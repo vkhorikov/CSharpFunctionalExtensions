@@ -51,4 +51,9 @@ return _customerRepository.GetById(id)
  * [Applying Functional Principles in C# Pluralsight course](http://pluralsight.com/courses/csharp-applying-functional-principles)
  
 ## Contributors
-A big thanks to [Gerald Wiltse](https://github.com/solvingJ), [yakimovim](https://github.com/yakimovim), [alex-erygin](https://github.com/alex-erygin) and [Omar Aloraini](https://github.com/omaraloraini) for contributions!
+A big thanks to the project contributors!
+ * [Denis Molokanov](https://github.com/dmolokanov)
+ * [Gerald Wiltse](https://github.com/solvingJ)
+ * [yakimovim](https://github.com/yakimovim)
+ * [alex-erygin](https://github.com/alex-erygin)
+ * [Omar Aloraini](https://github.com/omaraloraini)
