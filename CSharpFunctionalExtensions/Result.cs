@@ -8,11 +8,13 @@ namespace CSharpFunctionalExtensions
 {
     internal sealed class ResultCommonLogic
     {
-        public bool IsFailure { get; }
+        public bool IsFailure { get; private set; }
         public bool IsSuccess => !IsFailure;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly string _error;
+        private string _error;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private Exception _exception;
 
         public string Error
         {
@@ -24,31 +26,65 @@ namespace CSharpFunctionalExtensions
 
                 return _error;
             }
+            private set { _error = value; }
+        }
+
+        public Exception Exception
+        {
+            get
+            {
+                if (IsSuccess)
+                    throw new InvalidOperationException("There is no exception for success.");
+
+                if (_exception == null && !string.IsNullOrWhiteSpace(_error))
+                    throw new InvalidOperationException("Result was created by passing in an error message instead of an exception.");
+
+                return _exception;
+            }
+            private set { _exception = value; }
         }
 
         [DebuggerStepThrough]
-        public ResultCommonLogic(bool isFailure, string error)
+        public static ResultCommonLogic CreateFailureCommonLogic(Exception exception)
         {
-            if (isFailure)
-            {
-                if (string.IsNullOrEmpty(error))
-                    throw new ArgumentNullException(nameof(error), "There must be error message for failure.");
-            }
-            else
-            {
-                if (error != null)
-                    throw new ArgumentException("There should be no error message for success.", nameof(error));
-            }
+            if (exception is null)
+                throw new ArgumentNullException(nameof(exception));
 
-            IsFailure = isFailure;
-            _error = error;
+            return new ResultCommonLogic()
+            {
+                Exception = exception,
+                Error = exception.ToString(),
+                IsFailure = true
+            };
+        }
+
+        [DebuggerStepThrough]
+        public static ResultCommonLogic CreateFailureCommonLogic(string errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(errorMessage))
+                throw new ArgumentNullException(nameof(errorMessage));
+
+            return new ResultCommonLogic()
+            {
+                Error = errorMessage,
+                IsFailure = true
+            };
+        }
+
+        [DebuggerStepThrough]
+        public static ResultCommonLogic CreateSuccessCommonLogic()
+        {
+            return new ResultCommonLogic()
+            {
+                IsFailure = false
+            };
         }
     }
 
 
     public struct Result
     {
-        private static readonly Result OkResult = new Result(false, null);
+        private static readonly Result OkResult = new Result(false, error: string.Empty);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic _logic;
@@ -56,11 +92,18 @@ namespace CSharpFunctionalExtensions
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
         public string Error => _logic.Error;
+        public Exception Exception => _logic.Exception;
 
         [DebuggerStepThrough]
         private Result(bool isFailure, string error)
         {
-            _logic = new ResultCommonLogic(isFailure, error);
+            _logic = isFailure ? ResultCommonLogic.CreateFailureCommonLogic(error) : ResultCommonLogic.CreateSuccessCommonLogic();
+        }
+
+        [DebuggerStepThrough]
+        private Result(bool isFailure, Exception exception)
+        {
+            _logic = isFailure ? ResultCommonLogic.CreateFailureCommonLogic(exception) : ResultCommonLogic.CreateSuccessCommonLogic();
         }
 
         [DebuggerStepThrough]
@@ -76,15 +119,27 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerStepThrough]
+        public static Result Fail(Exception exception)
+        {
+            return new Result(true, exception);
+        }
+
+        [DebuggerStepThrough]
         public static Result<T> Ok<T>(T value)
         {
-            return new Result<T>(false, value, null);
+            return new Result<T>(false, value);
         }
 
         [DebuggerStepThrough]
         public static Result<T> Fail<T>(string error)
         {
             return new Result<T>(true, default(T), error);
+        }
+
+        [DebuggerStepThrough]
+        public static Result<T> Fail<T>(Exception exception)
+        {
+            return new Result<T>(true, default(T), exception);
         }
 
         /// <summary>
@@ -147,9 +202,10 @@ namespace CSharpFunctionalExtensions
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic _logic;
 
-        public bool IsFailure => _logic.IsFailure;
+        public bool IsFailure =>  _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
         public string Error => _logic.Error;
+        public Exception Exception => _logic.Exception;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly T _value;
@@ -170,9 +226,19 @@ namespace CSharpFunctionalExtensions
         internal Result(bool isFailure, T value, string error)
         {
             if (!isFailure && value == null)
-                throw new ArgumentNullException(nameof(value));
+                throw new ArgumentNullException(nameof(value), "For successful result, you need to pass in a value.");
 
-            _logic = new ResultCommonLogic(isFailure, error);
+            _logic = isFailure ? ResultCommonLogic.CreateFailureCommonLogic(error) : ResultCommonLogic.CreateSuccessCommonLogic();
+            _value = value;
+        }
+
+        [DebuggerStepThrough]
+        internal Result(bool isFailure, T value, Exception exception = null)
+        {
+            if (!isFailure && value == null)
+                throw new ArgumentNullException(nameof(value), "For successful result, you need to pass in a value.");
+
+            _logic = isFailure ? ResultCommonLogic.CreateFailureCommonLogic(exception) : ResultCommonLogic.CreateSuccessCommonLogic();
             _value = value;
         }
 

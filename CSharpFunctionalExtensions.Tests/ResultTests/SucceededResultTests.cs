@@ -33,7 +33,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             Action action = () => { Result.Ok((MyClass)null); };
 
-            action.ShouldThrow<ArgumentNullException>();;
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
