@@ -9,12 +9,12 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         [Fact]
         public void Unwrap_extracts_value_if_not_null()
         {
-            var isntance = new MyClass();
-            Maybe<MyClass> maybe = isntance;
+            var instance = new MyClass();
+            Maybe<MyClass> maybe = instance;
 
             MyClass myClass = maybe.Unwrap();
 
-            myClass.Should().Be(isntance);
+            myClass.Should().Be(instance);
         }
 
         [Fact]
