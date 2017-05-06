@@ -4,7 +4,6 @@
 namespace CSharpFunctionalExtensions
 {
     public struct Maybe<T> : IEquatable<Maybe<T>>
-        where T : class
     {
         private readonly T _value;
         public T Value
