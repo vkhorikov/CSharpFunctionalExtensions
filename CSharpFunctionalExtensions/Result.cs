@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-
+using System.Runtime.Serialization;
 
 namespace CSharpFunctionalExtensions
 {
@@ -46,9 +46,19 @@ namespace CSharpFunctionalExtensions
     }
 
 
-    public struct Result
+    public struct Result : ISerializable
     {
         private static readonly Result OkResult = new Result(false, null);
+
+        void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
+        {
+            oInfo.AddValue("IsFailure", IsFailure);
+            oInfo.AddValue("IsSuccess", IsSuccess);
+            if (IsFailure)
+            {
+                oInfo.AddValue("Error", Error);
+            }
+        }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic _logic;
@@ -142,7 +152,7 @@ namespace CSharpFunctionalExtensions
     }
 
 
-    public struct Result<T>
+    public struct Result<T> : ISerializable
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic _logic;
@@ -150,6 +160,20 @@ namespace CSharpFunctionalExtensions
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
         public string Error => _logic.Error;
+
+        void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
+        {
+            oInfo.AddValue("IsFailure", IsFailure);
+            oInfo.AddValue("IsSuccess", IsSuccess);
+            if (IsFailure)
+            {
+                oInfo.AddValue("Error", Error);
+            }
+            else
+            {
+                oInfo.AddValue("Value", Value);
+            }
+        }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly T _value;

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFramework>netstandard1.3</TargetFramework>
     <PackageId>CSharpFunctionalExtensions</PackageId>
     <PackageVersion>1.8.0</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
@@ -14,5 +14,9 @@
     <Version>1.8.0</Version>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
+  </ItemGroup>
 
 </Project>
