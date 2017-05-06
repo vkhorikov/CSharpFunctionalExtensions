@@ -5,10 +5,10 @@ namespace CSharpFunctionalExtensions
 {
     public static class AsyncMaybeExtensions
     {
-        public static async Task<Result<T>> ToResult<T>(this Task<Maybe<T>> maybeTask, string errorMessage, bool continueOnCapturedContext = false)
+        public static async Task<Result<T>> ToResult<T>(this Task<Maybe<T>> maybeTask, string errorMessage)
             where T : class
         {
-            Maybe<T> maybe = await maybeTask.ConfigureAwait(continueOnCapturedContext);
+            Maybe<T> maybe = await maybeTask.ConfigureAwait(false);
             return maybe.ToResult(errorMessage);
         }
     }
