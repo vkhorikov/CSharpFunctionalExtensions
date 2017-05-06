@@ -59,5 +59,14 @@ namespace CSharpFunctionalExtensions
 
             action(maybe.Value);
         }
+
+        public static TOut Execute<T, TOut>(this Maybe<T> maybe, Func<T, TOut> func)
+            where T : class
+        {
+            if (maybe.HasNoValue)
+                return default(TOut);
+
+            return func(maybe.Value);
+        }
     }
 }
