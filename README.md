@@ -52,6 +52,7 @@ return _customerRepository.GetById(id)
  
 ## Contributors
 A big thanks to the project contributors!
+ * [Ivan Novikov](https://github.com/jonny-novikov)
  * [Denis Molokanov](https://github.com/dmolokanov)
  * [Gerald Wiltse](https://github.com/solvingJ)
  * [yakimovim](https://github.com/yakimovim)

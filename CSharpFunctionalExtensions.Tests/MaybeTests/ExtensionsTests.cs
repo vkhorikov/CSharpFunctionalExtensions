@@ -156,6 +156,26 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             property.Should().Be("Some value");
         }
 
+        [Fact]
+        public void Unwrap_supports_NET_value_types()
+        {
+            Maybe<MyClass> maybe = new MyClass { IntProperty = 42 };
+
+            int integer = maybe.Select(x => x.IntProperty).Unwrap();
+
+            integer.Should().Be(42);
+        }
+
+        [Fact]
+        public void Unwrap_returns_default_for_NET_value_types()
+        {
+            Maybe<MyClass> maybe = null;
+
+            int integer = maybe.Select(x => x.IntProperty).Unwrap();
+
+            integer.Should().Be(0);
+        }
+
 
         private static Maybe<string> GetPropertyIfExists(MyClass myClass)
         {
@@ -166,6 +186,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         private class MyClass
         {
             public string Property { get; set; }
+            public int IntProperty { get; set; }
         }
     }
 }
