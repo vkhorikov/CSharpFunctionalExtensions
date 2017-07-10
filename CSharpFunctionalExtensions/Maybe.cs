@@ -17,6 +17,8 @@ namespace CSharpFunctionalExtensions
             }
         }
 
+        public static Maybe<T> None => new Maybe<T>();
+
         public bool HasValue => _value != null;
         public bool HasNoValue => !HasValue;
 
