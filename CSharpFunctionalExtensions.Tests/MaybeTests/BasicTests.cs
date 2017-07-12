@@ -16,6 +16,24 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
+        public void Can_create_a_maybe_none()
+        {
+            Maybe<MyClass> maybe = Maybe<MyClass>.None;
+
+            maybe.HasValue.Should().BeFalse();
+            maybe.HasNoValue.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Nullable_maybe_is_same_as_maybe_none()
+        {
+            Maybe<MyClass> nullableMaybe = null;
+            Maybe<MyClass> maybeNone = Maybe<MyClass>.None;
+
+            nullableMaybe.Should().Be(maybeNone);
+        }
+
+        [Fact]
         public void Cannot_access_Value_if_none()
         {
             Maybe<MyClass> maybe = null;
