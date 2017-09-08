@@ -16,19 +16,6 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .OnBoth(result => result.IsSuccess ? "Ok" : result.Error);
         }
 
-
-        public async Task<string> Promote_with_async_methods_in_the_middle_of_the_chain(long id)
-        {
-            var gateway = new EmailGateway();
-
-            return await GetById(id)
-                .ToResult("Customer with such Id is not found: " + id)
-                .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
-                .OnSuccess(customer => customer.PromoteAsync())
-                .OnSuccess(customer => gateway.SendPromotionNotificationAsync(customer.Email))
-                .OnBoth(result => result.IsSuccess ? "Ok" : result.Error);
-        }
-
         public async Task<string> Promote_with_async_methods_in_the_beginning_and_in_the_middle_of_the_chain(long id)
         {
             var gateway = new EmailGateway();

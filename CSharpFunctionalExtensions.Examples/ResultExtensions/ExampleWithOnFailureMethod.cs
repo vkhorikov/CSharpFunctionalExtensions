@@ -19,21 +19,6 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .OnBoth(result => result.IsSuccess ? "OK" : result.Error);
         }
 
-        public async Task<string> OnFailure_async(int customerId, decimal moneyAmount)
-        {
-            var paymentGateway = new PaymentGateway();
-            var database = new Database();
-
-            return await GetById(customerId)
-                .ToResult("Customer with such Id is not found: " + customerId)
-                .OnSuccess(customer => customer.AddBalance(moneyAmount))
-                .OnSuccess(customer => paymentGateway.ChargePayment(customer, moneyAmount).Map(() => customer))
-                .OnSuccess(
-                    customer => database.Save(customer)
-                        .OnFailure(() => paymentGateway.RollbackLastTransactionAsync()))
-                .OnBoth(result => result.IsSuccess ? "OK" : result.Error);
-        }
-
         private Maybe<Customer> GetById(long id)
         {
             return new Customer();
