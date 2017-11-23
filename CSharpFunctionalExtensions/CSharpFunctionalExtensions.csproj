@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard1.3;net45</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
     <PackageVersion>1.8.0</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
