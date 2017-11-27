@@ -52,9 +52,11 @@ return _customerRepository.GetById(id)
  
 ## Contributors
 A big thanks to the project contributors!
+ * [Malcolm J Harwood](https://github.com/mjharwood)
+ * [Dragan Stepanovic](https://github.com/dragan-stepanovic)
  * [Ivan Novikov](https://github.com/jonny-novikov)
  * [Denis Molokanov](https://github.com/dmolokanov)
  * [Gerald Wiltse](https://github.com/solvingJ)
  * [yakimovim](https://github.com/yakimovim)
- * [alex-erygin](https://github.com/alex-erygin)
+ * [Alex Erygin](https://github.com/alex-erygin)
  * [Omar Aloraini](https://github.com/omaraloraini)
