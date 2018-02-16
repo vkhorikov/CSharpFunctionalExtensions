@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard1.3;net40;net45;net461</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
-    <PackageVersion>1.8.1</PackageVersion>
+    <PackageVersion>1.9.0</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
     <Description>CSharpFunctionalExtensions - functional extensions for C#.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -11,8 +11,8 @@
     <PackageLicenseUrl>https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://www.pluralsight.com/courses/csharp-applying-functional-principles</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.8.0</Version>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Version>1.9.0</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <!-- .net 4.0 doesn't have async support and Microsoft.Bcl.Async doesn't work because of the interactions 
