@@ -6,15 +6,15 @@ using System.Runtime.Serialization;
 
 namespace CSharpFunctionalExtensions
 {
-    internal sealed class ResultCommonLogic<TError> where TError : class
+    internal sealed class ResultCommonLogic
     {
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly TError _error;
+        private readonly string _error;
 
-        public TError Error
+        public string Error
         {
             [DebuggerStepThrough]
             get
@@ -27,62 +27,22 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerStepThrough]
-        public ResultCommonLogic(bool isFailure, TError error)
+        public ResultCommonLogic(bool isFailure, string error)
         {
             if (isFailure)
             {
-                if (error == null)
-                    throw new ArgumentNullException(nameof(error), ResultMessages.ErrorObjectIsNotProvidedForFailure);
+                if (string.IsNullOrEmpty(error))
+                    throw new ArgumentNullException(nameof(error), "There must be error message for failure.");
             }
             else
             {
                 if (error != null)
-                    throw new ArgumentException(nameof(error), ResultMessages.ErrorObjectIsProvidedForSuccess);
+                    throw new ArgumentException("There should be no error message for success.", nameof(error));
             }
 
             IsFailure = isFailure;
             _error = error;
         }
- introducing-error-object
-    }
-
-    internal static class ResultCommonLogic
-    {
-        [DebuggerStepThrough]
-        public static ResultCommonLogic<string> Create(bool isFailure, string error)
-        {
-            if (isFailure)
-            {
-                if (string.IsNullOrEmpty(error))
-                    throw new ArgumentNullException(nameof(error), ResultMessages.ErrorMessageIsNotProvidedForFailure);
-            }
-            else
-            {
-                if (error != null)
-                    throw new ArgumentException(nameof(error), ResultMessages.ErrorMessageIsProvidedForSuccess);
-            }
-
-            return new ResultCommonLogic<string>(isFailure, error);
-        }
-    }
-
-    internal static class ResultMessages
-    {
-        public static readonly string ErrorObjectIsNotProvidedForFailure =
-            "You have tried to create a failure result, but error object appeared to be null, please review the code, generating error object.";
-
-        public static readonly string ErrorObjectIsProvidedForSuccess =
-            "You have tried to create a success result, but error object was also passed to the constructor, please try to review the code, creating a success result.";
-
-        public static readonly string ErrorMessageIsNotProvidedForFailure = "There must be error message for failure.";
-
-        public static readonly string ErrorMessageIsProvidedForSuccess = "There should be no error message for success.";
-    }
-
-
-    public struct Result : ISerializable
-    {
-        private static readonly Result OkResult = new Result(false, null);
 
         public void GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
         {
@@ -105,7 +65,7 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ResultCommonLogic<string> _logic;
+        private readonly ResultCommonLogic _logic;
 
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
@@ -114,7 +74,7 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         private Result(bool isFailure, string error)
         {
-            _logic = ResultCommonLogic.Create(isFailure, error);
+            _logic = new ResultCommonLogic(isFailure, error);
         }
 
         [DebuggerStepThrough]
@@ -139,18 +99,6 @@ namespace CSharpFunctionalExtensions
         public static Result<T> Fail<T>(string error)
         {
             return new Result<T>(true, default(T), error);
-        }
-
-        [DebuggerStepThrough]
-        public static Result<TValue, TError> Ok<TValue, TError>(TValue value) where TError : class
-        {
-            return new Result<TValue, TError>(false, value, default(TError));
-        }
-
-        [DebuggerStepThrough]
-        public static Result<TValue, TError> Fail<TValue, TError>(TError error) where TError : class
-        {
-            return new Result<TValue, TError>(true, default(TValue), error);
         }
 
         /// <summary>
@@ -206,11 +154,12 @@ namespace CSharpFunctionalExtensions
             return Combine(errorMessagesSeparator, untyped);
         }
     }
-    
+
+
     public struct Result<T> : ISerializable
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ResultCommonLogic<string> _logic;
+        private readonly ResultCommonLogic _logic;
 
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
@@ -247,7 +196,7 @@ namespace CSharpFunctionalExtensions
             if (!isFailure && value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            _logic = ResultCommonLogic.Create(isFailure, error);
+            _logic = new ResultCommonLogic(isFailure, error);
             _value = value;
         }
 
@@ -257,71 +206,6 @@ namespace CSharpFunctionalExtensions
                 return Result.Ok();
             else
                 return Result.Fail(result.Error);
-        }
-    }
-
-    public struct Result<TValue, TError> : ISerializable where TError : class
-    {
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ResultCommonLogic<TError> _logic;
-
-        public bool IsFailure => _logic.IsFailure;
-        public bool IsSuccess => _logic.IsSuccess;
-        public TError Error => _logic.Error;
-
-        void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
-        {
-            oInfo.AddValue("IsFailure", IsFailure);
-            oInfo.AddValue("IsSuccess", IsSuccess);
-            if (IsFailure)
-            {
-                oInfo.AddValue("Error", Error);
-            }
-            else
-            {
-                oInfo.AddValue("Value", Value);
-            }
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly TValue _value;
-
-        public TValue Value
-        {
-            [DebuggerStepThrough]
-            get
-            {
-                if (!IsSuccess)
-                    throw new InvalidOperationException("There is no value for failure.");
-
-                return _value;
-            }
-        }
-
-        [DebuggerStepThrough]
-        internal Result(bool isFailure, TValue value, TError error)
-        {
-            if (!isFailure && value == null)
-                throw new ArgumentNullException(nameof(value));
-
-            _logic = new ResultCommonLogic<TError>(isFailure, error);
-            _value = value;
-        }
-
-        public static implicit operator Result(Result<TValue, TError> result)
-        {
-            if (result.IsSuccess)
-                return Result.Ok();
-            else
-                return Result.Fail(result.Error.ToString());
-        }
-
-        public static implicit operator Result<TValue>(Result<TValue, TError> result)
-        {
-            if (result.IsSuccess)
-                return Result.Ok(result.Value);
-            else
-                return Result.Fail<TValue>(result.Error.ToString());
         }
     }
 }
