@@ -43,6 +43,7 @@ namespace CSharpFunctionalExtensions
             IsFailure = isFailure;
             _error = error;
         }
+ introducing-error-object
     }
 
     internal static class ResultCommonLogic
@@ -83,7 +84,7 @@ namespace CSharpFunctionalExtensions
     {
         private static readonly Result OkResult = new Result(false, null);
 
-        void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
+        public void GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
         {
             oInfo.AddValue("IsFailure", IsFailure);
             oInfo.AddValue("IsSuccess", IsSuccess);
@@ -91,6 +92,16 @@ namespace CSharpFunctionalExtensions
             {
                 oInfo.AddValue("Error", Error);
             }
+        }
+    }
+    
+    public struct Result : ISerializable
+    {
+        private static readonly Result OkResult = new Result(false, null);
+
+        void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
+        {
+            _logic.GetObjectData(oInfo, oContext);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -207,13 +218,9 @@ namespace CSharpFunctionalExtensions
 
         void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
         {
-            oInfo.AddValue("IsFailure", IsFailure);
-            oInfo.AddValue("IsSuccess", IsSuccess);
-            if (IsFailure)
-            {
-                oInfo.AddValue("Error", Error);
-            }
-            else
+            _logic.GetObjectData(oInfo, oContext);
+
+            if (IsSuccess)
             {
                 oInfo.AddValue("Value", Value);
             }
