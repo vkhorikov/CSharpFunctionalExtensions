@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace CSharpFunctionalExtensions
 {
-    internal sealed class ResultCommonLogic<TError> where TError : class
+    internal class ResultCommonLogic<TError> where TError : class
     {
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
@@ -37,7 +37,7 @@ namespace CSharpFunctionalExtensions
             else
             {
                 if (error != null)
-                    throw new ArgumentException(nameof(error), ResultMessages.ErrorObjectIsProvidedForSuccess);
+                    throw new ArgumentException(ResultMessages.ErrorObjectIsProvidedForSuccess, nameof(error));
             }
 
             IsFailure = isFailure;
@@ -55,10 +55,10 @@ namespace CSharpFunctionalExtensions
         }
     }
 
-    internal static class ResultCommonLogic
+    internal sealed class ResultCommonLogic : ResultCommonLogic<string>
     {
         [DebuggerStepThrough]
-        public static ResultCommonLogic<string> Create(bool isFailure, string error)
+        public static ResultCommonLogic Create(bool isFailure, string error)
         {
             if (isFailure)
             {
@@ -68,10 +68,14 @@ namespace CSharpFunctionalExtensions
             else
             {
                 if (error != null)
-                    throw new ArgumentException(nameof(error), ResultMessages.ErrorMessageIsProvidedForSuccess);
+                    throw new ArgumentException(ResultMessages.ErrorMessageIsProvidedForSuccess, nameof(error));
             }
 
-            return new ResultCommonLogic<string>(isFailure, error);
+            return new ResultCommonLogic(isFailure, error);
+        }
+
+        public ResultCommonLogic(bool isFailure, string error) : base(isFailure, error)
+        {
         }
     }
 
@@ -99,7 +103,7 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ResultCommonLogic<string> _logic;
+        private readonly ResultCommonLogic _logic;
 
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
@@ -204,7 +208,7 @@ namespace CSharpFunctionalExtensions
     public struct Result<T> : ISerializable
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ResultCommonLogic<string> _logic;
+        private readonly ResultCommonLogic _logic;
 
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
@@ -265,13 +269,9 @@ namespace CSharpFunctionalExtensions
 
         void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
         {
-            oInfo.AddValue("IsFailure", IsFailure);
-            oInfo.AddValue("IsSuccess", IsSuccess);
-            if (IsFailure)
-            {
-                oInfo.AddValue("Error", Error);
-            }
-            else
+            _logic.GetObjectData(oInfo, oContext);
+
+            if (IsSuccess)
             {
                 oInfo.AddValue("Value", Value);
             }
