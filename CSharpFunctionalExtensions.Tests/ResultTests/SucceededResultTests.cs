@@ -29,6 +29,18 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public void Can_create_a_generic_version_with_a_generic_error()
+        {
+            var myClass = new MyClass();
+
+            Result<MyClass, MyClass> result = Result.Ok<MyClass, MyClass>(myClass);
+
+            result.IsFailure.Should().Be(false);
+            result.IsSuccess.Should().Be(true);
+            result.Value.Should().Be(myClass);
+        }
+
+        [Fact]
         public void Cannot_create_without_Value()
         {
             Action action = () => { Result.Ok((MyClass)null); };
