@@ -54,13 +54,13 @@ namespace CSharpFunctionalExtensions
 
         public override bool Equals(object obj)
         {
-            var valueObject = obj as ValueObject;
-
-            if (ReferenceEquals(valueObject, null))
+            if (obj == null)
                 return false;
 
             if (GetType() != obj.GetType())
-                return false;
+                throw new ArgumentException($"Invalid comparison of Value Objects of different types: {GetType()} and {obj.GetType()}");
+
+            var valueObject = (ValueObject)obj;
 
             return GetEqualityComponents().SequenceEqual(valueObject.GetEqualityComponents());
         }

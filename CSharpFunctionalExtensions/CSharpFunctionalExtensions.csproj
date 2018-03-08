@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard1.3;net40;net45;net461</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
-    <PackageVersion>1.9.0</PackageVersion>
+    <PackageVersion>1.9.1</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
     <Description>CSharpFunctionalExtensions - functional extensions for C#.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -11,7 +11,7 @@
     <PackageLicenseUrl>https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://www.pluralsight.com/courses/csharp-applying-functional-principles</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.9.0</Version>
+    <Version>1.9.1</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 

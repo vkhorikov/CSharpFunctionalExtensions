@@ -37,6 +37,46 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             money1.GetHashCode().Equals(money2.GetHashCode()).Should().BeTrue();
         }
 
+        [Fact]
+        public void Comparing_value_objects_of_different_types_throws_an_exception()
+        {
+            var vo1 = new VO1("1");
+            var vo2 = new VO2("2");
+
+            Action action = () => vo1.Equals(vo2);
+            action.ShouldThrow<ArgumentException>();
+        }
+
+        public class VO1 : ValueObject
+        {
+            public string Value { get; }
+
+            public VO1(string value)
+            {
+                Value = value;
+            }
+
+            protected override IEnumerable<object> GetEqualityComponents()
+            {
+                yield return Value;
+            }
+        }
+
+        public class VO2 : ValueObject
+        {
+            public string Value { get; }
+
+            public VO2(string value)
+            {
+                Value = value;
+            }
+
+            protected override IEnumerable<object> GetEqualityComponents()
+            {
+                yield return Value;
+            }
+        }
+
         public class Money : ValueObject
         {
             public string Currency { get; }
