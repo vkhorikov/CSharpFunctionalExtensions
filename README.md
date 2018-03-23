@@ -1,4 +1,4 @@
-Functional Extensions for C#
+﻿Functional Extensions for C#
 ======================================================
 [![Nuget downloads](https://img.shields.io/nuget/v/csharpfunctionalextensions.svg)](https://www.nuget.org/packages/CSharpFunctionalExtensions/)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE)
@@ -52,6 +52,7 @@ return _customerRepository.GetById(id)
  
 ## Contributors
 A big thanks to the project contributors!
+ * [Robert Sęk](https://github.com/robosek)
  * [Sergey Solomentsev](https://github.com/SergAtGitHub)
  * [Malcolm J Harwood](https://github.com/mjharwood)
  * [Dragan Stepanovic](https://github.com/dragan-stepanovic)
