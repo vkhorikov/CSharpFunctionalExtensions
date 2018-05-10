@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace CSharpFunctionalExtensions
 {
-    internal class ResultCommonLogic<TError> where TError : class
+    internal class ResultCommonLogic<TError>
     {
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
@@ -258,7 +258,7 @@ namespace CSharpFunctionalExtensions
         }
     }
 
-    public struct Result<TValue, TError> : ISerializable where TError : class
+    public struct Result<TValue, TError> : ISerializable
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic<TError> _logic;
