@@ -2,7 +2,7 @@
 
 namespace CSharpFunctionalExtensions
 {
-    public static class ResultExtensions
+    public static partial class ResultExtensions
     {
         public static Result<TNewValue, TError> OnSuccess<TValue, TNewValue, TError>(this Result<TValue, TError> result,
             Func<TValue, TNewValue> func) where TError : class

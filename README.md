@@ -43,6 +43,19 @@ return _customerRepository.GetById(id)
     .OnBoth(result => result.IsSuccess ? Ok() : Error(result.Error));
 ```
 
+## Wrap multiple operations in a TransactionScope
+
+```csharp
+return _customerRepository.GetById(id)
+    .ToResult("Customer with such Id is not found: " + id)
+    .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
+    .OnSuccessWithTransactionScope(customer => Result.Ok(customer)
+        .OnSuccess(customer => customer.Promote())
+        .OnSuccess(customer => customer.ClearAppointments()))
+    .OnSuccess(customer => _emailGateway.SendPromotionNotification(customer.PrimaryEmail, customer.Status))
+    .OnBoth(result => result.IsSuccess ? Ok() : Error(result.Error));
+```
+
 ## Readings and watchings
 
  * [Functional C#: Primitive obsession](http://enterprisecraftsmanship.com/2015/03/07/functional-c-primitive-obsession/)
