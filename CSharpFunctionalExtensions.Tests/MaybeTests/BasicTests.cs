@@ -78,6 +78,28 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             str.Should().Be("My custom class");
         }
 
+        [Fact]
+        public void Maybe_None_has_no_value()
+        {
+            Maybe<string>.None.HasValue.Should().BeFalse();
+            Maybe<int>.None.HasValue.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Maybe_None_Select_from_class_to_struct_retains_None()
+        {
+            Maybe<string>.None.Select(_ => 42).HasValue.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Maybe_None_Where_respects_structs()
+        {
+            Maybe<int>.From(0).Where(_ => true).HasValue.Should().BeTrue();
+            Maybe<int>.From(0).Where(_ => false).HasValue.Should().BeFalse();
+
+            Maybe<int>.None.Where(_ => true).HasValue.Should().BeFalse();
+            Maybe<int>.None.Where(_ => false).HasValue.Should().BeFalse();
+        }
 
         private class MyClass
         {

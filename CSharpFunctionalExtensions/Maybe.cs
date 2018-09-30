@@ -5,7 +5,7 @@ namespace CSharpFunctionalExtensions
 {
     public struct Maybe<T> : IEquatable<Maybe<T>>
     {
-        private readonly T _value;
+        private readonly MaybeValueWrapper _value;
         public T Value
         {
             get
@@ -13,7 +13,7 @@ namespace CSharpFunctionalExtensions
                 if (HasNoValue)
                     throw new InvalidOperationException();
 
-                return _value;
+                return _value.Value;
             }
         }
 
@@ -24,7 +24,7 @@ namespace CSharpFunctionalExtensions
 
         private Maybe(T value)
         {
-            _value = value;
+            _value = value == null ? null : new MaybeValueWrapper(value);
         }
 
         public static implicit operator Maybe<T>(T value)
@@ -82,7 +82,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue || other.HasNoValue)
                 return false;
 
-            return _value.Equals(other._value);
+            return _value.Value.Equals(other._value.Value);
         }
 
         public override int GetHashCode()
@@ -90,7 +90,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue)
                 return 0;
 
-            return _value.GetHashCode();
+            return _value.Value.GetHashCode();
         }
 
         public override string ToString()
@@ -99,6 +99,16 @@ namespace CSharpFunctionalExtensions
                 return "No value";
 
             return Value.ToString();
+        }
+
+        class MaybeValueWrapper
+        {
+            public MaybeValueWrapper(T value)
+            {
+                Value = value;
+            }
+
+            internal readonly T Value;
         }
     }
 }
