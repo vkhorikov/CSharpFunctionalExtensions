@@ -101,7 +101,8 @@ namespace CSharpFunctionalExtensions
             return Value.ToString();
         }
 
-        class MaybeValueWrapper
+
+        private class MaybeValueWrapper
         {
             public MaybeValueWrapper(T value)
             {
