@@ -93,7 +93,7 @@ namespace CSharpFunctionalExtensions
     }
 
 
-    public struct Result : ISerializable
+    public struct Result : IResult, ISerializable
     {
         private static readonly Result OkResult = new Result(false, null);
 
@@ -205,7 +205,7 @@ namespace CSharpFunctionalExtensions
         }
     }
     
-    public struct Result<T> : ISerializable
+    public struct Result<T> : IResult, ISerializable
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic _logic;
@@ -258,7 +258,7 @@ namespace CSharpFunctionalExtensions
         }
     }
 
-    public struct Result<TValue, TError> : ISerializable
+    public struct Result<TValue, TError> : IResult, ISerializable
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic<TError> _logic;
