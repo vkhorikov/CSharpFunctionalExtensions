@@ -205,6 +205,11 @@ namespace CSharpFunctionalExtensions
             return func(result);
         }
 
+        public static K OnBoth<T, K, TError>(this Result<T, TError> result, Func<Result<T, TError>, K> func)
+        {
+            return func(result);
+        }
+
         public static TValue OnBoth<TValue, TError>(this Result<TValue, TError> result,
             Func<Result<TValue, TError>, TValue> func) where TError : class
         {
