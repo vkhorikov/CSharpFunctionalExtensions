@@ -17,7 +17,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return Result.Fail<K, TError>(result.Error);
 
-            K value = await func(result.Value);
+            K value = await func(result.Value).ConfigureAwait(continueOnCapturedContext);
 
             return Result.Ok<K, TError>(value);
         }
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return Result.Fail<K>(result.Error);
 
-            K value = await func(result.Value);
+            K value = await func(result.Value).ConfigureAwait(continueOnCapturedContext);
 
             return Result.Ok(value);
         }
