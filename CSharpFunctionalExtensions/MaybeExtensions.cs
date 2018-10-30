@@ -12,6 +12,14 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(maybe.Value);
         }
 
+        public static Result<T, TError> ToResult<T, TError>(this Maybe<T> maybe, TError error) where TError : class
+        {
+            if (maybe.HasNoValue)
+                return Result.Fail<T, TError>(error);
+
+            return Result.Ok<T, TError>(maybe.Value);
+        }
+
         public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = default(T))
         {
             return maybe.Unwrap(x => x, defaultValue);

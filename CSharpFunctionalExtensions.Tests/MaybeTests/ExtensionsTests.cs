@@ -71,6 +71,30 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
+        public void ToResult_with_custom_error_type_returns_success_if_value_exists()
+        {
+            var instance = new MyClass();
+            Maybe<MyClass> maybe = instance;
+
+            Result<MyClass, MyErrorClass> result = maybe.ToResult(new MyErrorClass());
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(instance);
+        }
+
+        [Fact]
+        public void ToResult_with_custom_error_type_returns_custom_failure_if_no_value()
+        {
+            Maybe<MyClass> maybe = null;
+
+            var errorInstance = new MyErrorClass();
+            Result<MyClass, MyErrorClass> result = maybe.ToResult(errorInstance);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be(errorInstance);
+        }
+
+        [Fact]
         public void Where_returns_value_if_predicate_returns_true()
         {
             var instance = new MyClass { Property = "Some value" };
@@ -187,6 +211,10 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         {
             public string Property { get; set; }
             public int IntProperty { get; set; }
+        }
+
+        private class MyErrorClass
+        {
         }
     }
 }
