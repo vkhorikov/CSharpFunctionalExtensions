@@ -65,6 +65,7 @@ return _customerRepository.GetById(id)
  
 ## Contributors
 A big thanks to the project contributors!
+ * [Sviataslau Hankovich](https://github.com/hankovich)
  * [Chad Gilbert](https://github.com/freakingawesome)
  * [Robert Sęk](https://github.com/robosek)
  * [Sergey Solomentsev](https://github.com/SergAtGitHub)
