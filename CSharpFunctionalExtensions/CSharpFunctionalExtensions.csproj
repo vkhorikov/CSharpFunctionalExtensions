@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard1.3;net40;net45;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard1.3;net45;net461</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
     <PackageVersion>1.13.0</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
@@ -21,7 +21,7 @@
        between it's dependency chain and the multi-framework build. Howver the AsyncTargetingPack does. -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
     <PackageReference Include="Microsoft.Bcl.Async">
-      <Version>1.0.168</Version>
+      <Version>1.0.165</Version>
     </PackageReference>
   </ItemGroup>
 

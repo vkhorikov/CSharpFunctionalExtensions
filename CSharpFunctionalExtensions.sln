@@ -13,13 +13,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkTest.4.5", "LinkTest.4.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkTest.4.6.1", "LinkTest.4.6.1\LinkTest.4.6.1.csproj", "{A90FBD60-EEBE-4B70-951D-B5BE5C53AECF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkTest.Standard.1.3", "LinkTest.Standard.1.3\LinkTest.Standard.1.3.csproj", "{9583EB4B-3183-4FDE-AD1F-2637676308AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkTest.Standard.1.3", "LinkTest.Standard.1.3\LinkTest.Standard.1.3.csproj", "{9583EB4B-3183-4FDE-AD1F-2637676308AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkTest.Standard.2.0", "LinkTest.Standard.2.0\LinkTest.Standard.2.0.csproj", "{CACEF620-87C0-4179-AC00-AC134224B27E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkTest.Standard.2.0", "LinkTest.Standard.2.0\LinkTest.Standard.2.0.csproj", "{CACEF620-87C0-4179-AC00-AC134224B27E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpFunctionalExtensions.Examples", "CSharpFunctionalExtensions.Examples\CSharpFunctionalExtensions.Examples.csproj", "{C05C3261-447D-40F6-B516-791A01BA5052}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpFunctionalExtensions.Tests", "CSharpFunctionalExtensions.Tests\CSharpFunctionalExtensions.Tests.csproj", "{AAC59D01-6546-4366-B990-4A765EF4D796}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFunctionalExtensionsNet4.0", "CSharpFunctionalExtensionsNet4.0\CSharpFunctionalExtensionsNet4.0.csproj", "{B5FCFC35-FD02-41AB-8B3F-F39E7AE1B009}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{AAC59D01-6546-4366-B990-4A765EF4D796}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAC59D01-6546-4366-B990-4A765EF4D796}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAC59D01-6546-4366-B990-4A765EF4D796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5FCFC35-FD02-41AB-8B3F-F39E7AE1B009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5FCFC35-FD02-41AB-8B3F-F39E7AE1B009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5FCFC35-FD02-41AB-8B3F-F39E7AE1B009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5FCFC35-FD02-41AB-8B3F-F39E7AE1B009}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

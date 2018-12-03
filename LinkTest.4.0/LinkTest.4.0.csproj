@@ -37,9 +37,9 @@
     <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CSharpFunctionalExtensions\CSharpFunctionalExtensions.csproj">
-      <Project>{9598ec2b-2119-4fc4-9ac0-9ad5e41ca6a0}</Project>
-      <Name>CSharpFunctionalExtensions</Name>
+    <ProjectReference Include="..\CSharpFunctionalExtensionsNet4.0\CSharpFunctionalExtensionsNet4.0.csproj">
+      <Project>{b5fcfc35-fd02-41ab-8b3f-f39e7ae1b009}</Project>
+      <Name>CSharpFunctionalExtensionsNet4.0</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
