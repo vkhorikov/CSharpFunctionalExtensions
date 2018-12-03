@@ -17,23 +17,11 @@
     <FileVersion>1.13.0.0</FileVersion>
   </PropertyGroup>
 
-  <!-- .net 4.0 doesn't have async support and Microsoft.Bcl.Async doesn't work because of the interactions 
-       between it's dependency chain and the multi-framework build. Howver the AsyncTargetingPack does. -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
-    <PackageReference Include="Microsoft.Bcl.Async">
-      <Version>1.0.165</Version>
-    </PackageReference>
-  </ItemGroup>
-
   <!-- Standard1.3 doesn't have ISerializable and needs an additional reference -->
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
     <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
   </ItemGroup>
 
-  <!-- Set titles so the dlls are distinguishable from each other -->
-  <PropertyGroup Condition="'$(TargetFramework)'=='net40'">
-    <AssemblyTitle>CSharpFunctionalExtensions .NET 4.0</AssemblyTitle>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET 4.5</AssemblyTitle>
   </PropertyGroup>
