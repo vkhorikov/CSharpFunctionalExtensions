@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net40</TargetFramework>
     <RootNamespace>CSharpFunctionalExtensions</RootNamespace>
-    <PackageId>CSharpFunctionalExtensions</PackageId>
+    <PackageId>CSharpFunctionalExtensionsNet4.0</PackageId>
     <PackageVersion>1.13.1</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
     <Description>CSharpFunctionalExtensions - functional extensions for C#.</Description>
