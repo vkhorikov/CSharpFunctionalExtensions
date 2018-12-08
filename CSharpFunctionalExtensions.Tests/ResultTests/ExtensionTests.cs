@@ -50,7 +50,52 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             myError.Should().Be(_errorMessage);
         }
-        
+
+        [Fact]
+        public void Should_execute_compensate_func_on_failure_returns_Ok()
+        {
+            var myResult = Result.Fail(_errorMessage);
+            var newResult = myResult.OnFailureCompensate(() => Result.Ok());
+
+            newResult.IsSuccess.Should().Be(true);
+        }
+
+        [Fact]
+        public void Should_execute_compensate_func_on_generic_failure_returns_Ok()
+        {
+            var expectedValue = new MyClass();
+
+            var myResult = Result.Fail<MyClass>(_errorMessage);
+            var newResult = myResult.OnFailureCompensate(() => Result.Ok(expectedValue));
+
+            newResult.IsSuccess.Should().BeTrue();
+            newResult.Value.Should().Be(expectedValue);
+        }
+
+        [Fact]
+        public void Should_execute_compensate_func_with_result_on_generic_failure_returns_Ok()
+        {
+            var expectedValue = new MyClass();
+
+            var myResult = Result.Fail<MyClass>(_errorMessage);
+            var newResult = myResult.OnFailureCompensate(error => Result.Ok(expectedValue));
+
+            newResult.IsSuccess.Should().BeTrue();
+            newResult.Value.Should().Be(expectedValue);
+        }
+
+        [Fact]
+        public void Should_execute_compensate_func_with_error_object_on_generic_failure_returns_Ok()
+        {
+            var expectedValue = new MyClass();
+
+            var myResult = Result.Fail<MyClass, MyClass>(new MyClass {Property = _errorMessage});
+            var newResult = myResult.OnFailureCompensate(error => Result.Ok<MyClass, MyClass>(expectedValue));
+
+            newResult.IsSuccess.Should().BeTrue();
+            newResult.Value.Should().Be(expectedValue);
+        }
+
         private class MyClass
         {
             public string Property { get; set; }

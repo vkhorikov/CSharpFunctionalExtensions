@@ -260,5 +260,47 @@ namespace CSharpFunctionalExtensions
 
             return result;
         }
+
+        public static async Task<Result<T>> OnFailureCompensate<T>(this Result<T> result, Func<Task<Result<T>>> func, bool continueOnCapturedContext = true)
+        {
+            if (result.IsFailure)
+                return await func().ConfigureAwait(continueOnCapturedContext);
+
+            return result;
+        }
+
+        public static async Task<Result<T, TError>> OnFailureCompensate<T, TError>(this Result<T, TError> result, Func<Task<Result<T, TError>>> func,
+            bool continueOnCapturedContext = true)
+        {
+            if (result.IsFailure)
+                return await func().ConfigureAwait(continueOnCapturedContext);
+
+            return result;
+        }
+
+        public static async Task<Result> OnFailureCompensate(this Result result, Func<Task<Result>> func, bool continueOnCapturedContext = true)
+        {
+            if (result.IsFailure)
+                return await func().ConfigureAwait(continueOnCapturedContext);
+
+            return result;
+        }
+
+        public static async Task<Result<T>> OnFailureCompensate<T>(this Result<T> result, Func<string, Task<Result<T>>> func, bool continueOnCapturedContext = true)
+        {
+            if (result.IsFailure)
+                return await func(result.Error).ConfigureAwait(continueOnCapturedContext);
+
+            return result;
+        }
+
+        public static async Task<Result<T, TError>> OnFailureCompensate<T, TError>(this Result<T, TError> result,
+            Func<TError, Task<Result<T, TError>>> func, bool continueOnCapturedContext = true)
+        {
+            if (result.IsFailure)
+                return await func(result.Error).ConfigureAwait(continueOnCapturedContext);
+
+            return result;
+        }
     }
 }
