@@ -319,9 +319,7 @@ namespace CSharpFunctionalExtensions
             Result<T, TError> result = await resultTask.ConfigureAwait(continueOnCapturedContext);
 
             if (result.IsFailure)
-            {
-                await func().ConfigureAwait(continueOnCapturedContext);
-            }
+                return await func().ConfigureAwait(continueOnCapturedContext);
 
             return result;
         }
@@ -331,9 +329,7 @@ namespace CSharpFunctionalExtensions
             Result<T> result = await resultTask.ConfigureAwait(continueOnCapturedContext);
 
             if (result.IsFailure)
-            {
-                await func().ConfigureAwait(continueOnCapturedContext);
-            }
+                return await func().ConfigureAwait(continueOnCapturedContext);
 
             return result;
         }
@@ -343,9 +339,7 @@ namespace CSharpFunctionalExtensions
             Result result = await resultTask.ConfigureAwait(continueOnCapturedContext);
 
             if (result.IsFailure)
-            {
-                await func().ConfigureAwait(continueOnCapturedContext);
-            }
+                return await func().ConfigureAwait(continueOnCapturedContext);
 
             return result;
         }
@@ -355,9 +349,7 @@ namespace CSharpFunctionalExtensions
             Result<T> result = await resultTask.ConfigureAwait(continueOnCapturedContext);
 
             if (result.IsFailure)
-            {
-                await func(result.Error).ConfigureAwait(continueOnCapturedContext);
-            }
+                return await func(result.Error).ConfigureAwait(continueOnCapturedContext);
 
             return result;
         }
@@ -368,9 +360,7 @@ namespace CSharpFunctionalExtensions
             Result<T, TError> result = await resultTask.ConfigureAwait(continueOnCapturedContext);
 
             if (result.IsFailure)
-            {
-                await func(result.Error).ConfigureAwait(continueOnCapturedContext);
-            }
+                return await func(result.Error).ConfigureAwait(continueOnCapturedContext);
 
             return result;
         }
