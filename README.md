@@ -1,7 +1,6 @@
 ﻿Functional Extensions for C#
 ======================================================
 [![Nuget downloads](https://img.shields.io/nuget/v/csharpfunctionalextensions.svg)](https://www.nuget.org/packages/CSharpFunctionalExtensions/)
-[![Nuget downloads](https://img.shields.io/nuget/v/csharpfunctionalextensions.svg)](https://www.nuget.org/packages/CSharpFunctionalExtensionsNet4.0/)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE)
 
 This library helps write code in more functional way. To get to know more about the principles behind it, check out the [Applying Functional Principles in C# Pluralsight course](http://pluralsight.com/courses/csharp-applying-functional-principles).
@@ -11,6 +10,12 @@ This library helps write code in more functional way. To get to know more about 
 Available on [nuget](https://www.nuget.org/packages/CSharpFunctionalExtensions/)
 
 	PM> Install-Package CSharpFunctionalExtensions
+
+## .NET 4.0 version Installation
+
+.NET 4.0 version is available as a separate package on [nuget](https://www.nuget.org/packages/CSharpFunctionalExtensionsNet4.0/)
+
+	PM> Install-Package CSharpFunctionalExtensionsNet4.0
 
 ## Get rid of primitive obsession
 
