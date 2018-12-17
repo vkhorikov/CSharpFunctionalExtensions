@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net40</TargetFramework>
+    <RootNamespace>CSharpFunctionalExtensions</RootNamespace>
+    <PackageId>CSharpFunctionalExtensionsNet4.0</PackageId>
+    <PackageVersion>1.13.1</PackageVersion>
+    <Authors>Vladimir Khorikov</Authors>
+    <Description>CSharpFunctionalExtensions - functional extensions for C#.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>C# Functional</PackageTags>
+    <PackageLicenseUrl>https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://www.pluralsight.com/courses/csharp-applying-functional-principles</PackageProjectUrl>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>1.13.1</Version>
+    <AssemblyVersion>1.13.1.0</AssemblyVersion>
+    <FileVersion>1.13.1.0</FileVersion>
+    <AssemblyName>CSharpFunctionalExtensions</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CSharpFunctionalExtensions\AsyncMaybeExtensions.cs" Link="AsyncMaybeExtensions.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\AsyncResultExtensionsBothOperands.cs" Link="AsyncResultExtensionsBothOperands.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\AsyncResultExtensionsLeftOperand.cs" Link="AsyncResultExtensionsLeftOperand.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\AsyncResultExtensionsRightOperand.cs" Link="AsyncResultExtensionsRightOperand.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\IResult.cs" Link="IResult.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Maybe.cs" Link="Maybe.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\MaybeExtensions.cs" Link="MaybeExtensions.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result.cs" Link="Result.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\ResultExtensions.cs" Link="ResultExtensions.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\ValueObject.cs" Link="ValueObject.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168" />
+  </ItemGroup>
+
+</Project>
