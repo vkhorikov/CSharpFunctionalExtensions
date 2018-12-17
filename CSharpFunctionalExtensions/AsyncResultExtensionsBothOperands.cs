@@ -312,5 +312,57 @@ namespace CSharpFunctionalExtensions
 
             return result;
         }
+
+        public static async Task<Result<T, TError>> OnFailureCompensate<T, TError>(this Task<Result<T, TError>> resultTask,
+            Func<Task<Result<T, TError>>> func, bool continueOnCapturedContext = true)
+        {
+            Result<T, TError> result = await resultTask.ConfigureAwait(continueOnCapturedContext);
+
+            if (result.IsFailure)
+                return await func().ConfigureAwait(continueOnCapturedContext);
+
+            return result;
+        }
+
+        public static async Task<Result<T>> OnFailureCompensate<T>(this Task<Result<T>> resultTask, Func<Task<Result<T>>> func, bool continueOnCapturedContext = true)
+        {
+            Result<T> result = await resultTask.ConfigureAwait(continueOnCapturedContext);
+
+            if (result.IsFailure)
+                return await func().ConfigureAwait(continueOnCapturedContext);
+
+            return result;
+        }
+
+        public static async Task<Result> OnFailureCompensate(this Task<Result> resultTask, Func<Task<Result>> func, bool continueOnCapturedContext = true)
+        {
+            Result result = await resultTask.ConfigureAwait(continueOnCapturedContext);
+
+            if (result.IsFailure)
+                return await func().ConfigureAwait(continueOnCapturedContext);
+
+            return result;
+        }
+
+        public static async Task<Result<T>> OnFailureCompensate<T>(this Task<Result<T>> resultTask, Func<string, Task<Result<T>>> func, bool continueOnCapturedContext = true)
+        {
+            Result<T> result = await resultTask.ConfigureAwait(continueOnCapturedContext);
+
+            if (result.IsFailure)
+                return await func(result.Error).ConfigureAwait(continueOnCapturedContext);
+
+            return result;
+        }
+
+        public static async Task<Result<T, TError>> OnFailureCompensate<T, TError>(this Task<Result<T, TError>> resultTask,
+            Func<TError, Task<Result<T, TError>>> func, bool continueOnCapturedContext = true)
+        {
+            Result<T, TError> result = await resultTask.ConfigureAwait(continueOnCapturedContext);
+
+            if (result.IsFailure)
+                return await func(result.Error).ConfigureAwait(continueOnCapturedContext);
+
+            return result;
+        }
     }
 }
