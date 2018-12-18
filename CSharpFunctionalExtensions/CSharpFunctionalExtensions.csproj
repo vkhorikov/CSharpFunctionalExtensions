@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard1.3;net45;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net461</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
     <PackageVersion>1.13.1</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
@@ -17,19 +17,11 @@
     <FileVersion>1.13.1.0</FileVersion>
   </PropertyGroup>
 
-  <!-- Standard1.3 doesn't have ISerializable and needs an additional reference -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
-    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
-  </ItemGroup>
-
   <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET 4.5</AssemblyTitle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET 4.6.1</AssemblyTitle>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.3'">
-    <AssemblyTitle>CSharpFunctionalExtensions .NET Standard 1.3</AssemblyTitle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET Standard 2.0</AssemblyTitle>

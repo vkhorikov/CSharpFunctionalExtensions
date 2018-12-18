@@ -102,8 +102,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             error.Should().Be("fail");
         }
 
-        //
-
         [Fact]
         public void Can_deconstruct_generic_Ok_with_generic_error_to_isSuccess_and_isFailure()
         {

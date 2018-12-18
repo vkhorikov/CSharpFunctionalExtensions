@@ -115,6 +115,25 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             equals2.Should().BeFalse();
         }
 
+        [Fact]
+        public void Can_compare_maybe_of_object()
+        {
+            var instance = new object();
+            Maybe<object> maybe = instance;
+
+            bool equals1 = maybe.Equals(instance);
+            bool equals2 = ((object)maybe).Equals(instance);
+            bool equals3 = maybe == instance;
+            bool equals4 = maybe != instance;
+            bool equals5 = maybe.GetHashCode() == instance.GetHashCode();
+
+            equals1.Should().BeTrue();
+            equals2.Should().BeTrue();
+            equals3.Should().BeTrue();
+            equals4.Should().BeFalse();
+            equals5.Should().BeTrue();
+        }
+
 
         private class MyClass
         {

@@ -29,6 +29,11 @@ namespace CSharpFunctionalExtensions
 
         public static implicit operator Maybe<T>(T value)
         {
+            if (value?.GetType() == typeof(Maybe<T>))
+            {
+                return (Maybe<T>)(object)value;
+            }
+
             return new Maybe<T>(value);
         }
 
@@ -39,6 +44,9 @@ namespace CSharpFunctionalExtensions
 
         public static bool operator ==(Maybe<T> maybe, T value)
         {
+            if (value is Maybe<T>)
+                return maybe.Equals(value);
+
             if (maybe.HasNoValue)
                 return false;
 
@@ -62,13 +70,16 @@ namespace CSharpFunctionalExtensions
 
         public override bool Equals(object obj)
         {
-            if (obj is T)
+            if (obj.GetType() != typeof(Maybe<T>))
             {
-                obj = new Maybe<T>((T)obj);
-            }
+                if (obj is T)
+                {
+                    obj = new Maybe<T>((T)obj);
+                }
 
-            if (!(obj is Maybe<T>))
-                return false;
+                if (!(obj is Maybe<T>))
+                    return false;
+            }
 
             var other = (Maybe<T>)obj;
             return Equals(other);
