@@ -203,6 +203,19 @@ namespace CSharpFunctionalExtensions
             Result[] untyped = results.Select(result => (Result)result).ToArray();
             return Combine(errorMessagesSeparator, untyped);
         }
+
+        public void Deconstruct(out bool isSuccess, out bool isFailure)
+        {
+            isSuccess = IsSuccess;
+            isFailure = IsFailure;
+        }
+
+        public void Deconstruct(out bool isSuccess, out bool isFailure, out string error)
+        {
+            isSuccess = IsSuccess;
+            isFailure = IsFailure;
+            error = IsFailure ? Error : null;
+        }
     }
     
     public struct Result<T> : IResult, ISerializable
@@ -255,6 +268,27 @@ namespace CSharpFunctionalExtensions
                 return Result.Ok();
             else
                 return Result.Fail(result.Error);
+        }
+
+        public void Deconstruct(out bool isSuccess, out bool isFailure)
+        {
+            isSuccess = IsSuccess;
+            isFailure = IsFailure;
+        }
+
+        public void Deconstruct(out bool isSuccess, out bool isFailure, out T value)
+        {
+            isSuccess = IsSuccess;
+            isFailure = IsFailure;
+            value = IsSuccess ? Value : default(T);
+        }
+
+        public void Deconstruct(out bool isSuccess, out bool isFailure, out T value, out string error)
+        {
+            isSuccess = IsSuccess;
+            isFailure = IsFailure;
+            value = IsSuccess ? Value : default(T);
+            error = IsFailure ? Error : null;
         }
     }
 
@@ -316,6 +350,27 @@ namespace CSharpFunctionalExtensions
                 return Result.Ok(result.Value);
             else
                 return Result.Fail<TValue>(result.Error.ToString());
+        }
+
+        public void Deconstruct(out bool isSuccess, out bool isFailure)
+        {
+            isSuccess = IsSuccess;
+            isFailure = IsFailure;
+        }
+
+        public void Deconstruct(out bool isSuccess, out bool isFailure, out TValue value)
+        {
+            isSuccess = IsSuccess;
+            isFailure = IsFailure;
+            value = IsSuccess ? Value : default(TValue);
+        }
+
+        public void Deconstruct(out bool isSuccess, out bool isFailure, out TValue value, out TError error)
+        {
+            isSuccess = IsSuccess;
+            isFailure = IsFailure;
+            value = IsSuccess ? Value : default(TValue);
+            error = IsFailure ? Error : default(TError);
         }
     }
 }
