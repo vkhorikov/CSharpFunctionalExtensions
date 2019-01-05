@@ -86,6 +86,20 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
+        public void Maybe_None_Tuples_has_no_value_is_true()
+        {
+            Maybe<(Array, Exception)>.None.HasNoValue.Should().BeTrue();
+            Maybe<(double, int, byte)>.None.HasNoValue.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Maybe_None_Tuples_has_value_is_false()
+        {
+            Maybe<(DateTime, bool, char)>.None.HasValue.Should().BeFalse();
+            Maybe<(string, TimeSpan)>.None.HasValue.Should().BeFalse();
+        }
+
+        [Fact]
         public void Maybe_None_Select_from_class_to_struct_retains_None()
         {
             Maybe<string>.None.Select(_ => 42).HasValue.Should().BeFalse();
