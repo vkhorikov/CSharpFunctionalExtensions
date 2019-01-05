@@ -307,7 +307,11 @@ namespace CSharpFunctionalExtensions
         public static async Task<Result> Combine(this IEnumerable<Task<Result>> tasks, string errorMessageSeparator,
             bool continueOnCapturedContext = true)
         {
+#if NET40
+            Result[] results = await TaskEx.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+#else
             Result[] results = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+#endif
             return results.Combine(errorMessageSeparator);
         }
 
@@ -315,7 +319,11 @@ namespace CSharpFunctionalExtensions
             string errorMessageSeparator,
             bool continueOnCapturedContext = true)
         {
+#if NET40
+            Result<T>[] results = await TaskEx.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+#else
             Result<T>[] results = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+#endif
             return results.Combine(errorMessageSeparator);
         }
 
@@ -339,8 +347,13 @@ namespace CSharpFunctionalExtensions
             bool continueOnCapturedContext = true)
         {
             var tasks = await task.ConfigureAwait(continueOnCapturedContext);
+
+#if NET40
+            var results = await TaskEx.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+#else
             var results = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
-            
+#endif
+
             return results.Combine(errorMessageSeparator);
         }
 
@@ -349,7 +362,11 @@ namespace CSharpFunctionalExtensions
             bool continueOnCapturedContext = true)
         {
             var tasks = await task.ConfigureAwait(continueOnCapturedContext);
+#if NET40
+            var results = await TaskEx.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+#else
             var results = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+#endif
 
             return results.Combine(errorMessageSeparator);
         }
@@ -359,7 +376,12 @@ namespace CSharpFunctionalExtensions
             string errorMessageSeparator,
             bool continueOnCapturedContext = true)
         {
+#if NET40
+            IEnumerable<Result<T>> results = await TaskEx.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+#else
             IEnumerable<Result<T>> results = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+#endif
+
             return results.Combine(composer, errorMessageSeparator);
         }
 
