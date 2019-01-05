@@ -78,7 +78,7 @@ namespace CSharpFunctionalExtensions
             return result.Ensure(predicate, errorMessage);
         }
 
-        public static async Task<Result<T>> Ensure<T, TError>(this Task<Result<T, TError>> resultTask,
+        public static async Task<Result<T, TError>> Ensure<T, TError>(this Task<Result<T, TError>> resultTask,
             Func<T, bool> predicate, TError error, bool continueOnCapturedContext = true) where TError : class
         {
             Result<T, TError> result = await resultTask.ConfigureAwait(continueOnCapturedContext);

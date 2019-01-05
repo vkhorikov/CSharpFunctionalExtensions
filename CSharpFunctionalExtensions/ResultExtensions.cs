@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace CSharpFunctionalExtensions
 {
@@ -106,13 +106,13 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result<TValue, TError> Ensure<TValue, TError>(this Result<TValue, TError> result,
-            Func<TValue, bool> predicate, TError errorObject) where TError : class
+            Func<TValue, bool> predicate, TError error) where TError : class
         {
             if (result.IsFailure)
                 return result;
 
             if (!predicate(result.Value))
-                return Result.Fail<TValue, TError>(errorObject);
+                return Result.Fail<TValue, TError>(error);
 
             return result;
         }
