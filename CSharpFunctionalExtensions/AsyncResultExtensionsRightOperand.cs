@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
@@ -301,6 +302,74 @@ namespace CSharpFunctionalExtensions
                 return await func(result.Error).ConfigureAwait(continueOnCapturedContext);
 
             return result;
+        }
+
+        public static async Task<Result> Combine(this IEnumerable<Task<Result>> tasks, string errorMessageSeparator,
+            bool continueOnCapturedContext = true)
+        {
+            Result[] results = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+            return results.Combine(errorMessageSeparator);
+        }
+
+        public static async Task<Result<IEnumerable<T>>> Combine<T>(this IEnumerable<Task<Result<T>>> tasks,
+            string errorMessageSeparator,
+            bool continueOnCapturedContext = true)
+        {
+            Result<T>[] results = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+            return results.Combine(errorMessageSeparator);
+        }
+
+        public static async Task<Result> Combine(this Task<IEnumerable<Result>> task, string errorMessageSeparator,
+            bool continueOnCapturedContext = true)
+        {
+            IEnumerable<Result> results = await task.ConfigureAwait(continueOnCapturedContext);
+            return results.Combine(errorMessageSeparator);
+        }
+
+        public static async Task<Result<IEnumerable<T>>> Combine<T>(this Task<IEnumerable<Result<T>>> task,
+            string errorMessageSeparator,
+            bool continueOnCapturedContext = true)
+        {
+            IEnumerable<Result<T>> results = await task.ConfigureAwait(continueOnCapturedContext);
+            return results.Combine(errorMessageSeparator);
+        }
+
+        public static async Task<Result> Combine(this Task<IEnumerable<Task<Result>>> task,
+            string errorMessageSeparator,
+            bool continueOnCapturedContext = true)
+        {
+            var tasks = await task.ConfigureAwait(continueOnCapturedContext);
+            var results = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+            
+            return results.Combine(errorMessageSeparator);
+        }
+
+        public static async Task<Result<IEnumerable<T>>> Combine<T>(this Task<IEnumerable<Task<Result<T>>>> task,
+            string errorMessageSeparator,
+            bool continueOnCapturedContext = true)
+        {
+            var tasks = await task.ConfigureAwait(continueOnCapturedContext);
+            var results = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+
+            return results.Combine(errorMessageSeparator);
+        }
+
+        public static async Task<Result<TNew>> Combine<T, TNew>(this IEnumerable<Task<Result<T>>> tasks,
+            Func<IEnumerable<T>, TNew> composer,
+            string errorMessageSeparator,
+            bool continueOnCapturedContext = true)
+        {
+            IEnumerable<Result<T>> results = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext);
+            return results.Combine(composer, errorMessageSeparator);
+        }
+
+        public static async Task<Result<TNew>> Combine<T, TNew>(this Task<IEnumerable<Task<Result<T>>>> task,
+            Func<IEnumerable<T>, TNew> composer,
+            string errorMessageSeparator,
+            bool continueOnCapturedContext = true)
+        {
+            IEnumerable<Task<Result<T>>> tasks = await task.ConfigureAwait(continueOnCapturedContext);
+            return await tasks.Combine(composer, errorMessageSeparator, continueOnCapturedContext);
         }
     }
 }
