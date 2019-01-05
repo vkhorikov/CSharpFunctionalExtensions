@@ -123,12 +123,12 @@ namespace CSharpFunctionalExtensions
             Result<T> result = await resultTask.ConfigureAwait(continueOnCapturedContext);
 
             if (result.IsFailure)
-                return Result.Fail<T>(result.Error);
+                return result;
 
             if (!await predicate(result.Value).ConfigureAwait(continueOnCapturedContext))
                 return Result.Fail<T>(errorMessage);
 
-            return Result.Ok(result.Value);
+            return result;
         }
 
         public static async Task<Result<T, TError>> Ensure<T, TError>(this Task<Result<T, TError>> resultTask,
@@ -137,12 +137,12 @@ namespace CSharpFunctionalExtensions
             Result<T, TError> result = await resultTask.ConfigureAwait(continueOnCapturedContext);
 
             if (result.IsFailure)
-                return Result.Fail<T, TError>(result.Error);
+                return result;
 
             if (!await predicate(result.Value).ConfigureAwait(continueOnCapturedContext))
                 return Result.Fail<T, TError>(error);
 
-            return Result.Ok<T, TError>(result.Value);
+            return result;
         }
 
         public static async Task<Result> Ensure(this Task<Result> resultTask, Func<Task<bool>> predicate, string errorMessage, bool continueOnCapturedContext = true)
@@ -150,12 +150,12 @@ namespace CSharpFunctionalExtensions
             Result result = await resultTask.ConfigureAwait(continueOnCapturedContext);
 
             if (result.IsFailure)
-                return Result.Fail(result.Error);
+                return result;
 
             if (!await predicate().ConfigureAwait(continueOnCapturedContext))
                 return Result.Fail(errorMessage);
 
-            return Result.Ok();
+            return result;
         }
 
         public static async Task<Result<K>> Map<T, K, TError>(this Task<Result<T, TError>> resultTask,

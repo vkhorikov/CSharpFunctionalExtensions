@@ -101,35 +101,35 @@ namespace CSharpFunctionalExtensions
         public static async Task<Result<T>> Ensure<T>(this Result<T> result, Func<T, Task<bool>> predicate, string errorMessage, bool continueOnCapturedContext = true)
         {
             if (result.IsFailure)
-                return Result.Fail<T>(result.Error);
+                return result;
 
             if (!await predicate(result.Value).ConfigureAwait(continueOnCapturedContext))
                 return Result.Fail<T>(errorMessage);
 
-            return Result.Ok(result.Value);
+            return result;
         }
 
         public static async Task<Result<T, TError>> Ensure<T, TError>(this Result<T, TError> result,
             Func<T, Task<bool>> predicate, TError error, bool continueOnCapturedContext = true) where TError : class
         {
             if (result.IsFailure)
-                return Result.Fail<T, TError>(result.Error);
+                return result;
 
             if (!await predicate(result.Value).ConfigureAwait(continueOnCapturedContext))
                 return Result.Fail<T, TError>(error);
 
-            return Result.Ok<T, TError>(result.Value);
+            return result;
         }
 
         public static async Task<Result> Ensure(this Result result, Func<Task<bool>> predicate, string errorMessage, bool continueOnCapturedContext = true)
         {
             if (result.IsFailure)
-                return Result.Fail(result.Error);
+                return result;
 
             if (!await predicate().ConfigureAwait(continueOnCapturedContext))
                 return Result.Fail(errorMessage);
 
-            return Result.Ok();
+            return result;
         }
 
         public static async Task<Result<K>> Map<T, K>(this Result<T> result, Func<T, Task<K>> func, bool continueOnCapturedContext = true)
