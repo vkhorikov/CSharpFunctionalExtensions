@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
 {
@@ -92,7 +93,6 @@ namespace CSharpFunctionalExtensions
         public static readonly string ErrorMessageIsProvidedForSuccess = "There should be no error message for success.";
     }
 
-
     public struct Result : IResult, ISerializable
     {
         private static readonly Result OkResult = new Result(false, null);
@@ -128,6 +128,25 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerStepThrough]
+        public static Result Create(bool isSuccess, string error)
+        {
+            return isSuccess
+                ? Ok()
+                : Fail(error);
+        }
+
+        public static Result Create(Func<bool> predicate, string error)
+        {
+            return Create(predicate(), error);
+        }
+
+        public static async Task<Result> Create(Func<Task<bool>> predicate, string error, bool continueOnCapturedContext = true)
+        {
+            var isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            return Create(isSuccess, error);
+        }
+
+        [DebuggerStepThrough]
         public static Result<T> Ok<T>(T value)
         {
             return new Result<T>(false, value, null);
@@ -137,6 +156,24 @@ namespace CSharpFunctionalExtensions
         public static Result<T> Fail<T>(string error)
         {
             return new Result<T>(true, default(T), error);
+        }
+
+        public static Result<T> Create<T>(bool isSuccess, T value, string error)
+        {
+            return isSuccess
+                ? Ok(value)
+                : Fail<T>(error);
+        }
+        
+        public static Result<T> Create<T>(Func<bool> predicate, T value, string error)
+        {
+            return Create(predicate(), value, error);
+        }
+        
+        public static async Task<Result<T>> Create<T>(Func<Task<bool>> predicate, T value, string error, bool continueOnCapturedContext = true)
+        {
+            var isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            return Create(isSuccess, value, error);
         }
 
         [DebuggerStepThrough]
@@ -149,6 +186,29 @@ namespace CSharpFunctionalExtensions
         public static Result<TValue, TError> Fail<TValue, TError>(TError error) where TError : class
         {
             return new Result<TValue, TError>(true, default(TValue), error);
+        }
+
+        [DebuggerStepThrough]
+        public static Result<TValue, TError> Create<TValue, TError>(bool isSuccess, TValue value, TError error) where TError : class
+        {
+            return isSuccess
+                ? Ok<TValue, TError>(value)
+                : Fail<TValue, TError>(error);
+        }
+        
+        public static Result<TValue, TError> Create<TValue, TError>(Func<bool> predicate, TValue value, TError error) where TError : class
+        {
+            return predicate()
+                ? Ok<TValue, TError>(value)
+                : Fail<TValue, TError>(error);
+        }
+        
+        public static async Task<Result<TValue, TError>> Create<TValue, TError>(Func<Task<bool>> predicate, TValue value, TError error, bool continueOnCapturedContext = true) where TError : class
+        {
+            var isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            return isSuccess
+                ? Ok<TValue, TError>(value)
+                : Fail<TValue, TError>(error);
         }
 
         /// <summary>
