@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Moq;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests
