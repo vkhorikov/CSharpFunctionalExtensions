@@ -190,6 +190,37 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(error);
         }
+        
+        [Fact]
+        public void Can_work_with_nullable_sructs()
+        {
+            Result<DateTime?> result = Result.Ok((DateTime?)null);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(null);
+        }
+        
+        [Fact]
+        public void Can_work_with_maybe_of_struct()
+        {
+            Maybe<DateTime> maybe = Maybe<DateTime>.None;
+
+            Result<Maybe<DateTime>> result = Result.Ok(maybe);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(Maybe<DateTime>.None);
+        }
+        
+        [Fact]
+        public void Can_work_with_maybe_of_ref_type()
+        {
+            Maybe<string> maybe = Maybe<string>.None;
+
+            Result<Maybe<string>> result = Result.Ok(maybe);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(Maybe<string>.None);
+        }
 
         private class Error
         {

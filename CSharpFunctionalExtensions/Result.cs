@@ -315,8 +315,14 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         internal Result(bool isFailure, T value, string error)
         {
-            if (!isFailure && value == null)
-                throw new ArgumentNullException(nameof(value));
+            if (!isFailure)
+            {
+                bool isNullableStruct = Nullable.GetUnderlyingType(typeof(T)) != null;
+                bool isNull = value == null;
+
+                if (!isNullableStruct && isNull)
+                    throw new ArgumentNullException(nameof(value));
+            }
 
             _logic = ResultCommonLogic.Create(isFailure, error);
             _value = value;

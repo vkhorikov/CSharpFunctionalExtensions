@@ -70,6 +70,9 @@ namespace CSharpFunctionalExtensions
 
         public override bool Equals(object obj)
         {
+            if (obj == null)
+                return false;
+
             if (obj.GetType() != typeof(Maybe<T>))
             {
                 if (obj is T)
