@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpFunctionalExtensions", "CSharpFunctionalExtensions\CSharpFunctionalExtensions.csproj", "{9598EC2B-2119-4FC4-9AC0-9AD5E41CA6A0}"
 EndProject
@@ -18,6 +18,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpFunctionalExtensions.Tests", "CSharpFunctionalExtensions.Tests\CSharpFunctionalExtensions.Tests.csproj", "{AAC59D01-6546-4366-B990-4A765EF4D796}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpFunctionalExtensionsNet4.0", "CSharpFunctionalExtensionsNet4.0\CSharpFunctionalExtensionsNet4.0.csproj", "{B5FCFC35-FD02-41AB-8B3F-F39E7AE1B009}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "V2", "V2", "{BC20E603-D847-4C05-BA78-89529CB7E0D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionnalNetStdV2_CSharp7_2", "V2\FunctionnalNetStdV2_CSharp7_3\FunctionnalNetStdV2_CSharp7_2.csproj", "{15BEEEF4-1DB3-41F8-BC2A-3387EEB6CE3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalNetStdV2Tests", "FunctionalNetStdV2Tests\FunctionalNetStdV2Tests.csproj", "{D3718DBD-1B60-4819-95C9-B6CC4992C2EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +59,14 @@ Global
 		{B5FCFC35-FD02-41AB-8B3F-F39E7AE1B009}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5FCFC35-FD02-41AB-8B3F-F39E7AE1B009}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5FCFC35-FD02-41AB-8B3F-F39E7AE1B009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15BEEEF4-1DB3-41F8-BC2A-3387EEB6CE3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15BEEEF4-1DB3-41F8-BC2A-3387EEB6CE3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15BEEEF4-1DB3-41F8-BC2A-3387EEB6CE3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15BEEEF4-1DB3-41F8-BC2A-3387EEB6CE3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3718DBD-1B60-4819-95C9-B6CC4992C2EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3718DBD-1B60-4819-95C9-B6CC4992C2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3718DBD-1B60-4819-95C9-B6CC4992C2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3718DBD-1B60-4819-95C9-B6CC4992C2EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +76,8 @@ Global
 		{A90FBD60-EEBE-4B70-951D-B5BE5C53AECF} = {FBDA8B35-373E-4D4A-BB91-40568665D6A5}
 		{CACEF620-87C0-4179-AC00-AC134224B27E} = {FBDA8B35-373E-4D4A-BB91-40568665D6A5}
 		{AAC59D01-6546-4366-B990-4A765EF4D796} = {FBDA8B35-373E-4D4A-BB91-40568665D6A5}
+		{15BEEEF4-1DB3-41F8-BC2A-3387EEB6CE3F} = {BC20E603-D847-4C05-BA78-89529CB7E0D0}
+		{D3718DBD-1B60-4819-95C9-B6CC4992C2EC} = {BC20E603-D847-4C05-BA78-89529CB7E0D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24983D81-8FE6-4B71-A64C-6F86C7DFB0B8}
