@@ -41,14 +41,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void Cannot_create_without_Value()
-        {
-            Action action = () => { Result.Ok((MyClass)null); };
-
-            action.ShouldThrow<ArgumentNullException>();;
-        }
-
-        [Fact]
         public void Cannot_access_Error_non_generic_version()
         {
             Result result = Result.Ok();
