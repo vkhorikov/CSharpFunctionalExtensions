@@ -142,7 +142,7 @@ namespace CSharpFunctionalExtensions
 
         public static async Task<Result> Create(Func<Task<bool>> predicate, string error, bool continueOnCapturedContext = true)
         {
-            var isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            bool isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
             return Create(isSuccess, error);
         }
 
@@ -172,7 +172,7 @@ namespace CSharpFunctionalExtensions
         
         public static async Task<Result<T>> Create<T>(Func<Task<bool>> predicate, T value, string error, bool continueOnCapturedContext = true)
         {
-            var isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            bool isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
             return Create(isSuccess, value, error);
         }
 
@@ -205,7 +205,7 @@ namespace CSharpFunctionalExtensions
         
         public static async Task<Result<TValue, TError>> Create<TValue, TError>(Func<Task<bool>> predicate, TValue value, TError error, bool continueOnCapturedContext = true) where TError : class
         {
-            var isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            bool isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
             return isSuccess
                 ? Ok<TValue, TError>(value)
                 : Fail<TValue, TError>(error);
@@ -278,7 +278,7 @@ namespace CSharpFunctionalExtensions
             }
             catch(Exception exc)
             {
-                var message = errorHandler(exc);
+                string message = errorHandler(exc);
 
                 return Fail(message);
             }
@@ -294,7 +294,7 @@ namespace CSharpFunctionalExtensions
             }
             catch(Exception exc)
             {
-                var message = errorHandler(exc);
+                string message = errorHandler(exc);
 
                 return Fail<T>(message);
             }
@@ -312,7 +312,7 @@ namespace CSharpFunctionalExtensions
             }
             catch(Exception exc)
             {
-                var message = errorHandler(exc);
+                string message = errorHandler(exc);
 
                 return Fail<T>(message);
             }
@@ -327,7 +327,7 @@ namespace CSharpFunctionalExtensions
             }
             catch(Exception exc)
             {
-                var error = errorHandler(exc);
+                TError error = errorHandler(exc);
 
                 return Fail<TValue, TError>(error);
             }
@@ -344,7 +344,7 @@ namespace CSharpFunctionalExtensions
             }
             catch(Exception exc)
             {
-                var error = errorHandler(exc);
+                TError error = errorHandler(exc);
 
                 return Fail<TValue, TError>(error);
             }
@@ -401,15 +401,6 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         internal Result(bool isFailure, T value, string error)
         {
-            if (!isFailure)
-            {
-                bool isNullableStruct = Nullable.GetUnderlyingType(typeof(T)) != null;
-                bool isNull = value == null;
-
-                if (!isNullableStruct && isNull)
-                    throw new ArgumentNullException(nameof(value));
-            }
-
             _logic = ResultCommonLogic.Create(isFailure, error);
             _value = value;
         }
@@ -481,9 +472,6 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         internal Result(bool isFailure, TValue value, TError error)
         {
-            if (!isFailure && value == null)
-                throw new ArgumentNullException(nameof(value));
-
             _logic = new ResultCommonLogic<TError>(isFailure, error);
             _value = value;
         }
