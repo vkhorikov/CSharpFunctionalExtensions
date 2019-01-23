@@ -197,6 +197,27 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
+        public static Result OnSuccessTry(this Result result, Action action, Func<Exception, string> errorHandler = null)
+        {
+            return result.IsFailure
+                ? result
+                : Result.Try(action, errorHandler);
+        }
+
+        public static Result<T> OnSuccessTry<T>(this Result result, Func<T> func, Func<Exception, string> errorHandler = null)
+        {
+            return result.IsFailure
+                ? Result.Fail<T>(result.Error)
+                : Result.Try(func, errorHandler);
+        }
+
+        public static Result<R> OnSuccessTry<T, R>(this Result<T> result, Func<T, R> func, Func<Exception, string> errorHandler = null)
+        {
+            return result.IsFailure
+                ? Result.Fail<R>(result.Error)
+                : Result.Try(() => func(result.Value), errorHandler);
+        }
+
         public static T OnBoth<T>(this Result result, Func<Result, T> func)
         {
             return func(result);
