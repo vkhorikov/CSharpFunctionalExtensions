@@ -264,6 +264,92 @@ namespace CSharpFunctionalExtensions
             return Combine(errorMessagesSeparator, untyped);
         }
 
+        private static readonly Func<Exception, string> DefaultTryErrorHandler = exc => exc.Message;
+
+        public static Result Try(Action action, Func<Exception, string> errorHandler = null)
+        {
+            errorHandler = errorHandler ?? DefaultTryErrorHandler;
+            
+            try
+            {
+                action();
+                
+                return Ok();
+            }
+            catch(Exception exc)
+            {
+                var message = errorHandler(exc);
+
+                return Fail(message);
+            }
+        }
+        
+        public static Result<T> Try<T>(Func<T> func, Func<Exception, string> errorHandler = null)
+        {
+            errorHandler = errorHandler ?? DefaultTryErrorHandler;
+            
+            try
+            {
+                return Ok(func());
+            }
+            catch(Exception exc)
+            {
+                var message = errorHandler(exc);
+
+                return Fail<T>(message);
+            }
+        }
+        
+        public static async Task<Result<T>> Try<T>(Func<Task<T>> func, Func<Exception, string> errorHandler = null, bool continueOnCapturedContext = true)
+        {
+            errorHandler = errorHandler ?? DefaultTryErrorHandler;
+            
+            try
+            {
+                var result = await func().ConfigureAwait(true);
+                
+                return Ok(result);
+            }
+            catch(Exception exc)
+            {
+                var message = errorHandler(exc);
+
+                return Fail<T>(message);
+            }
+        }
+        
+        public static Result<TValue, TError> Try<TValue, TError>(Func<TValue> func, Func<Exception, TError> errorHandler)
+            where TError: class
+        {
+            try
+            {
+                return Ok<TValue, TError>(func());
+            }
+            catch(Exception exc)
+            {
+                var error = errorHandler(exc);
+
+                return Fail<TValue, TError>(error);
+            }
+        }
+        
+        public static async Task<Result<TValue, TError>> Try<TValue, TError>(Func<Task<TValue>> func, Func<Exception, TError> errorHandler, bool continueOnCapturedContext = true)
+            where TError: class
+        {
+            try
+            {
+                var result = await func().ConfigureAwait(continueOnCapturedContext);
+                
+                return Ok<TValue, TError>(result);
+            }
+            catch(Exception exc)
+            {
+                var error = errorHandler(exc);
+
+                return Fail<TValue, TError>(error);
+            }
+        }
+
         public void Deconstruct(out bool isSuccess, out bool isFailure)
         {
             isSuccess = IsSuccess;

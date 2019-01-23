@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45;net461</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
     <PackageVersion>1.15.2</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
@@ -15,6 +14,7 @@
     <Version>1.15.2</Version>
     <AssemblyVersion>1.15.2.0</AssemblyVersion>
     <FileVersion>1.15.2.0</FileVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net45'">

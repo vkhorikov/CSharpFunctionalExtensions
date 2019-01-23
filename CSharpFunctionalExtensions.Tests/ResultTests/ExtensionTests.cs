@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests
@@ -96,6 +97,112 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             newResult.Value.Should().Be(expectedValue);
         }
 
+        [Fact]
+        public void OnSuccessTry_failed_result_execute_action_original_failed_result_expected()
+        {
+            var originalResult = Result.Fail("error");
+
+            var result = originalResult.OnSuccessTry(() => { });
+
+            result.IsFailure.Should().BeTrue();
+            result.Should().Be(originalResult);
+        }
+        
+        [Fact]
+        public void OnSuccessTry_success_result_execute_action_success_result_expected()
+        {
+            var originalResult = Result.Ok();
+            bool isExecuted = false;
+
+            var result = originalResult.OnSuccessTry(() =>
+            {
+                isExecuted = true;
+            });
+
+            result.IsSuccess.Should().BeTrue();
+
+            isExecuted.Should().BeTrue();
+        }
+        
+        [Fact]
+        public void OnSuccessTry_success_result_execute_action_throw_exception_failed_result_expected()
+        {
+            var originalResult = Result.Ok();
+
+            var result = originalResult.OnSuccessTry(() => throw new Exception("execute action exception."));
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("execute action exception.");
+        }
+
+        [Fact]
+        public void OnSuccessTry_failed_result_execute_function_new_failed_result_expected()
+        {
+            var originalResult = Result.Fail("original result error message");
+
+            Result<int> result = originalResult.OnSuccessTry(() => 3);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("original result error message");
+        }
+        
+        [Fact]
+        public void OnSuccessTry_success_result_execute_function_success_result_expected()
+        {
+            var originalResult = Result.Ok();
+
+            Result<int> result = originalResult.OnSuccessTry(() => 7);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(7);
+        }
+        
+        [Fact]
+        public void OnSuccessTry_success_result_execute_function_throw_exception_failed_result_expected()
+        {
+            var originalResult = Result.Ok();
+            Func<DateTime> func = () => throw new Exception("execute action exception.");
+
+            Result<DateTime> result = originalResult.OnSuccessTry(func);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("execute action exception.");
+        }
+        
+        [Fact]
+        public void OnSuccessTry_failed_result_execute_function_with_argument_new_failed_result_expected()
+        {
+            var originalResult = Result.Fail<DateTime>("original result error message");
+
+            Result<int> result = originalResult.OnSuccessTry(date => date.Day);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("original result error message");
+        }
+        
+        [Fact]
+        public void OnSuccessTry_success_result_execute_function_with_argument_success_result_expected()
+        {
+            var originalResult = Result.Ok<byte>(2);
+
+            Result<int> result = originalResult.OnSuccessTry(val => val * val);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(4);
+        }
+        
+        [Fact]
+        public void OnSuccessTry_success_result_execute_function_with_argument_throw_exception_failed_result_expected()
+        {
+            var originalResult = Result.Ok(2);
+            Func<int, DateTime> func = val => throw new Exception("execute action exception");
+
+            Result<DateTime> result = originalResult.OnSuccessTry(func);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("execute action exception");
+        }
+        
         private class MyClass
         {
             public string Property { get; set; }
