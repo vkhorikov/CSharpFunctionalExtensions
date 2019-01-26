@@ -38,13 +38,12 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         }
 
         [Fact]
-        public void Comparing_value_objects_of_different_types_throws_an_exception()
+        public void Comparing_value_objects_of_different_types_returns_false()
         {
             var vo1 = new VO1("1");
             var vo2 = new VO2("2");
 
-            Action action = () => vo1.Equals(vo2);
-            action.ShouldThrow<ArgumentException>();
+            vo1.Equals(vo2).Should().BeFalse();
         }
 
         public class VO1 : ValueObject
