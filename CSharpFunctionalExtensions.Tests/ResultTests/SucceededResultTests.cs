@@ -41,6 +41,15 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public void Can_create_without_Value()
+        {
+            Result<MyClass> result = Result.Ok((MyClass)null);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().BeNull();
+        }
+
+        [Fact]
         public void Cannot_access_Error_non_generic_version()
         {
             Result result = Result.Ok();

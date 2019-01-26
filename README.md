@@ -71,6 +71,7 @@ return _customerRepository.GetById(id)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [Steven Giesel](https://github.com/linkdotnet)
  * [Anton Hryshchanka](https://github.com/ahryshchanka)
  * [Mikhail Bashurov](https://github.com/saitonakamura)
  * [kostekk88](https://github.com/kostekk88)

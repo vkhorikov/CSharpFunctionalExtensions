@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45;net461</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
-    <PackageVersion>1.16.0</PackageVersion>
+    <PackageVersion>1.16.1</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
     <Description>CSharpFunctionalExtensions - functional extensions for C#.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -12,9 +12,9 @@
     <PackageProjectUrl>https://www.pluralsight.com/courses/csharp-applying-functional-principles</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.16.0</Version>
-    <AssemblyVersion>1.16.0.0</AssemblyVersion>
-    <FileVersion>1.16.0.0</FileVersion>
+    <Version>1.16.1</Version>
+    <AssemblyVersion>1.16.1.0</AssemblyVersion>
+    <FileVersion>1.16.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
