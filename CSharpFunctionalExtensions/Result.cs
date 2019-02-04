@@ -97,6 +97,8 @@ namespace CSharpFunctionalExtensions
     {
         private static readonly Result OkResult = new Result(false, null);
 
+        public static string ErrorMessagesSeparator = ", ";
+
         void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
         {
             _logic.GetObjectData(oInfo, oContext);
@@ -248,13 +250,13 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         public static Result Combine(params Result[] results)
         {
-            return Combine(", ", results);
+            return Combine(ErrorMessagesSeparator, results);
         }
 
         [DebuggerStepThrough]
         public static Result Combine<T>(params Result<T>[] results)
         {
-            return Combine(", ", results);
+            return Combine(ErrorMessagesSeparator, results);
         }
 
         [DebuggerStepThrough]
