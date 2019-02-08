@@ -356,6 +356,11 @@ namespace CSharpFunctionalExtensions
             return Result.Combine(errorMessagesSeparator, results as Result[] ?? results.ToArray());
         }
 
+        public static Result Combine(this IEnumerable<Result> results)
+        {
+            return Result.Combine(results as Result[] ?? results.ToArray());
+        }
+
         public static Result<IEnumerable<T>> Combine<T>(this IEnumerable<Result<T>> results, string errorMessagesSeparator)
         {
             var data = results as Result<T>[] ?? results.ToArray();

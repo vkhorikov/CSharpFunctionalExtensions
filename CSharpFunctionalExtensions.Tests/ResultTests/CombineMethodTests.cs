@@ -60,6 +60,43 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public void ErrorMessagesSeparator_Combine_combines_all_errors_with_configured_ErrorMessagesSeparator_together()
+        {
+            var previousErrorMessagesSeparator = Result.ErrorMessagesSeparator;
+
+            Result result1 = Result.Fail("E1");
+            Result result2 = Result.Fail("E2");
+
+            Result.ErrorMessagesSeparator = "{Separator}";
+            Result result = Result.Combine(result1, result2);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("E1{Separator}E2");
+
+            Result.ErrorMessagesSeparator = previousErrorMessagesSeparator;
+        }
+
+        [Fact]
+        public void ErrorMessagesSeparator_Combine_combines_all_collection_errors_with_configured_ErrorMessagesSeparator_together()
+        {
+            var previousErrorMessagesSeparator = Result.ErrorMessagesSeparator;
+
+            IEnumerable<Result> results = new Result[]
+            {
+                Result.Fail("E1"),
+                Result.Fail("E2")
+            };
+
+            Result.ErrorMessagesSeparator = "{Separator}";
+            Result result = results.Combine();
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("E1{Separator}E2");
+
+            Result.ErrorMessagesSeparator = previousErrorMessagesSeparator;
+        }
+
+        [Fact]
         public void Combine_works_with_array_of_Generic_results_success()
         {
             Result<string>[] results = new Result<string>[]{ Result.Ok(""), Result.Ok("") };
