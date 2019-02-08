@@ -393,5 +393,37 @@ namespace CSharpFunctionalExtensions
             IEnumerable<Task<Result<T>>> tasks = await task.ConfigureAwait(continueOnCapturedContext);
             return await tasks.Combine(composer, errorMessageSeparator, continueOnCapturedContext);
         }
+
+        public static async Task<Result> OnSuccessTry(this Task<Result> task, Action action,
+            Func<Exception, string> errorHandler = null,
+            bool continueOnCapturedContext = true)
+        {
+            var result = await task.ConfigureAwait(continueOnCapturedContext);
+            return result.OnSuccessTry(action, errorHandler);
+        }
+        
+        public static async Task<Result<T>> OnSuccessTry<T>(this Task<Result> task, Func<T> func,
+            Func<Exception, string> errorHandler = null,
+            bool continueOnCapturedContext = true)
+        {
+            var result = await task.ConfigureAwait(continueOnCapturedContext);
+            return result.OnSuccessTry(func, errorHandler);
+        }
+        
+        public static async Task<Result> OnSuccessTry<T>(this Task<Result<T>> task, Action<T> action,
+            Func<Exception, string> errorHandler = null,
+            bool continueOnCapturedContext = true)
+        {
+            var result = await task.ConfigureAwait(continueOnCapturedContext);
+            return result.OnSuccessTry(action, errorHandler);
+        }
+        
+        public static async Task<Result<R>> OnSuccessTry<T, R>(this Task<Result<T>> task, Func<T, R> action,
+            Func<Exception, string> errorHandler = null,
+            bool continueOnCapturedContext = true)
+        {
+            var result = await task.ConfigureAwait(continueOnCapturedContext);
+            return result.OnSuccessTry(action, errorHandler);
+        }
     }
 }

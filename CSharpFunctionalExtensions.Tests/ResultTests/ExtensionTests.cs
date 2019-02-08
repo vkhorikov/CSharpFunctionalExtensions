@@ -203,6 +203,42 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.Error.Should().Be("execute action exception");
         }
         
+        [Fact]
+        public void OnSuccessTry_failed_result_execute_action_with_argument_new_failed_result_expected()
+        {
+            var originalResult = Result.Fail<DateTime>("original result error message");
+
+            Result result = originalResult.OnSuccessTry(date => { });
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("original result error message");
+        }
+        
+        [Fact]
+        public void OnSuccessTry_success_result_execute_action_with_argument_success_result_expected()
+        {
+            var originalResult = Result.Ok<byte>(2);
+            bool isExecuted = false;
+
+            Result result = originalResult.OnSuccessTry(val => { isExecuted = true; });
+
+            result.IsSuccess.Should().BeTrue();
+
+            isExecuted.Should().BeTrue();
+        }
+        
+        [Fact]
+        public void OnSuccessTry_success_result_execute_action_with_argument_throw_exception_failed_result_expected()
+        {
+            var originalResult = Result.Ok(2);
+            Action<int> action = val => throw new Exception("execute action exception");
+
+            Result result = originalResult.OnSuccessTry(action);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("execute action exception");
+        }
+        
         private class MyClass
         {
             public string Property { get; set; }

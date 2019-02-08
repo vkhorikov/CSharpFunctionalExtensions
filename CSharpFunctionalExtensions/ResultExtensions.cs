@@ -211,6 +211,13 @@ namespace CSharpFunctionalExtensions
                 : Result.Try(func, errorHandler);
         }
 
+        public static Result OnSuccessTry<T>(this Result<T> result, Action<T> action, Func<Exception, string> errorHandler = null)
+        {
+            return result.IsFailure
+                ? Result.Fail(result.Error)
+                : Result.Try(() => action(result.Value), errorHandler);
+        }
+
         public static Result<R> OnSuccessTry<T, R>(this Result<T> result, Func<T, R> func, Func<Exception, string> errorHandler = null)
         {
             return result.IsFailure
