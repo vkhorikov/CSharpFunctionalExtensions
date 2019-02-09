@@ -308,7 +308,7 @@ namespace CSharpFunctionalExtensions
             
             try
             {
-                var result = await func().ConfigureAwait(true);
+                var result = await func().ConfigureAwait(continueOnCapturedContext);
                 
                 return Ok(result);
             }
