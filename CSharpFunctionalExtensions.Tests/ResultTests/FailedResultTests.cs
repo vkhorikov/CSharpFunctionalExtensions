@@ -34,7 +34,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Action action = () => { MyClass myClass = result.Value; };
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.ShouldThrow<ResultFailedException>();
         }
 
         [Fact]

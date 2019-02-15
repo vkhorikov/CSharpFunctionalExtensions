@@ -21,7 +21,7 @@ namespace CSharpFunctionalExtensions
             get
             {
                 if (IsSuccess)
-                    throw new InvalidOperationException("There is no error message for success.");
+                    throw new ResultSucceededException();
 
                 return _error;
             }
@@ -82,6 +82,10 @@ namespace CSharpFunctionalExtensions
 
     internal static class ResultMessages
     {
+        public static readonly string ErrorIsInaccessibleForSuccess = "There is no Error for a successful result.";
+
+        public static readonly string ValueIsInaccessibleForFailure = "There is no Value for a failed result.";
+
         public static readonly string ErrorObjectIsNotProvidedForFailure =
             "You have tried to create a failure result, but error object appeared to be null, please review the code, generating error object.";
 
@@ -394,7 +398,7 @@ namespace CSharpFunctionalExtensions
             get
             {
                 if (!IsSuccess)
-                    throw new InvalidOperationException("There is no value for failure.");
+                    throw new ResultFailedException();
 
                 return _value;
             }
@@ -465,7 +469,7 @@ namespace CSharpFunctionalExtensions
             get
             {
                 if (!IsSuccess)
-                    throw new InvalidOperationException("There is no value for failure.");
+                    throw new ResultFailedException();
 
                 return _value;
             }
