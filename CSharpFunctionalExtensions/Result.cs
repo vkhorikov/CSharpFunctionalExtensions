@@ -146,9 +146,9 @@ namespace CSharpFunctionalExtensions
             return Create(predicate(), error);
         }
 
-        public static async Task<Result> Create(Func<Task<bool>> predicate, string error, bool continueOnCapturedContext = true)
+        public static async Task<Result> Create(Func<Task<bool>> predicate, string error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            bool isSuccess = await predicate().ConfigureAwait(false);
             return Create(isSuccess, error);
         }
 
@@ -176,9 +176,9 @@ namespace CSharpFunctionalExtensions
             return Create(predicate(), value, error);
         }
         
-        public static async Task<Result<T>> Create<T>(Func<Task<bool>> predicate, T value, string error, bool continueOnCapturedContext = true)
+        public static async Task<Result<T>> Create<T>(Func<Task<bool>> predicate, T value, string error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            bool isSuccess = await predicate().ConfigureAwait(false);
             return Create(isSuccess, value, error);
         }
 
@@ -209,9 +209,9 @@ namespace CSharpFunctionalExtensions
                 : Fail<TValue, TError>(error);
         }
         
-        public static async Task<Result<TValue, TError>> Create<TValue, TError>(Func<Task<bool>> predicate, TValue value, TError error, bool continueOnCapturedContext = true) where TError : class
+        public static async Task<Result<TValue, TError>> Create<TValue, TError>(Func<Task<bool>> predicate, TValue value, TError error) where TError : class
         {
-            bool isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            bool isSuccess = await predicate().ConfigureAwait(false);
             return isSuccess
                 ? Ok<TValue, TError>(value)
                 : Fail<TValue, TError>(error);
@@ -306,13 +306,13 @@ namespace CSharpFunctionalExtensions
             }
         }
         
-        public static async Task<Result<T>> Try<T>(Func<Task<T>> func, Func<Exception, string> errorHandler = null, bool continueOnCapturedContext = true)
+        public static async Task<Result<T>> Try<T>(Func<Task<T>> func, Func<Exception, string> errorHandler = null)
         {
             errorHandler = errorHandler ?? DefaultTryErrorHandler;
             
             try
             {
-                var result = await func().ConfigureAwait(continueOnCapturedContext);
+                var result = await func().ConfigureAwait(false);
                 
                 return Ok(result);
             }
@@ -339,12 +339,12 @@ namespace CSharpFunctionalExtensions
             }
         }
         
-        public static async Task<Result<TValue, TError>> Try<TValue, TError>(Func<Task<TValue>> func, Func<Exception, TError> errorHandler, bool continueOnCapturedContext = true)
+        public static async Task<Result<TValue, TError>> Try<TValue, TError>(Func<Task<TValue>> func, Func<Exception, TError> errorHandler)
             where TError: class
         {
             try
             {
-                var result = await func().ConfigureAwait(continueOnCapturedContext);
+                var result = await func().ConfigureAwait(false);
                 
                 return Ok<TValue, TError>(result);
             }
