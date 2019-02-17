@@ -132,36 +132,15 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<K>> Map<T, K>(this Result<T> result, Func<T, Task<K>> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<K>(result.Error);
+        public static Task<Result<K>> Map<T, K>(this Result<T> result, Func<T, Task<K>> func)
+            => result.OnSuccess(func);
 
-            K value = await func(result.Value).ConfigureAwait(false);
-
-            return Result.Ok(value);
-        }
-
-        public static async Task<Result<K, TError>> Map<T, K, TError>(this Result<T, TError> result,
+        public static Task<Result<K, TError>> Map<T, K, TError>(this Result<T, TError> result,
             Func<T, Task<K>> func) where TError : class
-        {
-            if (result.IsFailure)
-                return Result.Fail<K, TError>(result.Error);
+            => result.OnSuccess(func);
 
-            K value = await func(result.Value).ConfigureAwait(false);
-
-            return Result.Ok<K, TError>(value);
-        }
-
-        public static async Task<Result<T>> Map<T>(this Result result, Func<Task<T>> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<T>(result.Error);
-
-            T value = await func().ConfigureAwait(false);
-
-            return Result.Ok(value);
-        }
+        public static Task<Result<T>> Map<T>(this Result result, Func<Task<T>> func)
+            => result.OnSuccess(func);
 
         public static async Task<Result<T>> OnSuccess<T>(this Result<T> result, Func<T, Task> action)
         {

@@ -91,24 +91,15 @@ namespace CSharpFunctionalExtensions
             return result.Ensure(predicate, errorMessage);
         }
 
-        public static async Task<Result<K>> Map<T, K>(this Task<Result<T>> resultTask, Func<T, K> func)
-        {
-            Result<T> result = await resultTask.ConfigureAwait(false);
-            return result.Map(func);
-        }
+        public static Task<Result<K>> Map<T, K>(this Task<Result<T>> resultTask, Func<T, K> func)
+            => resultTask.OnSuccess(func);
 
-        public static async Task<Result<K, TError>> Map<T, K, TError>(this Task<Result<T, TError>> resultTask,
+        public static Task<Result<K, TError>> Map<T, K, TError>(this Task<Result<T, TError>> resultTask,
             Func<T, K> func) where TError : class
-        {
-            Result<T, TError> result = await resultTask.ConfigureAwait(false);
-            return result.Map(func);
-        }
+            => resultTask.OnSuccess(func);
 
-        public static async Task<Result<T>> Map<T>(this Task<Result> resultTask, Func<T> func)
-        {
-            Result result = await resultTask.ConfigureAwait(false);
-            return result.Map(func);
-        }
+        public static Task<Result<T>> Map<T>(this Task<Result> resultTask, Func<T> func)
+            => resultTask.OnSuccess(func);
 
         public static async Task<Result<T>> OnSuccess<T>(this Task<Result<T>> resultTask, Action<T> action)
         {
