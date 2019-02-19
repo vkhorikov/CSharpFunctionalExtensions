@@ -102,6 +102,7 @@ namespace CSharpFunctionalExtensions
         private static readonly Result OkResult = new Result(false, null);
 
         public static string ErrorMessagesSeparator = ", ";
+        public static bool DefaultConfigureAwait = false;
 
         void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
         {
@@ -148,7 +149,7 @@ namespace CSharpFunctionalExtensions
 
         public static async Task<Result> Create(Func<Task<bool>> predicate, string error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(false);
+            bool isSuccess = await predicate().ConfigureAwait(Result.DefaultConfigureAwait);
             return Create(isSuccess, error);
         }
 
@@ -178,7 +179,7 @@ namespace CSharpFunctionalExtensions
         
         public static async Task<Result<T>> Create<T>(Func<Task<bool>> predicate, T value, string error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(false);
+            bool isSuccess = await predicate().ConfigureAwait(Result.DefaultConfigureAwait);
             return Create(isSuccess, value, error);
         }
 
@@ -211,7 +212,7 @@ namespace CSharpFunctionalExtensions
         
         public static async Task<Result<TValue, TError>> Create<TValue, TError>(Func<Task<bool>> predicate, TValue value, TError error) where TError : class
         {
-            bool isSuccess = await predicate().ConfigureAwait(false);
+            bool isSuccess = await predicate().ConfigureAwait(Result.DefaultConfigureAwait);
             return isSuccess
                 ? Ok<TValue, TError>(value)
                 : Fail<TValue, TError>(error);
@@ -312,7 +313,7 @@ namespace CSharpFunctionalExtensions
             
             try
             {
-                var result = await func().ConfigureAwait(false);
+                var result = await func().ConfigureAwait(Result.DefaultConfigureAwait);
                 
                 return Ok(result);
             }
@@ -344,7 +345,7 @@ namespace CSharpFunctionalExtensions
         {
             try
             {
-                var result = await func().ConfigureAwait(false);
+                var result = await func().ConfigureAwait(Result.DefaultConfigureAwait);
                 
                 return Ok<TValue, TError>(result);
             }
