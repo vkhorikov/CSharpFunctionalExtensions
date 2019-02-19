@@ -143,28 +143,13 @@ namespace CSharpFunctionalExtensions
 
         public static Result<TNewValue, TError> Map<TValue, TNewValue, TError>(this Result<TValue, TError> result,
             Func<TValue, TNewValue> func) where TError : class
-        {
-            if (result.IsFailure)
-                return Result.Fail<TNewValue, TError>(result.Error);
-
-            return Result.Ok<TNewValue, TError>(func(result.Value));
-        }
+            => result.OnSuccess(func);
 
         public static Result<K> Map<T, K>(this Result<T> result, Func<T, K> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<K>(result.Error);
-
-            return Result.Ok(func(result.Value));
-        }
+            => result.OnSuccess(func);
 
         public static Result<T> Map<T>(this Result result, Func<T> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<T>(result.Error);
-
-            return Result.Ok(func());
-        }
+            => result.OnSuccess(func);
 
         public static Result<TValue, TError> OnSuccess<TValue, TError>(this Result<TValue, TError> result,
             Action<TValue> action) where TError : class
@@ -371,14 +356,14 @@ namespace CSharpFunctionalExtensions
         public static Result<IEnumerable<T>> Combine<T>(this IEnumerable<Result<T>> results, string errorMessagesSeparator)
         {
             var data = results as Result<T>[] ?? results.ToArray();
-            
+
             var result = Result.Combine(errorMessagesSeparator, data);
 
             return result.IsSuccess
                 ? Result.Ok(data.Select(e => e.Value))
                 : Result.Fail<IEnumerable<T>>(result.Error);
         }
-        
+
         public static Result<TNew> Combine<T, TNew>(this IEnumerable<Result<T>> results,
             Func<IEnumerable<T>, TNew> composer,
             string errorMessageSeparator)
