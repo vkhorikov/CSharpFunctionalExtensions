@@ -97,11 +97,11 @@ namespace CSharpFunctionalExtensions
             WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> Map<T, K>(this Task<Result<T>> self, Func<T, K> f) =>
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, K> f) =>
             WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> Map<T>(this Task<Result> self, Func<T> f) =>
+        public static Task<Result<T>> MapWithTransactionScope<T>(this Task<Result> self, Func<T> f) =>
             WithTransactionScope(() => self.OnSuccess(f));
 
 
