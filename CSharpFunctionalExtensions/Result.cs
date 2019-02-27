@@ -28,7 +28,7 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerStepThrough]
-        public ResultCommonLogic(bool isFailure, E error)
+        internal ResultCommonLogic(bool isFailure, E error)
         {
             if (isFailure)
             {
@@ -75,26 +75,26 @@ namespace CSharpFunctionalExtensions
             return new ResultCommonLogic(isFailure, error);
         }
 
-        public ResultCommonLogic(bool isFailure, string error) : base(isFailure, error)
+        private ResultCommonLogic(bool isFailure, string error) : base(isFailure, error)
         {
         }
     }
 
     internal static class ResultMessages
     {
-        public static readonly string ErrorIsInaccessibleForSuccess = "There is no Error for a successful result.";
+        public static readonly string ErrorIsInaccessibleForSuccess = "You attempted to access the Error property for a successful result. A successful result has no Error.";
 
-        public static readonly string ValueIsInaccessibleForFailure = "There is no Value for a failed result.";
+        public static readonly string ValueIsInaccessibleForFailure = "You attempted to access the Value property for a failed result. A failed result has no Value.";
 
         public static readonly string ErrorObjectIsNotProvidedForFailure =
-            "You have tried to create a failure result, but error object appeared to be null, please review the code, generating error object.";
+            "You attempted to create a failure result, which must have an error, but a null error object was passed to the constructor.";
 
         public static readonly string ErrorObjectIsProvidedForSuccess =
-            "You have tried to create a success result, but error object was also passed to the constructor, please try to review the code, creating a success result.";
+            "You attempted to create a success result, which cannot have an error, but a non-null error object was passed to the constructor.";
 
-        public static readonly string ErrorMessageIsNotProvidedForFailure = "There must be error message for failure.";
+        public static readonly string ErrorMessageIsNotProvidedForFailure = "You attempted to create a failure result, which must have an error, but a null or empty string was passed to the constructor.";
 
-        public static readonly string ErrorMessageIsProvidedForSuccess = "There should be no error message for success.";
+        public static readonly string ErrorMessageIsProvidedForSuccess = "You attempted to create a success result, which cannot have an error, but a non-null string was passed to the constructor.";
     }
 
     public struct Result : IResult, ISerializable
@@ -245,7 +245,7 @@ namespace CSharpFunctionalExtensions
         {
             List<Result> failedResults = results.Where(x => x.IsFailure).ToList();
 
-            if (!failedResults.Any())
+            if (failedResults.Count == 0)
                 return Ok();
 
             string errorMessage = string.Join(errorMessagesSeparator, failedResults.Select(x => x.Error).ToArray());
