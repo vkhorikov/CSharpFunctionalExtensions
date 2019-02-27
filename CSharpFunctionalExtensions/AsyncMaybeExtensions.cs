@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 
-
 namespace CSharpFunctionalExtensions
 {
     public static class AsyncMaybeExtensions
@@ -12,7 +11,7 @@ namespace CSharpFunctionalExtensions
             return maybe.ToResult(errorMessage);
         }
 
-        public static async Task<Result<T, TError>> ToResult<T, TError>(this Task<Maybe<T>> maybeTask, TError error) where T : class where TError : class
+        public static async Task<Result<T, E>> ToResult<T, E>(this Task<Maybe<T>> maybeTask, E error) where T : class where E : class
         {
             Maybe<T> maybe = await maybeTask.ConfigureAwait(Result.DefaultConfigureAwait);
             return maybe.ToResult(error);

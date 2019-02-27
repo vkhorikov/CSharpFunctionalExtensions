@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 
-
 namespace CSharpFunctionalExtensions
 {
     /// <summary>
@@ -9,17 +8,17 @@ namespace CSharpFunctionalExtensions
     /// </summary>
     public static class AsyncResultExtensionsBothOperands
     {
-        public static async Task<Result<K, TError>> OnSuccess<T, K, TError>(this Task<Result<T, TError>> resultTask,
-            Func<T, Task<K>> func) where TError : class
+        public static async Task<Result<K, E>> OnSuccess<T, K, E>(this Task<Result<T, E>> resultTask,
+            Func<T, Task<K>> func) where E : class
         {
-            Result<T, TError> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
-                return Result.Fail<K, TError>(result.Error);
+                return Result.Fail<K, E>(result.Error);
 
             K value = await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
 
-            return Result.Ok<K, TError>(value);
+            return Result.Ok<K, E>(value);
         }
 
         public static async Task<Result<K>> OnSuccess<T, K>(this Task<Result<T>> resultTask, Func<T, Task<K>> func)
@@ -46,13 +45,13 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(value);
         }
 
-        public static async Task<Result<K, TError>> OnSuccess<T, K, TError>(this Task<Result<T, TError>> resultTask,
-            Func<T, Task<Result<K, TError>>> func) where TError : class
+        public static async Task<Result<K, E>> OnSuccess<T, K, E>(this Task<Result<T, E>> resultTask,
+            Func<T, Task<Result<K, E>>> func) where E : class
         {
-            Result<T, TError> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
-                return Result.Fail<K, TError>(result.Error);
+                return Result.Fail<K, E>(result.Error);
 
             return await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
         }
@@ -77,13 +76,13 @@ namespace CSharpFunctionalExtensions
             return await func().ConfigureAwait(Result.DefaultConfigureAwait);
         }
 
-        public static async Task<Result<K, TError>> OnSuccess<T, K, TError>(this Task<Result<T, TError>> resultTask,
-            Func<Task<Result<K, TError>>> func) where TError : class
+        public static async Task<Result<K, E>> OnSuccess<T, K, E>(this Task<Result<T, E>> resultTask,
+            Func<Task<Result<K, E>>> func) where E : class
         {
-            Result<T, TError> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
-                return Result.Fail<K, TError>(result.Error);
+                return Result.Fail<K, E>(result.Error);
 
             return await func().ConfigureAwait(Result.DefaultConfigureAwait);
         }
@@ -131,16 +130,16 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T, TError>> Ensure<T, TError>(this Task<Result<T, TError>> resultTask,
-            Func<T, Task<bool>> predicate, TError error) where TError : class
+        public static async Task<Result<T, E>> Ensure<T, E>(this Task<Result<T, E>> resultTask,
+            Func<T, Task<bool>> predicate, E error) where E : class
         {
-            Result<T, TError> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
                 return result;
 
             if (!await predicate(result.Value).ConfigureAwait(Result.DefaultConfigureAwait))
-                return Result.Fail<T, TError>(error);
+                return Result.Fail<T, E>(error);
 
             return result;
         }
@@ -158,8 +157,8 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Task<Result<K, TError>> Map<T, K, TError>(this Task<Result<T, TError>> resultTask,
-            Func<T, Task<K>> func) where TError : class
+        public static Task<Result<K, E>> Map<T, K, E>(this Task<Result<T, E>> resultTask,
+            Func<T, Task<K>> func) where E : class
             => resultTask.OnSuccess(func);
 
         public static Task<Result<K>> Map<T, K>(this Task<Result<T>> resultTask, Func<T, Task<K>> func)
@@ -169,10 +168,10 @@ namespace CSharpFunctionalExtensions
             => resultTask.OnSuccess(func);
 
 
-        public static async Task<Result<T, TError>> OnSuccess<T, TError>(this Task<Result<T, TError>> resultTask,
+        public static async Task<Result<T, E>> OnSuccess<T, E>(this Task<Result<T, E>> resultTask,
             Func<T, Task> action)
         {
-            Result<T, TError> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsSuccess)
             {
@@ -218,17 +217,17 @@ namespace CSharpFunctionalExtensions
             return await func(result).ConfigureAwait(Result.DefaultConfigureAwait);
         }
 
-        public static async Task<K> OnBoth<T, K, TError>(this Task<Result<T, TError>> resultTask,
-            Func<Result<T, TError>, Task<K>> func)
+        public static async Task<K> OnBoth<T, K, E>(this Task<Result<T, E>> resultTask,
+            Func<Result<T, E>, Task<K>> func)
         {
-            Result<T, TError> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
             return await func(result).ConfigureAwait(Result.DefaultConfigureAwait);
         }
 
-        public static async Task<Result<T, TError>> OnFailure<T, TError>(this Task<Result<T, TError>> resultTask,
+        public static async Task<Result<T, E>> OnFailure<T, E>(this Task<Result<T, E>> resultTask,
             Func<Task> func)
         {
-            Result<T, TError> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
             {
@@ -274,10 +273,10 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T, TError>> OnFailure<T, TError>(this Task<Result<T, TError>> resultTask,
-            Func<TError, Task> func)
+        public static async Task<Result<T, E>> OnFailure<T, E>(this Task<Result<T, E>> resultTask,
+            Func<E, Task> func)
         {
-            Result<T, TError> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
             {
@@ -287,10 +286,10 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T, TError>> OnFailureCompensate<T, TError>(this Task<Result<T, TError>> resultTask,
-            Func<Task<Result<T, TError>>> func)
+        public static async Task<Result<T, E>> OnFailureCompensate<T, E>(this Task<Result<T, E>> resultTask,
+            Func<Task<Result<T, E>>> func)
         {
-            Result<T, TError> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
                 return await func().ConfigureAwait(Result.DefaultConfigureAwait);
@@ -328,10 +327,10 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T, TError>> OnFailureCompensate<T, TError>(this Task<Result<T, TError>> resultTask,
-            Func<TError, Task<Result<T, TError>>> func)
+        public static async Task<Result<T, E>> OnFailureCompensate<T, E>(this Task<Result<T, E>> resultTask,
+            Func<E, Task<Result<T, E>>> func)
         {
-            Result<T, TError> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
                 return await func(result.Error).ConfigureAwait(Result.DefaultConfigureAwait);

@@ -19,11 +19,11 @@ namespace CSharpFunctionalExtensions
         }
     }
 
-    public class ResultFailureException<TError> : ResultFailureException
+    public class ResultFailureException<E> : ResultFailureException
     {
-        public new TError Error { get; }
+        public new E Error { get; }
 
-        internal ResultFailureException(TError error) : base(ResultMessages.ValueIsInaccessibleForFailure)
+        internal ResultFailureException(E error) : base(ResultMessages.ValueIsInaccessibleForFailure)
         {
             Error = error;
         }

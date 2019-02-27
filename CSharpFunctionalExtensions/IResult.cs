@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace CSharpFunctionalExtensions
+﻿namespace CSharpFunctionalExtensions
 {
     public interface IResult
     {
         bool IsFailure { get; }
-        bool IsSuccess  { get; }
+        bool IsSuccess { get; }
     }
 }
