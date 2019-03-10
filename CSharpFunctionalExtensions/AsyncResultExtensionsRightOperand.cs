@@ -359,7 +359,7 @@ namespace CSharpFunctionalExtensions
             string errorMessageSeparator)
         {
             IEnumerable<Task<Result<T>>> tasks = await task.ConfigureAwait(Result.DefaultConfigureAwait);
-            return await tasks.Combine(composer, errorMessageSeparator);
+            return await tasks.Combine(composer, errorMessageSeparator).ConfigureAwait(Result.DefaultConfigureAwait);
         }
 
         public static async Task<Result> OnSuccessTry(this Task<Result> task, Action action,
