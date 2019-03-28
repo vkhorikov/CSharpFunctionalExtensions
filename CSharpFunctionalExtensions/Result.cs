@@ -414,7 +414,7 @@ namespace CSharpFunctionalExtensions
             _value = value;
         }
 
-        public Result(SerializationInfo info, StreamingContext text)
+        public Result(SerializationInfo info, StreamingContext context)
         {
             bool isFailure = info.GetBoolean("IsFailure");
 
@@ -508,7 +508,7 @@ namespace CSharpFunctionalExtensions
             _value = value;
         }
 
-        public Result(SerializationInfo info, StreamingContext text)
+        public Result(SerializationInfo info, StreamingContext context)
         {
             bool isFailure = info.GetBoolean("IsFailure");
 
