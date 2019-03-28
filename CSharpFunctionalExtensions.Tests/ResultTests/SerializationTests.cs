@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using FluentAssertions;
 using Xunit;
 
@@ -73,6 +75,98 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             serializationInfo
                 .GetValue(nameof(Result<object, SerializationTestObject>.Error), typeof(SerializationTestObject))
                 .Should().Be(errorObject);
+        }
+
+        [Fact]
+        public void Ok()
+        {
+            Result result = Result.Ok();
+            var serialized = Serialize(result);
+
+            Result deserialized = Deserialize<Result>(serialized);
+
+            deserialized.IsSuccess.ShouldBeEquivalentTo(result.IsSuccess);
+            deserialized.IsFailure.ShouldBeEquivalentTo(result.IsFailure);
+        }
+
+        [Fact]
+        public void Fail()
+        {
+            Result result = Result.Fail("test error");
+            var serialized = Serialize(result);
+
+            Result deserialized = Deserialize<Result>(serialized);
+
+            deserialized.IsSuccess.ShouldBeEquivalentTo(result.IsSuccess);
+            deserialized.IsFailure.ShouldBeEquivalentTo(result.IsFailure);
+            deserialized.Error.ShouldBeEquivalentTo(result.Error);
+        }
+
+        [Fact]
+        public void Ok_GenericValue()
+        {
+            Result<string> result = Result.Ok("test value");
+            var serialized = Serialize(result);
+
+            Result<string> deserialized = Deserialize<Result<string>>(serialized);
+
+            deserialized.IsSuccess.ShouldBeEquivalentTo(result.IsSuccess);
+            deserialized.IsFailure.ShouldBeEquivalentTo(result.IsFailure);
+            deserialized.Value.ShouldBeEquivalentTo(result.Value);
+        }
+
+        [Fact]
+        public void Fail_GenericValue()
+        {
+            Result<string> result = Result.Fail<string>("test error");
+            var serialized = Serialize(result);
+
+            Result<string> deserialized = Deserialize<Result<string>>(serialized);
+
+            deserialized.IsSuccess.ShouldBeEquivalentTo(result.IsSuccess);
+            deserialized.IsFailure.ShouldBeEquivalentTo(result.IsFailure);
+            deserialized.Error.ShouldBeEquivalentTo(result.Error);
+        }
+
+        [Fact]
+        public void Ok_GenericValue_GenericError()
+        {
+            Result<int, string> result = Result.Ok<int, string>(123);
+            var serialized = Serialize(result);
+
+            Result<int, string> deserialized = Deserialize<Result<int, string>>(serialized);
+
+            deserialized.IsSuccess.ShouldBeEquivalentTo(result.IsSuccess);
+            deserialized.IsFailure.ShouldBeEquivalentTo(result.IsFailure);
+            deserialized.Value.ShouldBeEquivalentTo(result.Value);
+        }
+
+        [Fact]
+        public void Fail_GenericValue_GenericError()
+        {
+            Result<int, string> result = Result.Fail<int, string>("test error");
+            var serialized = Serialize(result);
+
+            Result<int, string> deserialized = Deserialize<Result<int, string>>(serialized);
+
+            deserialized.IsSuccess.ShouldBeEquivalentTo(result.IsSuccess);
+            deserialized.IsFailure.ShouldBeEquivalentTo(result.IsFailure);
+            deserialized.Error.ShouldBeEquivalentTo(result.Error);
+        }
+
+        public static Stream Serialize(object source)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new MemoryStream();
+            formatter.Serialize(stream, source);
+            return stream;
+        }
+
+        public static T Deserialize<T>(Stream stream)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            stream.Position = 0;
+            return (T)formatter.Deserialize(stream);
         }
     }
 
