@@ -123,7 +123,7 @@ namespace CSharpFunctionalExtensions
             _logic = ResultCommonLogic.Create(isFailure, error);
         }
 
-        public Result(SerializationInfo info, StreamingContext text)
+        public Result(SerializationInfo info, StreamingContext context)
         {
             bool isFailure = info.GetBoolean("IsFailure");
             string error = isFailure ? info.GetString("Error") : null;
