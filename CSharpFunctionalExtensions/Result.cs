@@ -97,6 +97,7 @@ namespace CSharpFunctionalExtensions
         public static readonly string ErrorMessageIsProvidedForSuccess = "You attempted to create a success result, which cannot have an error, but a non-null string was passed to the constructor.";
     }
 
+    [Serializable]
     public struct Result : IResult, ISerializable
     {
         private static readonly Result OkResult = new Result(false, null);
@@ -119,6 +120,14 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         private Result(bool isFailure, string error)
         {
+            _logic = ResultCommonLogic.Create(isFailure, error);
+        }
+
+        public Result(SerializationInfo info, StreamingContext context)
+        {
+            bool isFailure = info.GetBoolean("IsFailure");
+            string error = isFailure ? info.GetString("Error") : null;
+
             _logic = ResultCommonLogic.Create(isFailure, error);
         }
 
@@ -235,7 +244,7 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        /// Returns failure which combined from all failures in the <paramref name="results"/> list. Error messages are separated by <paramref name="errorMessagesSeparator"/>. 
+        /// Returns failure which combined from all failures in the <paramref name="results"/> list. Error messages are separated by <paramref name="errorMessagesSeparator"/>.
         /// If there is no failure returns success.
         /// </summary>
         /// <param name="errorMessagesSeparator">Separator for error messages.</param>
@@ -363,6 +372,7 @@ namespace CSharpFunctionalExtensions
         }
     }
 
+    [Serializable]
     public struct Result<T> : IResult, ISerializable
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -404,6 +414,28 @@ namespace CSharpFunctionalExtensions
             _value = value;
         }
 
+        public Result(SerializationInfo info, StreamingContext context)
+        {
+            bool isFailure = info.GetBoolean("IsFailure");
+
+            string error;
+            T value;
+
+            if (isFailure)
+            {
+                value = default(T);
+                error = info.GetString("Error");
+            }
+            else
+            {
+                value = (T)info.GetValue("Value", typeof(T));
+                error = null;
+            }
+
+            _logic = ResultCommonLogic.Create(isFailure, error);
+            _value = value;
+        }
+
         public static implicit operator Result(Result<T> result)
         {
             if (result.IsSuccess)
@@ -434,6 +466,7 @@ namespace CSharpFunctionalExtensions
         }
     }
 
+    [Serializable]
     public struct Result<T, E> : IResult, ISerializable
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -471,6 +504,28 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         internal Result(bool isFailure, T value, E error)
         {
+            _logic = new ResultCommonLogic<E>(isFailure, error);
+            _value = value;
+        }
+
+        public Result(SerializationInfo info, StreamingContext context)
+        {
+            bool isFailure = info.GetBoolean("IsFailure");
+
+            E error;
+            T value;
+
+            if (isFailure)
+            {
+                value = default(T);
+                error = (E)info.GetValue("Error", typeof(E));
+            }
+            else
+            {
+                value = (T)info.GetValue("Value", typeof(T));
+                error = default(E);
+            }
+
             _logic = new ResultCommonLogic<E>(isFailure, error);
             _value = value;
         }
