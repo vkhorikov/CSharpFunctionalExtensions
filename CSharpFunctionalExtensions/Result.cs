@@ -418,8 +418,8 @@ namespace CSharpFunctionalExtensions
         {
             bool isFailure = info.GetBoolean("IsFailure");
 
-            string error;
             T value;
+            string error;
 
             if (isFailure)
             {
@@ -512,8 +512,8 @@ namespace CSharpFunctionalExtensions
         {
             bool isFailure = info.GetBoolean("IsFailure");
 
-            E error;
             T value;
+            E error;
 
             if (isFailure)
             {

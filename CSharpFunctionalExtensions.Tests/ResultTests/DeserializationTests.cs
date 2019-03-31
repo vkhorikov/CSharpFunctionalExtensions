@@ -70,7 +70,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.Error.ShouldBeEquivalentTo(errorObject);
         }
 
-        public static Stream Serialize(object source)
+        private static Stream Serialize(object source)
         {
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new MemoryStream();
@@ -78,7 +78,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             return stream;
         }
 
-        public static T Deserialize<T>(Stream stream)
+        private static T Deserialize<T>(Stream stream)
         {
             IFormatter formatter = new BinaryFormatter();
             stream.Position = 0;
