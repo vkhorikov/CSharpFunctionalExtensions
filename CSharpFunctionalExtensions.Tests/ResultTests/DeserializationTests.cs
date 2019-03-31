@@ -55,7 +55,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Result<DeserializationTestObject> result = Deserialize<Result<DeserializationTestObject>>(serialized);
 
-            result.Value.Should().Be(language);
+            result.Value.ShouldBeEquivalentTo(language);
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Result<object, DeserializationTestObject> result = Deserialize<Result<object, DeserializationTestObject>>(serialized);
 
-            result.Error.Should().Be(errorObject);
+            result.Error.ShouldBeEquivalentTo(errorObject);
         }
 
         public static Stream Serialize(object source)
