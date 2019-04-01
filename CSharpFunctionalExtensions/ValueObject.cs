@@ -5,7 +5,9 @@ using System.Linq;
 
 namespace CSharpFunctionalExtensions
 {
-    [Obsolete("Use non-generic ValueObject instead: http://bit.ly/vo-new")]
+    /// <summary>
+    /// Use non-generic ValueObject whenever possible: http://bit.ly/vo-new
+    /// </summary>
     public abstract class ValueObject<T>
         where T : ValueObject<T>
     {
