@@ -71,6 +71,7 @@ return _customerRepository.GetById(id)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [Jean-Claude](https://github.com/jcsonder)
  * [Matt Jenkins](https://github.com/space-alien)
  * [Michael Altmann](https://github.com/altmann)
  * [Steven Giesel](https://github.com/linkdotnet)
