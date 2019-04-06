@@ -1,8 +1,8 @@
 ﻿using System;
 
-
 namespace CSharpFunctionalExtensions
 {
+    [Serializable]
     public struct Maybe<T> : IEquatable<Maybe<T>>
     {
         private readonly MaybeValueWrapper _value;
@@ -116,6 +116,7 @@ namespace CSharpFunctionalExtensions
         }
 
 
+        [Serializable]
         private class MaybeValueWrapper
         {
             public MaybeValueWrapper(T value)
