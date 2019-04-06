@@ -52,7 +52,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Serializable]
-        public class MyClass
+        private class MyClass
         {
             public string String { get; set; }
             public int Number { get; set; }

@@ -84,12 +84,12 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             stream.Position = 0;
             return (T)formatter.Deserialize(stream);
         }
-    }
 
-    [Serializable]
-    public class DeserializationTestObject
-    {
-        public string String { get; set; }
-        public int Number { get; set; }
+        [Serializable]
+        private class DeserializationTestObject
+        {
+            public string String { get; set; }
+            public int Number { get; set; }
+        }
     }
 }
