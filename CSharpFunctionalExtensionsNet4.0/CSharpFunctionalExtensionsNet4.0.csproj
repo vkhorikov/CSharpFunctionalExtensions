@@ -4,7 +4,7 @@
     <TargetFramework>net40</TargetFramework>
     <RootNamespace>CSharpFunctionalExtensions</RootNamespace>
     <PackageId>CSharpFunctionalExtensionsNet4.0</PackageId>
-    <PackageVersion>1.18.0</PackageVersion>
+    <PackageVersion>1.18.1</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
     <Description>CSharpFunctionalExtensions - functional extensions for C#.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -13,9 +13,9 @@
     <PackageProjectUrl>https://www.pluralsight.com/courses/csharp-applying-functional-principles</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.18.0</Version>
-    <AssemblyVersion>1.18.0.0</AssemblyVersion>
-    <FileVersion>1.18.0.0</FileVersion>
+    <Version>1.18.1</Version>
+    <AssemblyVersion>1.18.1.0</AssemblyVersion>
+    <FileVersion>1.18.1.0</FileVersion>
     <AssemblyName>CSharpFunctionalExtensions</AssemblyName>
   </PropertyGroup>
 
