@@ -60,7 +60,16 @@ namespace CSharpFunctionalExtensions
             return selector(maybe.Value);
         }
 
-        public static void Execute<T>(this Maybe<T> maybe, Action<T> action)
+        public static Maybe<V> SelectMany<T, U, V>(this Maybe<T> maybe,
+	        Func<T, Maybe<U>> selector,
+	        Func<T, U, V> project)
+        {
+	        return maybe.Unwrap(
+		        x => selector(x).Unwrap(u => project(x, u), Maybe<V>.None),
+		        Maybe<V>.None);
+        }
+		
+		public static void Execute<T>(this Maybe<T> maybe, Action<T> action)
         {
             if (maybe.HasNoValue)
                 return;
