@@ -20,7 +20,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static async Task<Result<K, E>> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<T, Task<K>> func) where E : class
+            Func<T, Task<K>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -49,7 +49,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static async Task<Result<K, E>> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<T, Task<Result<K, E>>> func) where E : class
+            Func<T, Task<Result<K, E>>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -74,7 +74,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static async Task<Result<K, E>> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<Task<Result<K, E>>> func) where E : class
+            Func<Task<Result<K, E>>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -110,7 +110,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static async Task<Result<T, E>> Ensure<T, E>(this Result<T, E> result,
-            Func<T, Task<bool>> predicate, E error) where E : class
+            Func<T, Task<bool>> predicate, E error)
         {
             if (result.IsFailure)
                 return result;
@@ -136,7 +136,7 @@ namespace CSharpFunctionalExtensions
             => result.OnSuccess(func);
 
         public static Task<Result<K, E>> Map<T, K, E>(this Result<T, E> result,
-            Func<T, Task<K>> func) where E : class
+            Func<T, Task<K>> func)
             => result.OnSuccess(func);
 
         public static Task<Result<T>> Map<T>(this Result result, Func<Task<T>> func)

@@ -193,33 +193,33 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerStepThrough]
-        public static Result<T, E> Ok<T, E>(T value) where E : class
+        public static Result<T, E> Ok<T, E>(T value)
         {
             return new Result<T, E>(false, value, default(E));
         }
 
         [DebuggerStepThrough]
-        public static Result<T, E> Fail<T, E>(E error) where E : class
+        public static Result<T, E> Fail<T, E>(E error)
         {
             return new Result<T, E>(true, default(T), error);
         }
 
         [DebuggerStepThrough]
-        public static Result<T, E> Create<T, E>(bool isSuccess, T value, E error) where E : class
+        public static Result<T, E> Create<T, E>(bool isSuccess, T value, E error)
         {
             return isSuccess
                 ? Ok<T, E>(value)
                 : Fail<T, E>(error);
         }
 
-        public static Result<T, E> Create<T, E>(Func<bool> predicate, T value, E error) where E : class
+        public static Result<T, E> Create<T, E>(Func<bool> predicate, T value, E error)
         {
             return predicate()
                 ? Ok<T, E>(value)
                 : Fail<T, E>(error);
         }
 
-        public static async Task<Result<T, E>> Create<T, E>(Func<Task<bool>> predicate, T value, E error) where E : class
+        public static async Task<Result<T, E>> Create<T, E>(Func<Task<bool>> predicate, T value, E error)
         {
             bool isSuccess = await predicate().ConfigureAwait(Result.DefaultConfigureAwait);
             return isSuccess
@@ -330,7 +330,6 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result<T, E> Try<T, E>(Func<T> func, Func<Exception, E> errorHandler)
-            where E : class
         {
             try
             {
@@ -344,7 +343,6 @@ namespace CSharpFunctionalExtensions
         }
 
         public static async Task<Result<T, E>> Try<T, E>(Func<Task<T>> func, Func<Exception, E> errorHandler)
-            where E : class
         {
             try
             {

@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
             return maybe.ToResult(errorMessage);
         }
 
-        public static async Task<Result<T, E>> ToResult<T, E>(this Task<Maybe<T>> maybeTask, E error) where T : class where E : class
+        public static async Task<Result<T, E>> ToResult<T, E>(this Task<Maybe<T>> maybeTask, E error) where T : class
         {
             Maybe<T> maybe = await maybeTask.ConfigureAwait(Result.DefaultConfigureAwait);
             return maybe.ToResult(error);

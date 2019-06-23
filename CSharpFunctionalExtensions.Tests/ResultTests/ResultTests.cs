@@ -8,6 +8,64 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
     public class ResultTests
     {
         [Fact]
+        public void Ok_argument_is_null_Success_result_expected()
+        {
+            Result result = Result.Ok<string>(null);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Fail_argument_is_default_Fail_result_expected()
+        {
+            Result result = Result.Fail<string, int>(0);
+
+            result.IsFailure.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Fail_argument_is_not_default_Fail_result_expected()
+        {
+            Result result = Result.Fail<string, int>(1);
+
+            result.IsFailure.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Fail_argument_is_null_Exception_expected()
+        {
+            var exception = Record.Exception(() =>
+                Result.Fail<string, string>(null));
+            Assert.IsType<ArgumentNullException>(exception);
+        }
+
+        [Fact]
+        public void Create_value_is_null_Success_result_expected()
+        {
+            Result result = Result.Create<string>(true, null, null);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Create_error_is_null_Exception_expected()
+        {
+            var exception = Record.Exception(() =>
+                Result.Create<string, string>(false, null, null));
+
+            Assert.IsType<ArgumentNullException>(exception);
+        }
+
+        [Fact]
+        public void Create_error_is_default_Failure_result_expected()
+        {
+            Result<bool, int> result = Result.Create<bool, int>(false, false, 0);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be(0);
+        }
+
+        [Fact]
         public void Create_argument_is_true_Success_result_expected()
         {
             Result result = Result.Create(true, string.Empty);
