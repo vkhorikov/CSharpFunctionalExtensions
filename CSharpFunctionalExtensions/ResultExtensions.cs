@@ -7,7 +7,7 @@ namespace CSharpFunctionalExtensions
     public static partial class ResultExtensions
     {
         public static Result<K, E> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<T, K> func) where E : class
+            Func<T, K> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -32,7 +32,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result<K, E> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<T, Result<K, E>> func) where E : class
+            Func<T, Result<K, E>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -57,7 +57,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result<K, E> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<Result<K, E>> func) where E : class
+            Func<Result<K, E>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -74,7 +74,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result<K> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<T, Result<K>> func) where E : class
+            Func<T, Result<K>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -83,7 +83,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<T, Result> func) where E : class
+            Func<T, Result> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -108,7 +108,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result<T, E> Ensure<T, E>(this Result<T, E> result,
-            Func<T, bool> predicate, E error) where E : class
+            Func<T, bool> predicate, E error)
         {
             if (result.IsFailure)
                 return result;
@@ -142,7 +142,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result<K, E> Map<T, K, E>(this Result<T, E> result,
-            Func<T, K> func) where E : class
+            Func<T, K> func)
             => result.OnSuccess(func);
 
         public static Result<K> Map<T, K>(this Result<T> result, Func<T, K> func)
@@ -152,7 +152,7 @@ namespace CSharpFunctionalExtensions
             => result.OnSuccess(func);
 
         public static Result<T, E> OnSuccess<T, E>(this Result<T, E> result,
-            Action<T> action) where E : class
+            Action<T> action)
         {
             if (result.IsSuccess)
             {
@@ -226,13 +226,13 @@ namespace CSharpFunctionalExtensions
         }
 
         public static T OnBoth<T, E>(this Result<T, E> result,
-            Func<Result<T, E>, T> func) where E : class
+            Func<Result<T, E>, T> func)
         {
             return func(result);
         }
 
         public static Result<T, E> OnFailure<T, E>(this Result<T, E> result,
-            Action action) where E : class
+            Action action)
         {
             if (result.IsFailure)
             {
@@ -263,7 +263,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result<T, E> OnFailure<T, E>(this Result<T, E> result,
-            Action<E> action) where E : class
+            Action<E> action)
         {
             if (result.IsFailure)
             {
@@ -294,7 +294,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result<T, E> OnFailureCompensate<T, E>(this Result<T, E> result,
-            Func<Result<T, E>> func) where E : class
+            Func<Result<T, E>> func)
         {
             if (result.IsFailure)
                 return func();
@@ -319,7 +319,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Result<T, E> OnFailureCompensate<T, E>(this Result<T, E> result,
-            Func<E, Result<T, E>> func) where E : class
+            Func<E, Result<T, E>> func)
         {
             if (result.IsFailure)
                 return func(result.Error);

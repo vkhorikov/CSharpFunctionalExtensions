@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(maybe.Value);
         }
 
-        public static Result<T, E> ToResult<T, E>(this Maybe<T> maybe, E error) where E : class
+        public static Result<T, E> ToResult<T, E>(this Maybe<T> maybe, E error)
         {
             if (maybe.HasNoValue)
                 return Result.Fail<T, E>(error);

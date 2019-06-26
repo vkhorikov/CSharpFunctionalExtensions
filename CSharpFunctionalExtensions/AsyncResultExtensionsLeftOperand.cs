@@ -9,7 +9,7 @@ namespace CSharpFunctionalExtensions
     public static class AsyncResultExtensionsLeftOperand
     {
         public static async Task<Result<K, E>> OnSuccess<T, K, E>(this Task<Result<T, E>> resultTask,
-            Func<T, K> func) where E : class
+            Func<T, K> func)
         {
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
             return result.OnSuccess(func);
@@ -28,7 +28,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static async Task<Result<K, E>> OnSuccess<T, K, E>(this Task<Result<T, E>> resultTask,
-            Func<T, Result<K, E>> func) where E : class
+            Func<T, Result<K, E>> func)
         {
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
             return result.OnSuccess(func);
@@ -53,7 +53,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static async Task<Result<K, E>> OnSuccess<T, K, E>(this Task<Result<T, E>> resultTask,
-            Func<Result<K, E>> func) where E : class
+            Func<Result<K, E>> func)
         {
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
             return result.OnSuccess(func);
@@ -78,7 +78,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static async Task<Result<T, E>> Ensure<T, E>(this Task<Result<T, E>> resultTask,
-            Func<T, bool> predicate, E error) where E : class
+            Func<T, bool> predicate, E error)
         {
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
             return result.Ensure(predicate, error);
@@ -94,7 +94,7 @@ namespace CSharpFunctionalExtensions
             => resultTask.OnSuccess(func);
 
         public static Task<Result<K, E>> Map<T, K, E>(this Task<Result<T, E>> resultTask,
-            Func<T, K> func) where E : class
+            Func<T, K> func)
             => resultTask.OnSuccess(func);
 
         public static Task<Result<T>> Map<T>(this Task<Result> resultTask, Func<T> func)
@@ -150,7 +150,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static async Task<Result<T, E>> OnFailure<T, E>(this Task<Result<T, E>> resultTask,
-            Action<E> action) where E : class
+            Action<E> action)
         {
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
             return result.OnFailure(action);
@@ -181,7 +181,7 @@ namespace CSharpFunctionalExtensions
         }
 
         public static async Task<Result<T, E>> OnFailureCompensate<T, E>(this Task<Result<T, E>> resultTask,
-            Func<E, Result<T, E>> func) where E : class
+            Func<E, Result<T, E>> func)
         {
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
             return result.OnFailureCompensate(func);

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Xunit;
 
 
@@ -89,6 +90,18 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             var errorInstance = new MyErrorClass();
             Result<MyClass, MyErrorClass> result = maybe.ToResult(errorInstance);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be(errorInstance);
+        }
+
+        [Fact]
+        public void ToResult_with_struct_error_type_returns_custom_failure_if_no_value_with_default_error()
+        {
+            Maybe<MyClass> maybe = null;
+
+            int errorInstance = 0;
+            Result<MyClass, int> result = maybe.ToResult(errorInstance);
 
             result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be(errorInstance);
