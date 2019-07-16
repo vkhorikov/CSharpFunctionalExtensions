@@ -76,5 +76,24 @@ namespace CSharpFunctionalExtensions
 
             action(maybe.Value);
         }
+
+        public static TE Match<TE, T>(this Maybe<T> maybe, Func<T, TE> Some, Func<TE> None)
+        {
+            return maybe.HasValue
+                ? Some(maybe.Value)
+                : None();
+        }
+
+        public static void Match<T>(this Maybe<T> maybe, Action<T> Some, Action None)
+        {
+            if (maybe.HasValue)
+            {
+                Some(maybe.Value);
+            }
+            else
+            {
+                None();
+            }
+        }
     }
 }
