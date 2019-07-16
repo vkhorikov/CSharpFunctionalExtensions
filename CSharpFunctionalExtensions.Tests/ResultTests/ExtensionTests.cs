@@ -239,6 +239,49 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.Error.Should().Be("execute action exception");
         }
         
+
+        [Fact]
+        public void Match_for_Result_of_int_follows_Ok_branch_where_there_is_a_value()
+        {
+            var result = Result.Ok(20);
+
+            result.Match(
+                Ok: (value) => value.Should().Be(20),
+                Failure: (_) => throw new FieldAccessException("Accessed Failure path while result is Ok")
+            );
+        }
+
+        [Fact]
+        public void Match_for_Result_of_int_follows_Failure_branch_where_is_no_value()
+        {
+            var result = Result.Fail<int>("error");
+
+            result.Match(
+                Ok: (_) => throw new FieldAccessException("Accessed Ok path while result is Failure"),
+                Failure: (message) => message.Should().Be("error")
+            );
+        }
+        public void Match_for_empty_Result_follows_Ok_branch_where_there_is_a_value()
+        {
+            var result = Result.Ok();
+
+            result.Match(
+                Ok: () => Assert.True(true),
+                Failure: (_) => throw new FieldAccessException("Accessed Failure path while result is Ok")
+            );
+        }
+
+        [Fact]
+        public void Match_for_empty_Result_follows_Failure_branch_where_is_no_value()
+        {
+            var result = Result.Fail("error");
+
+            result.Match(
+                Ok: () => throw new FieldAccessException("Accessed Ok path while result is Failure"),
+                Failure: (message) => message.Should().Be("error")
+            );
+        }
+
         private class MyClass
         {
             public string Property { get; set; }

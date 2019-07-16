@@ -236,6 +236,27 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             integer.Should().Be(0);
         }
 
+        [Fact]
+        public void Match_follows_some_branch_where_there_is_a_value()
+        {
+            Maybe<MyClass> maybe = new MyClass { IntProperty = 42 };
+
+            maybe.Match(
+                Some: (value) => value.IntProperty.Should().Be(42),
+                None: () => throw new FieldAccessException("Accessed None path while maybe has value")
+            );
+        }
+
+        [Fact]
+        public void Match_follows_none_branch_where_is_no_value()
+        {
+            Maybe<MyClass> maybe = null;
+
+            maybe.Match(
+                Some: (value) => throw new FieldAccessException("Accessed Some path while maybe has no value"),
+                None: () => Assert.True(true)
+            );
+        }
 
         private static Maybe<string> GetPropertyIfExists(MyClass myClass)
         {
