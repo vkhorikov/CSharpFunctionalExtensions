@@ -374,5 +374,43 @@ namespace CSharpFunctionalExtensions
                 ? Result.Ok(composer(result.Value))
                 : Result.Fail<K>(result.Error);
         }
+
+        public static TE Match<TE, T>(this Result<T> result, Func<T, TE> Ok, Func<string, TE> Failure)
+        {
+            return result.IsSuccess
+                ? Ok(result.Value)
+                : Failure(result.Error);
+        }
+
+        public static void Match<T>(this Result<T> result, Action<T> Ok, Action<string> Failure)
+        {
+            if (result.IsSuccess)
+            {
+                Ok(result.Value);
+            }
+            else
+            {
+                Failure(result.Error);
+            }
+        }
+
+        public static TE Match<TE>(this Result result, Func<TE> Ok, Func<string, TE> Failure)
+        {
+            return result.IsSuccess
+                ? Ok()
+                : Failure(result.Error);
+        }
+        
+        public static void Match(this Result result, Action Ok, Action<string> Failure)
+        {
+            if (result.IsSuccess)
+            {
+                Ok();
+            }
+            else
+            {
+                Failure(result.Error);
+            }
+        }
     }
 }
