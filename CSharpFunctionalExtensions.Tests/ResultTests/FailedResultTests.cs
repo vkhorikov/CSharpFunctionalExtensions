@@ -34,7 +34,17 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Action action = () => { MyClass myClass = result.Value; };
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.ShouldThrow<ResultFailureException>();
+        }
+
+        [Fact]
+        public void Cannot_access_Value_property_with_a_generic_error()
+        {
+            Result<MyClass, MyErrorClass> result = Result.Fail<MyClass, MyErrorClass>(new MyErrorClass());
+
+            Action action = () => { MyClass myClass = result.Value; };
+
+            action.ShouldThrow<ResultFailureException<MyErrorClass>>();
         }
 
         [Fact]
@@ -53,6 +63,10 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
 
         private class MyClass
+        {
+        }
+
+        private class MyErrorClass
         {
         }
     }

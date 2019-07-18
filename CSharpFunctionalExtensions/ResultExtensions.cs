@@ -6,13 +6,13 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class ResultExtensions
     {
-        public static Result<TNewValue, TError> OnSuccess<TValue, TNewValue, TError>(this Result<TValue, TError> result,
-            Func<TValue, TNewValue> func) where TError : class
+        public static Result<K, E> OnSuccess<T, K, E>(this Result<T, E> result,
+            Func<T, K> func)
         {
             if (result.IsFailure)
-                return Result.Fail<TNewValue, TError>(result.Error);
+                return Result.Fail<K, E>(result.Error);
 
-            return Result.Ok<TNewValue, TError>(func(result.Value));
+            return Result.Ok<K, E>(func(result.Value));
         }
 
         public static Result<K> OnSuccess<T, K>(this Result<T> result, Func<T, K> func)
@@ -31,11 +31,11 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(func());
         }
 
-        public static Result<TNewValue, TError> OnSuccess<TValue, TNewValue, TError>(this Result<TValue, TError> result,
-            Func<TValue, Result<TNewValue, TError>> func) where TError : class
+        public static Result<K, E> OnSuccess<T, K, E>(this Result<T, E> result,
+            Func<T, Result<K, E>> func)
         {
             if (result.IsFailure)
-                return Result.Fail<TNewValue, TError>(result.Error);
+                return Result.Fail<K, E>(result.Error);
 
             return func(result.Value);
         }
@@ -56,11 +56,11 @@ namespace CSharpFunctionalExtensions
             return func();
         }
 
-        public static Result<TNewValue, TError> OnSuccess<TValue, TNewValue, TError>(this Result<TValue, TError> result,
-            Func<Result<TNewValue, TError>> func) where TError : class
+        public static Result<K, E> OnSuccess<T, K, E>(this Result<T, E> result,
+            Func<Result<K, E>> func)
         {
             if (result.IsFailure)
-                return Result.Fail<TNewValue, TError>(result.Error);
+                return Result.Fail<K, E>(result.Error);
 
             return func();
         }
@@ -73,20 +73,20 @@ namespace CSharpFunctionalExtensions
             return func();
         }
 
-        public static Result<TNewValue> OnSuccess<TValue, TNewValue, TError>(this Result<TValue, TError> result,
-            Func<TValue, Result<TNewValue>> func) where TError : class
+        public static Result<K> OnSuccess<T, K, E>(this Result<T, E> result,
+            Func<T, Result<K>> func)
         {
             if (result.IsFailure)
-                return Result.Fail<TNewValue, TError>(result.Error);
+                return Result.Fail<K, E>(result.Error);
 
             return func(result.Value);
         }
 
-        public static Result OnSuccess<TValue, TNewValue, TError>(this Result<TValue, TError> result,
-            Func<TValue, Result> func) where TError : class
+        public static Result OnSuccess<T, K, E>(this Result<T, E> result,
+            Func<T, Result> func)
         {
             if (result.IsFailure)
-                return Result.Fail<TNewValue, TError>(result.Error);
+                return Result.Fail<K, E>(result.Error);
 
             return func(result.Value);
         }
@@ -107,14 +107,14 @@ namespace CSharpFunctionalExtensions
             return func();
         }
 
-        public static Result<TValue, TError> Ensure<TValue, TError>(this Result<TValue, TError> result,
-            Func<TValue, bool> predicate, TError error) where TError : class
+        public static Result<T, E> Ensure<T, E>(this Result<T, E> result,
+            Func<T, bool> predicate, E error)
         {
             if (result.IsFailure)
                 return result;
 
             if (!predicate(result.Value))
-                return Result.Fail<TValue, TError>(error);
+                return Result.Fail<T, E>(error);
 
             return result;
         }
@@ -141,33 +141,18 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result<TNewValue, TError> Map<TValue, TNewValue, TError>(this Result<TValue, TError> result,
-            Func<TValue, TNewValue> func) where TError : class
-        {
-            if (result.IsFailure)
-                return Result.Fail<TNewValue, TError>(result.Error);
-
-            return Result.Ok<TNewValue, TError>(func(result.Value));
-        }
+        public static Result<K, E> Map<T, K, E>(this Result<T, E> result,
+            Func<T, K> func)
+            => result.OnSuccess(func);
 
         public static Result<K> Map<T, K>(this Result<T> result, Func<T, K> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<K>(result.Error);
-
-            return Result.Ok(func(result.Value));
-        }
+            => result.OnSuccess(func);
 
         public static Result<T> Map<T>(this Result result, Func<T> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<T>(result.Error);
+            => result.OnSuccess(func);
 
-            return Result.Ok(func());
-        }
-
-        public static Result<TValue, TError> OnSuccess<TValue, TError>(this Result<TValue, TError> result,
-            Action<TValue> action) where TError : class
+        public static Result<T, E> OnSuccess<T, E>(this Result<T, E> result,
+            Action<T> action)
         {
             if (result.IsSuccess)
             {
@@ -211,10 +196,17 @@ namespace CSharpFunctionalExtensions
                 : Result.Try(func, errorHandler);
         }
 
-        public static Result<R> OnSuccessTry<T, R>(this Result<T> result, Func<T, R> func, Func<Exception, string> errorHandler = null)
+        public static Result OnSuccessTry<T>(this Result<T> result, Action<T> action, Func<Exception, string> errorHandler = null)
         {
             return result.IsFailure
-                ? Result.Fail<R>(result.Error)
+                ? Result.Fail(result.Error)
+                : Result.Try(() => action(result.Value), errorHandler);
+        }
+
+        public static Result<K> OnSuccessTry<T, K>(this Result<T> result, Func<T, K> func, Func<Exception, string> errorHandler = null)
+        {
+            return result.IsFailure
+                ? Result.Fail<K>(result.Error)
                 : Result.Try(() => func(result.Value), errorHandler);
         }
 
@@ -228,19 +220,19 @@ namespace CSharpFunctionalExtensions
             return func(result);
         }
 
-        public static K OnBoth<T, K, TError>(this Result<T, TError> result, Func<Result<T, TError>, K> func)
+        public static K OnBoth<T, K, E>(this Result<T, E> result, Func<Result<T, E>, K> func)
         {
             return func(result);
         }
 
-        public static TValue OnBoth<TValue, TError>(this Result<TValue, TError> result,
-            Func<Result<TValue, TError>, TValue> func) where TError : class
+        public static T OnBoth<T, E>(this Result<T, E> result,
+            Func<Result<T, E>, T> func)
         {
             return func(result);
         }
 
-        public static Result<TValue, TError> OnFailure<TValue, TError>(this Result<TValue, TError> result,
-            Action action) where TError : class
+        public static Result<T, E> OnFailure<T, E>(this Result<T, E> result,
+            Action action)
         {
             if (result.IsFailure)
             {
@@ -270,8 +262,8 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result<TValue, TError> OnFailure<TValue, TError>(this Result<TValue, TError> result,
-            Action<TError> action) where TError : class
+        public static Result<T, E> OnFailure<T, E>(this Result<T, E> result,
+            Action<E> action)
         {
             if (result.IsFailure)
             {
@@ -301,8 +293,8 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result<TValue, TError> OnFailureCompensate<TValue, TError>(this Result<TValue, TError> result,
-            Func<Result<TValue, TError>> func) where TError : class
+        public static Result<T, E> OnFailureCompensate<T, E>(this Result<T, E> result,
+            Func<Result<T, E>> func)
         {
             if (result.IsFailure)
                 return func();
@@ -326,8 +318,8 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result<TValue, TError> OnFailureCompensate<TValue, TError>(this Result<TValue, TError> result,
-            Func<TError, Result<TValue, TError>> func) where TError : class
+        public static Result<T, E> OnFailureCompensate<T, E>(this Result<T, E> result,
+            Func<E, Result<T, E>> func)
         {
             if (result.IsFailure)
                 return func(result.Error);
@@ -364,23 +356,61 @@ namespace CSharpFunctionalExtensions
         public static Result<IEnumerable<T>> Combine<T>(this IEnumerable<Result<T>> results, string errorMessagesSeparator)
         {
             var data = results as Result<T>[] ?? results.ToArray();
-            
+
             var result = Result.Combine(errorMessagesSeparator, data);
 
             return result.IsSuccess
                 ? Result.Ok(data.Select(e => e.Value))
                 : Result.Fail<IEnumerable<T>>(result.Error);
         }
-        
-        public static Result<TNew> Combine<T, TNew>(this IEnumerable<Result<T>> results,
-            Func<IEnumerable<T>, TNew> composer,
+
+        public static Result<K> Combine<T, K>(this IEnumerable<Result<T>> results,
+            Func<IEnumerable<T>, K> composer,
             string errorMessageSeparator)
         {
             Result<IEnumerable<T>> result = results.Combine(errorMessageSeparator);
 
             return result.IsSuccess
                 ? Result.Ok(composer(result.Value))
-                : Result.Fail<TNew>(result.Error);
+                : Result.Fail<K>(result.Error);
+        }
+
+        public static TE Match<TE, T>(this Result<T> result, Func<T, TE> Ok, Func<string, TE> Failure)
+        {
+            return result.IsSuccess
+                ? Ok(result.Value)
+                : Failure(result.Error);
+        }
+
+        public static void Match<T>(this Result<T> result, Action<T> Ok, Action<string> Failure)
+        {
+            if (result.IsSuccess)
+            {
+                Ok(result.Value);
+            }
+            else
+            {
+                Failure(result.Error);
+            }
+        }
+
+        public static TE Match<TE>(this Result result, Func<TE> Ok, Func<string, TE> Failure)
+        {
+            return result.IsSuccess
+                ? Ok()
+                : Failure(result.Error);
+        }
+        
+        public static void Match(this Result result, Action Ok, Action<string> Failure)
+        {
+            if (result.IsSuccess)
+            {
+                Ok();
+            }
+            else
+            {
+                Failure(result.Error);
+            }
         }
     }
 }

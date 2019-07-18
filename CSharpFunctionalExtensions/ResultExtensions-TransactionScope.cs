@@ -37,107 +37,106 @@ namespace CSharpFunctionalExtensions
         public static Result OnSuccessWithTransactionScope(this Result self, Func<Result> f) =>
             WithTransactionScope(() => self.OnSuccess(f));
 
+
         // Async - Both Operands
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Task<K>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Task<K>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<Task<T>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<Task<T>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Task<Result<K>>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Task<Result<K>>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<Task<Result<T>>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<Task<Result<T>>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Task<Result<K>>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Task<Result<K>>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope<T>(this Task<Result<T>> self, Func<T, Task<Result>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result> OnSuccessWithTransactionScope<T>(this Task<Result<T>> self, Func<T, Task<Result>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope(this Task<Result> self, Func<Task<Result>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result> OnSuccessWithTransactionScope(this Task<Result> self, Func<Task<Result>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
 
         // Async - Left Operands
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, K> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, K> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<T> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<T> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Result<K>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Result<K>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<Result<T>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<Result<T>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Result<K>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Result<K>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope<T>(this Task<Result<T>> self, Func<T, Result> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result> OnSuccessWithTransactionScope<T>(this Task<Result<T>> self, Func<T, Result> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope(this Task<Result> self, Func<Result> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result> OnSuccessWithTransactionScope(this Task<Result> self, Func<Result> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> Map<T, K>(this Task<Result<T>> self, Func<T, K> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, K> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> Map<T>(this Task<Result> self, Func<T> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<T>> MapWithTransactionScope<T>(this Task<Result> self, Func<T> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
 
         // Async - Right Operands
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<T, Task<K>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<T, Task<K>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Result self, Func<Task<T>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Result self, Func<Task<T>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<T, Task<Result<K>>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<T, Task<Result<K>>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Result self, Func<Task<Result<T>>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Result self, Func<Task<Result<T>>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<Task<Result<K>>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<Task<Result<K>>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope<T>(this Result<T> self, Func<T, Task<Result>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result> OnSuccessWithTransactionScope<T>(this Result<T> self, Func<T, Task<Result>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope(this Result self, Func<Task<Result>> f, bool continueOnCapturedContext = true) =>
-            WithTransactionScope(() => self.OnSuccess(f, continueOnCapturedContext));
+        public static Task<Result> OnSuccessWithTransactionScope(this Result self, Func<Task<Result>> f) =>
+            WithTransactionScope(() => self.OnSuccess(f));
 
 
-
-
-        static T WithTransactionScope<T>(Func<T> f)
+        private static T WithTransactionScope<T>(Func<T> f)
             where T : IResult
         {
             using (var trans = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -151,12 +150,12 @@ namespace CSharpFunctionalExtensions
             }
         }
 
-        async static Task<T> WithTransactionScope<T>(Func<Task<T>> f)
+        private async static Task<T> WithTransactionScope<T>(Func<Task<T>> f)
             where T : IResult
         {
             using (var trans = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var result = await f();
+                var result = await f().ConfigureAwait(Result.DefaultConfigureAwait);
                 if (result.IsSuccess)
                 {
                     trans.Complete();

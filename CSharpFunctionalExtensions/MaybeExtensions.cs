@@ -12,12 +12,12 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(maybe.Value);
         }
 
-        public static Result<T, TError> ToResult<T, TError>(this Maybe<T> maybe, TError error) where TError : class
+        public static Result<T, E> ToResult<T, E>(this Maybe<T> maybe, E error)
         {
             if (maybe.HasNoValue)
-                return Result.Fail<T, TError>(error);
+                return Result.Fail<T, E>(error);
 
-            return Result.Ok<T, TError>(maybe.Value);
+            return Result.Ok<T, E>(maybe.Value);
         }
 
         public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = default(T))
@@ -60,12 +60,40 @@ namespace CSharpFunctionalExtensions
             return selector(maybe.Value);
         }
 
-        public static void Execute<T>(this Maybe<T> maybe, Action<T> action)
+        public static Maybe<V> SelectMany<T, U, V>(this Maybe<T> maybe,
+	        Func<T, Maybe<U>> selector,
+	        Func<T, U, V> project)
+        {
+	        return maybe.Unwrap(
+		        x => selector(x).Unwrap(u => project(x, u), Maybe<V>.None),
+		        Maybe<V>.None);
+        }
+		
+		public static void Execute<T>(this Maybe<T> maybe, Action<T> action)
         {
             if (maybe.HasNoValue)
                 return;
 
             action(maybe.Value);
+        }
+
+        public static TE Match<TE, T>(this Maybe<T> maybe, Func<T, TE> Some, Func<TE> None)
+        {
+            return maybe.HasValue
+                ? Some(maybe.Value)
+                : None();
+        }
+
+        public static void Match<T>(this Maybe<T> maybe, Action<T> Some, Action None)
+        {
+            if (maybe.HasValue)
+            {
+                Some(maybe.Value);
+            }
+            else
+            {
+                None();
+            }
         }
     }
 }

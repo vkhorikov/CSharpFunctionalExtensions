@@ -24,8 +24,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void GetObjectData_sets_correct_statuses_on_failure_result()
         {
-            Result okResult = Result.Fail(_errorMessage);
-            ISerializable serializableObject = okResult;
+            Result failResult = Result.Fail(_errorMessage);
+            ISerializable serializableObject = failResult;
 
             var serializationInfo = new SerializationInfo(typeof(Result), new FormatterConverter());
             serializableObject.GetObjectData(serializationInfo, new StreamingContext());
@@ -37,8 +37,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void GetObjectData_adds_message_in_context_on_failure_result()
         {
-            Result okResult = Result.Fail(_errorMessage);
-            ISerializable serializableObject = okResult;
+            Result failResult = Result.Fail(_errorMessage);
+            ISerializable serializableObject = failResult;
 
             var serializationInfo = new SerializationInfo(typeof(Result), new FormatterConverter());
             serializableObject.GetObjectData(serializationInfo, new StreamingContext());

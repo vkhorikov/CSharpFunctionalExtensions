@@ -59,7 +59,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 string error = result.Error;
             };
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.ShouldThrow<ResultSuccessException>();
         }
 
         [Fact]
@@ -72,11 +72,28 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 string error = result.Error;
             };
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.ShouldThrow<ResultSuccessException>();
+        }
+
+        [Fact]
+        public void Cannot_access_Error_generic_error_version()
+        {
+            Result<MyClass, MyErrorClass> result = Result.Ok<MyClass, MyErrorClass>(new MyClass());
+
+            Action action = () =>
+            {
+                MyErrorClass error = result.Error;
+            };
+
+            action.ShouldThrow<ResultSuccessException>();
         }
 
 
         private class MyClass
+        {
+        }
+
+        private class MyErrorClass
         {
         }
     }

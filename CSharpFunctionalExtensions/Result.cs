@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
 {
-    internal class ResultCommonLogic<TError>
+    internal class ResultCommonLogic<E>
     {
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly TError _error;
+        private readonly E _error;
 
-        public TError Error
+        public E Error
         {
             [DebuggerStepThrough]
             get
             {
                 if (IsSuccess)
-                    throw new InvalidOperationException("There is no error message for success.");
+                    throw new ResultSuccessException();
 
                 return _error;
             }
         }
 
         [DebuggerStepThrough]
-        public ResultCommonLogic(bool isFailure, TError error)
+        internal ResultCommonLogic(bool isFailure, E error)
         {
             if (isFailure)
             {
@@ -45,13 +45,13 @@ namespace CSharpFunctionalExtensions
             _error = error;
         }
 
-        public void GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            oInfo.AddValue("IsFailure", IsFailure);
-            oInfo.AddValue("IsSuccess", IsSuccess);
+            info.AddValue("IsFailure", IsFailure);
+            info.AddValue("IsSuccess", IsSuccess);
             if (IsFailure)
             {
-                oInfo.AddValue("Error", Error);
+                info.AddValue("Error", Error);
             }
         }
     }
@@ -75,33 +75,40 @@ namespace CSharpFunctionalExtensions
             return new ResultCommonLogic(isFailure, error);
         }
 
-        public ResultCommonLogic(bool isFailure, string error) : base(isFailure, error)
+        private ResultCommonLogic(bool isFailure, string error) : base(isFailure, error)
         {
         }
     }
 
     internal static class ResultMessages
     {
+        public static readonly string ErrorIsInaccessibleForSuccess = "You attempted to access the Error property for a successful result. A successful result has no Error.";
+
+        public static readonly string ValueIsInaccessibleForFailure = "You attempted to access the Value property for a failed result. A failed result has no Value.";
+
         public static readonly string ErrorObjectIsNotProvidedForFailure =
-            "You have tried to create a failure result, but error object appeared to be null, please review the code, generating error object.";
+            "You attempted to create a failure result, which must have an error, but a null error object was passed to the constructor.";
 
         public static readonly string ErrorObjectIsProvidedForSuccess =
-            "You have tried to create a success result, but error object was also passed to the constructor, please try to review the code, creating a success result.";
+            "You attempted to create a success result, which cannot have an error, but a non-null error object was passed to the constructor.";
 
-        public static readonly string ErrorMessageIsNotProvidedForFailure = "There must be error message for failure.";
+        public static readonly string ErrorMessageIsNotProvidedForFailure = "You attempted to create a failure result, which must have an error, but a null or empty string was passed to the constructor.";
 
-        public static readonly string ErrorMessageIsProvidedForSuccess = "There should be no error message for success.";
+        public static readonly string ErrorMessageIsProvidedForSuccess = "You attempted to create a success result, which cannot have an error, but a non-null string was passed to the constructor.";
     }
 
+    [Serializable]
     public struct Result : IResult, ISerializable
     {
         private static readonly Result OkResult = new Result(false, null);
 
         public static string ErrorMessagesSeparator = ", ";
 
-        void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
+        public static bool DefaultConfigureAwait = false;
+
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            _logic.GetObjectData(oInfo, oContext);
+            _logic.GetObjectData(info, context);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -114,6 +121,14 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         private Result(bool isFailure, string error)
         {
+            _logic = ResultCommonLogic.Create(isFailure, error);
+        }
+
+        Result(SerializationInfo info, StreamingContext context)
+        {
+            bool isFailure = info.GetBoolean("IsFailure");
+            string error = isFailure ? info.GetString("Error") : null;
+
             _logic = ResultCommonLogic.Create(isFailure, error);
         }
 
@@ -142,9 +157,9 @@ namespace CSharpFunctionalExtensions
             return Create(predicate(), error);
         }
 
-        public static async Task<Result> Create(Func<Task<bool>> predicate, string error, bool continueOnCapturedContext = true)
+        public static async Task<Result> Create(Func<Task<bool>> predicate, string error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            bool isSuccess = await predicate().ConfigureAwait(DefaultConfigureAwait);
             return Create(isSuccess, error);
         }
 
@@ -166,51 +181,51 @@ namespace CSharpFunctionalExtensions
                 ? Ok(value)
                 : Fail<T>(error);
         }
-        
+
         public static Result<T> Create<T>(Func<bool> predicate, T value, string error)
         {
             return Create(predicate(), value, error);
         }
-        
-        public static async Task<Result<T>> Create<T>(Func<Task<bool>> predicate, T value, string error, bool continueOnCapturedContext = true)
+
+        public static async Task<Result<T>> Create<T>(Func<Task<bool>> predicate, T value, string error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            bool isSuccess = await predicate().ConfigureAwait(DefaultConfigureAwait);
             return Create(isSuccess, value, error);
         }
 
         [DebuggerStepThrough]
-        public static Result<TValue, TError> Ok<TValue, TError>(TValue value) where TError : class
+        public static Result<T, E> Ok<T, E>(T value)
         {
-            return new Result<TValue, TError>(false, value, default(TError));
+            return new Result<T, E>(false, value, default(E));
         }
 
         [DebuggerStepThrough]
-        public static Result<TValue, TError> Fail<TValue, TError>(TError error) where TError : class
+        public static Result<T, E> Fail<T, E>(E error)
         {
-            return new Result<TValue, TError>(true, default(TValue), error);
+            return new Result<T, E>(true, default(T), error);
         }
 
         [DebuggerStepThrough]
-        public static Result<TValue, TError> Create<TValue, TError>(bool isSuccess, TValue value, TError error) where TError : class
+        public static Result<T, E> Create<T, E>(bool isSuccess, T value, E error)
         {
             return isSuccess
-                ? Ok<TValue, TError>(value)
-                : Fail<TValue, TError>(error);
+                ? Ok<T, E>(value)
+                : Fail<T, E>(error);
         }
-        
-        public static Result<TValue, TError> Create<TValue, TError>(Func<bool> predicate, TValue value, TError error) where TError : class
+
+        public static Result<T, E> Create<T, E>(Func<bool> predicate, T value, E error)
         {
             return predicate()
-                ? Ok<TValue, TError>(value)
-                : Fail<TValue, TError>(error);
+                ? Ok<T, E>(value)
+                : Fail<T, E>(error);
         }
-        
-        public static async Task<Result<TValue, TError>> Create<TValue, TError>(Func<Task<bool>> predicate, TValue value, TError error, bool continueOnCapturedContext = true) where TError : class
+
+        public static async Task<Result<T, E>> Create<T, E>(Func<Task<bool>> predicate, T value, E error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(continueOnCapturedContext);
+            bool isSuccess = await predicate().ConfigureAwait(Result.DefaultConfigureAwait);
             return isSuccess
-                ? Ok<TValue, TError>(value)
-                : Fail<TValue, TError>(error);
+                ? Ok<T, E>(value)
+                : Fail<T, E>(error);
         }
 
         /// <summary>
@@ -230,7 +245,7 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        /// Returns failure which combined from all failures in the <paramref name="results"/> list. Error messages are separated by <paramref name="errorMessagesSeparator"/>. 
+        /// Returns failure which combined from all failures in the <paramref name="results"/> list. Error messages are separated by <paramref name="errorMessagesSeparator"/>.
         /// If there is no failure returns success.
         /// </summary>
         /// <param name="errorMessagesSeparator">Separator for error messages.</param>
@@ -240,7 +255,7 @@ namespace CSharpFunctionalExtensions
         {
             List<Result> failedResults = results.Where(x => x.IsFailure).ToList();
 
-            if (!failedResults.Any())
+            if (failedResults.Count == 0)
                 return Ok();
 
             string errorMessage = string.Join(errorMessagesSeparator, failedResults.Select(x => x.Error).ToArray());
@@ -271,84 +286,74 @@ namespace CSharpFunctionalExtensions
         public static Result Try(Action action, Func<Exception, string> errorHandler = null)
         {
             errorHandler = errorHandler ?? DefaultTryErrorHandler;
-            
+
             try
             {
                 action();
-                
                 return Ok();
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 string message = errorHandler(exc);
-
                 return Fail(message);
             }
         }
-        
+
         public static Result<T> Try<T>(Func<T> func, Func<Exception, string> errorHandler = null)
         {
             errorHandler = errorHandler ?? DefaultTryErrorHandler;
-            
+
             try
             {
                 return Ok(func());
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 string message = errorHandler(exc);
-
                 return Fail<T>(message);
             }
         }
-        
-        public static async Task<Result<T>> Try<T>(Func<Task<T>> func, Func<Exception, string> errorHandler = null, bool continueOnCapturedContext = true)
+
+        public static async Task<Result<T>> Try<T>(Func<Task<T>> func, Func<Exception, string> errorHandler = null)
         {
             errorHandler = errorHandler ?? DefaultTryErrorHandler;
-            
+
             try
             {
-                var result = await func().ConfigureAwait(true);
-                
+                var result = await func().ConfigureAwait(Result.DefaultConfigureAwait);
                 return Ok(result);
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 string message = errorHandler(exc);
-
                 return Fail<T>(message);
             }
         }
-        
-        public static Result<TValue, TError> Try<TValue, TError>(Func<TValue> func, Func<Exception, TError> errorHandler)
-            where TError: class
+
+        public static Result<T, E> Try<T, E>(Func<T> func, Func<Exception, E> errorHandler)
         {
             try
             {
-                return Ok<TValue, TError>(func());
+                return Ok<T, E>(func());
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
-                TError error = errorHandler(exc);
-
-                return Fail<TValue, TError>(error);
+                E error = errorHandler(exc);
+                return Fail<T, E>(error);
             }
         }
-        
-        public static async Task<Result<TValue, TError>> Try<TValue, TError>(Func<Task<TValue>> func, Func<Exception, TError> errorHandler, bool continueOnCapturedContext = true)
-            where TError: class
+
+        public static async Task<Result<T, E>> Try<T, E>(Func<Task<T>> func, Func<Exception, E> errorHandler)
         {
             try
             {
-                var result = await func().ConfigureAwait(continueOnCapturedContext);
-                
-                return Ok<TValue, TError>(result);
+                var result = await func().ConfigureAwait(DefaultConfigureAwait);
+                return Ok<T, E>(result);
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
-                TError error = errorHandler(exc);
-
-                return Fail<TValue, TError>(error);
+                E error = errorHandler(exc);
+                return Fail<T, E>(error);
             }
         }
 
@@ -365,7 +370,8 @@ namespace CSharpFunctionalExtensions
             error = IsFailure ? Error : null;
         }
     }
-    
+
+    [Serializable]
     public struct Result<T> : IResult, ISerializable
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -375,13 +381,13 @@ namespace CSharpFunctionalExtensions
         public bool IsSuccess => _logic.IsSuccess;
         public string Error => _logic.Error;
 
-        void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            _logic.GetObjectData(oInfo, oContext);
+            _logic.GetObjectData(info, context);
 
             if (IsSuccess)
             {
-                oInfo.AddValue("Value", Value);
+                info.AddValue("Value", Value);
             }
         }
 
@@ -394,7 +400,7 @@ namespace CSharpFunctionalExtensions
             get
             {
                 if (!IsSuccess)
-                    throw new InvalidOperationException("There is no value for failure.");
+                    throw new ResultFailureException(Error);
 
                 return _value;
             }
@@ -403,6 +409,28 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         internal Result(bool isFailure, T value, string error)
         {
+            _logic = ResultCommonLogic.Create(isFailure, error);
+            _value = value;
+        }
+
+        Result(SerializationInfo info, StreamingContext context)
+        {
+            bool isFailure = info.GetBoolean("IsFailure");
+
+            T value;
+            string error;
+
+            if (isFailure)
+            {
+                value = default(T);
+                error = info.GetString("Error");
+            }
+            else
+            {
+                value = (T)info.GetValue("Value", typeof(T));
+                error = null;
+            }
+
             _logic = ResultCommonLogic.Create(isFailure, error);
             _value = value;
         }
@@ -437,48 +465,71 @@ namespace CSharpFunctionalExtensions
         }
     }
 
-    public struct Result<TValue, TError> : IResult, ISerializable
+    [Serializable]
+    public struct Result<T, E> : IResult, ISerializable
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ResultCommonLogic<TError> _logic;
+        private readonly ResultCommonLogic<E> _logic;
 
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
-        public TError Error => _logic.Error;
+        public E Error => _logic.Error;
 
-        void ISerializable.GetObjectData(SerializationInfo oInfo, StreamingContext oContext)
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            _logic.GetObjectData(oInfo, oContext);
+            _logic.GetObjectData(info, context);
 
             if (IsSuccess)
             {
-                oInfo.AddValue("Value", Value);
+                info.AddValue("Value", Value);
             }
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly TValue _value;
+        private readonly T _value;
 
-        public TValue Value
+        public T Value
         {
             [DebuggerStepThrough]
             get
             {
                 if (!IsSuccess)
-                    throw new InvalidOperationException("There is no value for failure.");
+                    throw new ResultFailureException<E>(Error);
 
                 return _value;
             }
         }
 
         [DebuggerStepThrough]
-        internal Result(bool isFailure, TValue value, TError error)
+        internal Result(bool isFailure, T value, E error)
         {
-            _logic = new ResultCommonLogic<TError>(isFailure, error);
+            _logic = new ResultCommonLogic<E>(isFailure, error);
             _value = value;
         }
 
-        public static implicit operator Result(Result<TValue, TError> result)
+        Result(SerializationInfo info, StreamingContext context)
+        {
+            bool isFailure = info.GetBoolean("IsFailure");
+
+            T value;
+            E error;
+
+            if (isFailure)
+            {
+                value = default(T);
+                error = (E)info.GetValue("Error", typeof(E));
+            }
+            else
+            {
+                value = (T)info.GetValue("Value", typeof(T));
+                error = default(E);
+            }
+
+            _logic = new ResultCommonLogic<E>(isFailure, error);
+            _value = value;
+        }
+
+        public static implicit operator Result(Result<T, E> result)
         {
             if (result.IsSuccess)
                 return Result.Ok();
@@ -486,12 +537,12 @@ namespace CSharpFunctionalExtensions
                 return Result.Fail(result.Error.ToString());
         }
 
-        public static implicit operator Result<TValue>(Result<TValue, TError> result)
+        public static implicit operator Result<T>(Result<T, E> result)
         {
             if (result.IsSuccess)
                 return Result.Ok(result.Value);
             else
-                return Result.Fail<TValue>(result.Error.ToString());
+                return Result.Fail<T>(result.Error.ToString());
         }
 
         public void Deconstruct(out bool isSuccess, out bool isFailure)
@@ -500,19 +551,19 @@ namespace CSharpFunctionalExtensions
             isFailure = IsFailure;
         }
 
-        public void Deconstruct(out bool isSuccess, out bool isFailure, out TValue value)
+        public void Deconstruct(out bool isSuccess, out bool isFailure, out T value)
         {
             isSuccess = IsSuccess;
             isFailure = IsFailure;
-            value = IsSuccess ? Value : default(TValue);
+            value = IsSuccess ? Value : default(T);
         }
 
-        public void Deconstruct(out bool isSuccess, out bool isFailure, out TValue value, out TError error)
+        public void Deconstruct(out bool isSuccess, out bool isFailure, out T value, out E error)
         {
             isSuccess = IsSuccess;
             isFailure = IsFailure;
-            value = IsSuccess ? Value : default(TValue);
-            error = IsFailure ? Error : default(TError);
+            value = IsSuccess ? Value : default(T);
+            error = IsFailure ? Error : default(E);
         }
     }
 }

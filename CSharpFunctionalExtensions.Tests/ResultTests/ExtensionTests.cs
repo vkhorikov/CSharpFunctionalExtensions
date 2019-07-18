@@ -203,6 +203,85 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.Error.Should().Be("execute action exception");
         }
         
+        [Fact]
+        public void OnSuccessTry_failed_result_execute_action_with_argument_new_failed_result_expected()
+        {
+            var originalResult = Result.Fail<DateTime>("original result error message");
+
+            Result result = originalResult.OnSuccessTry(date => { });
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("original result error message");
+        }
+        
+        [Fact]
+        public void OnSuccessTry_success_result_execute_action_with_argument_success_result_expected()
+        {
+            var originalResult = Result.Ok<byte>(2);
+            bool isExecuted = false;
+
+            Result result = originalResult.OnSuccessTry(val => { isExecuted = true; });
+
+            result.IsSuccess.Should().BeTrue();
+
+            isExecuted.Should().BeTrue();
+        }
+        
+        [Fact]
+        public void OnSuccessTry_success_result_execute_action_with_argument_throw_exception_failed_result_expected()
+        {
+            var originalResult = Result.Ok(2);
+            Action<int> action = val => throw new Exception("execute action exception");
+
+            Result result = originalResult.OnSuccessTry(action);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("execute action exception");
+        }
+        
+
+        [Fact]
+        public void Match_for_Result_of_int_follows_Ok_branch_where_there_is_a_value()
+        {
+            var result = Result.Ok(20);
+
+            result.Match(
+                Ok: (value) => value.Should().Be(20),
+                Failure: (_) => throw new FieldAccessException("Accessed Failure path while result is Ok")
+            );
+        }
+
+        [Fact]
+        public void Match_for_Result_of_int_follows_Failure_branch_where_is_no_value()
+        {
+            var result = Result.Fail<int>("error");
+
+            result.Match(
+                Ok: (_) => throw new FieldAccessException("Accessed Ok path while result is Failure"),
+                Failure: (message) => message.Should().Be("error")
+            );
+        }
+        public void Match_for_empty_Result_follows_Ok_branch_where_there_is_a_value()
+        {
+            var result = Result.Ok();
+
+            result.Match(
+                Ok: () => Assert.True(true),
+                Failure: (_) => throw new FieldAccessException("Accessed Failure path while result is Ok")
+            );
+        }
+
+        [Fact]
+        public void Match_for_empty_Result_follows_Failure_branch_where_is_no_value()
+        {
+            var result = Result.Fail("error");
+
+            result.Match(
+                Ok: () => throw new FieldAccessException("Accessed Ok path while result is Failure"),
+                Failure: (message) => message.Should().Be("error")
+            );
+        }
+
         private class MyClass
         {
             public string Property { get; set; }

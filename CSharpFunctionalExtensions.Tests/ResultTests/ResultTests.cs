@@ -8,6 +8,64 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
     public class ResultTests
     {
         [Fact]
+        public void Ok_argument_is_null_Success_result_expected()
+        {
+            Result result = Result.Ok<string>(null);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Fail_argument_is_default_Fail_result_expected()
+        {
+            Result result = Result.Fail<string, int>(0);
+
+            result.IsFailure.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Fail_argument_is_not_default_Fail_result_expected()
+        {
+            Result result = Result.Fail<string, int>(1);
+
+            result.IsFailure.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Fail_argument_is_null_Exception_expected()
+        {
+            var exception = Record.Exception(() =>
+                Result.Fail<string, string>(null));
+            Assert.IsType<ArgumentNullException>(exception);
+        }
+
+        [Fact]
+        public void Create_value_is_null_Success_result_expected()
+        {
+            Result result = Result.Create<string>(true, null, null);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Create_error_is_null_Exception_expected()
+        {
+            var exception = Record.Exception(() =>
+                Result.Create<string, string>(false, null, null));
+
+            Assert.IsType<ArgumentNullException>(exception);
+        }
+
+        [Fact]
+        public void Create_error_is_default_Failure_result_expected()
+        {
+            Result<bool, int> result = Result.Create<bool, int>(false, false, 0);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be(0);
+        }
+
+        [Fact]
         public void Create_argument_is_true_Success_result_expected()
         {
             Result result = Result.Create(true, string.Empty);
@@ -318,7 +376,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             Func<Task<int>> func = () => Task.FromResult(5);
             
-            var result = await Result.Try(func, continueOnCapturedContext: true);
+            var result = await Result.Try(func);
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(5);
@@ -329,7 +387,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             Func<Task<int>> func = () => Task.FromException<int>(new Exception("func error"));
             
-            var result = await Result.Try(func, continueOnCapturedContext: true);
+            var result = await Result.Try(func);
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("func error");
@@ -341,7 +399,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             Func<Task<int>> func = () => Task.FromException<int>(new Exception("func error"));
             Func<Exception, string> handler = exc => "execute error";
             
-            var result = await Result.Try(func, handler, continueOnCapturedContext: true);
+            var result = await Result.Try(func, handler);
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("execute error");
@@ -352,7 +410,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             Func<Task<string>> func = () => Task.FromResult("execution result");
             
-            var result = await Result.Try(func, exc => new Error(), continueOnCapturedContext: true);
+            var result = await Result.Try(func, exc => new Error());
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be("execution result");
@@ -364,7 +422,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             Func<Task<DateTime>> func = () => Task.FromException<DateTime>(new Exception("func error"));
             var error = new Error();
             
-            var result = await Result.Try(func, exc => error, continueOnCapturedContext: true);
+            var result = await Result.Try(func, exc => error);
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(error);
