@@ -115,6 +115,83 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("predicate result error");
         }
+
+        [Fact]
+        public void CreateFailure_value_is_null_Success_result_expected()
+        {
+            Result result = Result.CreateFailure<string>(false, null, null);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void CreateFailure_error_is_null_Exception_expected()
+        {
+            var exception = Record.Exception(() =>
+                Result.CreateFailure<string, string>(true, null, null));
+
+            Assert.IsType<ArgumentNullException>(exception);
+        }
+
+        [Fact]
+        public void CreateFailure_error_is_default_Failure_result_expected()
+        {
+            Result<bool, int> result = Result.CreateFailure<bool, int>(true, false, 0);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be(0);
+        }
+
+        [Fact]
+        public void CreateFailure_argument_is_false_Success_result_expected()
+        {
+            Result result = Result.CreateFailure(false, string.Empty);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void CreateFailure_argument_is_true_Failure_result_expected()
+        {
+            Result result = Result.CreateFailure(true, "simple result error");
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("simple result error");
+        }
+
+        [Fact]
+        public void CreateFailure_predicate_is_false_Success_result_expected()
+        {
+            Result result = Result.CreateFailure(() => false, string.Empty);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void CreateFailure_predicate_is_true_Failure_result_expected()
+        {
+            Result result = Result.CreateFailure(() => true, "predicate result error");
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("predicate result error");
+        }
+
+        [Fact]
+        public async Task CreateFailure_async_predicate_is_false_Success_result_expected()
+        {
+            Result result = await Result.CreateFailure(() => Task.FromResult(false), string.Empty);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task CreateFailure_async_predicate_is_true_Failure_result_expected()
+        {
+            Result result = await Result.CreateFailure(() => Task.FromResult(true), "predicate result error");
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("predicate result error");
+        }
         
         [Fact]
         public void Create_generic_argument_is_true_Success_result_expected()
@@ -248,7 +325,140 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(error);
         }
-        
+
+        [Fact]
+        public void CreateFailure_generic_argument_is_false_Success_result_expected()
+        {
+            byte val = 7;
+            Result<byte> result = Result.CreateFailure(false, val, string.Empty);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(val);
+        }
+
+        [Fact]
+        public void CreateFailure_generic_argument_is_true_Failure_result_expected()
+        {
+            double val = .56;
+            Result<double> result = Result.CreateFailure(true, val, "simple result error");
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("simple result error");
+        }
+
+        [Fact]
+        public void CreateFailure_generic_predicate_is_false_Success_result_expected()
+        {
+            DateTime val = new DateTime(2000, 1, 1);
+
+            Result<DateTime> result = Result.CreateFailure(() => false, val, string.Empty);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(val);
+        }
+
+        [Fact]
+        public void CreateFailure_generic_predicate_is_true_Failure_result_expected()
+        {
+            string val = "string value";
+
+            Result<string> result = Result.CreateFailure(() => true, val, "predicate result error");
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("predicate result error");
+        }
+
+        [Fact]
+        public async Task CreateFailure_generic_async_predicate_is_false_Success_result_expected()
+        {
+            int val = 42;
+
+            Result<int> result = await Result.CreateFailure(() => Task.FromResult(false), val, string.Empty);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(val);
+        }
+
+        [Fact]
+        public async Task CreateFailure_generic_async_predicate_is_true_Failure_result_expected()
+        {
+            bool val = true;
+
+            Result<bool> result = await Result.CreateFailure(() => Task.FromResult(true), val, "predicate result error");
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("predicate result error");
+        }
+
+
+        [Fact]
+        public void CreateFailure_error_generic_argument_is_false_Success_result_expected()
+        {
+            byte val = 7;
+            Result<byte, Error> result = Result.CreateFailure(false, val, new Error());
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(val);
+        }
+
+        [Fact]
+        public void CreateFailure_error_generic_argument_is_true_Failure_result_expected()
+        {
+            double val = .56;
+            var error = new Error();
+
+            Result<double, Error> result = Result.CreateFailure(true, val, error);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be(error);
+        }
+
+        [Fact]
+        public void CreateFailure_error_generic_predicate_is_false_Success_result_expected()
+        {
+            DateTime val = new DateTime(2000, 1, 1);
+
+            Result<DateTime, Error> result = Result.CreateFailure(() => false, val, new Error());
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(val);
+        }
+
+        [Fact]
+        public void CreateFailure_error_generic_predicate_is_true_Failure_result_expected()
+        {
+            string val = "string value";
+            var error = new Error();
+
+            Result<string, Error> result = Result.CreateFailure(() => true, val, error);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be(error);
+        }
+
+        [Fact]
+        public async Task CreateFailure_error_generic_async_predicate_is_false_Success_result_expected()
+        {
+            int val = 42;
+
+            Result<int, Error> result = await Result.CreateFailure(() => Task.FromResult(false), val, new Error());
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(val);
+        }
+
+        [Fact]
+        public async Task CreateFailure_error_generic_async_predicate_is_true_Failure_result_expected()
+        {
+            bool val = true;
+            var error = new Error();
+
+            Result<bool, Error> result = await Result.CreateFailure(() => Task.FromResult(true), val, error);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be(error);
+        }
+
         [Fact]
         public void Can_work_with_nullable_sructs()
         {
