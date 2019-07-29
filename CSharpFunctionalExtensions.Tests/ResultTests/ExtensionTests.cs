@@ -282,6 +282,60 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             );
         }
 
+        [Fact]
+        public void Match_for_Result_with_non_string_error_follows_Failure_branch_where_is_no_value()
+        {
+            var error = new CustomError {
+                Message = "Error"
+            };
+            var result = Result.Fail<int, CustomError>(error);
+
+            result.Match(
+                Ok: (_) => throw new FieldAccessException("Accessed Ok path while result is Failure"),
+                Failure: (err) => error.Message.Should().Be("Error")
+            );
+        }
+
+        [Fact]
+        public void Match_for_Result_with_non_string_error_returns_value_from_Failure_path()
+        {
+            var error = new CustomError
+            {
+                Message = "Error",
+                Value = 100
+            };
+            var result = Result.Fail<int, CustomError>(error);
+
+            var val = result.Match(
+                Ok: (value) => value,
+                Failure: (err) => err.Value
+            );
+
+            val.Should().Be(100);
+        }
+
+        public void Match_for_Result_with_non_string_error_returns_value_from_Ok_path()
+        {
+            var error = new CustomError
+            {
+                Message = "Error",
+                Value = 100
+            };
+            var result = Result.Ok<int, CustomError>(20);
+
+            var val = result.Match(
+                Ok: (value) => value,
+                Failure: (err) => err.Value
+            );
+
+            val.Should().Be(20);
+        }
+
+        private class CustomError {
+            public string Message { get; set; }
+            public int Value { get; set; }
+        }
+        
         private class MyClass
         {
             public string Property { get; set; }
