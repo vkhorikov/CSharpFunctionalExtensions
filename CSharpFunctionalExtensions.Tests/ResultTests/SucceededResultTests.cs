@@ -31,13 +31,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_create_a_generic_version_with_a_generic_error()
         {
-            var myClass = new MyClass();
-
-            Result<MyClass, MyClass> result = Result.Ok<MyClass, MyClass>(myClass);
-
-            result.IsFailure.Should().Be(false);
-            result.IsSuccess.Should().Be(true);
-            result.Value.Should().Be(myClass);
+            Can_create_a_generic_version_with_a_generic_error_typed<MyErrorClass>();
+            Can_create_a_generic_version_with_a_generic_error_typed<MyErrorStruct>();
         }
 
         [Fact]
@@ -88,12 +83,26 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             action.ShouldThrow<ResultSuccessException>();
         }
 
+        private void Can_create_a_generic_version_with_a_generic_error_typed<E>()
+        {
+            var myClass = new MyClass();
+
+            Result<MyClass, E> result = Result.Ok<MyClass, E>(myClass);
+
+            result.IsFailure.Should().Be(false);
+            result.IsSuccess.Should().Be(true);
+            result.Value.Should().Be(myClass);
+        }
 
         private class MyClass
         {
         }
 
         private class MyErrorClass
+        {
+        }
+
+        private struct MyErrorStruct
         {
         }
     }

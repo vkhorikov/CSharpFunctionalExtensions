@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
+
 namespace CSharpFunctionalExtensions.Tests.ResultTests
 {
     public class FailedResultTests
@@ -47,13 +48,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void Cannot_access_Error_property_with_a_generic_error()
-        {
-            Cannot_access_Error_property_with_a_generic_error_typed<MyErrorClass>();
-            Cannot_access_Error_property_with_a_generic_error_typed<MyErrorStruct>();
-        }
-
-        [Fact]
         public void Cannot_create_without_error_message()
         {
             Action action1 = () => { Result.Fail(null); };
@@ -67,24 +61,12 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             action4.ShouldThrow<ArgumentNullException>();
         }
 
-        private void Cannot_access_Error_property_with_a_generic_error_typed<E>()
-        {
-            Result<MyClass, E> result = Result.Ok<MyClass, E>(new MyClass());
-
-            Action action = () => { E myErrorClass = result.Error; };
-
-            action.ShouldThrow<ResultSuccessException>();
-        }
 
         private class MyClass
         {
         }
 
         private class MyErrorClass
-        {
-        }
-
-        private struct MyErrorStruct
         {
         }
     }
