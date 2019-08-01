@@ -37,7 +37,7 @@ namespace CSharpFunctionalExtensions
             }
             else
             {
-                if (error != null)
+                if (!EqualityComparer<E>.Default.Equals(error, default(E)))
                     throw new ArgumentException(ResultMessages.ErrorObjectIsProvidedForSuccess, nameof(error));
             }
 
