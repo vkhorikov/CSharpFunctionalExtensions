@@ -423,6 +423,13 @@ namespace CSharpFunctionalExtensions
             }
         }
 
+        public Result<TOther> ToResult<TOther>()
+        {
+            return IsSuccess
+                ? Ok(default(TOther))
+                : Fail<TOther>(Error);
+        }
+
         public void Deconstruct(out bool isSuccess, out bool isFailure)
         {
             isSuccess = IsSuccess;
@@ -503,10 +510,21 @@ namespace CSharpFunctionalExtensions
 
         public static implicit operator Result(Result<T> result)
         {
-            if (result.IsSuccess)
-                return Result.Ok();
-            else
-                return Result.Fail(result.Error);
+            return result.ToResult();
+        }
+
+        public Result<TOther> ToResult<TOther>()
+        {
+            return IsSuccess
+                ? Result.Ok(default(TOther))
+                : Result.Fail<TOther>(Error);
+        }
+
+        public Result ToResult()
+        {
+            return IsSuccess
+                ? Result.Ok()
+                : Result.Fail(Error);
         }
 
         public void Deconstruct(out bool isSuccess, out bool isFailure)
