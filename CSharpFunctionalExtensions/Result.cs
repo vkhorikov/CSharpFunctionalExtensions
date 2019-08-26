@@ -435,6 +435,14 @@ namespace CSharpFunctionalExtensions
             isFailure = IsFailure;
             error = IsFailure ? Error : null;
         }
+
+        public Result<T> MapFailure<T>()
+        {
+            if (IsSuccess)
+                throw new InvalidOperationException();
+
+            return Fail<T>(Error);
+        }
     }
 
     [Serializable]
@@ -528,6 +536,22 @@ namespace CSharpFunctionalExtensions
             isFailure = IsFailure;
             value = IsSuccess ? Value : default(T);
             error = IsFailure ? Error : null;
+        }
+
+        public Result<K> MapFailure<K>()
+        {
+            if (IsSuccess)
+                throw new InvalidOperationException();
+
+            return Result.Fail<K>(Error);
+        }
+
+        public Result MapFailure()
+        {
+            if (IsSuccess)
+                throw new InvalidOperationException();
+
+            return Result.Fail(Error);
         }
     }
 
@@ -630,6 +654,14 @@ namespace CSharpFunctionalExtensions
             isFailure = IsFailure;
             value = IsSuccess ? Value : default(T);
             error = IsFailure ? Error : default(E);
+        }
+        
+        public Result<K, E> MapFailure<K>()
+        {
+            if (IsSuccess)
+                throw new InvalidOperationException();
+
+            return Result.Fail<K, E>(Error);
         }
     }
 }
