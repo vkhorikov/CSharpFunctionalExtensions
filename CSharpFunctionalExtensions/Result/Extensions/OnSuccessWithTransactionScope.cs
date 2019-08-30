@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace CSharpFunctionalExtensions
 {
@@ -97,14 +96,6 @@ namespace CSharpFunctionalExtensions
         public static Task<Result> OnSuccessWithTransactionScope(this Task<Result> self, Func<Result> f) =>
             WithTransactionScope(() => self.OnSuccess(f));
 
-        [DebuggerStepThrough]
-        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, K> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
-
-        [DebuggerStepThrough]
-        public static Task<Result<T>> MapWithTransactionScope<T>(this Task<Result> self, Func<T> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
-
 
         // Async - Right Operands
         [DebuggerStepThrough]
@@ -134,35 +125,6 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         public static Task<Result> OnSuccessWithTransactionScope(this Result self, Func<Task<Result>> f) =>
             WithTransactionScope(() => self.OnSuccess(f));
-
-
-        private static T WithTransactionScope<T>(Func<T> f)
-            where T : IResult
-        {
-            using (var trans = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
-                var result = f();
-                if (result.IsSuccess)
-                {
-                    trans.Complete();
-                }
-                return result;
-            }
-        }
-
-        private async static Task<T> WithTransactionScope<T>(Func<Task<T>> f)
-            where T : IResult
-        {
-            using (var trans = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
-                var result = await f().ConfigureAwait(Result.DefaultConfigureAwait);
-                if (result.IsSuccess)
-                {
-                    trans.Complete();
-                }
-                return result;
-            }
-        }
     }
 }
 #endif

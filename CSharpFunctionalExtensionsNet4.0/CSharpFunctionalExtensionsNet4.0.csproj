@@ -24,12 +24,17 @@
     <Compile Include="..\CSharpFunctionalExtensions\Maybe\Maybe.cs" Link="Maybe\Maybe.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Maybe\MaybeExtensions.cs" Link="Maybe\MaybeExtensions.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Exceptions.cs" Link="Result\Exceptions.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Combine.cs" Link="Result\Extensions\Combine.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Ensure.cs" Link="Result\Extensions\Ensure.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Map.cs" Link="Result\Extensions\Map.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Match.cs" Link="Result\Extensions\Match.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnBoth.cs" Link="Result\Extensions\OnBoth.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnFailure.cs" Link="Result\Extensions\OnFailure.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnFailureCompensate.cs" Link="Result\Extensions\OnFailureCompensate.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccess.cs" Link="Result\Extensions\OnSuccess.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessTry.cs" Link="Result\Extensions\OnSuccessTry.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\IResult.cs" Link="Result\IResult.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Result.cs" Link="Result\Result.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\AsyncResultExtensionsBothOperands.cs" Link="Result\Extensions\AsyncResultExtensionsBothOperands.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\AsyncResultExtensionsLeftOperand.cs" Link="Result\Extensions\AsyncResultExtensionsLeftOperand.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\AsyncResultExtensionsRightOperand.cs" Link="Result\Extensions\AsyncResultExtensionsRightOperand.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\ResultExtensions.cs" Link="Result\Extensions\ResultExtensions.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\ValueObject\ValueObject.cs" Link="ValueObject\ValueObject.cs" />
   </ItemGroup>
 
