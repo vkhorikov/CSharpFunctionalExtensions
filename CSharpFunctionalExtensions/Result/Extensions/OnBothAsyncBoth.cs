@@ -5,23 +5,16 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class AsyncResultExtensionsBothOperands
     {
-        public static async Task<T> OnBoth<T>(this Task<Result> resultTask, Func<Result, Task<T>> func)
-        {
-            Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
-            return await func(result).ConfigureAwait(Result.DefaultConfigureAwait);
-        }
+        [Obsolete("Use Finally() instead.")]
+        public static Task<T> OnBoth<T>(this Task<Result> resultTask, Func<Result, Task<T>> func)
+            => Finally(resultTask, func);
 
-        public static async Task<K> OnBoth<T, K>(this Task<Result<T>> resultTask, Func<Result<T>, Task<K>> func)
-        {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
-            return await func(result).ConfigureAwait(Result.DefaultConfigureAwait);
-        }
+        [Obsolete("Use Finally() instead.")]
+        public static Task<K> OnBoth<T, K>(this Task<Result<T>> resultTask, Func<Result<T>, Task<K>> func)
+            => Finally(resultTask, func);
 
-        public static async Task<K> OnBoth<T, K, E>(this Task<Result<T, E>> resultTask,
-            Func<Result<T, E>, Task<K>> func)
-        {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
-            return await func(result).ConfigureAwait(Result.DefaultConfigureAwait);
-        }
+        [Obsolete("Use Finally() instead.")]
+        public static Task<K> OnBoth<T, K, E>(this Task<Result<T, E>> resultTask, Func<Result<T, E>, Task<K>> func)
+            => Finally(resultTask, func);
     }
 }

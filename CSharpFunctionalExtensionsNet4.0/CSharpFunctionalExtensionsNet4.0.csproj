@@ -30,6 +30,10 @@
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\EnsureAsyncBoth.cs" Link="Result\Extensions\EnsureAsyncBoth.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\EnsureAsyncLeft.cs" Link="Result\Extensions\EnsureAsyncLeft.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\EnsureAsyncRight.cs" Link="Result\Extensions\EnsureAsyncRight.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Finally.cs" Link="Result\Extensions\Finally.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\FinallyAsyncBoth.cs" Link="Result\Extensions\FinallyAsyncBoth.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\FinallyAsyncLeft.cs" Link="Result\Extensions\FinallyAsyncLeft.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\FinallyAsyncRight.cs" Link="Result\Extensions\FinallyAsyncRight.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Map.cs" Link="Result\Extensions\Map.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\MapAsyncBoth.cs" Link="Result\Extensions\MapAsyncBoth.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\MapAsyncLeft.cs" Link="Result\Extensions\MapAsyncLeft.cs" />

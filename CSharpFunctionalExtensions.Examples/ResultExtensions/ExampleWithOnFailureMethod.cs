@@ -16,7 +16,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .OnSuccess(
                     customer => database.Save(customer)
                         .OnFailure(() => paymentGateway.RollbackLastTransaction()))
-                .OnBoth(result => result.IsSuccess ? "OK" : result.Error);
+                .Finally(result => result.IsSuccess ? "OK" : result.Error);
         }
 
         private Maybe<Customer> GetById(long id)

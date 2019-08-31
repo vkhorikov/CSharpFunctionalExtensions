@@ -13,7 +13,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
                 .Tap(customer => customer.Promote())
                 .OnSuccess(customer => gateway.SendPromotionNotification(customer.Email))
-                .OnBoth(result => result.IsSuccess ? "Ok" : result.Error);
+                .Finally(result => result.IsSuccess ? "Ok" : result.Error);
         }
 
         public async Task<string> Promote_with_async_methods_in_the_beginning_and_in_the_middle_of_the_chain(long id)
@@ -25,7 +25,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
                 .Tap(customer => customer.PromoteAsync())
                 .OnSuccess(customer => gateway.SendPromotionNotificationAsync(customer.Email))
-                .OnBoth(result => result.IsSuccess ? "Ok" : result.Error);
+                .Finally(result => result.IsSuccess ? "Ok" : result.Error);
         }
 
         public async Task<string> Promote_with_async_methods_in_the_beginning_and_in_the_middle_of_the_chain_using_compensate(long id)
@@ -40,7 +40,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Tap(customer => Log("Manager approved promotion"))
                 .Tap(customer => customer.PromoteAsync())
                 .OnSuccess(customer => gateway.SendPromotionNotificationAsync(customer.Email))
-                .OnBoth(result => result.IsSuccess ? "Ok" : result.Error);
+                .Finally(result => result.IsSuccess ? "Ok" : result.Error);
         }
 
         void Log(string message)
