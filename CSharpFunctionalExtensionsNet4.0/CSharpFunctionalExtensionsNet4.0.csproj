@@ -51,10 +51,10 @@
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnFailureCompensateAsyncBoth.cs" Link="Result\Extensions\OnFailureCompensateAsyncBoth.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnFailureCompensateAsyncLeft.cs" Link="Result\Extensions\OnFailureCompensateAsyncLeft.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnFailureCompensateAsyncRight.cs" Link="Result\Extensions\OnFailureCompensateAsyncRight.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccess.cs" Link="Result\Extensions\OnSuccess.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessAsyncBoth.cs" Link="Result\Extensions\OnSuccessAsyncBoth.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessAsyncLeft.cs" Link="Result\Extensions\OnSuccessAsyncLeft.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessAsyncRight.cs" Link="Result\Extensions\OnSuccessAsyncRight.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Map.cs" Link="Result\Extensions\Map.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\MapAsyncBoth.cs" Link="Result\Extensions\MapAsyncBoth.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\MapAsyncLeft.cs" Link="Result\Extensions\MapAsyncLeft.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\MapAsyncRight.cs" Link="Result\Extensions\MapAsyncRight.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessTry.cs" Link="Result\Extensions\OnSuccessTry.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessTryAsyncLeft.cs" Link="Result\Extensions\OnSuccessTryAsyncLeft.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Tap.cs" Link="Result\Extensions\Tap.cs" />
