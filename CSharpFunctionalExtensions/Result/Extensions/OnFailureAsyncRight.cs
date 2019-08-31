@@ -45,8 +45,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T, E>> OnFailure<T, E>(this Result<T, E> result,
-            Func<E, Task> func)
+        public static async Task<Result<T, E>> OnFailure<T, E>(this Result<T, E> result, Func<E, Task> func)
         {
             if (result.IsFailure)
             {

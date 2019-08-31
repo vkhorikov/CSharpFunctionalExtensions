@@ -275,7 +275,7 @@ namespace CSharpFunctionalExtensions
         public static Result<T, E> CreateFailure<T, E>(bool isFailure, T value, E error)
         {
             return isFailure
-                ? Fail<T, E>(error) 
+                ? Fail<T, E>(error)
                 : Ok<T, E>(value);
         }
 
@@ -311,7 +311,8 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        /// Returns failure which combined from all failures in the <paramref name="results"/> list. Error messages are separated by <paramref name="errorMessagesSeparator"/>.
+        /// Returns failure which combined from all failures in the <paramref name="results"/> list.
+        /// Error messages are separated by <paramref name="errorMessagesSeparator"/>.
         /// If there is no failure returns success.
         /// </summary>
         /// <param name="errorMessagesSeparator">Separator for error messages.</param>

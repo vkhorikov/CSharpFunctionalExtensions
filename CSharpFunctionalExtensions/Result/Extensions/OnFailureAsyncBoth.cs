@@ -5,8 +5,7 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class AsyncResultExtensionsBothOperands
     {
-        public static async Task<Result<T, E>> OnFailure<T, E>(this Task<Result<T, E>> resultTask,
-            Func<Task> func)
+        public static async Task<Result<T, E>> OnFailure<T, E>(this Task<Result<T, E>> resultTask, Func<Task> func)
         {
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
@@ -54,8 +53,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T, E>> OnFailure<T, E>(this Task<Result<T, E>> resultTask,
-            Func<E, Task> func)
+        public static async Task<Result<T, E>> OnFailure<T, E>(this Task<Result<T, E>> resultTask, Func<E, Task> func)
         {
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 

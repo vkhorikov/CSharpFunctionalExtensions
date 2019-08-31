@@ -4,8 +4,7 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class ResultExtensions
     {
-        public static Result<T, E> Ensure<T, E>(this Result<T, E> result,
-            Func<T, bool> predicate, E error)
+        public static Result<T, E> Ensure<T, E>(this Result<T, E> result, Func<T, bool> predicate, E error)
         {
             if (result.IsFailure)
                 return result;

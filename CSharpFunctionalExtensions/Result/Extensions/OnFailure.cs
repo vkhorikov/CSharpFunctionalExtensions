@@ -4,8 +4,7 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class ResultExtensions
     {
-        public static Result<T, E> OnFailure<T, E>(this Result<T, E> result,
-            Action action)
+        public static Result<T, E> OnFailure<T, E>(this Result<T, E> result, Action action)
         {
             if (result.IsFailure)
             {
@@ -35,8 +34,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result<T, E> OnFailure<T, E>(this Result<T, E> result,
-            Action<E> action)
+        public static Result<T, E> OnFailure<T, E>(this Result<T, E> result, Action<E> action)
         {
             if (result.IsFailure)
             {

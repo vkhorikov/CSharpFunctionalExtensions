@@ -38,8 +38,7 @@ namespace CSharpFunctionalExtensions
                 : Result.Fail<IEnumerable<T>>(result.Error);
         }
 
-        public static Result<K> Combine<T, K>(this IEnumerable<Result<T>> results,
-            Func<IEnumerable<T>, K> composer,
+        public static Result<K> Combine<T, K>(this IEnumerable<Result<T>> results, Func<IEnumerable<T>, K> composer,
             string errorMessageSeparator)
         {
             Result<IEnumerable<T>> result = results.Combine(errorMessageSeparator);
@@ -49,8 +48,7 @@ namespace CSharpFunctionalExtensions
                 : Result.Fail<K>(result.Error);
         }
 
-        public static Result<K> Combine<T, K>(this IEnumerable<Result<T>> results,
-            Func<IEnumerable<T>, K> composer)
+        public static Result<K> Combine<T, K>(this IEnumerable<Result<T>> results, Func<IEnumerable<T>, K> composer)
         {
             Result<IEnumerable<T>> result = results.Combine();
 

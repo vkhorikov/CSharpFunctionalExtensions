@@ -18,8 +18,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T, E>> Ensure<T, E>(this Task<Result<T, E>> resultTask,
-            Func<T, Task<bool>> predicate, E error)
+        public static async Task<Result<T, E>> Ensure<T, E>(this Task<Result<T, E>> resultTask, Func<T, Task<bool>> predicate, E error)
         {
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
