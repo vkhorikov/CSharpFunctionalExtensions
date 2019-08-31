@@ -25,7 +25,7 @@
     <Compile Include="..\CSharpFunctionalExtensions\Maybe\MaybeExtensions.cs" Link="Maybe\MaybeExtensions.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Exceptions.cs" Link="Result\Exceptions.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Combine.cs" Link="Result\Extensions\Combine.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\CombineAsyncRight.cs" Link="Result\Extensions\CombineAsyncRight.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\CombineAsyncLeft.cs" Link="Result\Extensions\CombineAsyncLeft.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Ensure.cs" Link="Result\Extensions\Ensure.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\EnsureAsyncBoth.cs" Link="Result\Extensions\EnsureAsyncBoth.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\EnsureAsyncLeft.cs" Link="Result\Extensions\EnsureAsyncLeft.cs" />

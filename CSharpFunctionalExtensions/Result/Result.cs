@@ -318,34 +318,34 @@ namespace CSharpFunctionalExtensions
         /// <param name="errorMessagesSeparator">Separator for error messages.</param>
         /// <param name="results">List of results.</param>
         [DebuggerStepThrough]
-        public static Result Combine(string errorMessagesSeparator, params Result[] results)
+        public static Result Combine(IEnumerable<Result> results, string errorMessagesSeparator = null)
         {
             List<Result> failedResults = results.Where(x => x.IsFailure).ToList();
 
             if (failedResults.Count == 0)
                 return Ok();
 
-            string errorMessage = string.Join(errorMessagesSeparator, failedResults.Select(x => x.Error).ToArray());
+            string errorMessage = string.Join(errorMessagesSeparator ?? ErrorMessagesSeparator, failedResults.Select(x => x.Error));
             return Fail(errorMessage);
         }
 
         [DebuggerStepThrough]
         public static Result Combine(params Result[] results)
-        {
-            return Combine(ErrorMessagesSeparator, results);
-        }
+            => Combine(results, ErrorMessagesSeparator);
 
         [DebuggerStepThrough]
         public static Result Combine<T>(params Result<T>[] results)
-        {
-            return Combine(ErrorMessagesSeparator, results);
-        }
+            => Combine(results, ErrorMessagesSeparator);
 
         [DebuggerStepThrough]
         public static Result Combine<T>(string errorMessagesSeparator, params Result<T>[] results)
+            => Combine(results, errorMessagesSeparator);
+
+        [DebuggerStepThrough]
+        public static Result Combine<T>(IEnumerable<Result<T>> results, string errorMessagesSeparator = null)
         {
-            Result[] untyped = results.Select(result => (Result)result).ToArray();
-            return Combine(errorMessagesSeparator, untyped);
+            var untyped = results.Select(result => (Result)result);
+            return Combine(untyped, errorMessagesSeparator);
         }
 
         private static readonly Func<Exception, string> DefaultTryErrorHandler = exc => exc.Message;
