@@ -379,8 +379,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             var result = Result.Ok(20);
 
             result.Match(
-                Ok: (value) => value.Should().Be(20),
-                Failure: (_) => throw new FieldAccessException("Accessed Failure path while result is Ok")
+                onSuccess: (value) => value.Should().Be(20),
+                onFailure: (_) => throw new FieldAccessException("Accessed Failure path while result is Ok")
             );
         }
 
@@ -390,17 +390,19 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             var result = Result.Fail<int>("error");
 
             result.Match(
-                Ok: (_) => throw new FieldAccessException("Accessed Ok path while result is Failure"),
-                Failure: (message) => message.Should().Be("error")
+                onSuccess: (_) => throw new FieldAccessException("Accessed Ok path while result is Failure"),
+                onFailure: (message) => message.Should().Be("error")
             );
         }
+
+        [Fact]
         public void Match_for_empty_Result_follows_Ok_branch_where_there_is_a_value()
         {
             var result = Result.Ok();
 
             result.Match(
-                Ok: () => Assert.True(true),
-                Failure: (_) => throw new FieldAccessException("Accessed Failure path while result is Ok")
+                onSuccess: () => Assert.True(true),
+                onFailure: (_) => throw new FieldAccessException("Accessed Failure path while result is Ok")
             );
         }
 
@@ -410,8 +412,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             var result = Result.Fail("error");
 
             result.Match(
-                Ok: () => throw new FieldAccessException("Accessed Ok path while result is Failure"),
-                Failure: (message) => message.Should().Be("error")
+                onSuccess: () => throw new FieldAccessException("Accessed Ok path while result is Failure"),
+                onFailure: (message) => message.Should().Be("error")
             );
         }
 
@@ -424,8 +426,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             var result = Result.Fail<int, CustomError>(error);
 
             result.Match(
-                Ok: (_) => throw new FieldAccessException("Accessed Ok path while result is Failure"),
-                Failure: (err) => error.Message.Should().Be("Error")
+                onSuccess: (_) => throw new FieldAccessException("Accessed Ok path while result is Failure"),
+                onFailure: (err) => error.Message.Should().Be("Error")
             );
         }
 
@@ -440,13 +442,14 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             var result = Result.Fail<int, CustomError>(error);
 
             var val = result.Match(
-                Ok: (value) => value,
-                Failure: (err) => err.Value
+                onSuccess: (value) => value,
+                onFailure: (err) => err.Value
             );
 
             val.Should().Be(100);
         }
 
+        [Fact]
         public void Match_for_Result_with_non_string_error_returns_value_from_Ok_path()
         {
             var error = new CustomError
@@ -457,8 +460,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             var result = Result.Ok<int, CustomError>(20);
 
             var val = result.Match(
-                Ok: (value) => value,
-                Failure: (err) => err.Value
+                onSuccess: (value) => value,
+                onFailure: (err) => err.Value
             );
 
             val.Should().Be(20);
