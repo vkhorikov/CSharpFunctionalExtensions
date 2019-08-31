@@ -56,7 +56,7 @@
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessAsyncLeft.cs" Link="Result\Extensions\OnSuccessAsyncLeft.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessAsyncRight.cs" Link="Result\Extensions\OnSuccessAsyncRight.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessTry.cs" Link="Result\Extensions\OnSuccessTry.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessTryAsyncRight.cs" Link="Result\Extensions\OnSuccessTryAsyncRight.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessTryAsyncLeft.cs" Link="Result\Extensions\OnSuccessTryAsyncLeft.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Tap.cs" Link="Result\Extensions\Tap.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\TapAsyncBoth.cs" Link="Result\Extensions\TapAsyncBoth.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\TapAsyncLeft.cs" Link="Result\Extensions\TapAsyncLeft.cs" />

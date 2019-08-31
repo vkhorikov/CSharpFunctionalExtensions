@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
 {
-    public static partial class AsyncResultExtensionsRightOperand
+    public static partial class AsyncResultExtensionsLeftOperand
     {
         public static async Task<Result> OnSuccessTry(this Task<Result> task, Action action,
             Func<Exception, string> errorHandler = null)
