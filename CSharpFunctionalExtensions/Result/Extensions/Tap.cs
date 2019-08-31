@@ -44,7 +44,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result Tap<K>(this Result result, Func<K> func)
+        public static Result Tap<_>(this Result result, Func<_> func)
         {
             if (result.IsSuccess)
                 func();
@@ -52,7 +52,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result<T> Tap<T, K>(this Result<T> result, Func<K> func)
+        public static Result<T> Tap<T, _>(this Result<T> result, Func<_> func)
         {
             if (result.IsSuccess)
                 func();
@@ -60,7 +60,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result<T> Tap<T, K>(this Result<T> result, Func<T, K> func)
+        public static Result<T> Tap<T, _>(this Result<T> result, Func<T, _> func)
         {
             if (result.IsSuccess)
                 func(result.Value);
@@ -68,7 +68,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result<T, E> Tap<T, K, E>(this Result<T, E> result, Func<K> func)
+        public static Result<T, E> Tap<T, E, _>(this Result<T, E> result, Func<_> func)
         {
             if (result.IsSuccess)
                 func();
@@ -76,7 +76,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static Result<T, E> Tap<T, K, E>(this Result<T, E> result, Func<T, K> func)
+        public static Result<T, E> Tap<T, E, _>(this Result<T, E> result, Func<T, _> func)
         {
             if (result.IsSuccess)
                 func(result.Value);
