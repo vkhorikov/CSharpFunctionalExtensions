@@ -53,6 +53,10 @@
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessAsyncRight.cs" Link="Result\Extensions\OnSuccessAsyncRight.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessTry.cs" Link="Result\Extensions\OnSuccessTry.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\OnSuccessTryAsyncRight.cs" Link="Result\Extensions\OnSuccessTryAsyncRight.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Tap.cs" Link="Result\Extensions\Tap.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\TapAsyncBoth.cs" Link="Result\Extensions\TapAsyncBoth.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\TapAsyncLeft.cs" Link="Result\Extensions\TapAsyncLeft.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\TapAsyncRight.cs" Link="Result\Extensions\TapAsyncRight.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\IResult.cs" Link="Result\IResult.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Result.cs" Link="Result\Result.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\ValueObject\ValueObject.cs" Link="ValueObject\ValueObject.cs" />
