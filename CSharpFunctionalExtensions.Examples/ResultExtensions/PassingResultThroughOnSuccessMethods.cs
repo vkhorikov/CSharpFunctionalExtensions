@@ -8,15 +8,15 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
         public void Example1()
         {
             Result<DateTime> result = FunctionInt()
-                .OnSuccess(x => FunctionString(x))
-                .OnSuccess(x => FunctionDateTime(x));
+                .Map(x => FunctionString(x))
+                .Map(x => FunctionDateTime(x));
         }
 
         public void Example2()
         {
             Result<DateTime> result = FunctionInt()
-                .OnSuccess(() => FunctionString())
-                .OnSuccess(x => FunctionDateTime(x));
+                .Map(() => FunctionString())
+                .Map(x => FunctionDateTime(x));
         }
 
         private Result<int> FunctionInt()

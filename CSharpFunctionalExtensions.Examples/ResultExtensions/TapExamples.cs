@@ -21,7 +21,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Tap(c => Do())
                 .Tap(c => GetId())
                 .Tap(c => value = 1)
-                .OnSuccess(cs => cs.Email);
+                .Map(cs => cs.Email);
 
             Result.Ok<Customer, Error>(new Customer())
                 .Tap(Do)
@@ -30,7 +30,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Tap(c => Do())
                 .Tap(c => GetId())
                 .Tap(c => value = 1)
-                .OnSuccess(cs => cs.Email);
+                .Map(cs => cs.Email);
         }
 
         public async Task AsyncResultExtensionsRightOperand()
@@ -45,35 +45,35 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
 
             await Result.Ok(new Customer())
                 .Tap(DoAsync)
-                .OnSuccess(cs => cs.Email);
+                .Map(cs => cs.Email);
 
             await Result.Ok(new Customer())
                 .Tap(c => DoAsync())
-                .OnSuccess(cs => cs.Email);
+                .Map(cs => cs.Email);
 
             await Result.Ok(new Customer())
                 .Tap(GetIdAsync)
-                .OnSuccess(cs => cs.Email);
+                .Map(cs => cs.Email);
 
             await Result.Ok(new Customer())
                 .Tap(c => GetIdAsync())
-                .OnSuccess(cs => cs.Email);
+                .Map(cs => cs.Email);
 
             await Result.Ok<Customer, Error>(new Customer())
                 .Tap(DoAsync)
-                .OnSuccess(c => c.Email);
+                .Map(c => c.Email);
 
             await Result.Ok<Customer, Error>(new Customer())
                 .Tap(GetIdAsync)
-                .OnSuccess(c => c.Email);
+                .Map(c => c.Email);
 
             await Result.Ok<Customer, Error>(new Customer())
                 .Tap(c => DoAsync())
-                .OnSuccess(c => c.Email);
+                .Map(c => c.Email);
 
             await Result.Ok<Customer, Error>(new Customer())
                 .Tap(c => GetIdAsync())
-                .OnSuccess(c => c.Email);
+                .Map(c => c.Email);
         }
 
         public async Task AsyncResultExtensionsLeftOperand()
@@ -93,7 +93,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Tap(c => Do())
                 .Tap(c => GetId())
                 .Tap(c => value = 1)
-                .OnSuccess(cs => cs.Email);
+                .Map(cs => cs.Email);
 
             await Task.FromResult(Result.Ok<Customer, Error>(new Customer()))
                 .Tap(Do)
@@ -102,7 +102,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Tap(c => Do())
                 .Tap(c => GetId())
                 .Tap(c => value = 1)
-                .OnSuccess(cs => cs.Email);
+                .Map(cs => cs.Email);
         }
 
         public async Task AsyncResultExtensionsBothOperands()
@@ -117,14 +117,14 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Tap(GetIdAsync)
                 .Tap(c => DoAsync())
                 .Tap(c => GetIdAsync())
-                .OnSuccess(cs => cs.Email);
+                .Map(cs => cs.Email);
 
             await Task.FromResult(Result.Ok<Customer, Error>(new Customer()))
                 .Tap(DoAsync)
                 .Tap(GetIdAsync)
                 .Tap(c => DoAsync())
                 .Tap(c => GetIdAsync())
-                .OnSuccess(cs => cs.Email);
+                .Map(cs => cs.Email);
         }
 
         void Do() { }

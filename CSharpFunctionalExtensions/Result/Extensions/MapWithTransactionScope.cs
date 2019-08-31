@@ -9,122 +9,122 @@ namespace CSharpFunctionalExtensions
     {
         // Non-async extensions
         [DebuggerStepThrough]
-        public static Result<K> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<T, K> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Result<K> MapWithTransactionScope<T, K>(this Result<T> self, Func<T, K> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Result<T> OnSuccessWithTransactionScope<T>(this Result self, Func<T> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Result<T> MapWithTransactionScope<T>(this Result self, Func<T> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Result<K> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<T, Result<K>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Result<K> MapWithTransactionScope<T, K>(this Result<T> self, Func<T, Result<K>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Result<T> OnSuccessWithTransactionScope<T>(this Result self, Func<Result<T>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Result<T> MapWithTransactionScope<T>(this Result self, Func<Result<T>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Result<K> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<Result<K>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Result<K> MapWithTransactionScope<T, K>(this Result<T> self, Func<Result<K>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Result OnSuccessWithTransactionScope<T>(this Result<T> self, Func<T, Result> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Result MapWithTransactionScope<T>(this Result<T> self, Func<T, Result> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Result OnSuccessWithTransactionScope(this Result self, Func<Result> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Result MapWithTransactionScope(this Result self, Func<Result> f)
+            => WithTransactionScope(() => self.Map(f));
 
 
-        // Async - Both Operands
+        // Async - both operands
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Task<K>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
-
-        [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<Task<T>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Task<K>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Task<Result<K>>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<T>> MapWithTransactionScope<T>(this Task<Result> self, Func<Task<T>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<Task<Result<T>>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Task<Result<K>>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Task<Result<K>>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<T>> MapWithTransactionScope<T>(this Task<Result> self, Func<Task<Result<T>>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope<T>(this Task<Result<T>> self, Func<T, Task<Result>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Task<Result<K>>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope(this Task<Result> self, Func<Task<Result>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
-
-
-        // Async - Left Operands
-        [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, K> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result> MapWithTransactionScope<T>(this Task<Result<T>> self, Func<T, Task<Result>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<T> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result> MapWithTransactionScope(this Task<Result> self, Func<Task<Result>> f)
+            => WithTransactionScope(() => self.Map(f));
+
+
+        // Async - left operands
+        [DebuggerStepThrough]
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, K> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Result<K>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<T>> MapWithTransactionScope<T>(this Task<Result> self, Func<T> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<Result<T>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Result<K>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Result<K>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<T>> MapWithTransactionScope<T>(this Task<Result> self, Func<Result<T>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope<T>(this Task<Result<T>> self, Func<T, Result> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Result<K>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope(this Task<Result> self, Func<Result> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
-
-
-        // Async - Right Operands
-        [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<T, Task<K>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result> MapWithTransactionScope<T>(this Task<Result<T>> self, Func<T, Result> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Result self, Func<Task<T>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result> MapWithTransactionScope(this Task<Result> self, Func<Result> f)
+            => WithTransactionScope(() => self.Map(f));
+
+
+        // Async - right operands
+        [DebuggerStepThrough]
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Result<T> self, Func<T, Task<K>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<T, Task<Result<K>>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<T>> MapWithTransactionScope<T>(this Result self, Func<Task<T>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Result self, Func<Task<Result<T>>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Result<T> self, Func<T, Task<Result<K>>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<Task<Result<K>>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<T>> MapWithTransactionScope<T>(this Result self, Func<Task<Result<T>>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope<T>(this Result<T> self, Func<T, Task<Result>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Result<T> self, Func<Task<Result<K>>> f)
+            => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result> OnSuccessWithTransactionScope(this Result self, Func<Task<Result>> f) =>
-            WithTransactionScope(() => self.OnSuccess(f));
+        public static Task<Result> MapWithTransactionScope<T>(this Result<T> self, Func<T, Task<Result>> f)
+            => WithTransactionScope(() => self.Map(f));
+
+        [DebuggerStepThrough]
+        public static Task<Result> MapWithTransactionScope(this Result self, Func<Task<Result>> f)
+            => WithTransactionScope(() => self.Map(f));
     }
 }
 #endif

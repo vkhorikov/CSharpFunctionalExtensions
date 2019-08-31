@@ -4,8 +4,7 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class ResultExtensions
     {
-        public static Result<K, E> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<T, K> func)
+        public static Result<K, E> Map<T, K, E>(this Result<T, E> result, Func<T, K> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -13,7 +12,7 @@ namespace CSharpFunctionalExtensions
             return Result.Ok<K, E>(func(result.Value));
         }
 
-        public static Result<K> OnSuccess<T, K>(this Result<T> result, Func<T, K> func)
+        public static Result<K> Map<T, K>(this Result<T> result, Func<T, K> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K>(result.Error);
@@ -21,7 +20,7 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(func(result.Value));
         }
 
-        public static Result<T> OnSuccess<T>(this Result result, Func<T> func)
+        public static Result<T> Map<T>(this Result result, Func<T> func)
         {
             if (result.IsFailure)
                 return Result.Fail<T>(result.Error);
@@ -29,8 +28,7 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(func());
         }
 
-        public static Result<K, E> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<T, Result<K, E>> func)
+        public static Result<K, E> Map<T, K, E>(this Result<T, E> result, Func<T, Result<K, E>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -38,7 +36,7 @@ namespace CSharpFunctionalExtensions
             return func(result.Value);
         }
 
-        public static Result<K> OnSuccess<T, K>(this Result<T> result, Func<T, Result<K>> func)
+        public static Result<K> Map<T, K>(this Result<T> result, Func<T, Result<K>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K>(result.Error);
@@ -46,7 +44,7 @@ namespace CSharpFunctionalExtensions
             return func(result.Value);
         }
 
-        public static Result<T> OnSuccess<T>(this Result result, Func<Result<T>> func)
+        public static Result<T> Map<T>(this Result result, Func<Result<T>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<T>(result.Error);
@@ -54,8 +52,7 @@ namespace CSharpFunctionalExtensions
             return func();
         }
 
-        public static Result<K, E> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<Result<K, E>> func)
+        public static Result<K, E> Map<T, K, E>(this Result<T, E> result, Func<Result<K, E>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -63,7 +60,7 @@ namespace CSharpFunctionalExtensions
             return func();
         }
 
-        public static Result<K> OnSuccess<T, K>(this Result<T> result, Func<Result<K>> func)
+        public static Result<K> Map<T, K>(this Result<T> result, Func<Result<K>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K>(result.Error);
@@ -71,8 +68,7 @@ namespace CSharpFunctionalExtensions
             return func();
         }
 
-        public static Result<K> OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<T, Result<K>> func)
+        public static Result<K> Map<T, K, E>(this Result<T, E> result, Func<T, Result<K>> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -80,8 +76,7 @@ namespace CSharpFunctionalExtensions
             return func(result.Value);
         }
 
-        public static Result OnSuccess<T, K, E>(this Result<T, E> result,
-            Func<T, Result> func)
+        public static Result Map<T, K, E>(this Result<T, E> result, Func<T, Result> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
@@ -89,7 +84,7 @@ namespace CSharpFunctionalExtensions
             return func(result.Value);
         }
 
-        public static Result OnSuccess<T>(this Result<T> result, Func<T, Result> func)
+        public static Result Map<T>(this Result<T> result, Func<T, Result> func)
         {
             if (result.IsFailure)
                 return Result.Fail(result.Error);
@@ -97,24 +92,12 @@ namespace CSharpFunctionalExtensions
             return func(result.Value);
         }
 
-        public static Result OnSuccess(this Result result, Func<Result> func)
+        public static Result Map(this Result result, Func<Result> func)
         {
             if (result.IsFailure)
                 return result;
 
             return func();
         }
-
-        [Obsolete("Use Tap() instead.")]
-        public static Result<T, E> OnSuccess<T, E>(this Result<T, E> result, Action<T> action)
-            => Tap(result, action);
-
-        [Obsolete("Use Tap() instead.")]
-        public static Result<T> OnSuccess<T>(this Result<T> result, Action<T> action)
-            => Tap(result, action);
-
-        [Obsolete("Use Tap() instead.")]
-        public static Result OnSuccess(this Result result, Action action)
-            => Tap(result, action);
     }
 }

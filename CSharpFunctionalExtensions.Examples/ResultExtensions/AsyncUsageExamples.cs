@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .ToResult("Customer with such Id is not found: " + id)
                 .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
                 .Tap(customer => customer.Promote())
-                .OnSuccess(customer => gateway.SendPromotionNotification(customer.Email))
+                .Map(customer => gateway.SendPromotionNotification(customer.Email))
                 .Finally(result => result.IsSuccess ? "Ok" : result.Error);
         }
 
@@ -24,7 +24,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .ToResult("Customer with such Id is not found: " + id)
                 .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
                 .Tap(customer => customer.PromoteAsync())
-                .OnSuccess(customer => gateway.SendPromotionNotificationAsync(customer.Email))
+                .Map(customer => gateway.SendPromotionNotificationAsync(customer.Email))
                 .Finally(result => result.IsSuccess ? "Ok" : result.Error);
         }
 
@@ -39,7 +39,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .OnFailureCompensate(() => AskManager(id))
                 .Tap(customer => Log("Manager approved promotion"))
                 .Tap(customer => customer.PromoteAsync())
-                .OnSuccess(customer => gateway.SendPromotionNotificationAsync(customer.Email))
+                .Map(customer => gateway.SendPromotionNotificationAsync(customer.Email))
                 .Finally(result => result.IsSuccess ? "Ok" : result.Error);
         }
 

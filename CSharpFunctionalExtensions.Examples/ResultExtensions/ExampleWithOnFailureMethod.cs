@@ -13,7 +13,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .ToResult("Customer with such Id is not found: " + customerId)
                 .Tap(customer => customer.AddBalance(moneyAmount))
                 .Tap(customer => paymentGateway.ChargePayment(customer, moneyAmount))
-                .OnSuccess(
+                .Map(
                     customer => database.Save(customer)
                         .OnFailure(() => paymentGateway.RollbackLastTransaction()))
                 .Finally(result => result.IsSuccess ? "OK" : result.Error);
