@@ -11,8 +11,8 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
 
             return GetById(customerId)
                 .ToResult("Customer with such Id is not found: " + customerId)
-                .OnSuccess(customer => customer.AddBalance(moneyAmount))
-                .OnSuccess(customer => paymentGateway.ChargePayment(customer, moneyAmount).Map(() => customer))
+                .Tap(customer => customer.AddBalance(moneyAmount))
+                .Tap(customer => paymentGateway.ChargePayment(customer, moneyAmount))
                 .OnSuccess(
                     customer => database.Save(customer)
                         .OnFailure(() => paymentGateway.RollbackLastTransaction()))

@@ -9,7 +9,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
             return GetById(id)
                 .ToResult("Customer with such Id is not found: " + id)
                 .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
-                .OnSuccess(customer => customer.Promote())
+                .Tap(customer => customer.Promote())
                 .OnSuccess(customer => gateway.SendPromotionNotification(customer.Email))
                 .OnBoth(result => result.IsSuccess ? "Ok" : result.Error);
         }

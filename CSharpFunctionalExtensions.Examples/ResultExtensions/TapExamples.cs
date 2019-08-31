@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Tap(Do)
                 .Tap(GetId)
                 .Tap(() => value = 1)
-                .OnSuccess(() => { });
+                .Tap(() => { });
 
             Result.Ok(new Customer())
                 .Tap(Do)
@@ -37,11 +37,11 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
         {
             await Result.Ok()
                 .Tap(DoAsync)
-                .OnSuccess(() => { });
+                .Tap(() => { });
 
             await Result.Ok()
                 .Tap(GetIdAsync)
-                .OnSuccess(() => { });
+                .Tap(() => { });
 
             await Result.Ok(new Customer())
                 .Tap(DoAsync)
@@ -84,7 +84,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Tap(Do)
                 .Tap(GetId)
                 .Tap(() => value = 1)
-                .OnSuccess(() => { });
+                .Tap(() => { });
 
             await Task.FromResult(Result.Ok(new Customer()))
                 .Tap(Do)
@@ -110,7 +110,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
             await Task.FromResult(Result.Ok())
                 .Tap(DoAsync)
                 .Tap(GetIdAsync)
-                .OnSuccess(() => { });
+                .Tap(() => { });
 
             await Task.FromResult(Result.Ok(new Customer()))
                 .Tap(DoAsync)

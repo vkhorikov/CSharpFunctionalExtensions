@@ -68,16 +68,12 @@ namespace CSharpFunctionalExtensions
             return result.OnSuccess(func);
         }
 
-        public static async Task<Result<T>> OnSuccess<T>(this Task<Result<T>> resultTask, Action<T> action)
-        {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
-            return result.OnSuccess(action);
-        }
+        [Obsolete("Use Tap() instead.")]
+        public static Task<Result<T>> OnSuccess<T>(this Task<Result<T>> resultTask, Action<T> action)
+            => Tap(resultTask, action);
 
-        public static async Task<Result> OnSuccess(this Task<Result> resultTask, Action action)
-        {
-            Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
-            return result.OnSuccess(action);
-        }
+        [Obsolete("Use Tap() instead.")]
+        public static Task<Result> OnSuccess(this Task<Result> resultTask, Action action)
+            => Tap(resultTask, action);
     }
 }

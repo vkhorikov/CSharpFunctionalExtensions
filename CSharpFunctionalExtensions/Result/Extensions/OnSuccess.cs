@@ -105,35 +105,16 @@ namespace CSharpFunctionalExtensions
             return func();
         }
 
-        public static Result<T, E> OnSuccess<T, E>(this Result<T, E> result,
-            Action<T> action)
-        {
-            if (result.IsSuccess)
-            {
-                action(result.Value);
-            }
+        [Obsolete("Use Tap() instead.")]
+        public static Result<T, E> OnSuccess<T, E>(this Result<T, E> result, Action<T> action)
+            => Tap(result, action);
 
-            return result;
-        }
-
+        [Obsolete("Use Tap() instead.")]
         public static Result<T> OnSuccess<T>(this Result<T> result, Action<T> action)
-        {
-            if (result.IsSuccess)
-            {
-                action(result.Value);
-            }
+            => Tap(result, action);
 
-            return result;
-        }
-
+        [Obsolete("Use Tap() instead.")]
         public static Result OnSuccess(this Result result, Action action)
-        {
-            if (result.IsSuccess)
-            {
-                action();
-            }
-
-            return result;
-        }
+            => Tap(result, action);
     }
 }
