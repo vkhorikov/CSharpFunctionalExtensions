@@ -53,6 +53,139 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public void Should_execute_action_on_success_returns_input_result()
+        {
+            var value = 0;
+            Action action = () => value = 1;
+
+            var myResult = Result.Ok();
+            var newResult = myResult.Tap(action);
+
+            newResult.Should().Be(myResult);
+            value.Should().Be(1);
+        }
+
+        [Fact]
+        public void Should_execute_action_on_generic_success_returns_input_result()
+        {
+            var value = 0;
+            void Action() => value = 1;
+            var myClass = new MyClass();
+
+            var myResult = Result.Ok(myClass);
+            var newResult = myResult.Tap((Action) Action);
+
+            newResult.Should().Be(myResult);
+            value.Should().Be(1);
+        }
+
+        [Fact]
+        public void Should_execute_param_action_on_generic_success_returns_input_result()
+        {
+            var value = 0;
+            void Action() => value = 1;
+            var myClass = new MyClass();
+
+            var myResult = Result.Ok(myClass);
+            var newResult = myResult.Tap(tap => Action());
+
+            newResult.Should().Be(myResult);
+            value.Should().Be(1);
+        }
+
+        [Fact]
+        public void Should_execute_action_with_error_object_on_generic_success_returns_input_result()
+        {
+            var value = 0;
+            Action action = () => value = 1;
+            var myClass = new MyClass();
+
+            var myResult = Result.Ok<MyClass, CustomError>(myClass);
+            var newResult = myResult.Tap(action);
+
+            newResult.Should().Be(myResult);
+            value.Should().Be(1);
+        }
+
+        [Fact]
+        public void Should_execute_param_action_with_error_object_on_generic_success_returns_input_result()
+        {
+            var value = 0;
+            Action action = () => value = 1;
+            var myClass = new MyClass();
+
+            var myResult = Result.Ok<MyClass, CustomError>(myClass);
+            var newResult = myResult.Tap(tap => action());
+
+            newResult.Should().Be(myResult);
+            value.Should().Be(1);
+        }
+        //--------------------------------------------------------------------------------
+        [Fact]
+        public void Should_execute_var_assignment_on_success_returns_input_result()
+        {
+            var value = 0;
+
+            var myResult = Result.Ok();
+            var newResult = myResult.Tap(() => value = 1);
+
+            newResult.Should().Be(myResult);
+            value.Should().Be(1);
+        }
+
+        [Fact]
+        public void Should_execute_var_assignment_on_generic_success_returns_input_result()
+        {
+            var value = 0;
+            var myClass = new MyClass();
+
+            var myResult = Result.Ok(myClass);
+            var newResult = myResult.Tap(() => value = 1);
+
+            newResult.Should().Be(myResult);
+            value.Should().Be(1);
+        }
+
+        [Fact]
+        public void Should_execute_param_var_assignment_on_generic_success_returns_input_result()
+        {
+            var value = 0;
+            var myClass = new MyClass();
+
+            var myResult = Result.Ok(myClass);
+            var newResult = myResult.Tap(tap => value = 1);
+
+            newResult.Should().Be(myResult);
+            value.Should().Be(1);
+        }
+
+        [Fact]
+        public void Should_execute_var_assignment_with_error_object_on_generic_success_returns_input_result()
+        {
+            var value = 0;
+            var myClass = new MyClass();
+
+            var myResult = Result.Ok<MyClass, CustomError>(myClass);
+            var newResult = myResult.Tap(() => value = 1);
+
+            newResult.Should().Be(myResult);
+            value.Should().Be(1);
+        }
+
+        [Fact]
+        public void Should_execute_param_var_assignment_with_error_object_on_generic_success_returns_input_result()
+        {
+            var value = 0;
+            var myClass = new MyClass();
+
+            var myResult = Result.Ok<MyClass, CustomError>(myClass);
+            var newResult = myResult.Tap(tap => value = 1);
+
+            newResult.Should().Be(myResult);
+            value.Should().Be(1);
+        }
+
+        [Fact]
         public void Should_execute_compensate_func_on_failure_returns_Ok()
         {
             var myResult = Result.Fail(_errorMessage);
