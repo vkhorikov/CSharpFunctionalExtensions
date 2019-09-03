@@ -310,43 +310,55 @@ namespace CSharpFunctionalExtensions
             return Ok();
         }
 
-        /// <summary>
-        /// Returns failure which combined from all failures in the <paramref name="results"/> list.
-        /// Error messages are separated by <paramref name="errorMessagesSeparator"/>.
-        /// If there is no failure returns success.
-        /// </summary>
-        /// <param name="errorMessagesSeparator">Separator for error messages.</param>
-        /// <param name="results">List of results.</param>
         [DebuggerStepThrough]
-        public static Result Combine(string errorMessagesSeparator, params Result[] results)
+        public static Result Combine(IEnumerable<Result> results, string errorMessagesSeparator = null)
         {
             List<Result> failedResults = results.Where(x => x.IsFailure).ToList();
 
             if (failedResults.Count == 0)
                 return Ok();
 
-            string errorMessage = string.Join(errorMessagesSeparator, failedResults.Select(x => x.Error).ToArray());
+            string errorMessage = string.Join(errorMessagesSeparator ?? ErrorMessagesSeparator, failedResults.Select(x => x.Error));
             return Fail(errorMessage);
         }
 
         [DebuggerStepThrough]
-        public static Result Combine(params Result[] results)
+        public static Result Combine<T>(IEnumerable<Result<T>> results, string errorMessagesSeparator = null)
         {
-            return Combine(ErrorMessagesSeparator, results);
+            var untyped = results.Select(result => (Result)result);
+            return Combine(untyped, errorMessagesSeparator);
         }
+
+        /// <summary>
+        /// Combines several results (and any error messages) into a single result.
+        /// The returned result will be a failure if any of the input <paramref name="results"/> are failures.
+        /// Error messages are concatenated with the default <see cref="Result.ErrorMessagesSeparator" /> between each message.
+        /// </summary>
+        /// <param name="results">The Results to be combined.</param>
+        /// <returns>A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
+        [DebuggerStepThrough]
+        public static Result Combine(params Result[] results)
+            => Combine(results, ErrorMessagesSeparator);
+
+        /// <summary>
+        /// Combines several results (and any error messages) into a single result.
+        /// The returned result will be a failure if any of the input <paramref name="results"/> are failures.
+        /// Error messages are concatenated with the specified <paramref name="errorMessagesSeparator"/> between each message.
+        /// </summary>
+        /// <param name="errorMessagesSeparator">The string to use as a separator. If omitted, the default <see cref="Result.ErrorMessagesSeparator" /> is used instead.</param>
+        /// <param name="results">The Results to be combined.</param>
+        /// <returns>A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
+        [DebuggerStepThrough]
+        public static Result Combine(string errorMessagesSeparator, params Result[] results)
+            => Combine(results, errorMessagesSeparator);
 
         [DebuggerStepThrough]
         public static Result Combine<T>(params Result<T>[] results)
-        {
-            return Combine(ErrorMessagesSeparator, results);
-        }
+            => Combine(results, ErrorMessagesSeparator);
 
         [DebuggerStepThrough]
         public static Result Combine<T>(string errorMessagesSeparator, params Result<T>[] results)
-        {
-            Result[] untyped = results.Select(result => (Result)result).ToArray();
-            return Combine(errorMessagesSeparator, untyped);
-        }
+            => Combine(results, errorMessagesSeparator);
 
         private static readonly Func<Exception, string> DefaultTryErrorHandler = exc => exc.Message;
 
