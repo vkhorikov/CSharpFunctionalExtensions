@@ -1,5 +1,5 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
+using System;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests
@@ -46,143 +46,10 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             string myError = string.Empty;
 
-            Result<MyClass, MyClass> myResult = Result.Fail<MyClass, MyClass>(new MyClass {Property = _errorMessage});
+            Result<MyClass, MyClass> myResult = Result.Fail<MyClass, MyClass>(new MyClass { Property = _errorMessage });
             myResult.OnFailure(error => myError = error.Property);
 
             myError.Should().Be(_errorMessage);
-        }
-
-        [Fact]
-        public void Should_execute_action_on_success_returns_input_result()
-        {
-            var value = 0;
-            Action action = () => value = 1;
-
-            var myResult = Result.Ok();
-            var newResult = myResult.Tap(action);
-
-            newResult.Should().Be(myResult);
-            value.Should().Be(1);
-        }
-
-        [Fact]
-        public void Should_execute_action_on_generic_success_returns_input_result()
-        {
-            var value = 0;
-            void Action() => value = 1;
-            var myClass = new MyClass();
-
-            var myResult = Result.Ok(myClass);
-            var newResult = myResult.Tap((Action) Action);
-
-            newResult.Should().Be(myResult);
-            value.Should().Be(1);
-        }
-
-        [Fact]
-        public void Should_execute_param_action_on_generic_success_returns_input_result()
-        {
-            var value = 0;
-            void Action() => value = 1;
-            var myClass = new MyClass();
-
-            var myResult = Result.Ok(myClass);
-            var newResult = myResult.Tap(tap => Action());
-
-            newResult.Should().Be(myResult);
-            value.Should().Be(1);
-        }
-
-        [Fact]
-        public void Should_execute_action_with_error_object_on_generic_success_returns_input_result()
-        {
-            var value = 0;
-            Action action = () => value = 1;
-            var myClass = new MyClass();
-
-            var myResult = Result.Ok<MyClass, CustomError>(myClass);
-            var newResult = myResult.Tap(action);
-
-            newResult.Should().Be(myResult);
-            value.Should().Be(1);
-        }
-
-        [Fact]
-        public void Should_execute_param_action_with_error_object_on_generic_success_returns_input_result()
-        {
-            var value = 0;
-            Action action = () => value = 1;
-            var myClass = new MyClass();
-
-            var myResult = Result.Ok<MyClass, CustomError>(myClass);
-            var newResult = myResult.Tap(tap => action());
-
-            newResult.Should().Be(myResult);
-            value.Should().Be(1);
-        }
-        //--------------------------------------------------------------------------------
-        [Fact]
-        public void Should_execute_var_assignment_on_success_returns_input_result()
-        {
-            var value = 0;
-
-            var myResult = Result.Ok();
-            var newResult = myResult.Tap(() => value = 1);
-
-            newResult.Should().Be(myResult);
-            value.Should().Be(1);
-        }
-
-        [Fact]
-        public void Should_execute_var_assignment_on_generic_success_returns_input_result()
-        {
-            var value = 0;
-            var myClass = new MyClass();
-
-            var myResult = Result.Ok(myClass);
-            var newResult = myResult.Tap(() => value = 1);
-
-            newResult.Should().Be(myResult);
-            value.Should().Be(1);
-        }
-
-        [Fact]
-        public void Should_execute_param_var_assignment_on_generic_success_returns_input_result()
-        {
-            var value = 0;
-            var myClass = new MyClass();
-
-            var myResult = Result.Ok(myClass);
-            var newResult = myResult.Tap(tap => value = 1);
-
-            newResult.Should().Be(myResult);
-            value.Should().Be(1);
-        }
-
-        [Fact]
-        public void Should_execute_var_assignment_with_error_object_on_generic_success_returns_input_result()
-        {
-            var value = 0;
-            var myClass = new MyClass();
-
-            var myResult = Result.Ok<MyClass, CustomError>(myClass);
-            var newResult = myResult.Tap(() => value = 1);
-
-            newResult.Should().Be(myResult);
-            value.Should().Be(1);
-        }
-
-        [Fact]
-        public void Should_execute_param_var_assignment_with_error_object_on_generic_success_returns_input_result()
-        {
-            var value = 0;
-            var myClass = new MyClass();
-
-            var myResult = Result.Ok<MyClass, CustomError>(myClass);
-            var newResult = myResult.Tap(tap => value = 1);
-
-            newResult.Should().Be(myResult);
-            value.Should().Be(1);
         }
 
         [Fact]
@@ -223,7 +90,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var expectedValue = new MyClass();
 
-            var myResult = Result.Fail<MyClass, MyClass>(new MyClass {Property = _errorMessage});
+            var myResult = Result.Fail<MyClass, MyClass>(new MyClass { Property = _errorMessage });
             var newResult = myResult.OnFailureCompensate(error => Result.Ok<MyClass, MyClass>(expectedValue));
 
             newResult.IsSuccess.Should().BeTrue();
@@ -240,7 +107,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Should().Be(originalResult);
         }
-        
+
         [Fact]
         public void OnSuccessTry_success_result_execute_action_success_result_expected()
         {
@@ -256,7 +123,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             isExecuted.Should().BeTrue();
         }
-        
+
         [Fact]
         public void OnSuccessTry_success_result_execute_action_throw_exception_failed_result_expected()
         {
@@ -278,7 +145,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("original result error message");
         }
-        
+
         [Fact]
         public void OnSuccessTry_success_result_execute_function_success_result_expected()
         {
@@ -289,7 +156,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(7);
         }
-        
+
         [Fact]
         public void OnSuccessTry_success_result_execute_function_throw_exception_failed_result_expected()
         {
@@ -301,7 +168,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("execute action exception.");
         }
-        
+
         [Fact]
         public void OnSuccessTry_failed_result_execute_function_with_argument_new_failed_result_expected()
         {
@@ -312,7 +179,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("original result error message");
         }
-        
+
         [Fact]
         public void OnSuccessTry_success_result_execute_function_with_argument_success_result_expected()
         {
@@ -323,7 +190,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(4);
         }
-        
+
         [Fact]
         public void OnSuccessTry_success_result_execute_function_with_argument_throw_exception_failed_result_expected()
         {
@@ -335,7 +202,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("execute action exception");
         }
-        
+
         [Fact]
         public void OnSuccessTry_failed_result_execute_action_with_argument_new_failed_result_expected()
         {
@@ -346,7 +213,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("original result error message");
         }
-        
+
         [Fact]
         public void OnSuccessTry_success_result_execute_action_with_argument_success_result_expected()
         {
@@ -359,7 +226,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             isExecuted.Should().BeTrue();
         }
-        
+
         [Fact]
         public void OnSuccessTry_success_result_execute_action_with_argument_throw_exception_failed_result_expected()
         {
@@ -371,7 +238,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("execute action exception");
         }
-        
+
 
         [Fact]
         public void Match_for_Result_of_int_follows_Ok_branch_where_there_is_a_value()
@@ -420,7 +287,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Match_for_Result_with_non_string_error_follows_Failure_branch_where_is_no_value()
         {
-            var error = new CustomError {
+            var error = new CustomError
+            {
                 Message = "Error"
             };
             var result = Result.Fail<int, CustomError>(error);
@@ -467,11 +335,12 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             val.Should().Be(20);
         }
 
-        private class CustomError {
+        private class CustomError
+        {
             public string Message { get; set; }
             public int Value { get; set; }
         }
-        
+
         private class MyClass
         {
             public string Property { get; set; }
