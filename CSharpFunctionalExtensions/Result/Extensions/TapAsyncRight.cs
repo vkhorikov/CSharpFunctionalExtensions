@@ -13,7 +13,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result> Tap<K>(this Result result, Func<Task<K>> func)
+        public static async Task<Result> Tap<_>(this Result result, Func<Task<_>> func)
         {
             if (result.IsSuccess)
                 await func().ConfigureAwait(Result.DefaultConfigureAwait);
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T>> Tap<T, K>(this Result<T> result, Func<Task<K>> func)
+        public static async Task<Result<T>> Tap<T, _>(this Result<T> result, Func<Task<_>> func)
         {
             if (result.IsSuccess)
                 await func().ConfigureAwait(Result.DefaultConfigureAwait);
@@ -37,7 +37,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T>> Tap<T, K>(this Result<T> result, Func<T, Task<K>> func)
+        public static async Task<Result<T>> Tap<T, _>(this Result<T> result, Func<T, Task<_>> func)
         {
             if (result.IsSuccess)
                 await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
@@ -53,7 +53,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T, E>> Tap<T, K, E>(this Result<T, E> result, Func<Task<K>> func)
+        public static async Task<Result<T, E>> Tap<T, E, _>(this Result<T, E> result, Func<Task<_>> func)
         {
             if (result.IsSuccess)
                 await func().ConfigureAwait(Result.DefaultConfigureAwait);
@@ -77,7 +77,7 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
-        public static async Task<Result<T, E>> Tap<T, K, E>(this Result<T, E> result, Func<T, Task<K>> func)
+        public static async Task<Result<T, E>> Tap<T, E, _>(this Result<T, E> result, Func<T, Task<_>> func)
         {
             if (result.IsSuccess)
                 await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
