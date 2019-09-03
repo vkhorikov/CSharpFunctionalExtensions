@@ -2,27 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+#if NET40
+using Task = System.Threading.Tasks.TaskEx;
+#else
+using Task = System.Threading.Tasks.Task;
+#endif
+
 namespace CSharpFunctionalExtensions
 {
     public static partial class AsyncResultExtensionsLeftOperand
     {
         public static async Task<Result> Combine(this IEnumerable<Task<Result>> tasks, string errorMessageSeparator = null)
         {
-#if NET40
-            Result[] results = await TaskEx.WhenAll(tasks).ConfigureAwait(Result.DefaultConfigureAwait);
-#else
             Result[] results = await Task.WhenAll(tasks).ConfigureAwait(Result.DefaultConfigureAwait);
-#endif
             return results.Combine(errorMessageSeparator);
         }
 
         public static async Task<Result<IEnumerable<T>>> Combine<T>(this IEnumerable<Task<Result<T>>> tasks, string errorMessageSeparator = null)
         {
-#if NET40
-            Result<T>[] results = await TaskEx.WhenAll(tasks).ConfigureAwait(Result.DefaultConfigureAwait);
-#else
             Result<T>[] results = await Task.WhenAll(tasks).ConfigureAwait(Result.DefaultConfigureAwait);
-#endif
             return results.Combine(errorMessageSeparator);
         }
 
@@ -52,11 +50,7 @@ namespace CSharpFunctionalExtensions
 
         public static async Task<Result<K>> Combine<T, K>(this IEnumerable<Task<Result<T>>> tasks, Func<IEnumerable<T>, K> composer, string errorMessageSeparator = null)
         {
-#if NET40
-            IEnumerable<Result<T>> results = await TaskEx.WhenAll(tasks).ConfigureAwait(Result.DefaultConfigureAwait);
-#else
             IEnumerable<Result<T>> results = await Task.WhenAll(tasks).ConfigureAwait(Result.DefaultConfigureAwait);
-#endif
             return results.Combine(composer, errorMessageSeparator);
         }
 
