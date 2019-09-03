@@ -44,42 +44,42 @@ namespace CSharpFunctionalExtensions
                 return result;
         }
 
-        public static Result TapIf<_>(this Result result, bool condition, Func<_> action)
+        public static Result TapIf<_>(this Result result, bool condition, Func<_> func)
         {
             if (condition)
-                return result.Tap(action);
+                return result.Tap(func);
             else
                 return result;
         }
 
-        public static Result<T> TapIf<T, _>(this Result<T> result, bool condition, Func<_> action)
+        public static Result<T> TapIf<T, _>(this Result<T> result, bool condition, Func<_> func)
         {
             if (condition)
-                return result.Tap(action);
+                return result.Tap(func);
             else
                 return result;
         }
 
-        public static Result<T> TapIf<T, _>(this Result<T> result, bool condition, Func<T, _> action)
+        public static Result<T> TapIf<T, _>(this Result<T> result, bool condition, Func<T, _> func)
         {
             if (condition)
-                return result.Tap(action);
+                return result.Tap(func);
             else
                 return result;
         }
 
-        public static Result<T, E> TapIf<T, E, _>(this Result<T, E> result, bool condition, Func<_> action)
+        public static Result<T, E> TapIf<T, E, _>(this Result<T, E> result, bool condition, Func<_> func)
         {
             if (condition)
-                return result.Tap(action);
+                return result.Tap(func);
             else
                 return result;
         }
 
-        public static Result<T, E> TapIf<T, E, _>(this Result<T, E> result, bool condition, Func<T, _> action)
+        public static Result<T, E> TapIf<T, E, _>(this Result<T, E> result, bool condition, Func<T, _> func)
         {
             if (condition)
-                return result.Tap(action);
+                return result.Tap(func);
             else
                 return result;
         }
