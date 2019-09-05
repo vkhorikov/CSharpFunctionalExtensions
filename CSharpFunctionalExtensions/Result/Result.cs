@@ -40,12 +40,6 @@ namespace CSharpFunctionalExtensions
 
 
         [DebuggerStepThrough]
-        public static Result Fail(string error)
-        {
-            return new Result(true, error);
-        }
-
-        [DebuggerStepThrough]
         public static Result Create(bool isSuccess, string error)
         {
             return isSuccess
@@ -86,12 +80,6 @@ namespace CSharpFunctionalExtensions
                 : Ok();
         }
 
-        [DebuggerStepThrough]
-        public static Result<T> Fail<T>(string error)
-        {
-            return new Result<T>(true, default(T), error);
-        }
-
         public static Result<T> Create<T>(bool isSuccess, T value, string error)
         {
             return isSuccess
@@ -130,12 +118,6 @@ namespace CSharpFunctionalExtensions
             return isFailure
                 ? Fail<T>(error)
                 : Ok<T>(value);
-        }
-
-        [DebuggerStepThrough]
-        public static Result<T, E> Fail<T, E>(E error)
-        {
-            return new Result<T, E>(true, default(T), error);
         }
 
         [DebuggerStepThrough]
