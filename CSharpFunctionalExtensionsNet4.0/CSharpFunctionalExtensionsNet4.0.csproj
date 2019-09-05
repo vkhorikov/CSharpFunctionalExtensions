@@ -66,6 +66,7 @@
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Combine.cs" Link="Result\Methods\Combine.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Create.cs" Link="Result\Methods\Create.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\CreateFailure.cs" Link="Result\Methods\CreateFailure.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\FirstFailureOrSuccess.cs" Link="Result\Methods\FirstFailureOrSuccess.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Fail.cs" Link="Result\Methods\Fail.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Ok.cs" Link="Result\Methods\Ok.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Try.cs" Link="Result\Methods\Try.cs" />
