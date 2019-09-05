@@ -53,17 +53,13 @@ namespace CSharpFunctionalExtensions
 
         public static Result<T, E> Create<T, E>(Func<bool> predicate, T value, E error)
         {
-            return predicate()
-                ? Ok<T, E>(value)
-                : Fail<T, E>(error);
+            return Create(predicate(), value, error);
         }
 
         public static async Task<Result<T, E>> Create<T, E>(Func<Task<bool>> predicate, T value, E error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(Result.DefaultConfigureAwait);
-            return isSuccess
-                ? Ok<T, E>(value)
-                : Fail<T, E>(error);
+            bool isSuccess = await predicate().ConfigureAwait(DefaultConfigureAwait);
+            return Create(isSuccess, value, error);
         }
     }
 }
