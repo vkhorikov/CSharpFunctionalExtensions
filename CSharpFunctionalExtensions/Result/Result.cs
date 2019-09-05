@@ -347,19 +347,6 @@ namespace CSharpFunctionalExtensions
             }
         }
 
-        public void Deconstruct(out bool isSuccess, out bool isFailure)
-        {
-            isSuccess = IsSuccess;
-            isFailure = IsFailure;
-        }
-
-        public void Deconstruct(out bool isSuccess, out bool isFailure, out string error)
-        {
-            isSuccess = IsSuccess;
-            isFailure = IsFailure;
-            error = IsFailure ? Error : null;
-        }
-
         public Result<T> MapFailure<T>()
         {
             if (IsSuccess)

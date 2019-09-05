@@ -85,27 +85,6 @@ namespace CSharpFunctionalExtensions
                 return Result.Fail<T>(result.Error.ToString());
         }
 
-        public void Deconstruct(out bool isSuccess, out bool isFailure)
-        {
-            isSuccess = IsSuccess;
-            isFailure = IsFailure;
-        }
-
-        public void Deconstruct(out bool isSuccess, out bool isFailure, out T value)
-        {
-            isSuccess = IsSuccess;
-            isFailure = IsFailure;
-            value = IsSuccess ? Value : default(T);
-        }
-
-        public void Deconstruct(out bool isSuccess, out bool isFailure, out T value, out E error)
-        {
-            isSuccess = IsSuccess;
-            isFailure = IsFailure;
-            value = IsSuccess ? Value : default(T);
-            error = IsFailure ? Error : default(E);
-        }
-
         public Result<K, E> MapFailure<K>()
         {
             if (IsSuccess)
