@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions
         {
             isSuccess = result.IsSuccess;
             isFailure = result.IsFailure;
-            error = result.IsFailure ? result.Error : null;
+            error = result.IsFailure ? result.Error : default;
         }
 
         public static void Deconstruct<T>(this Result<T> result, out bool isSuccess, out bool isFailure)
@@ -25,15 +25,15 @@ namespace CSharpFunctionalExtensions
         {
             isSuccess = result.IsSuccess;
             isFailure = result.IsFailure;
-            value = result.IsSuccess ? result.Value : default(T);
+            value = result.IsSuccess ? result.Value : default;
         }
 
         public static void Deconstruct<T>(this Result<T> result, out bool isSuccess, out bool isFailure, out T value, out string error)
         {
             isSuccess = result.IsSuccess;
             isFailure = result.IsFailure;
-            value = result.IsSuccess ? result.Value : default(T);
-            error = result.IsFailure ? result.Error : null;
+            value = result.IsSuccess ? result.Value : default;
+            error = result.IsFailure ? result.Error : default;
         }
 
         public static void Deconstruct<T, E>(this Result<T, E> result, out bool isSuccess, out bool isFailure)
@@ -46,15 +46,15 @@ namespace CSharpFunctionalExtensions
         {
             isSuccess = result.IsSuccess;
             isFailure = result.IsFailure;
-            value = result.IsSuccess ? result.Value : default(T);
+            value = result.IsSuccess ? result.Value : default;
         }
 
         public static void Deconstruct<T, E>(this Result<T, E> result, out bool isSuccess, out bool isFailure, out T value, out E error)
         {
             isSuccess = result.IsSuccess;
             isFailure = result.IsFailure;
-            value = result.IsSuccess ? result.Value : default(T);
-            error = result.IsFailure ? result.Error : default(E);
+            value = result.IsSuccess ? result.Value : default;
+            error = result.IsFailure ? result.Error : default;
         }
     }
 }
