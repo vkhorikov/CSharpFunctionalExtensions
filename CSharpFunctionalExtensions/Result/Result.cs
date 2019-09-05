@@ -9,8 +9,6 @@ namespace CSharpFunctionalExtensions
     [Serializable]
     public partial struct Result : IResult, ISerializable
     {
-        private static readonly Result OkResult = new Result(false, null);
-
         public static string ErrorMessagesSeparator = ", ";
         public static bool DefaultConfigureAwait = false;
 
@@ -40,11 +38,6 @@ namespace CSharpFunctionalExtensions
             _logic = ResultCommonLogic.Create(isFailure, error);
         }
 
-        [DebuggerStepThrough]
-        public static Result Ok()
-        {
-            return OkResult;
-        }
 
         [DebuggerStepThrough]
         public static Result Fail(string error)
@@ -94,12 +87,6 @@ namespace CSharpFunctionalExtensions
         }
 
         [DebuggerStepThrough]
-        public static Result<T> Ok<T>(T value)
-        {
-            return new Result<T>(false, value, null);
-        }
-
-        [DebuggerStepThrough]
         public static Result<T> Fail<T>(string error)
         {
             return new Result<T>(true, default(T), error);
@@ -143,12 +130,6 @@ namespace CSharpFunctionalExtensions
             return isFailure
                 ? Fail<T>(error)
                 : Ok<T>(value);
-        }
-
-        [DebuggerStepThrough]
-        public static Result<T, E> Ok<T, E>(T value)
-        {
-            return new Result<T, E>(false, value, default(E));
         }
 
         [DebuggerStepThrough]
