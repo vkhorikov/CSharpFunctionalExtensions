@@ -44,7 +44,7 @@ namespace CSharpFunctionalExtensions
 
             try
             {
-                var result = await func().ConfigureAwait(Result.DefaultConfigureAwait);
+                var result = await func().ConfigureAwait(DefaultConfigureAwait);
                 return Ok(result);
             }
             catch (Exception exc)
