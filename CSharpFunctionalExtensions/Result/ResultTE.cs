@@ -47,7 +47,7 @@ namespace CSharpFunctionalExtensions
             _value = value;
         }
 
-        Result(SerializationInfo info, StreamingContext context)
+        private Result(SerializationInfo info, StreamingContext context)
         {
             bool isFailure = info.GetBoolean("IsFailure");
 
