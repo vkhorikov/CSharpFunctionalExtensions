@@ -1,4 +1,4 @@
-﻿namespace CSharpFunctionalExtensions
+﻿namespace CSharpFunctionalExtensions.Internal
 {
     internal static class ResultMessages
     {

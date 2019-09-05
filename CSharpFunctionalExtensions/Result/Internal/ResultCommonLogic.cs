@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.Internal
 {
     internal class ResultCommonLogic<E>
     {
