@@ -5,7 +5,7 @@
     <PackageId>CSharpFunctionalExtensions</PackageId>
     <PackageVersion>2.0.0</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
-    <Description>CSharpFunctionalExtensions - functional extensions for C#.</Description>
+    <Description>CSharpFunctionalExtensions - functional extensions for C#</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>C# Functional</PackageTags>
     <PackageLicenseUrl>https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE</PackageLicenseUrl>
@@ -19,12 +19,18 @@
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET 4.5</AssemblyTitle>
+    <DocumentationFile>CSharpFunctionalExtensions.xml</DocumentationFile>
+    <NoWarn>1591;1701;1702</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET 4.6.1</AssemblyTitle>
+    <DocumentationFile>CSharpFunctionalExtensions.xml</DocumentationFile>
+    <NoWarn>1591;1701;1702</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET Standard 2.0</AssemblyTitle>
+    <DocumentationFile>CSharpFunctionalExtensions.xml</DocumentationFile>
+    <NoWarn>1591;1701;1702</NoWarn>
   </PropertyGroup>
 
 </Project>
