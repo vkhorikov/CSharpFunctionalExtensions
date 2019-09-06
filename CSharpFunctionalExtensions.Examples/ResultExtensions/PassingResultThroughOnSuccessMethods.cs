@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
         public void Example2()
         {
             Result<DateTime> result = FunctionInt()
-                .Map(() => FunctionString())
+                .Map(_ => FunctionString())
                 .Map(x => FunctionDateTime(x));
         }
 

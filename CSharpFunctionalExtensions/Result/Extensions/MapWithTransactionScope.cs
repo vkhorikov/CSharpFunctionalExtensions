@@ -25,10 +25,6 @@ namespace CSharpFunctionalExtensions
             => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Result<K> MapWithTransactionScope<T, K>(this Result<T> self, Func<Result<K>> f)
-            => WithTransactionScope(() => self.Map(f));
-
-        [DebuggerStepThrough]
         public static Result MapWithTransactionScope<T>(this Result<T> self, Func<T, Result> f)
             => WithTransactionScope(() => self.Map(f));
 
@@ -52,10 +48,6 @@ namespace CSharpFunctionalExtensions
 
         [DebuggerStepThrough]
         public static Task<Result<T>> MapWithTransactionScope<T>(this Task<Result> self, Func<Task<Result<T>>> f)
-            => WithTransactionScope(() => self.Map(f));
-
-        [DebuggerStepThrough]
-        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Task<Result<K>>> f)
             => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
@@ -85,10 +77,6 @@ namespace CSharpFunctionalExtensions
             => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
-        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Result<K>> f)
-            => WithTransactionScope(() => self.Map(f));
-
-        [DebuggerStepThrough]
         public static Task<Result> MapWithTransactionScope<T>(this Task<Result<T>> self, Func<T, Result> f)
             => WithTransactionScope(() => self.Map(f));
 
@@ -112,10 +100,6 @@ namespace CSharpFunctionalExtensions
 
         [DebuggerStepThrough]
         public static Task<Result<T>> MapWithTransactionScope<T>(this Result self, Func<Task<Result<T>>> f)
-            => WithTransactionScope(() => self.Map(f));
-
-        [DebuggerStepThrough]
-        public static Task<Result<K>> MapWithTransactionScope<T, K>(this Result<T> self, Func<Task<Result<K>>> f)
             => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]

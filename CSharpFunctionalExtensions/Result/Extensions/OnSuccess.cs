@@ -29,10 +29,6 @@ namespace CSharpFunctionalExtensions
             => Map(result, func);
 
         [Obsolete("Use Map() instead.")]
-        public static Result<K, E> OnSuccess<T, K, E>(this Result<T, E> result, Func<Result<K, E>> func)
-            => Map(result, func);
-
-        [Obsolete("Use Map() instead.")]
         public static Result<K> OnSuccess<T, K>(this Result<T> result, Func<Result<K>> func)
             => Map(result, func);
 

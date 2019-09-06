@@ -30,11 +30,6 @@ namespace CSharpFunctionalExtensions
 
         [DebuggerStepThrough]
         [Obsolete("Use MapWithTransactionScope() instead.")]
-        public static Result<K> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<Result<K>> f)
-            => WithTransactionScope(() => self.Map(f));
-
-        [DebuggerStepThrough]
-        [Obsolete("Use MapWithTransactionScope() instead.")]
         public static Result OnSuccessWithTransactionScope<T>(this Result<T> self, Func<T, Result> f)
             => WithTransactionScope(() => self.Map(f));
 
@@ -63,11 +58,6 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         [Obsolete("Use MapWithTransactionScope() instead.")]
         public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Task<Result> self, Func<Task<Result<T>>> f)
-            => WithTransactionScope(() => self.Map(f));
-
-        [DebuggerStepThrough]
-        [Obsolete("Use MapWithTransactionScope() instead.")]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Task<Result<K>>> f)
             => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]
@@ -104,11 +94,6 @@ namespace CSharpFunctionalExtensions
 
         [DebuggerStepThrough]
         [Obsolete("Use MapWithTransactionScope() instead.")]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Task<Result<T>> self, Func<Result<K>> f)
-            => WithTransactionScope(() => self.Map(f));
-
-        [DebuggerStepThrough]
-        [Obsolete("Use MapWithTransactionScope() instead.")]
         public static Task<Result> OnSuccessWithTransactionScope<T>(this Task<Result<T>> self, Func<T, Result> f)
             => WithTransactionScope(() => self.Map(f));
 
@@ -137,11 +122,6 @@ namespace CSharpFunctionalExtensions
         [DebuggerStepThrough]
         [Obsolete("Use MapWithTransactionScope() instead.")]
         public static Task<Result<T>> OnSuccessWithTransactionScope<T>(this Result self, Func<Task<Result<T>>> f)
-            => WithTransactionScope(() => self.Map(f));
-
-        [DebuggerStepThrough]
-        [Obsolete("Use MapWithTransactionScope() instead.")]
-        public static Task<Result<K>> OnSuccessWithTransactionScope<T, K>(this Result<T> self, Func<Task<Result<K>>> f)
             => WithTransactionScope(() => self.Map(f));
 
         [DebuggerStepThrough]

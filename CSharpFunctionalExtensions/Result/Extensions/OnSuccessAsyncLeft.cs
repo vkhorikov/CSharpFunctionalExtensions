@@ -30,14 +30,6 @@ namespace CSharpFunctionalExtensions
             => Map(resultTask, func);
 
         [Obsolete("Use Map() instead.")]
-        public static Task<Result<K>> OnSuccess<T, K>(this Task<Result<T>> resultTask, Func<Result<K>> func)
-            => Map(resultTask, func);
-
-        [Obsolete("Use Map() instead.")]
-        public static Task<Result<K, E>> OnSuccess<T, K, E>(this Task<Result<T, E>> resultTask, Func<Result<K, E>> func)
-            => Map(resultTask, func);
-
-        [Obsolete("Use Map() instead.")]
         public static Task<Result> OnSuccess<T>(this Task<Result<T>> resultTask, Func<T, Result> func)
             => Map(resultTask, func);
 
