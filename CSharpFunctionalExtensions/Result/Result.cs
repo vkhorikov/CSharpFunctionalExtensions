@@ -1,6 +1,5 @@
 ﻿using CSharpFunctionalExtensions.Internal;
 using System;
-using System.Diagnostics;
 using System.Runtime.Serialization;
 
 namespace CSharpFunctionalExtensions
@@ -16,14 +15,12 @@ namespace CSharpFunctionalExtensions
             _logic.GetObjectData(info, context);
         }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic _logic;
 
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
         public string Error => _logic.Error;
 
-        [DebuggerStepThrough]
         private Result(bool isFailure, string error)
         {
             _logic = ResultCommonLogic.Create(isFailure, error);

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
 {
     public partial struct Result
     {
-        [DebuggerStepThrough]
         public static Result Create(bool isSuccess, string error)
         {
             return isSuccess
@@ -43,7 +41,6 @@ namespace CSharpFunctionalExtensions
             return Create(isSuccess, value, error);
         }
 
-        [DebuggerStepThrough]
         public static Result<T, E> Create<T, E>(bool isSuccess, T value, E error)
         {
             return isSuccess

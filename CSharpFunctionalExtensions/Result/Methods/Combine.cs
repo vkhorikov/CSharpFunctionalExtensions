@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace CSharpFunctionalExtensions
 {
     public partial struct Result
     {
-        [DebuggerStepThrough]
         public static Result Combine(IEnumerable<Result> results, string errorMessagesSeparator = null)
         {
             List<Result> failedResults = results.Where(x => x.IsFailure).ToList();
@@ -18,7 +16,6 @@ namespace CSharpFunctionalExtensions
             return Fail(errorMessage);
         }
 
-        [DebuggerStepThrough]
         public static Result Combine<T>(IEnumerable<Result<T>> results, string errorMessagesSeparator = null)
         {
             var untyped = results.Select(result => (Result)result);
@@ -32,7 +29,6 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         /// <param name="results">The Results to be combined.</param>
         /// <returns>A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
-        [DebuggerStepThrough]
         public static Result Combine(params Result[] results)
             => Combine(results, ErrorMessagesSeparator);
 
@@ -44,15 +40,12 @@ namespace CSharpFunctionalExtensions
         /// <param name="errorMessagesSeparator">The string to use as a separator. If omitted, the default <see cref="Result.ErrorMessagesSeparator" /> is used instead.</param>
         /// <param name="results">The Results to be combined.</param>
         /// <returns>A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
-        [DebuggerStepThrough]
         public static Result Combine(string errorMessagesSeparator, params Result[] results)
             => Combine(results, errorMessagesSeparator);
 
-        [DebuggerStepThrough]
         public static Result Combine<T>(params Result<T>[] results)
             => Combine(results, ErrorMessagesSeparator);
 
-        [DebuggerStepThrough]
         public static Result Combine<T>(string errorMessagesSeparator, params Result<T>[] results)
             => Combine(results, errorMessagesSeparator);
     }

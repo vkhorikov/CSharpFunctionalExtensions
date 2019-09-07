@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.Serialization;
 
 namespace CSharpFunctionalExtensions.Internal
@@ -10,22 +9,9 @@ namespace CSharpFunctionalExtensions.Internal
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly E _error;
+        public E Error => IsFailure ? _error : throw new ResultSuccessException();
 
-        public E Error
-        {
-            [DebuggerStepThrough]
-            get
-            {
-                if (IsSuccess)
-                    throw new ResultSuccessException();
-
-                return _error;
-            }
-        }
-
-        [DebuggerStepThrough]
         internal ResultCommonLogic(bool isFailure, E error)
         {
             if (isFailure)
@@ -56,7 +42,6 @@ namespace CSharpFunctionalExtensions.Internal
 
     internal sealed class ResultCommonLogic : ResultCommonLogic<string>
     {
-        [DebuggerStepThrough]
         public static ResultCommonLogic Create(bool isFailure, string error)
         {
             if (isFailure)

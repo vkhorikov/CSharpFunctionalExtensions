@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace CSharpFunctionalExtensions
+﻿namespace CSharpFunctionalExtensions
 {
     public partial struct Result
     {
@@ -8,7 +6,6 @@ namespace CSharpFunctionalExtensions
         /// Returns first failure in the list of <paramref name="results"/>. If there is no failure returns success.
         /// </summary>
         /// <param name="results">List of results.</param>
-        [DebuggerStepThrough]
         public static Result FirstFailureOrSuccess(params Result[] results)
         {
             foreach (Result result in results)

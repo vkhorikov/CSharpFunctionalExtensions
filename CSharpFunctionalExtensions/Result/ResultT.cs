@@ -1,6 +1,5 @@
 ﻿using CSharpFunctionalExtensions.Internal;
 using System;
-using System.Diagnostics;
 using System.Runtime.Serialization;
 
 namespace CSharpFunctionalExtensions
@@ -8,7 +7,6 @@ namespace CSharpFunctionalExtensions
     [Serializable]
     public struct Result<T> : IResult, ISerializable
     {
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ResultCommonLogic _logic;
 
         public bool IsFailure => _logic.IsFailure;
@@ -25,22 +23,9 @@ namespace CSharpFunctionalExtensions
             }
         }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly T _value;
+        public T Value => IsSuccess ? _value : throw new ResultFailureException(Error);
 
-        public T Value
-        {
-            [DebuggerStepThrough]
-            get
-            {
-                if (!IsSuccess)
-                    throw new ResultFailureException(Error);
-
-                return _value;
-            }
-        }
-
-        [DebuggerStepThrough]
         internal Result(bool isFailure, T value, string error)
         {
             _logic = ResultCommonLogic.Create(isFailure, error);
