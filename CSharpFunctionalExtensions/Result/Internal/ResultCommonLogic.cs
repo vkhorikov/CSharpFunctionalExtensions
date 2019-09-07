@@ -17,12 +17,12 @@ namespace CSharpFunctionalExtensions.Internal
             if (isFailure)
             {
                 if (error == null)
-                    throw new ArgumentNullException(nameof(error), ResultMessages.ErrorObjectIsNotProvidedForFailure);
+                    throw new ArgumentNullException(nameof(error), Result.Messages.ErrorObjectIsNotProvidedForFailure);
             }
             else
             {
                 if (!EqualityComparer<E>.Default.Equals(error, default(E)))
-                    throw new ArgumentException(ResultMessages.ErrorObjectIsProvidedForSuccess, nameof(error));
+                    throw new ArgumentException(Result.Messages.ErrorObjectIsProvidedForSuccess, nameof(error));
             }
 
             IsFailure = isFailure;
@@ -47,12 +47,12 @@ namespace CSharpFunctionalExtensions.Internal
             if (isFailure)
             {
                 if (string.IsNullOrEmpty(error))
-                    throw new ArgumentNullException(nameof(error), ResultMessages.ErrorMessageIsNotProvidedForFailure);
+                    throw new ArgumentNullException(nameof(error), Result.Messages.ErrorMessageIsNotProvidedForFailure);
             }
             else
             {
                 if (error != null)
-                    throw new ArgumentException(ResultMessages.ErrorMessageIsProvidedForSuccess, nameof(error));
+                    throw new ArgumentException(Result.Messages.ErrorMessageIsProvidedForSuccess, nameof(error));
             }
 
             return new ResultCommonLogic(isFailure, error);

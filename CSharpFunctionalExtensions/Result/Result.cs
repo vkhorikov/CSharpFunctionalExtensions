@@ -37,7 +37,7 @@ namespace CSharpFunctionalExtensions
         public Result<T> MapFailure<T>()
         {
             if (IsSuccess)
-                throw new InvalidOperationException($"{nameof(MapFailure)} failed because result is in success state");
+                throw new InvalidOperationException(Messages.MapFailureExceptionOnSuccess);
 
             return Fail<T>(Error);
         }

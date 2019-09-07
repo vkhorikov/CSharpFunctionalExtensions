@@ -8,7 +8,7 @@ namespace CSharpFunctionalExtensions
         public string Error { get; }
 
         internal ResultFailureException(string error)
-            : base(ResultMessages.ValueIsInaccessibleForFailure)
+            : base(Result.Messages.ValueIsInaccessibleForFailure)
         {
             Error = error;
         }
@@ -19,7 +19,7 @@ namespace CSharpFunctionalExtensions
         public new E Error { get; }
 
         internal ResultFailureException(E error)
-            : base(ResultMessages.ValueIsInaccessibleForFailure)
+            : base(Result.Messages.ValueIsInaccessibleForFailure)
         {
             Error = error;
         }
