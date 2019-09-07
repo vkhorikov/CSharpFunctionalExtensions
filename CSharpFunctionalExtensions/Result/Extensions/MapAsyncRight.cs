@@ -5,6 +5,9 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class AsyncResultExtensionsRightOperand
     {
+        // Overloads that construct new results by wrapping a return value from a function
+        // 
+
         public static async Task<Result<K>> Map<T, K>(this Result<T> result, Func<T, Task<K>> func)
         {
             if (result.IsFailure)
@@ -35,6 +38,9 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(value);
         }
 
+        // Overloads that pass on a new Result returned by a function
+        // 
+
         public static async Task<Result<K>> Map<T, K>(this Result<T> result, Func<T, Task<Result<K>>> func)
         {
             if (result.IsFailure)
@@ -55,22 +61,6 @@ namespace CSharpFunctionalExtensions
         {
             if (result.IsFailure)
                 return Result.Fail<T>(result.Error);
-
-            return await func().ConfigureAwait(Result.DefaultConfigureAwait);
-        }
-
-        public static async Task<Result<K>> Map<T, K>(this Result<T> result, Func<Task<Result<K>>> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<K>(result.Error);
-
-            return await func().ConfigureAwait(Result.DefaultConfigureAwait);
-        }
-
-        public static async Task<Result<K, E>> Map<T, K, E>(this Result<T, E> result, Func<Task<Result<K, E>>> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<K, E>(result.Error);
 
             return await func().ConfigureAwait(Result.DefaultConfigureAwait);
         }

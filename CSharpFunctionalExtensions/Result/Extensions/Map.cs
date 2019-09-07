@@ -4,6 +4,9 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class ResultExtensions
     {
+        // Overloads that construct new results by wrapping a return value from a function
+        // 
+
         public static Result<K, E> Map<T, K, E>(this Result<T, E> result, Func<T, K> func)
         {
             if (result.IsFailure)
@@ -27,6 +30,9 @@ namespace CSharpFunctionalExtensions
 
             return Result.Ok(func());
         }
+
+        // Overloads that pass on a new Result returned by a function
+        // 
 
         public static Result<K, E> Map<T, K, E>(this Result<T, E> result, Func<T, Result<K, E>> func)
         {
@@ -52,31 +58,7 @@ namespace CSharpFunctionalExtensions
             return func();
         }
 
-        public static Result<K, E> Map<T, K, E>(this Result<T, E> result, Func<Result<K, E>> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<K, E>(result.Error);
-
-            return func();
-        }
-
-        public static Result<K> Map<T, K>(this Result<T> result, Func<Result<K>> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<K>(result.Error);
-
-            return func();
-        }
-
         public static Result<K> Map<T, K, E>(this Result<T, E> result, Func<T, Result<K>> func)
-        {
-            if (result.IsFailure)
-                return Result.Fail<K, E>(result.Error);
-
-            return func(result.Value);
-        }
-
-        public static Result Map<T, K, E>(this Result<T, E> result, Func<T, Result> func)
         {
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
