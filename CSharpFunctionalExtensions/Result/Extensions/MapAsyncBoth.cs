@@ -32,14 +32,14 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(value);
         }
 
-        public static async Task<Result<T>> Map<T>(this Task<Result> resultTask, Func<Task<T>> func)
+        public static async Task<Result<K>> Map<K>(this Task<Result> resultTask, Func<Task<K>> func)
         {
             Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
-                return Result.Fail<T>(result.Error);
+                return Result.Fail<K>(result.Error);
 
-            T value = await func().ConfigureAwait(Result.DefaultConfigureAwait);
+            K value = await func().ConfigureAwait(Result.DefaultConfigureAwait);
 
             return Result.Ok(value);
         }
@@ -67,12 +67,12 @@ namespace CSharpFunctionalExtensions
             return await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
         }
 
-        public static async Task<Result<T>> Map<T>(this Task<Result> resultTask, Func<Task<Result<T>>> func)
+        public static async Task<Result<K>> Map<K>(this Task<Result> resultTask, Func<Task<Result<K>>> func)
         {
             Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
-                return Result.Fail<T>(result.Error);
+                return Result.Fail<K>(result.Error);
 
             return await func().ConfigureAwait(Result.DefaultConfigureAwait);
         }

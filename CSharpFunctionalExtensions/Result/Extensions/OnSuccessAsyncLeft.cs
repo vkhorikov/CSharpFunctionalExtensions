@@ -5,6 +5,9 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class AsyncResultExtensionsLeftOperand
     {
+        // Overloads that construct new results by wrapping a return value from a function
+        // 
+
         [Obsolete("Use Map() instead.")]
         public static Task<Result<K, E>> OnSuccess<T, K, E>(this Task<Result<T, E>> resultTask, Func<T, K> func)
             => Map(resultTask, func);
@@ -14,8 +17,11 @@ namespace CSharpFunctionalExtensions
             => Map(resultTask, func);
 
         [Obsolete("Use Map() instead.")]
-        public static Task<Result<T>> OnSuccess<T>(this Task<Result> resultTask, Func<T> func)
+        public static Task<Result<K>> OnSuccess<K>(this Task<Result> resultTask, Func<K> func)
             => Map(resultTask, func);
+
+        // Overloads that pass on a new Result returned by a function
+        // 
 
         [Obsolete("Use Map() instead.")]
         public static Task<Result<K, E>> OnSuccess<T, K, E>(this Task<Result<T, E>> resultTask, Func<T, Result<K, E>> func)
@@ -26,7 +32,7 @@ namespace CSharpFunctionalExtensions
             => Map(resultTask, func);
 
         [Obsolete("Use Map() instead.")]
-        public static Task<Result<T>> OnSuccess<T>(this Task<Result> resultTask, Func<Result<T>> func)
+        public static Task<Result<K>> OnSuccess<K>(this Task<Result> resultTask, Func<Result<K>> func)
             => Map(resultTask, func);
 
         [Obsolete("Use Map() instead.")]

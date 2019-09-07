@@ -23,10 +23,10 @@ namespace CSharpFunctionalExtensions
             return Result.Ok(func(result.Value));
         }
 
-        public static Result<T> Map<T>(this Result result, Func<T> func)
+        public static Result<K> Map<K>(this Result result, Func<K> func)
         {
             if (result.IsFailure)
-                return Result.Fail<T>(result.Error);
+                return Result.Fail<K>(result.Error);
 
             return Result.Ok(func());
         }
@@ -50,14 +50,15 @@ namespace CSharpFunctionalExtensions
             return func(result.Value);
         }
 
-        public static Result<T> Map<T>(this Result result, Func<Result<T>> func)
+        public static Result<K> Map<K>(this Result result, Func<Result<K>> func)
         {
             if (result.IsFailure)
-                return Result.Fail<T>(result.Error);
+                return Result.Fail<K>(result.Error);
 
             return func();
         }
 
+        // Potential loss of E fidelity. Not present in Async overloads
         public static Result<K> Map<T, K, E>(this Result<T, E> result, Func<T, Result<K>> func)
         {
             if (result.IsFailure)
