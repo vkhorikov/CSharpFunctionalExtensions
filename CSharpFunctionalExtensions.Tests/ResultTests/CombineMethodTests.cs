@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using FluentAssertions;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FluentAssertions;
 using Xunit;
 
 
@@ -99,7 +99,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Combine_works_with_array_of_Generic_results_success()
         {
-            Result<string>[] results = new Result<string>[]{ Result.Ok(""), Result.Ok("") };
+            Result<string>[] results = new Result<string>[] { Result.Ok(""), Result.Ok("") };
 
             Result result = Result.Combine(";", results);
 
@@ -115,7 +115,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             result.IsSuccess.Should().BeFalse();
         }
-        
+
         [Fact]
         public void Combine_combines_all_collection_errors_together()
         {
@@ -146,7 +146,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             result.IsSuccess.Should().BeTrue();
         }
-        
+
         [Fact]
         public void Combine_combines_all_Generic_results_collection_errors_together()
         {
@@ -242,7 +242,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("e;r;r");
         }
-        
+
         [Fact]
         public async Task Combine_combines_all_tasks_of_Generic_results_collection_errors_together()
         {
@@ -258,7 +258,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be("Error 1;Error 2");
         }
-        
+
         [Fact]
         public async Task Combine_returns_Ok_if_no_failures_in_Generic_results_collection_of_tasks()
         {
@@ -274,7 +274,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().BeEquivalentTo(new[] { 8, 16, 32 });
         }
-        
+
         [Fact]
         public async Task Combine_works_with_task_with_collection_of_results_success()
         {
@@ -290,7 +290,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             result.IsSuccess.Should().BeTrue();
         }
-        
+
         [Fact]
         public async Task Combine_works_with_task_with_collection_of_results_failure()
         {
@@ -307,7 +307,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be("b;y");
         }
-        
+
         [Fact]
         public async Task Combine_works_with_task_with_collection_of_Generic_results_success()
         {
@@ -324,7 +324,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().BeEquivalentTo("1", "3", "7");
         }
-        
+
         [Fact]
         public async Task Combine_works_with_task_of_collection_of_Generic_results_failure()
         {
@@ -341,7 +341,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be("b;2");
         }
-        
+
         [Fact]
         public async Task Combine_works_with_task_with_collection_of_tasks_of_results_success()
         {
@@ -357,7 +357,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             result.IsSuccess.Should().BeTrue();
         }
-        
+
         [Fact]
         public async Task Combine_works_with_task_with_collection_of_tasks_of_results_failure()
         {
@@ -375,7 +375,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be("x;y;z");
         }
-        
+
         [Fact]
         public async Task Combine_works_with_task_with_collection_of_tasks_of_Generic_results_success()
         {
@@ -392,7 +392,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().BeEquivalentTo(7, 77, 777);
         }
-        
+
         [Fact]
         public async Task Combine_works_with_task_with_collection_of_tasks_of_Generic_results_failure()
         {
@@ -443,7 +443,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("error 1;error 2");
         }
-        
+
         [Fact]
         public async Task Combine_works_with_collection_of_tasks_of_results_and_compose_to_new_result_success()
         {
@@ -477,7 +477,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("exc 1;exc 2");
         }
-        
+
         [Fact]
         public async Task Combine_works_with_task_of_collection_of_tasks_of_results_and_compose_to_new_result_success()
         {
