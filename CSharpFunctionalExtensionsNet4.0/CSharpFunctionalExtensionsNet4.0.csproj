@@ -25,6 +25,10 @@
     <Compile Include="..\CSharpFunctionalExtensions\Maybe\MaybeExtensions.cs" Link="Maybe\MaybeExtensions.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Exceptions\ResultFailureException.cs" Link="Result\Exceptions\ResultFailureException.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Exceptions\ResultSuccessException.cs" Link="Result\Exceptions\ResultSuccessException.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Bind.cs" Link="Result\Extensions\Bind.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\BindAsyncBoth.cs" Link="Result\Extensions\BindAsyncBoth.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\BindAsyncLeft.cs" Link="Result\Extensions\BindAsyncLeft.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\BindAsyncRight.cs" Link="Result\Extensions\BindAsyncRight.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Combine.cs" Link="Result\Extensions\Combine.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\CombineAsyncLeft.cs" Link="Result\Extensions\CombineAsyncLeft.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Ensure.cs" Link="Result\Extensions\Ensure.cs" />
