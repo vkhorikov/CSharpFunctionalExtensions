@@ -9,12 +9,12 @@
 
         public static Result<T> Ok<T>(T value)
         {
-            return new Result<T>(false, value, default);
+            return new Result<T>(false, default, value);
         }
 
         public static Result<T, E> Ok<T, E>(T value)
         {
-            return new Result<T, E>(false, value, default);
+            return new Result<T, E>(false, default, value);
         }
     }
 }

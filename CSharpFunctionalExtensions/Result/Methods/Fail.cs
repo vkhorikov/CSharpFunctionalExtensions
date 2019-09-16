@@ -9,12 +9,12 @@
 
         public static Result<T> Fail<T>(string error)
         {
-            return new Result<T>(true, default, error);
+            return new Result<T>(true, error, default);
         }
 
         public static Result<T, E> Fail<T, E>(E error)
         {
-            return new Result<T, E>(true, default, error);
+            return new Result<T, E>(true, error, default);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace CSharpFunctionalExtensions
         private readonly T _value;
         public T Value => IsSuccess ? _value : throw new ResultFailureException(Error);
 
-        internal Result(bool isFailure, T value, string error)
+        internal Result(bool isFailure, string error, T value)
         {
             _logic = ResultCommonLogic<string>.Create(isFailure, error);
             _value = value;
