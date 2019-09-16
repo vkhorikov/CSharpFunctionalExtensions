@@ -7,28 +7,22 @@ namespace CSharpFunctionalExtensions
     [Serializable]
     public partial struct Result : IResult, ISerializable
     {
-        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            _logic.GetObjectData(info, context);
-        }
-
-        private ResultCommonLogic<string> _logic;
-
+        private readonly ResultCommonLogic<string> _logic;
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
         public string Error => _logic.Error;
 
         private Result(bool isFailure, string error)
         {
-            _logic = ResultCommonLogic<string>.Create(isFailure, error);
+            _logic = new ResultCommonLogic<string>(isFailure, error);
         }
 
         private Result(SerializationInfo info, StreamingContext context)
         {
-            bool isFailure = info.GetBoolean("IsFailure");
-            string error = isFailure ? info.GetString("Error") : null;
-
-            _logic = ResultCommonLogic<string>.Create(isFailure, error);
+            _logic = ResultCommonLogic<string>.Deserialize(info);
         }
+
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+            => _logic.GetObjectData(info);
     }
 }

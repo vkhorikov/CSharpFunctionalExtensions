@@ -5,54 +5,30 @@ using System.Runtime.Serialization;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public partial struct Result<T> : IResult, ISerializable
+    public partial struct Result<T> : IResult, IValue<T>, ISerializable
     {
-        private ResultCommonLogic<string> _logic;
-
+        private readonly ResultCommonLogic<string> _logic;
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
         public string Error => _logic.Error;
-
-        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            _logic.GetObjectData(info, context);
-
-            if (IsSuccess)
-            {
-                info.AddValue("Value", Value);
-            }
-        }
 
         private readonly T _value;
         public T Value => IsSuccess ? _value : throw new ResultFailureException(Error);
 
         internal Result(bool isFailure, string error, T value)
         {
-            _logic = ResultCommonLogic<string>.Create(isFailure, error);
+            _logic = new ResultCommonLogic<string>(isFailure, error);
             _value = value;
         }
 
         private Result(SerializationInfo info, StreamingContext context)
         {
-            bool isFailure = info.GetBoolean("IsFailure");
-
-            T value;
-            string error;
-
-            if (isFailure)
-            {
-                value = default(T);
-                error = info.GetString("Error");
-            }
-            else
-            {
-                value = (T)info.GetValue("Value", typeof(T));
-                error = null;
-            }
-
-            _logic = ResultCommonLogic<string>.Create(isFailure, error);
-            _value = value;
+            _logic = ResultCommonLogic<string>.Deserialize(info);
+            _value = _logic.IsFailure ? default : (T)info.GetValue("Value", typeof(T));
         }
+
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+            => _logic.GetObjectData(info, this);
 
         public static implicit operator Result(Result<T> result)
         {
