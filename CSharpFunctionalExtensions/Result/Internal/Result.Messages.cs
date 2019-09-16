@@ -22,8 +22,8 @@
             public static readonly string ErrorMessageIsProvidedForSuccess =
                 "You attempted to create a success result, which cannot have an error, but a non-null string was passed to the constructor.";
 
-            public static readonly string MapFailureExceptionOnSuccess =
-                $"{nameof(MapFailure)} failed because the Result is in a success state.";
+            public static readonly string ConvertFailureExceptionOnSuccess =
+                $"{nameof(ConvertFailure)} failed because the Result is in a success state.";
         }
     }
 }

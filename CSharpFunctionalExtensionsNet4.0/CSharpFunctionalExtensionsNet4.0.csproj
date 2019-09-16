@@ -63,6 +63,7 @@
     <Compile Include="..\CSharpFunctionalExtensions\Result\Internal\ResultCommonLogic.cs" Link="Result\Internal\ResultCommonLogic.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Internal\Result.Messages.cs" Link="Result\Internal\Result.Messages.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Combine.cs" Link="Result\Methods\Combine.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\ConvertFailure.cs" Link="Result\Methods\ConvertFailure.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Create.cs" Link="Result\Methods\Create.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\CreateFailure.cs" Link="Result\Methods\CreateFailure.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\FirstFailureOrSuccess.cs" Link="Result\Methods\FirstFailureOrSuccess.cs" />

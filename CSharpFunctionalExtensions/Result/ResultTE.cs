@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public struct Result<T, E> : IResult, ISerializable
+    public partial struct Result<T, E> : IResult, ISerializable
     {
         private ResultCommonLogic<E> _logic;
 
@@ -69,14 +69,6 @@ namespace CSharpFunctionalExtensions
                 return Result.Ok(result.Value);
             else
                 return Result.Fail<T>(result.Error.ToString());
-        }
-
-        public Result<K, E> MapFailure<K>()
-        {
-            if (IsSuccess)
-                throw new InvalidOperationException(Result.Messages.MapFailureExceptionOnSuccess);
-
-            return Result.Fail<K, E>(Error);
         }
     }
 }

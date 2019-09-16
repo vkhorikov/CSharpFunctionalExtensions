@@ -30,13 +30,5 @@ namespace CSharpFunctionalExtensions
 
             _logic = ResultCommonLogic<string>.Create(isFailure, error);
         }
-
-        public Result<T> MapFailure<T>()
-        {
-            if (IsSuccess)
-                throw new InvalidOperationException(Messages.MapFailureExceptionOnSuccess);
-
-            return Fail<T>(Error);
-        }
     }
 }

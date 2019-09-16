@@ -4,7 +4,7 @@ using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests
 {
-    public class MapFailureTests
+    public class ConvertFailureTests
     {
         #region string as Error
 
@@ -13,7 +13,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var okResultWithoutValue = Result.Ok();
 
-            Action action = () => okResultWithoutValue.MapFailure<MyValueClass>();
+            Action action = () => okResultWithoutValue.ConvertFailure<MyValueClass>();
 
             action.ShouldThrow<InvalidOperationException>();
         }
@@ -23,7 +23,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var failedResultWithoutValue = Result.Fail("Failed");
 
-            Result<MyValueClass> failedResultWithValue = failedResultWithoutValue.MapFailure<MyValueClass>();
+            Result<MyValueClass> failedResultWithValue = failedResultWithoutValue.ConvertFailure<MyValueClass>();
 
             failedResultWithValue.IsFailure.Should().BeTrue();
             failedResultWithValue.Error.Should().Be("Failed");
@@ -34,7 +34,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var okResultWithValue = Result.Ok(new MyValueClass());
 
-            Action action = () => okResultWithValue.MapFailure();
+            Action action = () => okResultWithValue.ConvertFailure();
 
             action.ShouldThrow<InvalidOperationException>();
         }
@@ -55,7 +55,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var okResultWithValue = Result.Ok(new MyValueClass());
 
-            Action action = () => okResultWithValue.MapFailure<MyValueClass2>();
+            Action action = () => okResultWithValue.ConvertFailure<MyValueClass2>();
 
             action.ShouldThrow<InvalidOperationException>();
         }
@@ -65,7 +65,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var failedResultWithValue = Result.Fail<MyValueClass>("Failed");
 
-            Result<MyValueClass2> failedResultWithOtherValue = failedResultWithValue.MapFailure<MyValueClass2>();
+            Result<MyValueClass2> failedResultWithOtherValue = failedResultWithValue.ConvertFailure<MyValueClass2>();
 
             failedResultWithOtherValue.IsFailure.Should().BeTrue();
             failedResultWithOtherValue.Error.Should().Be("Failed");
@@ -80,7 +80,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var okResultWithValue = Result.Ok<MyValueClass, MyErrorClass>(new MyValueClass());
 
-            Action action = () => okResultWithValue.MapFailure<MyValueClass2>();
+            Action action = () => okResultWithValue.ConvertFailure<MyValueClass2>();
 
             action.ShouldThrow<InvalidOperationException>();
         }
@@ -90,7 +90,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var failedResultWithValue = Result.Fail<MyValueClass, MyErrorClass>(new MyErrorClass { Prop = "Failed" });
 
-            Result<MyValueClass2, MyErrorClass> failedResultWithoutValue = failedResultWithValue.MapFailure<MyValueClass2>();
+            Result<MyValueClass2, MyErrorClass> failedResultWithoutValue = failedResultWithValue.ConvertFailure<MyValueClass2>();
 
             failedResultWithoutValue.IsFailure.Should().BeTrue();
             failedResultWithoutValue.Error.ShouldBeEquivalentTo(new MyErrorClass
