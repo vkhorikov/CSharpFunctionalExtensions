@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void Tap_executes_action_on_result_success_and_returns_self(bool isSuccess)
         {
-            Result result = Result.Create(isSuccess, "Error");
+            Result result = Result.SuccessIf(isSuccess, "Error");
             bool actionExecuted = false;
             Action action = () => actionExecuted = true;
 
@@ -26,7 +26,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void Tap_T_executes_action_on_result_success_and_returns_self(bool isSuccess)
         {
-            Result<T> result = Result.Create(isSuccess, T.Value, "Error");
+            Result<T> result = Result.SuccessIf(isSuccess, T.Value, "Error");
             bool actionExecuted = false;
             Action action = () => actionExecuted = true;
 
@@ -41,7 +41,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void Tap_T_executes_action_T_on_result_success_and_returns_self(bool isSuccess)
         {
-            Result<T> result = Result.Create(isSuccess, T.Value, "Error");
+            Result<T> result = Result.SuccessIf(isSuccess, T.Value, "Error");
             bool actionExecuted = false;
             Action<T> action = (T _) => actionExecuted = true;
 
@@ -56,7 +56,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void Tap_T_E_executes_action_on_result_success_and_returns_self(bool isSuccess)
         {
-            Result<T, E> result = Result.Create(isSuccess, T.Value, E.Value);
+            Result<T, E> result = Result.SuccessIf(isSuccess, T.Value, E.Value);
             bool actionExecuted = false;
             Action action = () => actionExecuted = true;
 
@@ -71,7 +71,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void Tap_T_E_executes_action_T_on_result_success_and_returns_self(bool isSuccess)
         {
-            Result<T, E> result = Result.Create(isSuccess, T.Value, E.Value);
+            Result<T, E> result = Result.SuccessIf(isSuccess, T.Value, E.Value);
             bool actionExecuted = false;
             Action<T> action = (T _) => actionExecuted = true;
 
@@ -86,7 +86,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void Tap_executes_func_on_result_success_and_returns_self(bool isSuccess)
         {
-            Result result = Result.Create(isSuccess, "Error");
+            Result result = Result.SuccessIf(isSuccess, "Error");
             bool actionExecuted = false;
             Func<Discard> func = () => { actionExecuted = true; return Discard.Value; };
 
@@ -101,7 +101,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void Tap_T_executes_func_on_result_success_and_returns_self(bool isSuccess)
         {
-            Result<T> result = Result.Create(isSuccess, T.Value, "Error");
+            Result<T> result = Result.SuccessIf(isSuccess, T.Value, "Error");
             bool actionExecuted = false;
             Func<Discard> func = () => { actionExecuted = true; return Discard.Value; };
 
@@ -116,7 +116,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void Tap_T_executes_func_T_on_result_success_and_returns_self(bool isSuccess)
         {
-            Result<T> result = Result.Create(isSuccess, T.Value, "Error");
+            Result<T> result = Result.SuccessIf(isSuccess, T.Value, "Error");
             bool actionExecuted = false;
             Func<T, Discard> func = (T _) => { actionExecuted = true; return Discard.Value; };
 
@@ -131,7 +131,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void Tap_T_E_executes_func_on_result_success_and_returns_self(bool isSuccess)
         {
-            Result<T, E> result = Result.Create(isSuccess, T.Value, E.Value);
+            Result<T, E> result = Result.SuccessIf(isSuccess, T.Value, E.Value);
             bool actionExecuted = false;
             Func<Discard> func = () => { actionExecuted = true; return Discard.Value; };
 
@@ -146,7 +146,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void Tap_T_E_executes_func_T_on_result_success_and_returns_self(bool isSuccess)
         {
-            Result<T, E> result = Result.Create(isSuccess, T.Value, E.Value);
+            Result<T, E> result = Result.SuccessIf(isSuccess, T.Value, E.Value);
             bool actionExecuted = false;
             Func<T, Discard> func = (T _) => { actionExecuted = true; return Discard.Value; };
 
