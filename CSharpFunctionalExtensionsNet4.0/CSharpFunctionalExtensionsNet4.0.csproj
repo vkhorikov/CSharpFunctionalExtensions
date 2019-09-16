@@ -24,6 +24,7 @@
     <Compile Include="..\CSharpFunctionalExtensions\Maybe\AsyncMaybeExtensions.cs" Link="Maybe\AsyncMaybeExtensions.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Maybe\Maybe.cs" Link="Maybe\Maybe.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Maybe\MaybeExtensions.cs" Link="Maybe\MaybeExtensions.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Configuration\Configuration.cs" Link="Result\Configuration\Configuration.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Exceptions\ResultFailureException.cs" Link="Result\Exceptions\ResultFailureException.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Exceptions\ResultSuccessException.cs" Link="Result\Exceptions\ResultSuccessException.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\Bind.cs" Link="Result\Extensions\Bind.cs" />

@@ -7,9 +7,6 @@ namespace CSharpFunctionalExtensions
     [Serializable]
     public partial struct Result : IResult, ISerializable
     {
-        public static string ErrorMessagesSeparator = ", ";
-        public static bool DefaultConfigureAwait = false;
-
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
             _logic.GetObjectData(info, context);
