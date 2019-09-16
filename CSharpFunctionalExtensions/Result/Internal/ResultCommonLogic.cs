@@ -4,29 +4,36 @@ using System.Runtime.Serialization;
 
 namespace CSharpFunctionalExtensions.Internal
 {
-    internal class ResultCommonLogic<E>
+    internal struct ResultCommonLogic<E>
     {
+        private readonly E _error;
+
         public bool IsFailure { get; }
+
         public bool IsSuccess => !IsFailure;
 
-        private readonly E _error;
         public E Error => IsFailure ? _error : throw new ResultSuccessException();
 
-        internal ResultCommonLogic(bool isFailure, E error)
+        private ResultCommonLogic(bool isFailure, E error)
         {
             if (isFailure)
             {
-                if (error == null)
+                if (error == null || error is string && error.Equals(string.Empty))
                     throw new ArgumentNullException(nameof(error), Result.Messages.ErrorObjectIsNotProvidedForFailure);
             }
             else
             {
-                if (!EqualityComparer<E>.Default.Equals(error, default(E)))
+                if (!EqualityComparer<E>.Default.Equals(error, default))
                     throw new ArgumentException(Result.Messages.ErrorObjectIsProvidedForSuccess, nameof(error));
             }
 
             IsFailure = isFailure;
             _error = error;
+        }
+
+        public static ResultCommonLogic<E> Create(bool isFailure, E error)
+        {
+            return new ResultCommonLogic<E>(isFailure, error);
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -37,29 +44,6 @@ namespace CSharpFunctionalExtensions.Internal
             {
                 info.AddValue("Error", Error);
             }
-        }
-    }
-
-    internal sealed class ResultCommonLogic : ResultCommonLogic<string>
-    {
-        public static ResultCommonLogic Create(bool isFailure, string error)
-        {
-            if (isFailure)
-            {
-                if (string.IsNullOrEmpty(error))
-                    throw new ArgumentNullException(nameof(error), Result.Messages.ErrorMessageIsNotProvidedForFailure);
-            }
-            else
-            {
-                if (error != null)
-                    throw new ArgumentException(Result.Messages.ErrorMessageIsProvidedForSuccess, nameof(error));
-            }
-
-            return new ResultCommonLogic(isFailure, error);
-        }
-
-        private ResultCommonLogic(bool isFailure, string error) : base(isFailure, error)
-        {
         }
     }
 }

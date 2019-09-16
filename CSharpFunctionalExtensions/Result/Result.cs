@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions
             _logic.GetObjectData(info, context);
         }
 
-        private readonly ResultCommonLogic _logic;
+        private ResultCommonLogic<string> _logic;
 
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
@@ -23,7 +23,7 @@ namespace CSharpFunctionalExtensions
 
         private Result(bool isFailure, string error)
         {
-            _logic = ResultCommonLogic.Create(isFailure, error);
+            _logic = ResultCommonLogic<string>.Create(isFailure, error);
         }
 
         private Result(SerializationInfo info, StreamingContext context)
@@ -31,7 +31,7 @@ namespace CSharpFunctionalExtensions
             bool isFailure = info.GetBoolean("IsFailure");
             string error = isFailure ? info.GetString("Error") : null;
 
-            _logic = ResultCommonLogic.Create(isFailure, error);
+            _logic = ResultCommonLogic<string>.Create(isFailure, error);
         }
 
         public Result<T> MapFailure<T>()

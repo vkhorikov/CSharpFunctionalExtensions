@@ -7,7 +7,7 @@ namespace CSharpFunctionalExtensions
     [Serializable]
     public struct Result<T, E> : IResult, ISerializable
     {
-        private readonly ResultCommonLogic<E> _logic;
+        private ResultCommonLogic<E> _logic;
 
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
 
         internal Result(bool isFailure, T value, E error)
         {
-            _logic = new ResultCommonLogic<E>(isFailure, error);
+            _logic = ResultCommonLogic<E>.Create(isFailure, error);
             _value = value;
         }
 
@@ -51,7 +51,7 @@ namespace CSharpFunctionalExtensions
                 error = default(E);
             }
 
-            _logic = new ResultCommonLogic<E>(isFailure, error);
+            _logic = ResultCommonLogic<E>.Create(isFailure, error);
             _value = value;
         }
 
