@@ -21,7 +21,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_convert_failedResult_without_value_to_failedResult_with_value()
         {
-            var failedResultWithoutValue = Result.Fail("Failed");
+            var failedResultWithoutValue = Result.Failure("Failed");
 
             Result<MyValueClass> failedResultWithValue = failedResultWithoutValue.ConvertFailure<MyValueClass>();
 
@@ -42,7 +42,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_convert_failedResult_with_value_to_failedResult_without_value()
         {
-            var failedResultWithValue = Result.Fail<MyValueClass>("Failed");
+            var failedResultWithValue = Result.Failure<MyValueClass>("Failed");
 
             Result failedResultWithoutValue = failedResultWithValue;
 
@@ -63,7 +63,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_convert_failedResult_with_value_to_failedResult_with_other_value()
         {
-            var failedResultWithValue = Result.Fail<MyValueClass>("Failed");
+            var failedResultWithValue = Result.Failure<MyValueClass>("Failed");
 
             Result<MyValueClass2> failedResultWithOtherValue = failedResultWithValue.ConvertFailure<MyValueClass2>();
 
@@ -88,7 +88,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void ErrorClass_Can_convert_failedResult_with_value_to_failedResult_without_value()
         {
-            var failedResultWithValue = Result.Fail<MyValueClass, MyErrorClass>(new MyErrorClass { Prop = "Failed" });
+            var failedResultWithValue = Result.Failure<MyValueClass, MyErrorClass>(new MyErrorClass { Prop = "Failed" });
 
             Result<MyValueClass2, MyErrorClass> failedResultWithoutValue = failedResultWithValue.ConvertFailure<MyValueClass2>();
 

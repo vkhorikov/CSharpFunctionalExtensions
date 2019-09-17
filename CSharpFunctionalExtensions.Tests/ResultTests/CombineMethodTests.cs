@@ -13,8 +13,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         public void FirstFailureOrSuccess_returns_the_first_failed_result()
         {
             Result result1 = Result.Success();
-            Result result2 = Result.Fail("Failure 1");
-            Result result3 = Result.Fail("Failure 2");
+            Result result2 = Result.Failure("Failure 1");
+            Result result3 = Result.Failure("Failure 2");
 
             Result result = Result.FirstFailureOrSuccess(result1, result2, result3);
 
@@ -38,8 +38,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         public void Combine_combines_all_errors_together()
         {
             Result result1 = Result.Success();
-            Result result2 = Result.Fail("Failure 1");
-            Result result3 = Result.Fail("Failure 2");
+            Result result2 = Result.Failure("Failure 1");
+            Result result3 = Result.Failure("Failure 2");
 
             Result result = Result.Combine(";", result1, result2, result3);
 
@@ -64,8 +64,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var previousErrorMessagesSeparator = Result.ErrorMessagesSeparator;
 
-            Result result1 = Result.Fail("E1");
-            Result result2 = Result.Fail("E2");
+            Result result1 = Result.Failure("E1");
+            Result result2 = Result.Failure("E2");
 
             Result.ErrorMessagesSeparator = "{Separator}";
             Result result = Result.Combine(result1, result2);
@@ -83,8 +83,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             IEnumerable<Result> results = new Result[]
             {
-                Result.Fail("E1"),
-                Result.Fail("E2")
+                Result.Failure("E1"),
+                Result.Failure("E2")
             };
 
             Result.ErrorMessagesSeparator = "{Separator}";
@@ -109,7 +109,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Combine_works_with_array_of_Generic_results_failure()
         {
-            Result<string>[] results = new Result<string>[] { Result.Success(""), Result.Fail<string>("m") };
+            Result<string>[] results = new Result<string>[] { Result.Success(""), Result.Failure<string>("m") };
 
             Result result = Result.Combine(";", results);
 
@@ -122,8 +122,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             IEnumerable<Result> results = new Result[]
             {
                 Result.Success(),
-                Result.Fail("Failure 1"),
-                Result.Fail("Failure 2")
+                Result.Failure("Failure 1"),
+                Result.Failure("Failure 2")
             };
 
             Result result = results.Combine(";");
@@ -153,8 +153,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             IEnumerable<Result<string>> results = new Result<string>[]
             {
                 Result.Success<string>("str 1"),
-                Result.Fail<string>("Failure 1"),
-                Result.Fail<string>("Failure 2")
+                Result.Failure<string>("Failure 1"),
+                Result.Failure<string>("Failure 2")
             };
 
             Result<IEnumerable<string>> result = results.Combine(";");
@@ -201,8 +201,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             IEnumerable<Result<string>> results = new Result<string>[]
             {
                 Result.Success(""),
-                Result.Fail<string>("m"),
-                Result.Fail<string>("o")
+                Result.Failure<string>("m"),
+                Result.Failure<string>("o")
             };
 
             Result result = results.Combine(";");
@@ -232,9 +232,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             IEnumerable<Task<Result>> tasks = new Task<Result>[]
             {
                 Task.FromResult(Result.Success()),
-                Task.FromResult(Result.Fail("e")),
-                Task.FromResult(Result.Fail("r")),
-                Task.FromResult(Result.Fail("r"))
+                Task.FromResult(Result.Failure("e")),
+                Task.FromResult(Result.Failure("r")),
+                Task.FromResult(Result.Failure("r"))
             };
 
             Result result = await tasks.Combine(";");
@@ -249,8 +249,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             IEnumerable<Task<Result<string>>> tasks = new Task<Result<string>>[]
             {
                 Task.FromResult(Result.Success<string>("str 1")),
-                Task.FromResult(Result.Fail<string>("Error 1")),
-                Task.FromResult(Result.Fail<string>("Error 2"))
+                Task.FromResult(Result.Failure<string>("Error 1")),
+                Task.FromResult(Result.Failure<string>("Error 2"))
             };
 
             Result<IEnumerable<string>> result = await tasks.Combine(";");
@@ -297,8 +297,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             IEnumerable<Result> results = new Result[]
             {
                 Result.Success(),
-                Result.Fail<string>("b"),
-                Result.Fail<string>("y")
+                Result.Failure<string>("b"),
+                Result.Failure<string>("y")
             };
             var task = Task.FromResult(results);
 
@@ -331,8 +331,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             IEnumerable<Result<int>> results = new Result<int>[]
             {
                 Result.Success<int>(7),
-                Result.Fail<int>("b"),
-                Result.Fail<int>("2")
+                Result.Failure<int>("b"),
+                Result.Failure<int>("2")
             };
             var task = Task.FromResult(results);
 
@@ -364,9 +364,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             IEnumerable<Task<Result>> tasks = new Task<Result>[]
             {
                 Task.FromResult(Result.Success()),
-                Task.FromResult(Result.Fail("x")),
-                Task.FromResult(Result.Fail("y")),
-                Task.FromResult(Result.Fail("z"))
+                Task.FromResult(Result.Failure("x")),
+                Task.FromResult(Result.Failure("y")),
+                Task.FromResult(Result.Failure("z"))
             };
             Task<IEnumerable<Task<Result>>> task = Task.FromResult(tasks);
 
@@ -399,8 +399,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             IEnumerable<Task<Result<int>>> tasks = new Task<Result<int>>[]
             {
                 Task.FromResult(Result.Success(13)),
-                Task.FromResult(Result.Fail<int>("error")),
-                Task.FromResult(Result.Fail<int>("fail"))
+                Task.FromResult(Result.Failure<int>("error")),
+                Task.FromResult(Result.Failure<int>("fail"))
             };
             Task<IEnumerable<Task<Result<int>>>> task = Task.FromResult(tasks);
 
@@ -434,8 +434,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 Result.Success("one"),
                 Result.Success("five"),
                 Result.Success("three"),
-                Result.Fail<string>("error 1"),
-                Result.Fail<string>("error 2")
+                Result.Failure<string>("error 1"),
+                Result.Failure<string>("error 2")
             };
 
             Result<string> result = results.Combine(values => values.OrderBy(e => e.Length).First(), ";");
@@ -468,8 +468,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 Task.FromResult(Result.Success("ho")),
                 Task.FromResult(Result.Success("Hi")),
                 Task.FromResult(Result.Success("No")),
-                Task.FromResult(Result.Fail<string>("exc 1")),
-                Task.FromResult(Result.Fail<string>("exc 2"))
+                Task.FromResult(Result.Failure<string>("exc 1")),
+                Task.FromResult(Result.Failure<string>("exc 2"))
             };
 
             Result<string> result = await tasks.Combine(values => values.Min(), ";");
@@ -503,8 +503,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 Task.FromResult(Result.Success("ho")),
                 Task.FromResult(Result.Success("Hi")),
                 Task.FromResult(Result.Success("No")),
-                Task.FromResult(Result.Fail<string>("e 1")),
-                Task.FromResult(Result.Fail<string>("e 2"))
+                Task.FromResult(Result.Failure<string>("e 1")),
+                Task.FromResult(Result.Failure<string>("e 2"))
             };
             Task<IEnumerable<Task<Result<string>>>> task = Task.FromResult(tasks);
 

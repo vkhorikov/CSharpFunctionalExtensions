@@ -35,7 +35,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsSuccess)
                 return Result.Success();
             else
-                return Result.Fail(result.Error);
+                return Result.Failure(result.Error);
         }
     }
 }

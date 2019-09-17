@@ -13,7 +13,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             bool myBool = false;
 
-            Result myResult = Result.Fail(_errorMessage);
+            Result myResult = Result.Failure(_errorMessage);
             myResult.OnFailure(() => myBool = true);
 
             myBool.Should().Be(true);
@@ -24,7 +24,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             bool myBool = false;
 
-            Result<MyClass> myResult = Result.Fail<MyClass>(_errorMessage);
+            Result<MyClass> myResult = Result.Failure<MyClass>(_errorMessage);
             myResult.OnFailure(() => myBool = true);
 
             myBool.Should().Be(true);
@@ -35,7 +35,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             string myError = string.Empty;
 
-            Result<MyClass> myResult = Result.Fail<MyClass>(_errorMessage);
+            Result<MyClass> myResult = Result.Failure<MyClass>(_errorMessage);
             myResult.OnFailure(error => myError = error);
 
             myError.Should().Be(_errorMessage);
@@ -46,7 +46,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             string myError = string.Empty;
 
-            Result<MyClass, MyClass> myResult = Result.Fail<MyClass, MyClass>(new MyClass { Property = _errorMessage });
+            Result<MyClass, MyClass> myResult = Result.Failure<MyClass, MyClass>(new MyClass { Property = _errorMessage });
             myResult.OnFailure(error => myError = error.Property);
 
             myError.Should().Be(_errorMessage);
@@ -55,7 +55,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Should_execute_compensate_func_on_failure_returns_Ok()
         {
-            var myResult = Result.Fail(_errorMessage);
+            var myResult = Result.Failure(_errorMessage);
             var newResult = myResult.OnFailureCompensate(() => Result.Success());
 
             newResult.IsSuccess.Should().Be(true);
@@ -66,7 +66,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var expectedValue = new MyClass();
 
-            var myResult = Result.Fail<MyClass>(_errorMessage);
+            var myResult = Result.Failure<MyClass>(_errorMessage);
             var newResult = myResult.OnFailureCompensate(() => Result.Success(expectedValue));
 
             newResult.IsSuccess.Should().BeTrue();
@@ -78,7 +78,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var expectedValue = new MyClass();
 
-            var myResult = Result.Fail<MyClass>(_errorMessage);
+            var myResult = Result.Failure<MyClass>(_errorMessage);
             var newResult = myResult.OnFailureCompensate(error => Result.Success(expectedValue));
 
             newResult.IsSuccess.Should().BeTrue();
@@ -90,7 +90,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var expectedValue = new MyClass();
 
-            var myResult = Result.Fail<MyClass, MyClass>(new MyClass { Property = _errorMessage });
+            var myResult = Result.Failure<MyClass, MyClass>(new MyClass { Property = _errorMessage });
             var newResult = myResult.OnFailureCompensate(error => Result.Success<MyClass, MyClass>(expectedValue));
 
             newResult.IsSuccess.Should().BeTrue();
@@ -100,7 +100,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void OnSuccessTry_failed_result_execute_action_original_failed_result_expected()
         {
-            var originalResult = Result.Fail("error");
+            var originalResult = Result.Failure("error");
 
             var result = originalResult.OnSuccessTry(() => { });
 
@@ -138,7 +138,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void OnSuccessTry_failed_result_execute_function_new_failed_result_expected()
         {
-            var originalResult = Result.Fail("original result error message");
+            var originalResult = Result.Failure("original result error message");
 
             Result<int> result = originalResult.OnSuccessTry(() => 3);
 
@@ -172,7 +172,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void OnSuccessTry_failed_result_execute_function_with_argument_new_failed_result_expected()
         {
-            var originalResult = Result.Fail<DateTime>("original result error message");
+            var originalResult = Result.Failure<DateTime>("original result error message");
 
             Result<int> result = originalResult.OnSuccessTry(date => date.Day);
 
@@ -206,7 +206,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void OnSuccessTry_failed_result_execute_action_with_argument_new_failed_result_expected()
         {
-            var originalResult = Result.Fail<DateTime>("original result error message");
+            var originalResult = Result.Failure<DateTime>("original result error message");
 
             Result result = originalResult.OnSuccessTry(date => { });
 
@@ -254,7 +254,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Match_for_Result_of_int_follows_Failure_branch_where_is_no_value()
         {
-            var result = Result.Fail<int>("error");
+            var result = Result.Failure<int>("error");
 
             result.Match(
                 onSuccess: (_) => throw new FieldAccessException("Accessed Ok path while result is Failure"),
@@ -276,7 +276,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Match_for_empty_Result_follows_Failure_branch_where_is_no_value()
         {
-            var result = Result.Fail("error");
+            var result = Result.Failure("error");
 
             result.Match(
                 onSuccess: () => throw new FieldAccessException("Accessed Ok path while result is Failure"),
@@ -291,7 +291,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             {
                 Message = "Error"
             };
-            var result = Result.Fail<int, CustomError>(error);
+            var result = Result.Failure<int, CustomError>(error);
 
             result.Match(
                 onSuccess: (_) => throw new FieldAccessException("Accessed Ok path while result is Failure"),
@@ -307,7 +307,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 Message = "Error",
                 Value = 100
             };
-            var result = Result.Fail<int, CustomError>(error);
+            var result = Result.Failure<int, CustomError>(error);
 
             var val = result.Match(
                 onSuccess: (value) => value,

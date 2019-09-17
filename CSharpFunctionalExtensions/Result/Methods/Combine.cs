@@ -13,7 +13,7 @@ namespace CSharpFunctionalExtensions
                 return Success();
 
             string errorMessage = string.Join(errorMessagesSeparator ?? ErrorMessagesSeparator, failedResults.Select(x => x.Error));
-            return Fail(errorMessage);
+            return Failure(errorMessage);
         }
 
         public static Result Combine<T>(IEnumerable<Result<T>> results, string errorMessagesSeparator = null)

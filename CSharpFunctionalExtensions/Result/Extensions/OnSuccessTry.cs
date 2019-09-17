@@ -14,21 +14,21 @@ namespace CSharpFunctionalExtensions
         public static Result<T> OnSuccessTry<T>(this Result result, Func<T> func, Func<Exception, string> errorHandler = null)
         {
             return result.IsFailure
-                ? Result.Fail<T>(result.Error)
+                ? Result.Failure<T>(result.Error)
                 : Result.Try(func, errorHandler);
         }
 
         public static Result OnSuccessTry<T>(this Result<T> result, Action<T> action, Func<Exception, string> errorHandler = null)
         {
             return result.IsFailure
-                ? Result.Fail(result.Error)
+                ? Result.Failure(result.Error)
                 : Result.Try(() => action(result.Value), errorHandler);
         }
 
         public static Result<K> OnSuccessTry<T, K>(this Result<T> result, Func<T, K> func, Func<Exception, string> errorHandler = null)
         {
             return result.IsFailure
-                ? Result.Fail<K>(result.Error)
+                ? Result.Failure<K>(result.Error)
                 : Result.Try(() => func(result.Value), errorHandler);
         }
     }

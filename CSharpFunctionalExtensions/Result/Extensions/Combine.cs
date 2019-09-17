@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions
 
             return result.IsSuccess
                 ? Result.Success(results.Select(e => e.Value))
-                : Result.Fail<IEnumerable<T>>(result.Error);
+                : Result.Failure<IEnumerable<T>>(result.Error);
         }
 
         public static Result<K> Combine<T, K>(this IEnumerable<Result<T>> results, Func<IEnumerable<T>, K> composer,
@@ -25,7 +25,7 @@ namespace CSharpFunctionalExtensions
 
             return result.IsSuccess
                 ? Result.Success(composer(result.Value))
-                : Result.Fail<K>(result.Error);
+                : Result.Failure<K>(result.Error);
         }
     }
 }

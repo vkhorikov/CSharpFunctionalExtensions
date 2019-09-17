@@ -19,7 +19,7 @@ namespace CSharpFunctionalExtensions
             catch (Exception exc)
             {
                 string message = errorHandler(exc);
-                return Fail(message);
+                return Failure(message);
             }
         }
 
@@ -34,7 +34,7 @@ namespace CSharpFunctionalExtensions
             catch (Exception exc)
             {
                 string message = errorHandler(exc);
-                return Fail<T>(message);
+                return Failure<T>(message);
             }
         }
 
@@ -50,7 +50,7 @@ namespace CSharpFunctionalExtensions
             catch (Exception exc)
             {
                 string message = errorHandler(exc);
-                return Fail<T>(message);
+                return Failure<T>(message);
             }
         }
 
@@ -63,7 +63,7 @@ namespace CSharpFunctionalExtensions
             catch (Exception exc)
             {
                 E error = errorHandler(exc);
-                return Fail<T, E>(error);
+                return Failure<T, E>(error);
             }
         }
 
@@ -77,7 +77,7 @@ namespace CSharpFunctionalExtensions
             catch (Exception exc)
             {
                 E error = errorHandler(exc);
-                return Fail<T, E>(error);
+                return Failure<T, E>(error);
             }
         }
     }

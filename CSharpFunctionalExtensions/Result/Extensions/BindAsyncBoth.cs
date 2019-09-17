@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
-                return Result.Fail<K, E>(result.Error);
+                return Result.Failure<K, E>(result.Error);
 
             return await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
         }
@@ -20,7 +20,7 @@ namespace CSharpFunctionalExtensions
             Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
-                return Result.Fail<K>(result.Error);
+                return Result.Failure<K>(result.Error);
 
             return await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
         }
@@ -30,7 +30,7 @@ namespace CSharpFunctionalExtensions
             Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
-                return Result.Fail<K>(result.Error);
+                return Result.Failure<K>(result.Error);
 
             return await func().ConfigureAwait(Result.DefaultConfigureAwait);
         }
@@ -40,7 +40,7 @@ namespace CSharpFunctionalExtensions
             Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
 
             if (result.IsFailure)
-                return Result.Fail(result.Error);
+                return Result.Failure(result.Error);
 
             return await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
         }

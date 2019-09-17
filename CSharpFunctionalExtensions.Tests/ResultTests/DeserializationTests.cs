@@ -26,7 +26,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Deserialize_sets_correct_statuses_on_failure_result()
         {
-            Result okResult = Result.Fail(_errorMessage);
+            Result okResult = Result.Failure(_errorMessage);
             var serialized = Serialize(okResult);
 
             Result result = Deserialize<Result>(serialized);
@@ -38,7 +38,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Deserialize_adds_message_in_context_on_failure_result()
         {
-            Result failResult = Result.Fail(_errorMessage);
+            Result failResult = Result.Failure(_errorMessage);
             var serialized = Serialize(failResult);
 
             Result result = Deserialize<Result>(serialized);
@@ -62,7 +62,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         public void Deserialize_adds_error_object_in_serialization_context_when_failure_result()
         {
             DeserializationTestObject errorObject = new DeserializationTestObject { Number = 500, String = "Error message" };
-            Result<object, DeserializationTestObject> failResult = Result.Fail<object, DeserializationTestObject>(errorObject);
+            Result<object, DeserializationTestObject> failResult = Result.Failure<object, DeserializationTestObject>(errorObject);
             var serialized = Serialize(failResult);
 
             Result<object, DeserializationTestObject> result = Deserialize<Result<object, DeserializationTestObject>>(serialized);

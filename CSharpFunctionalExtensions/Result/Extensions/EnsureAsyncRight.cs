@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
                 return result;
 
             if (!await predicate(result.Value).ConfigureAwait(Result.DefaultConfigureAwait))
-                return Result.Fail<T>(errorMessage);
+                return Result.Failure<T>(errorMessage);
 
             return result;
         }
@@ -23,7 +23,7 @@ namespace CSharpFunctionalExtensions
                 return result;
 
             if (!await predicate(result.Value).ConfigureAwait(Result.DefaultConfigureAwait))
-                return Result.Fail<T, E>(error);
+                return Result.Failure<T, E>(error);
 
             return result;
         }
@@ -34,7 +34,7 @@ namespace CSharpFunctionalExtensions
                 return result;
 
             if (!await predicate().ConfigureAwait(Result.DefaultConfigureAwait))
-                return Result.Fail(errorMessage);
+                return Result.Failure(errorMessage);
 
             return result;
         }

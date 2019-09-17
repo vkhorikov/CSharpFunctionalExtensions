@@ -7,7 +7,7 @@ namespace CSharpFunctionalExtensions
         public static Result<K, E> Bind<T, K, E>(this Result<T, E> result, Func<T, Result<K, E>> func)
         {
             if (result.IsFailure)
-                return Result.Fail<K, E>(result.Error);
+                return Result.Failure<K, E>(result.Error);
 
             return func(result.Value);
         }
@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions
         public static Result<K> Bind<T, K>(this Result<T> result, Func<T, Result<K>> func)
         {
             if (result.IsFailure)
-                return Result.Fail<K>(result.Error);
+                return Result.Failure<K>(result.Error);
 
             return func(result.Value);
         }
@@ -23,7 +23,7 @@ namespace CSharpFunctionalExtensions
         public static Result<K> Bind<K>(this Result result, Func<Result<K>> func)
         {
             if (result.IsFailure)
-                return Result.Fail<K>(result.Error);
+                return Result.Failure<K>(result.Error);
 
             return func();
         }
@@ -32,7 +32,7 @@ namespace CSharpFunctionalExtensions
         public static Result<K> Bind<T, K, E>(this Result<T, E> result, Func<T, Result<K>> func)
         {
             if (result.IsFailure)
-                return Result.Fail<K, E>(result.Error);
+                return Result.Failure<K, E>(result.Error);
 
             return func(result.Value);
         }
@@ -40,7 +40,7 @@ namespace CSharpFunctionalExtensions
         public static Result Bind<T>(this Result<T> result, Func<T, Result> func)
         {
             if (result.IsFailure)
-                return Result.Fail(result.Error);
+                return Result.Failure(result.Error);
 
             return func(result.Value);
         }

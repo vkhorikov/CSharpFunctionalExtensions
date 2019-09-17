@@ -9,7 +9,7 @@ namespace CSharpFunctionalExtensions
             if (IsSuccess)
                 throw new InvalidOperationException(Messages.ConvertFailureExceptionOnSuccess);
 
-            return Fail<K>(Error);
+            return Failure<K>(Error);
         }
     }
 
@@ -20,7 +20,7 @@ namespace CSharpFunctionalExtensions
             if (IsSuccess)
                 throw new InvalidOperationException(Result.Messages.ConvertFailureExceptionOnSuccess);
 
-            return Result.Fail(Error);
+            return Result.Failure(Error);
         }
 
         public Result<K> ConvertFailure<K>()
@@ -28,7 +28,7 @@ namespace CSharpFunctionalExtensions
             if (IsSuccess)
                 throw new InvalidOperationException(Result.Messages.ConvertFailureExceptionOnSuccess);
 
-            return Result.Fail<K>(Error);
+            return Result.Failure<K>(Error);
         }
     }
 
@@ -39,7 +39,7 @@ namespace CSharpFunctionalExtensions
             if (IsSuccess)
                 throw new InvalidOperationException(Result.Messages.ConvertFailureExceptionOnSuccess);
 
-            return Result.Fail<K, E>(Error);
+            return Result.Failure<K, E>(Error);
         }
     }
 }

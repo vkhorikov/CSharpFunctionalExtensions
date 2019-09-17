@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions
                 return result;
 
             if (!predicate(result.Value))
-                return Result.Fail<T, E>(error);
+                return Result.Failure<T, E>(error);
 
             return result;
         }
@@ -21,7 +21,7 @@ namespace CSharpFunctionalExtensions
                 return result;
 
             if (!predicate(result.Value))
-                return Result.Fail<T>(errorMessage);
+                return Result.Failure<T>(errorMessage);
 
             return result;
         }
@@ -32,7 +32,7 @@ namespace CSharpFunctionalExtensions
                 return result;
 
             if (!predicate())
-                return Result.Fail(errorMessage);
+                return Result.Failure(errorMessage);
 
             return result;
         }

@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Ensure_source_result_is_failure_predicate_do_not_invoked_expect_is_result_failure()
         {
-            Result sut = Result.Fail("some error");
+            Result sut = Result.Failure("some error");
 
             Result result = sut.Ensure(() => true, string.Empty);
 
@@ -42,7 +42,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_source_result_is_failure_async_predicate_do_not_invoked_expect_is_result_failure()
         {
-            Result sut = Result.Fail("some error");
+            Result sut = Result.Failure("some error");
 
             Result result = await sut.Ensure(() => Task.FromResult(true), string.Empty);
 
@@ -74,7 +74,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_failure_predicate_do_not_invoked_expect_is_result_failure()
         {
-            Task<Result> sut = Task.FromResult(Result.Fail("some error"));            
+            Task<Result> sut = Task.FromResult(Result.Failure("some error"));            
 
             Result result = await sut.Ensure(() => true, string.Empty);
 
@@ -106,7 +106,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_failure_async_predicate_do_not_invoked_expect_is_result_failure()
         {
-            Task<Result> sut = Task.FromResult(Result.Fail("some error"));
+            Task<Result> sut = Task.FromResult(Result.Failure("some error"));
             
             Result result = await sut.Ensure(() => Task.FromResult(false), string.Empty);
 
@@ -138,7 +138,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Ensure_generic_source_result_is_failure_predicate_do_not_invoked_expect_is_error_result_failure()
         {
-            Result<TimeSpan> sut = Result.Fail<TimeSpan>("some error");
+            Result<TimeSpan> sut = Result.Failure<TimeSpan>("some error");
 
             Result<TimeSpan> result = sut.Ensure(time => true, "test error");
 
@@ -170,7 +170,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_source_result_is_failure_async_predicate_do_not_invoked_expect_is_error_result_failure()
         {
-            Result<DateTimeOffset> sut = Result.Fail<DateTimeOffset>("some result error");
+            Result<DateTimeOffset> sut = Result.Failure<DateTimeOffset>("some result error");
 
             Result<DateTimeOffset> result = await sut.Ensure(d => Task.FromResult(true), "test ensure error");
 
@@ -202,7 +202,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_task_source_result_is_failure_async_predicate_do_not_invoked_expect_is_error_result_failure()
         {
-            Task<Result<TimeSpan>> sut = Task.FromResult(Result.Fail<TimeSpan>("some result error"));
+            Task<Result<TimeSpan>> sut = Task.FromResult(Result.Failure<TimeSpan>("some result error"));
 
             Result<TimeSpan> result = await sut.Ensure(t => Task.FromResult(true), "test ensure error");
 
@@ -234,7 +234,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_task_source_result_is_failure_predicate_do_not_invoked_expect_is_error_result_failure()
         {
-            Task<Result<TimeSpan>> sut = Task.FromResult(Result.Fail<TimeSpan>("some result error"));
+            Task<Result<TimeSpan>> sut = Task.FromResult(Result.Failure<TimeSpan>("some result error"));
 
             Result<TimeSpan> result = await sut.Ensure(t => true, "test ensure error");
 
@@ -266,7 +266,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_source_result_with_error_is_failure_async_predicate_do_not_invoked_expect_is_error_result_failure()
         {
-            Result<DateTime, Error> sut = Result.Fail<DateTime, Error>(new Error());
+            Result<DateTime, Error> sut = Result.Failure<DateTime, Error>(new Error());
 
             Result<DateTime, Error> result = await sut.Ensure(d => Task.FromResult(true), new Error());
 
@@ -299,7 +299,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_failure_async_predicate_with_arg_do_not_invoked_expect_is_error_result_failure()
         {
-            Task<Result<DateTime, Error>> sut = Task.FromResult(Result.Fail<DateTime, Error>(new Error()));
+            Task<Result<DateTime, Error>> sut = Task.FromResult(Result.Failure<DateTime, Error>(new Error()));
 
             Result<DateTime, Error> result = await sut.Ensure(d => Task.FromResult(true), new Error());
 
@@ -332,7 +332,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_failure_predicate_with_arg_do_not_invoked_expect_is_error_result_failure()
         {
-            Task<Result<TimeSpan, Error>> sut = Task.FromResult(Result.Fail<TimeSpan, Error>(new Error()));
+            Task<Result<TimeSpan, Error>> sut = Task.FromResult(Result.Failure<TimeSpan, Error>(new Error()));
 
             Result<TimeSpan, Error> result = await sut.Ensure(t => true, new Error());
 
@@ -365,7 +365,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Ensure_source_result_is_failure_predicate_with_arg_do_not_invoked_expect_is_error_result_failure()
         {
-            Result<TimeSpan, Error> sut = Result.Fail<TimeSpan, Error>(new Error());
+            Result<TimeSpan, Error> sut = Result.Failure<TimeSpan, Error>(new Error());
 
             Result<TimeSpan, Error> result = sut.Ensure(t => true, new Error());
 

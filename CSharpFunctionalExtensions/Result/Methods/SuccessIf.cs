@@ -9,7 +9,7 @@ namespace CSharpFunctionalExtensions
         {
             return isSuccess
                 ? Success()
-                : Fail(error);
+                : Failure(error);
         }
 
         public static Result SuccessIf(Func<bool> predicate, string error)
@@ -27,7 +27,7 @@ namespace CSharpFunctionalExtensions
         {
             return isSuccess
                 ? Success(value)
-                : Fail<T>(error);
+                : Failure<T>(error);
         }
 
         public static Result<T> SuccessIf<T>(Func<bool> predicate, T value, string error)
@@ -45,7 +45,7 @@ namespace CSharpFunctionalExtensions
         {
             return isSuccess
                 ? Success<T, E>(value)
-                : Fail<T, E>(error);
+                : Failure<T, E>(error);
         }
 
         public static Result<T, E> SuccessIf<T, E>(Func<bool> predicate, T value, E error)

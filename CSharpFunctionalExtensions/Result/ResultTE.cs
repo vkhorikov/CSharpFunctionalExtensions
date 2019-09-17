@@ -35,7 +35,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsSuccess)
                 return Result.Success();
             else
-                return Result.Fail(result.Error.ToString());
+                return Result.Failure(result.Error.ToString());
         }
 
         public static implicit operator Result<T>(Result<T, E> result)
@@ -43,7 +43,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsSuccess)
                 return Result.Success(result.Value);
             else
-                return Result.Fail<T>(result.Error.ToString());
+                return Result.Failure<T>(result.Error.ToString());
         }
     }
 }

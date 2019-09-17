@@ -7,7 +7,7 @@ namespace CSharpFunctionalExtensions
         public static Result<T> ToResult<T>(this Maybe<T> maybe, string errorMessage)
         {
             if (maybe.HasNoValue)
-                return Result.Fail<T>(errorMessage);
+                return Result.Failure<T>(errorMessage);
 
             return Result.Success(maybe.Value);
         }
@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions
         public static Result<T, E> ToResult<T, E>(this Maybe<T> maybe, E error)
         {
             if (maybe.HasNoValue)
-                return Result.Fail<T, E>(error);
+                return Result.Failure<T, E>(error);
 
             return Result.Success<T, E>(maybe.Value);
         }

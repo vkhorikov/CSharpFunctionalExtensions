@@ -18,7 +18,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Fail_argument_is_default_Fail_result_expected()
         {
-            Result result = Result.Fail<string, int>(0);
+            Result result = Result.Failure<string, int>(0);
 
             result.IsFailure.Should().BeTrue();
         }
@@ -26,7 +26,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Fail_argument_is_not_default_Fail_result_expected()
         {
-            Result result = Result.Fail<string, int>(1);
+            Result result = Result.Failure<string, int>(1);
 
             result.IsFailure.Should().BeTrue();
         }
@@ -35,7 +35,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         public void Fail_argument_is_null_Exception_expected()
         {
             var exception = Record.Exception(() =>
-                Result.Fail<string, string>(null));
+                Result.Failure<string, string>(null));
             Assert.IsType<ArgumentNullException>(exception);
         }
 
