@@ -36,7 +36,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
         {
             public Result ChargePayment(Customer customer, decimal moneyAmount)
             {
-                return Result.Ok();
+                return Result.Success();
             }
 
             public void RollbackLastTransaction()
@@ -54,7 +54,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
         {
             public Result Save(Customer customer)
             {
-                return Result.Ok();
+                return Result.Success();
             }
         }
     }

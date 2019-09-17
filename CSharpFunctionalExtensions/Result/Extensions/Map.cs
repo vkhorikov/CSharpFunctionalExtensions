@@ -9,7 +9,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return Result.Fail<K, E>(result.Error);
 
-            return Result.Ok<K, E>(func(result.Value));
+            return Result.Success<K, E>(func(result.Value));
         }
 
         public static Result<K> Map<T, K>(this Result<T> result, Func<T, K> func)
@@ -17,7 +17,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return Result.Fail<K>(result.Error);
 
-            return Result.Ok(func(result.Value));
+            return Result.Success(func(result.Value));
         }
 
         public static Result<K> Map<K>(this Result result, Func<K> func)
@@ -25,7 +25,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return Result.Fail<K>(result.Error);
 
-            return Result.Ok(func());
+            return Result.Success(func());
         }
     }
 }

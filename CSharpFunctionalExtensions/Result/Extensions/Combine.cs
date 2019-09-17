@@ -14,7 +14,7 @@ namespace CSharpFunctionalExtensions
             Result result = Result.Combine(results, errorMessageSeparator);
 
             return result.IsSuccess
-                ? Result.Ok(results.Select(e => e.Value))
+                ? Result.Success(results.Select(e => e.Value))
                 : Result.Fail<IEnumerable<T>>(result.Error);
         }
 
@@ -24,7 +24,7 @@ namespace CSharpFunctionalExtensions
             Result<IEnumerable<T>> result = results.Combine(errorMessageSeparator);
 
             return result.IsSuccess
-                ? Result.Ok(composer(result.Value))
+                ? Result.Success(composer(result.Value))
                 : Result.Fail<K>(result.Error);
         }
     }

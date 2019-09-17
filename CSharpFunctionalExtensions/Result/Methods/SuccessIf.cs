@@ -8,7 +8,7 @@ namespace CSharpFunctionalExtensions
         public static Result SuccessIf(bool isSuccess, string error)
         {
             return isSuccess
-                ? Ok()
+                ? Success()
                 : Fail(error);
         }
 
@@ -26,7 +26,7 @@ namespace CSharpFunctionalExtensions
         public static Result<T> SuccessIf<T>(bool isSuccess, T value, string error)
         {
             return isSuccess
-                ? Ok(value)
+                ? Success(value)
                 : Fail<T>(error);
         }
 
@@ -44,7 +44,7 @@ namespace CSharpFunctionalExtensions
         public static Result<T, E> SuccessIf<T, E>(bool isSuccess, T value, E error)
         {
             return isSuccess
-                ? Ok<T, E>(value)
+                ? Success<T, E>(value)
                 : Fail<T, E>(error);
         }
 

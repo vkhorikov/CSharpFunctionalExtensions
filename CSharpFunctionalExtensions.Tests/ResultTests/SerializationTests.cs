@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void GetObjectData_sets_correct_statuses_on_success_result()
         {
-            Result okResult = Result.Ok();
+            Result okResult = Result.Success();
             ISerializable serializableObject = okResult;
 
             var serializationInfo = new SerializationInfo(typeof(Result), new FormatterConverter());
@@ -50,7 +50,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         public void GetObjectData_of_generic_result_adds_object_in_context_when_success_result()
         {
             SerializationTestObject language = new SerializationTestObject { Number = 232, String = "C#" };
-            Result<SerializationTestObject> okResult = Result.Ok(language);
+            Result<SerializationTestObject> okResult = Result.Success(language);
             ISerializable serializableObject = okResult;
 
             var serializationInfo = new SerializationInfo(typeof(Result), new FormatterConverter());

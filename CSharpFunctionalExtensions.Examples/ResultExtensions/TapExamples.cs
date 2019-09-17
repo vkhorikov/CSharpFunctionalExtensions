@@ -8,13 +8,13 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
         {
             var value = 0;
 
-            Result.Ok()
+            Result.Success()
                 .Tap(Do)
                 .Tap(GetId)
                 .Tap(() => value = 1)
                 .Tap(() => { });
 
-            Result.Ok(new Customer())
+            Result.Success(new Customer())
                 .Tap(Do)
                 .Tap(GetId)
                 .Tap(() => value = 1)
@@ -23,7 +23,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Tap(c => value = 1)
                 .Map(cs => cs.Email);
 
-            Result.Ok<Customer, Error>(new Customer())
+            Result.Success<Customer, Error>(new Customer())
                 .Tap(Do)
                 .Tap(GetId)
                 .Tap(() => value = 1)
@@ -35,43 +35,43 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
 
         public async Task AsyncResultExtensionsRightOperand()
         {
-            await Result.Ok()
+            await Result.Success()
                 .Tap(DoAsync)
                 .Tap(() => { });
 
-            await Result.Ok()
+            await Result.Success()
                 .Tap(GetIdAsync)
                 .Tap(() => { });
 
-            await Result.Ok(new Customer())
+            await Result.Success(new Customer())
                 .Tap(DoAsync)
                 .Map(cs => cs.Email);
 
-            await Result.Ok(new Customer())
+            await Result.Success(new Customer())
                 .Tap(c => DoAsync())
                 .Map(cs => cs.Email);
 
-            await Result.Ok(new Customer())
+            await Result.Success(new Customer())
                 .Tap(GetIdAsync)
                 .Map(cs => cs.Email);
 
-            await Result.Ok(new Customer())
+            await Result.Success(new Customer())
                 .Tap(c => GetIdAsync())
                 .Map(cs => cs.Email);
 
-            await Result.Ok<Customer, Error>(new Customer())
+            await Result.Success<Customer, Error>(new Customer())
                 .Tap(DoAsync)
                 .Map(c => c.Email);
 
-            await Result.Ok<Customer, Error>(new Customer())
+            await Result.Success<Customer, Error>(new Customer())
                 .Tap(GetIdAsync)
                 .Map(c => c.Email);
 
-            await Result.Ok<Customer, Error>(new Customer())
+            await Result.Success<Customer, Error>(new Customer())
                 .Tap(c => DoAsync())
                 .Map(c => c.Email);
 
-            await Result.Ok<Customer, Error>(new Customer())
+            await Result.Success<Customer, Error>(new Customer())
                 .Tap(c => GetIdAsync())
                 .Map(c => c.Email);
         }
@@ -80,13 +80,13 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
         {
             var value = 0;
 
-            await Task.FromResult(Result.Ok())
+            await Task.FromResult(Result.Success())
                 .Tap(Do)
                 .Tap(GetId)
                 .Tap(() => value = 1)
                 .Tap(() => { });
 
-            await Task.FromResult(Result.Ok(new Customer()))
+            await Task.FromResult(Result.Success(new Customer()))
                 .Tap(Do)
                 .Tap(GetId)
                 .Tap(() => value = 1)
@@ -95,7 +95,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Tap(c => value = 1)
                 .Map(cs => cs.Email);
 
-            await Task.FromResult(Result.Ok<Customer, Error>(new Customer()))
+            await Task.FromResult(Result.Success<Customer, Error>(new Customer()))
                 .Tap(Do)
                 .Tap(GetId)
                 .Tap(() => value = 1)
@@ -107,19 +107,19 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
 
         public async Task AsyncResultExtensionsBothOperands()
         {
-            await Task.FromResult(Result.Ok())
+            await Task.FromResult(Result.Success())
                 .Tap(DoAsync)
                 .Tap(GetIdAsync)
                 .Tap(() => { });
 
-            await Task.FromResult(Result.Ok(new Customer()))
+            await Task.FromResult(Result.Success(new Customer()))
                 .Tap(DoAsync)
                 .Tap(GetIdAsync)
                 .Tap(c => DoAsync())
                 .Tap(c => GetIdAsync())
                 .Map(cs => cs.Email);
 
-            await Task.FromResult(Result.Ok<Customer, Error>(new Customer()))
+            await Task.FromResult(Result.Success<Customer, Error>(new Customer()))
                 .Tap(DoAsync)
                 .Tap(GetIdAsync)
                 .Tap(c => DoAsync())

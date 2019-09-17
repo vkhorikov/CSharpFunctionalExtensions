@@ -41,7 +41,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
         {
             public Result SendPromotionNotification(string email)
             {
-                return Result.Ok();
+                return Result.Success();
             }
         }
     }

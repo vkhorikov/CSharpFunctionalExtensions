@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_not_convert_okResult_without_value_to_okResult_with_value()
         {
-            var okResultWithoutValue = Result.Ok();
+            var okResultWithoutValue = Result.Success();
 
             Action action = () => okResultWithoutValue.ConvertFailure<MyValueClass>();
 
@@ -32,7 +32,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_not_convert_okResult_with_value_to_okResult_without_value()
         {
-            var okResultWithValue = Result.Ok(new MyValueClass());
+            var okResultWithValue = Result.Success(new MyValueClass());
 
             Action action = () => okResultWithValue.ConvertFailure();
 
@@ -53,7 +53,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_not_convert_okResult_with_value_to_okResult_with_otherValue()
         {
-            var okResultWithValue = Result.Ok(new MyValueClass());
+            var okResultWithValue = Result.Success(new MyValueClass());
 
             Action action = () => okResultWithValue.ConvertFailure<MyValueClass2>();
 
@@ -78,7 +78,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void ErrorClass_Can_not_convert_okResult_with_value_to_okResult_with_value()
         {
-            var okResultWithValue = Result.Ok<MyValueClass, MyErrorClass>(new MyValueClass());
+            var okResultWithValue = Result.Success<MyValueClass, MyErrorClass>(new MyValueClass());
 
             Action action = () => okResultWithValue.ConvertFailure<MyValueClass2>();
 

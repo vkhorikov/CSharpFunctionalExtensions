@@ -21,22 +21,22 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
 
         private Result<int> FunctionInt()
         {
-            return Result.Ok(1);
+            return Result.Success(1);
         }
 
         private Result<string> FunctionString(int intValue)
         {
-            return Result.Ok("Ok");
+            return Result.Success("Ok");
         }
 
         private Result<string> FunctionString()
         {
-            return Result.Ok("Ok");
+            return Result.Success("Ok");
         }
 
         private Result<DateTime> FunctionDateTime(string stringValue)
         {
-            return Result.Ok(DateTime.Now);
+            return Result.Success(DateTime.Now);
         }
     }
 }

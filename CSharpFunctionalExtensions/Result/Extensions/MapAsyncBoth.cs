@@ -14,7 +14,7 @@ namespace CSharpFunctionalExtensions
 
             K value = await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
 
-            return Result.Ok<K, E>(value);
+            return Result.Success<K, E>(value);
         }
 
         public static async Task<Result<K>> Map<T, K>(this Task<Result<T>> resultTask, Func<T, Task<K>> func)
@@ -26,7 +26,7 @@ namespace CSharpFunctionalExtensions
 
             K value = await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
 
-            return Result.Ok(value);
+            return Result.Success(value);
         }
 
         public static async Task<Result<K>> Map<K>(this Task<Result> resultTask, Func<Task<K>> func)
@@ -38,7 +38,7 @@ namespace CSharpFunctionalExtensions
 
             K value = await func().ConfigureAwait(Result.DefaultConfigureAwait);
 
-            return Result.Ok(value);
+            return Result.Success(value);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Ok_argument_is_null_Success_result_expected()
         {
-            Result result = Result.Ok<string>(null);
+            Result result = Result.Success<string>(null);
 
             result.IsSuccess.Should().BeTrue();
         }
@@ -462,7 +462,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_work_with_nullable_sructs()
         {
-            Result<DateTime?> result = Result.Ok((DateTime?)null);
+            Result<DateTime?> result = Result.Success((DateTime?)null);
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(null);
@@ -473,7 +473,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             Maybe<DateTime> maybe = Maybe<DateTime>.None;
 
-            Result<Maybe<DateTime>> result = Result.Ok(maybe);
+            Result<Maybe<DateTime>> result = Result.Success(maybe);
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(Maybe<DateTime>.None);
@@ -484,7 +484,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             Maybe<string> maybe = Maybe<string>.None;
 
-            Result<Maybe<string>> result = Result.Ok(maybe);
+            Result<Maybe<string>> result = Result.Success(maybe);
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(Maybe<string>.None);

@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void TapIf_AsyncLeft_executes_action_conditionally_and_returns_self(bool condition)
         {
-            Result result = Result.Ok();
+            Result result = Result.Success();
             Task<Result> resultTask = Task.FromResult(result);
             bool actionExecuted = false;
             Action action = () => actionExecuted = true;
@@ -28,7 +28,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void TapIf_T_AsyncLeft_executes_action_conditionally_and_returns_self(bool condition)
         {
-            Result<T> result = Result.Ok(T.Value);
+            Result<T> result = Result.Success(T.Value);
             Task<Result<T>> resultTask = Task.FromResult(result);
             bool actionExecuted = false;
             Action action = () => actionExecuted = true;
@@ -44,7 +44,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void TapIf_T_AsyncLeft_executes_action_T_conditionally_and_returns_self(bool condition)
         {
-            Result<T> result = Result.Ok(T.Value);
+            Result<T> result = Result.Success(T.Value);
             Task<Result<T>> resultTask = Task.FromResult(result);
             bool actionExecuted = false;
             Action<T> action = (T _) => actionExecuted = true;
@@ -60,7 +60,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void TapIf_T_E_AsyncLeft_executes_action_conditionally_and_returns_self(bool condition)
         {
-            Result<T, E> result = Result.Ok<T, E>(T.Value);
+            Result<T, E> result = Result.Success<T, E>(T.Value);
             Task<Result<T, E>> resultTask = Task.FromResult(result);
             bool actionExecuted = false;
             Action action = () => actionExecuted = true;
@@ -76,7 +76,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void TapIf_T_E_AsyncLeft_executes_action_T_conditionally_and_returns_self(bool condition)
         {
-            Result<T, E> result = Result.Ok<T, E>(T.Value);
+            Result<T, E> result = Result.Success<T, E>(T.Value);
             Task<Result<T, E>> resultTask = Task.FromResult(result);
             bool actionExecuted = false;
             Action<T> action = (T _) => actionExecuted = true;
@@ -92,7 +92,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void TapIf_AsyncLeft_executes_func_conditionally_and_returns_self(bool condition)
         {
-            Result result = Result.Ok();
+            Result result = Result.Success();
             Task<Result> resultTask = Task.FromResult(result);
             bool actionExecuted = false;
             Func<T> func = () => { actionExecuted = true; return T.Value; };
@@ -108,7 +108,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void TapIf_T_AsyncLeft_executes_func_conditionally_and_returns_self(bool condition)
         {
-            Result<T> result = Result.Ok(T.Value);
+            Result<T> result = Result.Success(T.Value);
             Task<Result<T>> resultTask = Task.FromResult(result);
             bool actionExecuted = false;
             Func<T> func = () => { actionExecuted = true; return T.Value; };
@@ -124,7 +124,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void TapIf_T_AsyncLeft_executes_func_T_conditionally_and_returns_self(bool condition)
         {
-            Result<T> result = Result.Ok(T.Value);
+            Result<T> result = Result.Success(T.Value);
             Task<Result<T>> resultTask = Task.FromResult(result);
             bool actionExecuted = false;
             Func<T, Discard> func = (T _) => { actionExecuted = true; return Discard.Value; };
@@ -140,7 +140,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void TapIf_T_E_AsyncLeft_executes_func_conditionally_and_returns_self(bool condition)
         {
-            Result<T, E> result = Result.Ok<T, E>(T.Value);
+            Result<T, E> result = Result.Success<T, E>(T.Value);
             Task<Result<T, E>> resultTask = Task.FromResult(result);
             bool actionExecuted = false;
             Func<T> func = () => { actionExecuted = true; return T.Value; };
@@ -156,7 +156,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [InlineData(false)]
         public void TapIf_T_E_AsyncLeft_executes_func_T_conditionally_and_returns_self(bool condition)
         {
-            Result<T, E> result = Result.Ok<T, E>(T.Value);
+            Result<T, E> result = Result.Success<T, E>(T.Value);
             Task<Result<T, E>> resultTask = Task.FromResult(result);
             bool actionExecuted = false;
             Func<T, Discard> func = (T _) => { actionExecuted = true; return Discard.Value; };

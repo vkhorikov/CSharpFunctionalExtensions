@@ -9,7 +9,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Result.Fail<T>(errorMessage);
 
-            return Result.Ok(maybe.Value);
+            return Result.Success(maybe.Value);
         }
 
         public static Result<T, E> ToResult<T, E>(this Maybe<T> maybe, E error)
@@ -17,7 +17,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Result.Fail<T, E>(error);
 
-            return Result.Ok<T, E>(maybe.Value);
+            return Result.Success<T, E>(maybe.Value);
         }
 
         public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = default(T))

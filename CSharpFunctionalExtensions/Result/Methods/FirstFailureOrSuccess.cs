@@ -14,7 +14,7 @@
                     return Fail(result.Error);
             }
 
-            return Ok();
+            return Success();
         }
     }
 }

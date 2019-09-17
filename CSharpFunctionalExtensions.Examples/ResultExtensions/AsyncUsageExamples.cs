@@ -49,7 +49,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
 
         Task<Result<Customer>> AskManager(long id)
         {
-            return Task.FromResult(Result.Ok(new Customer()));
+            return Task.FromResult(Result.Success(new Customer()));
         }
 
         public Task<Maybe<Customer>> GetByIdAsync(long id)
@@ -89,12 +89,12 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
         {
             public Result SendPromotionNotification(string email)
             {
-                return Result.Ok();
+                return Result.Success();
             }
 
             public Task<Result> SendPromotionNotificationAsync(string email)
             {
-                return Task.FromResult(Result.Ok());
+                return Task.FromResult(Result.Success());
             }
         }
     }

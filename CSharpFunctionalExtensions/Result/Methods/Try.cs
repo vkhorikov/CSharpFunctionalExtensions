@@ -14,7 +14,7 @@ namespace CSharpFunctionalExtensions
             try
             {
                 action();
-                return Ok();
+                return Success();
             }
             catch (Exception exc)
             {
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
 
             try
             {
-                return Ok(func());
+                return Success(func());
             }
             catch (Exception exc)
             {
@@ -45,7 +45,7 @@ namespace CSharpFunctionalExtensions
             try
             {
                 var result = await func().ConfigureAwait(DefaultConfigureAwait);
-                return Ok(result);
+                return Success(result);
             }
             catch (Exception exc)
             {
@@ -58,7 +58,7 @@ namespace CSharpFunctionalExtensions
         {
             try
             {
-                return Ok<T, E>(func());
+                return Success<T, E>(func());
             }
             catch (Exception exc)
             {
@@ -72,7 +72,7 @@ namespace CSharpFunctionalExtensions
             try
             {
                 var result = await func().ConfigureAwait(DefaultConfigureAwait);
-                return Ok<T, E>(result);
+                return Success<T, E>(result);
             }
             catch (Exception exc)
             {

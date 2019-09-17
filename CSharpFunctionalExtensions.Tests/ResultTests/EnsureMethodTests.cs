@@ -20,7 +20,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Ensure_source_result_is_success_predicate_is_failed_expected_result_failure()
         {
-            Result sut = Result.Ok();
+            Result sut = Result.Success();
 
             Result result = sut.Ensure(() => false, "predicate failed");
 
@@ -32,7 +32,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Ensure_source_result_is_success_predicate_is_passed_expected_result_success()
         {
-            Result sut = Result.Ok();
+            Result sut = Result.Success();
             
             Result result = sut.Ensure(() => true, string.Empty);
 
@@ -52,7 +52,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_source_result_is_success_async_predicate_is_failed_expected_result_failure()
         {
-            Result sut = Result.Ok();
+            Result sut = Result.Success();
 
             Result result = await sut.Ensure(() => Task.FromResult(false), "predicate problems");
 
@@ -64,7 +64,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_source_result_is_success_async_predicate_is_passed_expected_result_success()
         {
-            Result sut = Result.Ok();
+            Result sut = Result.Success();
 
             Result result = await sut.Ensure(() => Task.FromResult(true), string.Empty);
 
@@ -84,7 +84,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_success_predicate_is_failed_expected_result_failure()
         {
-            Task<Result> sut = Task.FromResult(Result.Ok());
+            Task<Result> sut = Task.FromResult(Result.Success());
 
             Result result = await sut.Ensure(() => false, "predicate problems");
 
@@ -96,7 +96,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_success_predicate_is_passed_expected_result_success()
         {
-            Task<Result> sut = Task.FromResult(Result.Ok());
+            Task<Result> sut = Task.FromResult(Result.Success());
 
             Result result = await sut.Ensure(() => true, string.Empty);
 
@@ -116,7 +116,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_success_async_predicate_is_failed_expected_result_failure()
         {
-            Task<Result> sut = Task.FromResult(Result.Ok());
+            Task<Result> sut = Task.FromResult(Result.Success());
 
             Result result = await sut.Ensure(() => Task.FromResult(false), "predicate problems");
 
@@ -128,7 +128,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_success_async_predicate_is_passed_expected_result_success()
         {
-            Task<Result> sut = Task.FromResult(Result.Ok());
+            Task<Result> sut = Task.FromResult(Result.Success());
 
             Result result = await sut.Ensure(() => Task.FromResult(true), string.Empty);
 
@@ -148,7 +148,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Ensure_generic_source_result_is_success_predicate_is_failed_expected_error_result_failure()
         {
-            Result<int> sut = Result.Ok(10101);
+            Result<int> sut = Result.Success(10101);
 
             Result<int> result = sut.Ensure(i => false, "test error");
 
@@ -160,7 +160,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Ensure_generic_source_result_is_success_predicate_is_passed_expected_error_result_success()
         {
-            Result<decimal> sut = Result.Ok(.03m);
+            Result<decimal> sut = Result.Success(.03m);
 
             Result<decimal> result = sut.Ensure(d => true, "test error");
 
@@ -180,7 +180,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_source_result_is_success_async_predicate_is_failed_expected_error_result_failure()
         {
-            Result<int> sut = Result.Ok(333);
+            Result<int> sut = Result.Success(333);
 
             Result<int> result = await sut.Ensure(i => Task.FromResult(false), "test ensure error");
 
@@ -192,7 +192,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_source_result_is_success_async_predicate_is_passed_expected_error_result_success()
         {
-            Result<decimal> sut = Result.Ok(.33m);
+            Result<decimal> sut = Result.Success(.33m);
 
             Result<decimal> result = await sut.Ensure(d => Task.FromResult(true), "test error");
 
@@ -212,7 +212,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_task_source_result_is_success_async_predicate_is_failed_expected_error_result_failure()
         {
-            Task<Result<long>> sut = Task.FromResult(Result.Ok<long>(333));
+            Task<Result<long>> sut = Task.FromResult(Result.Success<long>(333));
 
             Result<long> result = await sut.Ensure(l => Task.FromResult(false), "test ensure error");
 
@@ -224,7 +224,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_task_source_result_is_success_async_predicate_is_passed_expected_error_result_success()
         {
-            Task<Result<double>> sut = Task.FromResult(Result.Ok(.33));
+            Task<Result<double>> sut = Task.FromResult(Result.Success(.33));
 
             Result<double> result = await sut.Ensure(d => Task.FromResult(true), "test error");
 
@@ -244,7 +244,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_task_source_result_is_success_predicate_is_failed_expected_error_result_failure()
         {
-            Task<Result<long>> sut = Task.FromResult(Result.Ok<long>(333));
+            Task<Result<long>> sut = Task.FromResult(Result.Success<long>(333));
 
             Result<long> result = await sut.Ensure(l => false, "test ensure error");
 
@@ -256,7 +256,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_task_source_result_is_success_predicate_is_passed_expected_error_result_success()
         {
-            Task<Result<double>> sut = Task.FromResult(Result.Ok(.33));
+            Task<Result<double>> sut = Task.FromResult(Result.Success(.33));
 
             Result<double> result = await sut.Ensure(d => true, "test error");
 
@@ -276,7 +276,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_source_result_with_error_is_success_async_predicate_is_failed_expected_error_result_failure()
         {
-            Result<int, Error> sut = Result.Ok<int, Error>(101);
+            Result<int, Error> sut = Result.Success<int, Error>(101);
             var error = new Error();
 
             Result<int, Error> result = await sut.Ensure(i => Task.FromResult(false), error);
@@ -289,7 +289,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_generic_source_result_with_error_is_success_async_predicate_is_passed_expected_error_result_success()
         {
-            Result<decimal, Error> sut = Result.Ok<decimal, Error>(.0003m);
+            Result<decimal, Error> sut = Result.Success<decimal, Error>(.0003m);
 
             Result<decimal, Error> result = await sut.Ensure(d => Task.FromResult(true), new Error());
 
@@ -309,7 +309,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_success_async_predicate_with_arg_is_failed_expected_error_result_failure()
         {
-            Task<Result<int, Error>> sut = Task.FromResult(Result.Ok<int, Error>(100));
+            Task<Result<int, Error>> sut = Task.FromResult(Result.Success<int, Error>(100));
             var error = new Error();
 
             Result<int, Error> result = await sut.Ensure(i => Task.FromResult(false), error);
@@ -322,7 +322,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_success_async_predicate_with_arg_is_passed_expected_error_result_success()
         {
-            Task<Result<decimal, Error>> sut = Task.FromResult(Result.Ok<decimal, Error>(.3m));
+            Task<Result<decimal, Error>> sut = Task.FromResult(Result.Success<decimal, Error>(.3m));
 
             Result<decimal, Error> result = await sut.Ensure(d => Task.FromResult(true), new Error());
 
@@ -342,7 +342,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_success_predicate_with_arg_is_failed_expected_error_result_failure()
         {
-            Task<Result<byte, Error>> sut = Task.FromResult(Result.Ok<byte, Error>(32));
+            Task<Result<byte, Error>> sut = Task.FromResult(Result.Success<byte, Error>(32));
             var error = new Error();
 
             Result<byte, Error> result = await sut.Ensure(b => false, error);
@@ -355,7 +355,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public async Task Ensure_task_source_result_is_success_predicate_with_arg_is_passed_expected_error_result_success()
         {
-            Task<Result<double, Error>> sut = Task.FromResult(Result.Ok<double, Error>(.35));
+            Task<Result<double, Error>> sut = Task.FromResult(Result.Success<double, Error>(.35));
 
             Result<double, Error> result = await sut.Ensure(d => true, new Error());
 
@@ -375,7 +375,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Ensure_source_result_is_success_predicate_with_arg_is_failed_expected_error_result_failure()
         {
-            Result<byte, Error> sut = Result.Ok<byte, Error>(32);
+            Result<byte, Error> sut = Result.Success<byte, Error>(32);
             var error = new Error();
 
             Result<byte, Error> result = sut.Ensure(b => false, error);
@@ -388,7 +388,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Ensure_source_result_is_success_predicate_with_arg_is_passed_expected_error_result_success()
         {
-            Result<double, Error> sut = Result.Ok<double, Error>(.35);
+            Result<double, Error> sut = Result.Success<double, Error>(.35);
 
             Result<double, Error> result = sut.Ensure(d => true, new Error());
 

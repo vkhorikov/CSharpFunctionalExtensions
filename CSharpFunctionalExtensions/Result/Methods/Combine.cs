@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions
             List<Result> failedResults = results.Where(x => x.IsFailure).ToList();
 
             if (failedResults.Count == 0)
-                return Ok();
+                return Success();
 
             string errorMessage = string.Join(errorMessagesSeparator ?? ErrorMessagesSeparator, failedResults.Select(x => x.Error));
             return Fail(errorMessage);

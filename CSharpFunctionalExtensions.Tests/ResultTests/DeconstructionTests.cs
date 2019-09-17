@@ -9,7 +9,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_deconstruct_non_generic_Ok_to_isSuccess_and_isFailure()
         {
-            var (isSuccess, isFailure) = Result.Ok();
+            var (isSuccess, isFailure) = Result.Success();
 
             isSuccess.Should().Be(true);
             isFailure.Should().Be(false);
@@ -27,7 +27,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_deconstruct_non_generic_Ok_to_isSuccess_and_isFailure_and_error()
         {
-            var (isSuccess, isFailure, error) = Result.Ok();
+            var (isSuccess, isFailure, error) = Result.Success();
 
             isSuccess.Should().Be(true);
             isFailure.Should().Be(false);
@@ -47,7 +47,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_deconstruct_generic_Ok_to_isSuccess_and_isFailure()
         {
-            var (isSuccess, isFailure) = Result.Ok(true);
+            var (isSuccess, isFailure) = Result.Success(true);
 
             isSuccess.Should().Be(true);
             isFailure.Should().Be(false);
@@ -65,7 +65,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_deconstruct_generic_Ok_to_isSuccess_and_isFailure_and_value()
         {
-            var (isSuccess, isFailure, value) = Result.Ok(100);
+            var (isSuccess, isFailure, value) = Result.Success(100);
 
             isSuccess.Should().Be(true);
             isFailure.Should().Be(false);
@@ -75,7 +75,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_deconstruct_generic_Ok_to_isSuccess_and_isFailure_and_value_with_ignored_error()
         {
-            var (isSuccess, isFailure, value, _) = Result.Ok(100);
+            var (isSuccess, isFailure, value, _) = Result.Success(100);
 
             isSuccess.Should().Be(true);
             isFailure.Should().Be(false);
@@ -85,7 +85,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_deconstruct_generic_Ok_to_isSuccess_and_isFailure_and_error_with_ignored_value()
         {
-            var (isSuccess, isFailure, _, error) = Result.Ok(100);
+            var (isSuccess, isFailure, _, error) = Result.Success(100);
 
             isSuccess.Should().Be(true);
             isFailure.Should().Be(false);
@@ -105,7 +105,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_deconstruct_generic_Ok_with_generic_error_to_isSuccess_and_isFailure()
         {
-            var (isSuccess, isFailure) = Result.Ok<bool, Exception>(true);
+            var (isSuccess, isFailure) = Result.Success<bool, Exception>(true);
 
             isSuccess.Should().Be(true);
             isFailure.Should().Be(false);
@@ -124,7 +124,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_deconstruct_generic_Ok_with_generic_error_to_isSuccess_and_isFailure_and_value()
         {
-            var (isSuccess, isFailure, value) = Result.Ok<int, Exception>(100);
+            var (isSuccess, isFailure, value) = Result.Success<int, Exception>(100);
 
             isSuccess.Should().Be(true);
             isFailure.Should().Be(false);
@@ -134,7 +134,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_deconstruct_generic_Ok_with_generic_error_to_isSuccess_and_isFailure_and_value_with_ignored_error()
         {
-            var (isSuccess, isFailure, value, _) = Result.Ok<int, Exception>(100);
+            var (isSuccess, isFailure, value, _) = Result.Success<int, Exception>(100);
 
             isSuccess.Should().Be(true);
             isFailure.Should().Be(false);
@@ -144,7 +144,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_deconstruct_generic_Ok_with_generic_error_to_isSuccess_and_isFailure_and_error_with_ignored_value()
         {
-            var (isSuccess, isFailure, _, error) = Result.Ok<int, Exception>(100);
+            var (isSuccess, isFailure, _, error) = Result.Success<int, Exception>(100);
 
             isSuccess.Should().Be(true);
             isFailure.Should().Be(false);

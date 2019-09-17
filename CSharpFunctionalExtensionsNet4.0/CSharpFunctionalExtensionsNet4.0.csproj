@@ -67,11 +67,12 @@
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\FailureIf.cs" Link="Result\Methods\FailureIf.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\FirstFailureOrSuccess.cs" Link="Result\Methods\FirstFailureOrSuccess.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Fail.cs" Link="Result\Methods\Fail.cs" />
-    <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Ok.cs" Link="Result\Methods\Ok.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Success.cs" Link="Result\Methods\Success.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\SuccessIf.cs" Link="Result\Methods\SuccessIf.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Try.cs" Link="Result\Methods\Try.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Obsolete\Create.cs" Link="Result\Obsolete\Create.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Obsolete\CreateFailure.cs" Link="Result\Obsolete\CreateFailure.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Obsolete\Ok.cs" Link="Result\Obsolete\Ok.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Obsolete\OnBoth.cs" Link="Result\Obsolete\OnBoth.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Obsolete\OnBothAsyncBoth.cs" Link="Result\Obsolete\OnBothAsyncBoth.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Obsolete\OnBothAsyncLeft.cs" Link="Result\Obsolete\OnBothAsyncLeft.cs" />

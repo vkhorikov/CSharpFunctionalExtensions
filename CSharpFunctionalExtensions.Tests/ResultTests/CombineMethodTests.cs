@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void FirstFailureOrSuccess_returns_the_first_failed_result()
         {
-            Result result1 = Result.Ok();
+            Result result1 = Result.Success();
             Result result2 = Result.Fail("Failure 1");
             Result result3 = Result.Fail("Failure 2");
 
@@ -25,9 +25,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void FirstFailureOrSuccess_returns_Ok_if_no_failures()
         {
-            Result result1 = Result.Ok();
-            Result result2 = Result.Ok();
-            Result result3 = Result.Ok();
+            Result result1 = Result.Success();
+            Result result2 = Result.Success();
+            Result result3 = Result.Success();
 
             Result result = Result.FirstFailureOrSuccess(result1, result2, result3);
 
@@ -37,7 +37,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Combine_combines_all_errors_together()
         {
-            Result result1 = Result.Ok();
+            Result result1 = Result.Success();
             Result result2 = Result.Fail("Failure 1");
             Result result3 = Result.Fail("Failure 2");
 
@@ -50,9 +50,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Combine_returns_Ok_if_no_failures()
         {
-            Result result1 = Result.Ok();
-            Result result2 = Result.Ok();
-            Result<string> result3 = Result.Ok("Some string");
+            Result result1 = Result.Success();
+            Result result2 = Result.Success();
+            Result<string> result3 = Result.Success("Some string");
 
             Result result = Result.Combine(";", result1, result2, result3);
 
@@ -99,7 +99,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Combine_works_with_array_of_Generic_results_success()
         {
-            Result<string>[] results = new Result<string>[] { Result.Ok(""), Result.Ok("") };
+            Result<string>[] results = new Result<string>[] { Result.Success(""), Result.Success("") };
 
             Result result = Result.Combine(";", results);
 
@@ -109,7 +109,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Combine_works_with_array_of_Generic_results_failure()
         {
-            Result<string>[] results = new Result<string>[] { Result.Ok(""), Result.Fail<string>("m") };
+            Result<string>[] results = new Result<string>[] { Result.Success(""), Result.Fail<string>("m") };
 
             Result result = Result.Combine(";", results);
 
@@ -121,7 +121,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result> results = new Result[]
             {
-                Result.Ok(),
+                Result.Success(),
                 Result.Fail("Failure 1"),
                 Result.Fail("Failure 2")
             };
@@ -137,9 +137,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result> results = new Result[]
             {
-                Result.Ok(),
-                Result.Ok(),
-                Result.Ok("Some string")
+                Result.Success(),
+                Result.Success(),
+                Result.Success("Some string")
             };
 
             Result result = results.Combine(";");
@@ -152,7 +152,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result<string>> results = new Result<string>[]
             {
-                Result.Ok<string>("str 1"),
+                Result.Success<string>("str 1"),
                 Result.Fail<string>("Failure 1"),
                 Result.Fail<string>("Failure 2")
             };
@@ -168,9 +168,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result<int>> results = new Result<int>[]
             {
-                Result.Ok(21),
-                Result.Ok(34),
-                Result.Ok(55)
+                Result.Success(21),
+                Result.Success(34),
+                Result.Success(55)
             };
 
             Result<IEnumerable<int>> result = results.Combine(";");
@@ -184,9 +184,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result<string>> results = new Result<string>[]
             {
-                Result.Ok("one"),
-                Result.Ok("two"),
-                Result.Ok("three")
+                Result.Success("one"),
+                Result.Success("two"),
+                Result.Success("three")
             };
 
             Result<IEnumerable<string>> result = results.Combine(";");
@@ -200,7 +200,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result<string>> results = new Result<string>[]
             {
-                Result.Ok(""),
+                Result.Success(""),
                 Result.Fail<string>("m"),
                 Result.Fail<string>("o")
             };
@@ -216,9 +216,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result>> tasks = new Task<Result>[]
             {
-                Task.FromResult(Result.Ok()),
-                Task.FromResult(Result.Ok()),
-                Task.FromResult((Result)Result.Ok("some text")),
+                Task.FromResult(Result.Success()),
+                Task.FromResult(Result.Success()),
+                Task.FromResult((Result)Result.Success("some text")),
             };
 
             Result result = await tasks.Combine(";");
@@ -231,7 +231,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result>> tasks = new Task<Result>[]
             {
-                Task.FromResult(Result.Ok()),
+                Task.FromResult(Result.Success()),
                 Task.FromResult(Result.Fail("e")),
                 Task.FromResult(Result.Fail("r")),
                 Task.FromResult(Result.Fail("r"))
@@ -248,7 +248,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result<string>>> tasks = new Task<Result<string>>[]
             {
-                Task.FromResult(Result.Ok<string>("str 1")),
+                Task.FromResult(Result.Success<string>("str 1")),
                 Task.FromResult(Result.Fail<string>("Error 1")),
                 Task.FromResult(Result.Fail<string>("Error 2"))
             };
@@ -264,9 +264,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result<int>>> tasks = new Task<Result<int>>[]
             {
-                Task.FromResult(Result.Ok(8)),
-                Task.FromResult(Result.Ok(16)),
-                Task.FromResult(Result.Ok(32))
+                Task.FromResult(Result.Success(8)),
+                Task.FromResult(Result.Success(16)),
+                Task.FromResult(Result.Success(32))
             };
 
             Result<IEnumerable<int>> result = await tasks.Combine(";");
@@ -280,9 +280,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result> results = new Result[]
             {
-                Result.Ok(),
-                Result.Ok(),
-                Result.Ok("some-text")
+                Result.Success(),
+                Result.Success(),
+                Result.Success("some-text")
             };
             var task = Task.FromResult(results);
 
@@ -296,7 +296,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result> results = new Result[]
             {
-                Result.Ok(),
+                Result.Success(),
                 Result.Fail<string>("b"),
                 Result.Fail<string>("y")
             };
@@ -313,9 +313,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result<string>> results = new Result<string>[]
             {
-                Result.Ok("1"),
-                Result.Ok("3"),
-                Result.Ok("7")
+                Result.Success("1"),
+                Result.Success("3"),
+                Result.Success("7")
             };
             var task = Task.FromResult(results);
 
@@ -330,7 +330,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result<int>> results = new Result<int>[]
             {
-                Result.Ok<int>(7),
+                Result.Success<int>(7),
                 Result.Fail<int>("b"),
                 Result.Fail<int>("2")
             };
@@ -347,9 +347,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result>> tasks = new Task<Result>[]
             {
-                Task.FromResult(Result.Ok()),
-                Task.FromResult(Result.Ok()),
-                Task.FromResult((Result)Result.Ok("some-text"))
+                Task.FromResult(Result.Success()),
+                Task.FromResult(Result.Success()),
+                Task.FromResult((Result)Result.Success("some-text"))
             };
             Task<IEnumerable<Task<Result>>> task = Task.FromResult(tasks);
 
@@ -363,7 +363,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result>> tasks = new Task<Result>[]
             {
-                Task.FromResult(Result.Ok()),
+                Task.FromResult(Result.Success()),
                 Task.FromResult(Result.Fail("x")),
                 Task.FromResult(Result.Fail("y")),
                 Task.FromResult(Result.Fail("z"))
@@ -381,9 +381,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result<int>>> tasks = new Task<Result<int>>[]
             {
-                Task.FromResult(Result.Ok(7)),
-                Task.FromResult(Result.Ok(77)),
-                Task.FromResult(Result.Ok(777))
+                Task.FromResult(Result.Success(7)),
+                Task.FromResult(Result.Success(77)),
+                Task.FromResult(Result.Success(777))
             };
             Task<IEnumerable<Task<Result<int>>>> task = Task.FromResult(tasks);
 
@@ -398,7 +398,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result<int>>> tasks = new Task<Result<int>>[]
             {
-                Task.FromResult(Result.Ok(13)),
+                Task.FromResult(Result.Success(13)),
                 Task.FromResult(Result.Fail<int>("error")),
                 Task.FromResult(Result.Fail<int>("fail"))
             };
@@ -415,9 +415,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result<int>> results = new Result<int>[]
             {
-                Result.Ok(10),
-                Result.Ok(20),
-                Result.Ok(30),
+                Result.Success(10),
+                Result.Success(20),
+                Result.Success(30),
             };
 
             Result<double> result = results.Combine(values => (double)values.Max() / 100, ";");
@@ -431,9 +431,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Result<string>> results = new Result<string>[]
             {
-                Result.Ok("one"),
-                Result.Ok("five"),
-                Result.Ok("three"),
+                Result.Success("one"),
+                Result.Success("five"),
+                Result.Success("three"),
                 Result.Fail<string>("error 1"),
                 Result.Fail<string>("error 2")
             };
@@ -449,9 +449,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result<int>>> tasks = new Task<Result<int>>[]
             {
-                Task.FromResult(Result.Ok(90)),
-                Task.FromResult(Result.Ok(95)),
-                Task.FromResult(Result.Ok(99)),
+                Task.FromResult(Result.Success(90)),
+                Task.FromResult(Result.Success(95)),
+                Task.FromResult(Result.Success(99)),
             };
 
             Result<double> result = await tasks.Combine(values => (double)values.Min() / 1000, ";");
@@ -465,9 +465,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result<string>>> tasks = new Task<Result<string>>[]
             {
-                Task.FromResult(Result.Ok("ho")),
-                Task.FromResult(Result.Ok("Hi")),
-                Task.FromResult(Result.Ok("No")),
+                Task.FromResult(Result.Success("ho")),
+                Task.FromResult(Result.Success("Hi")),
+                Task.FromResult(Result.Success("No")),
                 Task.FromResult(Result.Fail<string>("exc 1")),
                 Task.FromResult(Result.Fail<string>("exc 2"))
             };
@@ -483,9 +483,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result<int>>> tasks = new Task<Result<int>>[]
             {
-                Task.FromResult(Result.Ok(90)),
-                Task.FromResult(Result.Ok(95)),
-                Task.FromResult(Result.Ok(99)),
+                Task.FromResult(Result.Success(90)),
+                Task.FromResult(Result.Success(95)),
+                Task.FromResult(Result.Success(99)),
             };
             Task<IEnumerable<Task<Result<int>>>> task = Task.FromResult(tasks);
 
@@ -500,9 +500,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             IEnumerable<Task<Result<string>>> tasks = new Task<Result<string>>[]
             {
-                Task.FromResult(Result.Ok("ho")),
-                Task.FromResult(Result.Ok("Hi")),
-                Task.FromResult(Result.Ok("No")),
+                Task.FromResult(Result.Success("ho")),
+                Task.FromResult(Result.Success("Hi")),
+                Task.FromResult(Result.Success("No")),
                 Task.FromResult(Result.Fail<string>("e 1")),
                 Task.FromResult(Result.Fail<string>("e 2"))
             };

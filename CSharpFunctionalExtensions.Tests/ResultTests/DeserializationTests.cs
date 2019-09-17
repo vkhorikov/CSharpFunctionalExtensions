@@ -14,7 +14,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Deserialize_sets_correct_statuses_on_success_result()
         {
-            Result okResult = Result.Ok();
+            Result okResult = Result.Success();
             var serialized = Serialize(okResult);
 
             Result result = Deserialize<Result>(serialized);
@@ -50,7 +50,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         public void Deserialize_of_generic_result_adds_object_in_context_when_success_result()
         {
             DeserializationTestObject language = new DeserializationTestObject { Number = 232, String = "C#" };
-            Result<DeserializationTestObject> failResult = Result.Ok(language);
+            Result<DeserializationTestObject> failResult = Result.Success(language);
             var serialized = Serialize(failResult);
 
             Result<DeserializationTestObject> result = Deserialize<Result<DeserializationTestObject>>(serialized);
