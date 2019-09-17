@@ -556,6 +556,39 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("execute error");
         }
+        
+        [Fact]
+        public async Task Try_execute_async_action_success_without_error_handler_function_result_expected()
+        {
+            Func<Task> action = () => Task.CompletedTask;
+            
+            var result = await Result.Try(action);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+        
+        [Fact]
+        public async Task Try_execute_async_action_failed_without_error_handler_failed_result_expected()
+        {
+            Func<Task> action = () => Task.FromException(new Exception("func error"));
+            
+            var result = await Result.Try(action);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("func error");
+        }
+        
+        [Fact]
+        public async Task Try_execute_async_action_failed_with_error_handler_failed_result_expected()
+        {
+            Func<Task> action = () => Task.FromException(new Exception("func error"));
+            Func<Exception, string> handler = exc => "execute error";
+            
+            var result = await Result.Try(action, handler);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("execute error");
+        }
 
         [Fact]
         public void Try_with_error_execute_function_success_without_error_success_result_expected()
