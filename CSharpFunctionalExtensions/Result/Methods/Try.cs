@@ -23,6 +23,22 @@ namespace CSharpFunctionalExtensions
             }
         }
 
+        public static async Task<Result> Try(Func<Task> action, Func<Exception, string> errorHandler = null)
+        {
+            errorHandler = errorHandler ?? DefaultTryErrorHandler;
+
+            try
+            {
+                await action().ConfigureAwait(DefaultConfigureAwait);
+                return Success();
+            }
+            catch (Exception exc)
+            {
+                string message = errorHandler(exc);
+                return Failure(message);
+            }
+        }
+
         public static Result<T> Try<T>(Func<T> func, Func<Exception, string> errorHandler = null)
         {
             errorHandler = errorHandler ?? DefaultTryErrorHandler;
