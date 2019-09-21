@@ -5,6 +5,9 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class AsyncResultExtensionsBothOperands
     {
+        /// <summary>
+        ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
+        /// </summary>
         public static async Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<T, Task<bool>> predicate, string errorMessage)
         {
             Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
@@ -18,6 +21,9 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
+        /// <summary>
+        ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
+        /// </summary>
         public static async Task<Result<T, E>> Ensure<T, E>(this Task<Result<T, E>> resultTask, Func<T, Task<bool>> predicate, E error)
         {
             Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
@@ -31,6 +37,9 @@ namespace CSharpFunctionalExtensions
             return result;
         }
 
+        /// <summary>
+        ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
+        /// </summary>
         public static async Task<Result> Ensure(this Task<Result> resultTask, Func<Task<bool>> predicate, string errorMessage)
         {
             Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
