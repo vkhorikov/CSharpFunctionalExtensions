@@ -71,6 +71,7 @@ return _customerRepository.GetById(id)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [ThomasDC](https://github.com/thomasdc)
  * [bopazyn](https://github.com/bopazyn)
  * [Joris Goovaerts](https://github.com/CommCody)
  * [Ivan Deev](https://github.com/BillyFromAHill)
