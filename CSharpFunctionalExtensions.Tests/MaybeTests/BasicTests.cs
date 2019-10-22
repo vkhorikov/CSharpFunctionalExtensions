@@ -13,6 +13,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             maybe.HasValue.Should().BeFalse();
             maybe.HasNoValue.Should().BeTrue();
+            ((bool) maybe).Should().BeFalse();
         }
 
         [Fact]
@@ -22,6 +23,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             maybe.HasValue.Should().BeFalse();
             maybe.HasNoValue.Should().BeTrue();
+            ((bool) maybe).Should().BeFalse();
         }
 
         [Fact]
@@ -55,6 +57,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             maybe.HasValue.Should().BeTrue();
             maybe.HasNoValue.Should().BeFalse();
+            ((bool) maybe).Should().BeTrue();
             maybe.Value.Should().Be(instance);
         }
 
