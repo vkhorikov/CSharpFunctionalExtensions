@@ -37,6 +37,8 @@ namespace CSharpFunctionalExtensions
             return new Maybe<T>(value);
         }
 
+        public static implicit operator bool(Maybe<T> value) => value.HasValue;
+
         public static Maybe<T> From(T obj)
         {
             return new Maybe<T>(obj);
