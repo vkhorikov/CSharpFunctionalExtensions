@@ -44,9 +44,9 @@ if (customerOrNothing.HasNoValue)
 return _customerRepository.GetById(id)
     .ToResult("Customer with such Id is not found: " + id)
     .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
-    .OnSuccess(customer => customer.Promote())
-    .OnSuccess(customer => _emailGateway.SendPromotionNotification(customer.PrimaryEmail, customer.Status))
-    .OnBoth(result => result.IsSuccess ? Ok() : Error(result.Error));
+    .Tap(customer => customer.Promote())
+    .Tap(customer => _emailGateway.SendPromotionNotification(customer.PrimaryEmail, customer.Status))
+    .Finally(result => result.IsSuccess ? Ok() : Error(result.Error));
 ```
 
 ## Wrap multiple operations in a TransactionScope
@@ -55,11 +55,11 @@ return _customerRepository.GetById(id)
 return _customerRepository.GetById(id)
     .ToResult("Customer with such Id is not found: " + id)
     .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
-    .OnSuccessWithTransactionScope(customer => Result.Ok(customer)
-        .OnSuccess(customer => customer.Promote())
-        .OnSuccess(customer => customer.ClearAppointments()))
-    .OnSuccess(customer => _emailGateway.SendPromotionNotification(customer.PrimaryEmail, customer.Status))
-    .OnBoth(result => result.IsSuccess ? Ok() : Error(result.Error));
+    .WithTransactionScope(customer => Result.Ok(customer)
+        .Tap(customer => customer.Promote())
+        .Tap(customer => customer.ClearAppointments()))
+    .Tap(customer => _emailGateway.SendPromotionNotification(customer.PrimaryEmail, customer.Status))
+    .Finally(result => result.IsSuccess ? Ok() : Error(result.Error));
 ```
 
 ## Readings and watchings
