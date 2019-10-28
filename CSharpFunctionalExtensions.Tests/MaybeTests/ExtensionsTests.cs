@@ -189,7 +189,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         {
             Maybe<MyClass> maybe = new MyClass { Property = "Some value" };
 
-            Maybe<string> maybe2 = maybe.Select(x => GetPropertyIfExists(x));
+            Maybe<string> maybe2 = maybe.SelectMany(x => GetPropertyIfExists(x));
 
             maybe2.HasValue.Should().BeTrue();
             maybe2.Value.Should().Be("Some value");
@@ -200,7 +200,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         {
             Maybe<MyClass> maybe = new MyClass { Property = null };
 
-            Maybe<string> maybe2 = maybe.Select(x => GetPropertyIfExists(x));
+            Maybe<string> maybe2 = maybe.SelectMany(x => GetPropertyIfExists(x));
 
             maybe2.HasValue.Should().BeFalse();
         }
