@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharpFunctionalExtensions
 {
@@ -110,6 +112,59 @@ namespace CSharpFunctionalExtensions
             {
                 None();
             }
+        }
+
+        public static IEnumerable<U> Choose<T, U>(this IEnumerable<Maybe<T>> source, Func<T, U> selector)
+        {
+            using (var enumerator = source.GetEnumerator())
+            {
+                while (enumerator.MoveNext())
+                {
+                    var item = enumerator.Current;
+                    if (item.HasValue)
+                    {
+                        yield return selector(item.Value);
+                    }
+                }
+            }
+        }
+
+        public static Maybe<T> TryFirst<T>(this IEnumerable<T> source)
+        {
+            if (source.Any())
+            {
+                return Maybe<T>.From(source.First());
+            }
+            return Maybe<T>.None;
+        }
+
+        public static Maybe<T> TryFirst<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            var first = source.FirstOrDefault(predicate);
+            if (first != null)
+            {
+                return Maybe<T>.From(first);
+            }
+            return Maybe<T>.None;
+        }
+
+        public static Maybe<T> TryLast<T>(this IEnumerable<T> source)
+        {
+            if (source.Any())
+            {
+                return Maybe<T>.From(source.Last());
+            }
+            return Maybe<T>.None;
+        }
+
+        public static Maybe<T> TryLast<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            var last = source.LastOrDefault(predicate);
+            if (last != null)
+            {
+                return Maybe<T>.From(last);
+            }
+            return Maybe<T>.None;
         }
     }
 }

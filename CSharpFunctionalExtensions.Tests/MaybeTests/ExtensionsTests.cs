@@ -258,6 +258,138 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             );
         }
 
+        [Fact]
+        public void Choose_double_values()
+        {
+            var source = new [] 
+            { 
+                Maybe<int>.None, 
+                1,
+                Maybe<int>.None, 
+                2, 
+                3 
+            };
+
+            var doubled = source.Choose(x => x * 2);
+
+            var expected = new [] { 2, 4, 6 };
+            doubled.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void TryFirst_source_has_elements()
+        {
+            var source = new[]
+            {
+                new { Index = 1, Value = 1 },
+                new { Index = 2, Value = 2 },
+                new { Index = 3, Value = 3 }
+            };
+
+            var maybe = source.TryFirst();
+
+            maybe.HasValue.Should().BeTrue();
+            maybe.Value.Should().Be(source[0]);
+        }
+
+        [Fact]
+        public void TryFirst_source_has_no_elements()
+        {
+            var source = new int[0];
+
+            var maybe = source.TryFirst();
+
+            maybe.HasValue.Should().BeFalse();
+        }
+
+        [Fact]
+        public void TryFirst_source_predicate_contains()
+        {
+            var source = new[]
+            {
+                new { Index = 1, Value = 1 },
+                new { Index = 2, Value = 2 },
+                new { Index = 3, Value = 2 }
+            };
+
+            var maybe = source.TryFirst(x => x.Value == 2);
+
+            maybe.HasValue.Should().BeTrue();
+            maybe.Value.Should().Be(source[1]);
+        }
+
+        [Fact]
+        public void TryFirst_source_predicate_not_contains()
+        {
+            var source = new[]
+            {
+                new { Index = 1, Value = 1 },
+                new { Index = 2, Value = 2 },
+                new { Index = 3, Value = 3 }
+            };
+
+            var maybe = source.TryFirst(x => x.Value == 5);
+
+            maybe.HasValue.Should().BeFalse();
+        }
+
+        [Fact]
+        public void TryLast_source_has_elements()
+        {
+            var source = new[]
+            {
+                new { Index = 1, Value = 1 },
+                new { Index = 2, Value = 2 },
+                new { Index = 3, Value = 3 }
+            };
+
+            var maybe = source.TryLast();
+
+            maybe.HasValue.Should().BeTrue();
+            maybe.Value.Should().Be(source[2]);
+        }
+
+        [Fact]
+        public void TryLast_source_has_no_elements()
+        {
+            var source = new int[0];
+
+            var maybe = source.TryLast();
+
+            maybe.HasValue.Should().Be(false);
+        }
+
+        [Fact]
+        public void TryLast_source_predicate_contains()
+        {
+            var source = new[]
+            {
+                new { Index = 1, Value = 2 },
+                new { Index = 2, Value = 2 },
+                new { Index = 3, Value = 3 }
+            };
+
+            var maybe = source.TryLast(x => x.Value == 2);
+
+            maybe.HasValue.Should().BeTrue();
+            maybe.Value.Should().Be(source[1]);
+        }
+
+        [Fact]
+        public void TryLast_source_predicate_not_contains()
+        {
+            var source = new[]
+            {
+                new { Index = 1, Value = 1 },
+                new { Index = 2, Value = 2 },
+                new { Index = 3, Value = 3 }
+            };
+
+            var maybe = source.TryLast(x => x.Value == 5);
+
+            maybe.HasValue.Should().BeFalse();
+        }
+
         private static Maybe<string> GetPropertyIfExists(MyClass myClass)
         {
             return myClass.Property;
