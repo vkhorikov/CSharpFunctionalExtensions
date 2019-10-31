@@ -21,6 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\CSharpFunctionalExtensions\ICombine.cs" Link="ICombine.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Maybe\AsyncMaybeExtensions.cs" Link="Maybe\AsyncMaybeExtensions.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Maybe\Maybe.cs" Link="Maybe\Maybe.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Maybe\MaybeExtensions.cs" Link="Maybe\MaybeExtensions.cs" />
