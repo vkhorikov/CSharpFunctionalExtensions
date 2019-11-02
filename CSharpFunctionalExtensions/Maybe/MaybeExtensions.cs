@@ -167,7 +167,7 @@ namespace CSharpFunctionalExtensions
             return Maybe<T>.None;
         }
 
-        public static Maybe<V> TryFind<K, V>(this IReadOnlyDictionary<K, V> dict, K key) 
+        public static Maybe<V> TryFind<K, V>(this IDictionary<K, V> dict, K key) 
         {
             if (dict.ContainsKey(key)) 
             {
