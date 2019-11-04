@@ -1,5 +1,6 @@
 ﻿Functional Extensions for C#
 ======================================================
+[![Build Status](https://dev.azure.com/EnterpriseCraftsmanship/CSharpFunctionalExtensions/_apis/build/status/CSharpFunctionalExtensions?branchName=master)](https://dev.azure.com/EnterpriseCraftsmanship/CSharpFunctionalExtensions/_build/latest?definitionId=1&branchName=master)
 [![Nuget downloads](https://img.shields.io/nuget/v/csharpfunctionalextensions.svg)](https://www.nuget.org/packages/CSharpFunctionalExtensions/)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE)
 

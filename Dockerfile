@@ -23,8 +23,8 @@ RUN dotnet restore ./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions
 
 COPY ./CSharpFunctionalExtensions ./CSharpFunctionalExtensions
 COPY ./CSharpFunctionalExtensions.Tests ./CSharpFunctionalExtensions.Tests
-RUN dotnet build -c Release --no-restore ./CSharpFunctionalExtensions/CSharpFunctionalExtensions.csproj
-RUN dotnet build -c Release --no-restore ./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions.Tests.csproj
+RUN dotnet build -c Release --no-restore "./CSharpFunctionalExtensions/CSharpFunctionalExtensions.csproj"
+RUN dotnet build -c Release --no-restore "./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions.Tests.csproj"
 
-RUN dotnet test ./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions.Tests.csproj -c Release --no-build --no-restore
+RUN dotnet test "./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions.Tests.csproj" -c Release --no-build --no-restore
 
