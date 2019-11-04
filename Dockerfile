@@ -28,3 +28,4 @@ RUN dotnet build -c Release --no-restore "./CSharpFunctionalExtensions.Tests/CSh
 
 RUN dotnet test "./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions.Tests.csproj" -c Release --no-build --no-restore
 
+RUN dotnet pack "./CSharpFunctionalExtensions/CSharpFunctionalExtensions.csproj" -c Release --no-restore --no-build -o /app/out
