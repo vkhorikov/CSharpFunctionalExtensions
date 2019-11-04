@@ -1,0 +1,9 @@
+**/.git/
+**/.vs/
+**/bin/
+**/obj/
+**/*ncrunch*
+**/out/
+**/TestResults/
+
+Dockerfile*

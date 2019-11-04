@@ -4,18 +4,15 @@
     <TargetFramework>net40</TargetFramework>
     <RootNamespace>CSharpFunctionalExtensions</RootNamespace>
     <PackageId>CSharpFunctionalExtensionsNet4.0</PackageId>
-    <PackageVersion>2.1.1</PackageVersion>
     <Authors>Vladimir Khorikov</Authors>
     <Description>CSharpFunctionalExtensions - functional extensions for C#.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>C# Functional</PackageTags>
-    <PackageLicenseUrl>https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://www.pluralsight.com/courses/csharp-applying-functional-principles</PackageProjectUrl>
+    <PackageLicense>https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE</PackageLicense>
+    <PackageProjectUrl>https://enterprisecraftsmanship.com/ps-func</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>2.1.1</Version>
-    <AssemblyVersion>2.1.1.0</AssemblyVersion>
-    <FileVersion>2.1.1.0</FileVersion>
+    <Version>2.2.0</Version>
     <AssemblyName>CSharpFunctionalExtensions</AssemblyName>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
