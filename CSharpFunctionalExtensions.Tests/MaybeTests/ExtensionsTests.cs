@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
@@ -386,6 +387,30 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             };
 
             var maybe = source.TryLast(x => x.Value == 5);
+
+            maybe.HasValue.Should().BeFalse();
+        }
+
+        [Fact]
+        public void TryFind_dict_contains_key() 
+        {
+            var dict = new Dictionary<string, string> 
+            { 
+                { "key", "value" } 
+            };
+
+            var maybe = dict.TryFind("key");
+
+            maybe.HasValue.Should().BeTrue();
+            maybe.Value.Should().Be("value");
+        }
+
+        [Fact]
+        public void TryFind_dict_does_not_contains_key() 
+        {
+            var dict = new Dictionary<string, string>();
+
+            var maybe = dict.TryFind("key");
 
             maybe.HasValue.Should().BeFalse();
         }
