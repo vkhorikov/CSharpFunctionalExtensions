@@ -6,7 +6,7 @@
         bool IsSuccess { get; }
     }
 
-    public interface IValue<T>
+    public interface IValue<out T>
     {
         T Value { get; }
     }

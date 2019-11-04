@@ -1,10 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CSharpFunctionalExtensions
 {
     public partial struct Result
     {
+        public static Result<bool, E> Combine<T, E>(IEnumerable<Result<T, E>> results)
+            where E : ICombine
+        {
+            return Combine(results, (errors) => errors.Aggregate((x, y) => (E)x.Combine(y)));
+        }
+
+        public static Result<bool, E> Combine<T, E>(IEnumerable<Result<T, E>> results, Func<IEnumerable<E>, E> composerError)
+        {
+            List<Result<T, E>> failedResults = results.Where(x => x.IsFailure).ToList();
+
+            if (failedResults.Count == 0)
+                return Success<bool, E>(true);
+
+            var errorMessage = composerError(failedResults.Select(x => x.Error));
+            return Failure<bool, E>(errorMessage);
+        }
+
         public static Result Combine(IEnumerable<Result> results, string errorMessagesSeparator = null)
         {
             List<Result> failedResults = results.Where(x => x.IsFailure).ToList();
@@ -31,6 +49,13 @@ namespace CSharpFunctionalExtensions
         /// <returns>A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
         public static Result Combine(params Result[] results)
             => Combine(results, ErrorMessagesSeparator);
+
+        public static Result<bool, E> Combine<T, E>(params Result<T, E>[] results)
+            where E : ICombine
+            => Combine<T, E>(results, (errors) => errors.Aggregate((x, y) => (E)x.Combine(y)));
+
+        public static Result<bool, E> Combine<T, E>(Func<IEnumerable<E>, E> composerError, params Result<T, E>[] results)
+            => Combine<T, E>(results, composerError);
 
         /// <summary>
         /// Combines several results (and any error messages) into a single result.
