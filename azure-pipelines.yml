@@ -32,3 +32,5 @@ stages:
         dockerfile: '**/Dockerfile'
         tags: |
           $(tag)
+    - publish: ./app/out
+      artifact: NugetPackage
