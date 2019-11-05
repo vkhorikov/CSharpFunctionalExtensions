@@ -72,5 +72,5 @@ stages:
       displayName: Set release id
     - script: curl -X POST -s -H '$(contentTypeHeader2)' -H '$(authHeader)' -F 'data=@$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(version).nupkg' https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.$(version).nupkg
       displayName: Upload release artifact
-    - script: dotnet nuget push ./CSharpFunctionalExtensions.$(version).nupkg --source https://api.nuget.org/v3/index.json --api-key $(nugetToken)
+    - script: dotnet nuget push $(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(version).nupkg --source https://api.nuget.org/v3/index.json --api-key $(nugetToken)
       displayName: NuGet push
