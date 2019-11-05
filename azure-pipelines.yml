@@ -25,12 +25,5 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-    - task: Docker@2
+    - script: docker build . -t build/$(tag) -f '**/Dockerfile'
       displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '**/Dockerfile'
-        tags: |
-          $(tag)
-    - publish: ./app/out
-      artifact: NugetPackage
