@@ -12,7 +12,8 @@ RUN echo "deb http://download.mono-project.com/repo/debian stretch/snapshots/$MO
 RUN apt-get update \
   && apt-get install -y binutils curl mono-devel ca-certificates-mono fsharp mono-vbnc nuget referenceassemblies-pcl \
   && rm -rf /var/lib/apt/lists/* /tmp/*
-  
+
+ARG version
 WORKDIR /app
 
 COPY ./CSharpFunctionalExtensions.sln ./netfx.props ./
@@ -23,9 +24,9 @@ RUN dotnet restore ./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions
 
 COPY ./CSharpFunctionalExtensions ./CSharpFunctionalExtensions
 COPY ./CSharpFunctionalExtensions.Tests ./CSharpFunctionalExtensions.Tests
-RUN dotnet build -c Release --no-restore "./CSharpFunctionalExtensions/CSharpFunctionalExtensions.csproj"
-RUN dotnet build -c Release --no-restore "./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions.Tests.csproj"
+RUN dotnet build -c Release --no-restore "./CSharpFunctionalExtensions/CSharpFunctionalExtensions.csproj" /p:Version=$version
+RUN dotnet build -c Release --no-restore "./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions.Tests.csproj" /p:Version=$version
 
 RUN dotnet test "./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions.Tests.csproj" -c Release --no-build --no-restore
 
-RUN dotnet pack "./CSharpFunctionalExtensions/CSharpFunctionalExtensions.csproj" -c Release --no-restore --no-build -o /app/out
+RUN dotnet pack "./CSharpFunctionalExtensions/CSharpFunctionalExtensions.csproj" -c Release --no-restore --no-build -o /app/out /p:Version=$version

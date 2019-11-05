@@ -22,7 +22,12 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-    - script: docker build . -t build-image -f Dockerfile
+    - script: |
+      $version=$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | head -1)
+      echo "version: $version"
+
+      displayName: Checking version
+    - script: docker build . -t build-image -f Dockerfile --build-arg Version=$version
       displayName: Build an image
     - script: docker create --name build-container build-image
       displayName: Create a container
