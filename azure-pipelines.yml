@@ -21,13 +21,16 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-    - script: echo 123
-      displayName: Temp
     - script: echo "##vso[task.setvariable variable=versionVar;isOutput=true]$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | head -1)"
       name: setVersionStep
       displayName: Set version variable
     - script: echo $(setVersionStep.versionVar)
       displayName: Echo version
+    - script: echo "##vso[task.setvariable variable=releaseInfoVar;isOutput=true]$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | tail -n +2)"
+      name: setReleaseInfoStep
+      displayName: Set release info variable
+    - script: echo $(setVersionStep.versionVar)
+      displayName: Echo release info
 
   - job: Build
     dependsOn: Version
@@ -35,8 +38,9 @@ stages:
       vmImage: 'ubuntu-16.04'
     variables:
       version: $[ dependencies.Version.outputs['setVersionStep.versionVar'] ]
+      releaseInfo: $[ dependencies.Version.outputs['setReleaseInfoStep.releaseInfoVar'] ]
     steps:
-    - script: docker build . -t build-image -f Dockerfile --build-arg Version=$version
+    - script: docker build . -t build-image -f Dockerfile --build-arg Version=$(version)
       displayName: Build an image
     - script: docker create --name build-container build-image
       displayName: Create a container
