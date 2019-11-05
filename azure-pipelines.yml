@@ -21,8 +21,11 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
+    - script: echo 123
+      displayName: Temp
     - script: echo "##vso[task.setvariable variable=versionVar;isOutput=true]$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | head -1)"
       name: setVersionStep
+      displayName: Set version variable
     - script: echo $(setVersionStep.versionVar)
       displayName: Echo version
 
