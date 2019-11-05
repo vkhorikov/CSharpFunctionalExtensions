@@ -70,7 +70,7 @@ stages:
       displayName: Create release
     - script: echo "##vso[task.setvariable variable=releaseId]$(curl -s https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/latest | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["id"]')"
       displayName: Set release id
-    - script: curl -X POST -s -H '$(contentTypeHeader2)' -H '$(authHeader)' -F 'data=@.$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(version).nupkg' https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.$(version).nupkg
+    - script: curl -X POST -s -H '$(contentTypeHeader2)' -H '$(authHeader)' -F 'data=@$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(version).nupkg' https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.$(version).nupkg
       displayName: Upload release artifact
     - script: dotnet nuget push ./CSharpFunctionalExtensions.$(version).nupkg --source https://api.nuget.org/v3/index.json --api-key $(nugetToken)
       displayName: NuGet push
