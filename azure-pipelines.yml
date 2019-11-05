@@ -43,7 +43,7 @@ stages:
       vmImage: 'ubuntu-16.04'
     variables:
       releaseInfo: $[ dependencies.Version.outputs['setReleaseInfoStep.releaseInfoVar'] ]
-    condition: ne(dependencies.Version.outputs['setVersionStep.versionVar'], dependencies.Version.outputs['setCurrentVersionStep.currentVersionVar'])
+    condition: eq(dependencies.Version.outputs['setVersionStep.versionVar'], dependencies.Version.outputs['setCurrentVersionStep.currentVersionVar'])
     steps:
     - download: current
       artifact: NuGetPackage
