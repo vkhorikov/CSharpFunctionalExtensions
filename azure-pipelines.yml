@@ -14,7 +14,7 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build and Publish
+- stage: Build_and_publish
   displayName: Build and Publish
   jobs:
   - job: Version
@@ -34,7 +34,7 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
     variables:
-      version: $[ dependencies.Version.outputs['debugJob.setVersionStep.versionVar'] ]
+      version: $[ dependencies.Version.outputs['setVersionStep.versionVar'] ]
     steps:
     - script: docker build . -t build-image -f Dockerfile --build-arg Version=$version
       displayName: Build an image
