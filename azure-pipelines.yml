@@ -42,11 +42,9 @@ stages:
       releaseInfo: $[ dependencies.Version.outputs['setReleaseInfoStep.releaseInfoVar'] ]
       version: $[ dependencies.Version.outputs['setVersionStep.versionVar'] ]
       contentTypeHeader: 'Content-Type: application/json'
-      authHeader: 'Authorization: token 9eee2744af3bcf20bf889553e1bba5982d925588'
+      authHeader: 'Authorization: token $(gitHubToken)'
       createReleaseRequest: '{ "tag_name": "v$(version)", "target_commitish": "master", "name": "v$(version)", "body": "$(releaseInfo)", "draft": false, "prerelease": false }'
     condition: ne(dependencies.Version.outputs['setVersionStep.versionVar'], dependencies.Version.outputs['setCurrentVersionStep.currentVersionVar'])
     steps:
-    - download: current
-      artifact: NuGetPackage
     - script: curl -X POST -s -H '$(contentTypeHeader)' -H '$(authHeader)' https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases -d '$(createReleaseRequest)'
       displayName: Create release
