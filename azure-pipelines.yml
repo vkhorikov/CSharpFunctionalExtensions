@@ -24,7 +24,7 @@ stages:
     steps:
     - script: |
       $version=$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | head -1)
-      echo "version: $version"
+      echo 'version: $version'
 
       displayName: Checking version
     - script: docker build . -t build-image -f Dockerfile --build-arg Version=$version
