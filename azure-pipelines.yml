@@ -22,7 +22,7 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-    - script: $version=$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | head -1)
+    - script: echo "##vso[task.setvariable variable=version]$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | head -1)"
       displayName: Checking version
     - script: docker build . -t build-image -f Dockerfile --build-arg Version=$version
       displayName: Build an image
