@@ -1,6 +1,3 @@
-# Docker
-# Build a Docker image 
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
   branches:
@@ -30,5 +27,7 @@ stages:
     - script: docker create --name build-container build-image
       displayName: Create a container
     - script: docker cp build-container:./app/out ./out
+      displayName: Copy artifacts
     - publish: ./out
       artifact: NuGetPackage
+
