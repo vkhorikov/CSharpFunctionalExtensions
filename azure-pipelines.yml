@@ -41,7 +41,7 @@ stages:
     variables:
       releaseInfo: $[ dependencies.Version.outputs['setReleaseInfoStep.releaseInfoVar'] ]
       version: $[ dependencies.Version.outputs['setVersionStep.versionVar'] ]
-      contentTypeHeader: Content-Type: application/json
+      contentTypeHeader: 'Content-Type: application/json'
     condition: ne(dependencies.Version.outputs['setVersionStep.versionVar'], dependencies.Version.outputs['setCurrentVersionStep.currentVersionVar'])
     steps:
     - download: current
