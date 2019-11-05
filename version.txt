@@ -1,0 +1,13 @@
+2.2.0
+Auto publishing of artifacts and release info -- first run.
+
+```
+TestMarkup();
+```
+
+This is *bold* and _italics_.
+
+These are links to some issues:
+- #161
+- #160,
+- #159.
