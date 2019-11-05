@@ -25,5 +25,5 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-    - script: docker build . -t build/$(tag) -f '**/Dockerfile'
+    - script: docker build . -t build/$(tag) -f Dockerfile
       displayName: Build an image
