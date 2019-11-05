@@ -22,7 +22,7 @@ stages:
       displayName: Set version
     - script: echo $(setVersionStep.versionVar)
       displayName: Echo version
-    - script: echo "##vso[task.setvariable variable=releaseInfoVar;isOutput=true]$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | tail -n +2)"
+    - script: echo "##vso[task.setvariable variable=releaseInfoVar;isOutput=true]$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | tail -n +2 | sed 's/$/\\r\\n/' | tr -d '\n')"
       name: setReleaseInfoStep
       displayName: Set release info
     - script: echo $(setReleaseInfoStep.releaseInfoVar)
