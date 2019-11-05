@@ -23,33 +23,22 @@ stages:
     steps:
     - script: echo "##vso[task.setvariable variable=versionVar;isOutput=true]$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | head -1)"
       name: setVersionStep
-      displayName: Set version variable
+      displayName: Set version
     - script: echo $(setVersionStep.versionVar)
       displayName: Echo version
     - script: echo "##vso[task.setvariable variable=releaseInfoVar;isOutput=true]$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | tail -n +2)"
       name: setReleaseInfoStep
-      displayName: Set release info variable
-    - script: echo $(setVersionStep.versionVar)
+      displayName: Set release info
+    - script: echo $(setReleaseInfoStep.releaseInfoVar)
       displayName: Echo release info
 
-  - job: Build
+  - job: ReleaseInfo
     dependsOn: Version
     pool:
       vmImage: 'ubuntu-16.04'
-    variables:
-      version: $[ dependencies.Version.outputs['setVersionStep.versionVar'] ]
-      releaseInfo: $[ dependencies.Version.outputs['setReleaseInfoStep.releaseInfoVar'] ]
     steps:
-    - script: docker build . -t build-image -f Dockerfile --build-arg Version=$(version)
-      displayName: Build an image
-    - script: docker create --name build-container build-image
-      displayName: Create a container
-    - script: docker cp build-container:./app/out ./out
-      displayName: Copy artifacts
-    - publish: ./out
-      artifact: NuGetPackage
-
-  - job: Publish
-    dependsOn: Build
-    pool:
-      vmImage: 'ubuntu-16.04'
+    - script: echo "##vso[task.setvariable variable=currentVersionVar;isOutput=true]$(curl -s https://api.github.com/repos/TinyMapper/TinyMapper/releases | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[0]["tag_name"]' | cut -c 2-100)"
+      name: setCurrentVersionStep
+      displayName: Set current version
+    - script: echo $(setCurrentVersionStep.currentVersionVar)
+      displayName: Echo current version
