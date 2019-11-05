@@ -27,3 +27,8 @@ stages:
     steps:
     - script: docker build . -t build/$(tag) -f Dockerfile
       displayName: Build an image
+    - script: docker create --name container/$(tag) build/$(tag)
+      displayName: Create a container
+    - script: docker cp container/$(tag):./app/out ./out
+    - publish: ./out
+      artifact: NuGetPackage
