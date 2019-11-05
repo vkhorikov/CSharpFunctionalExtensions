@@ -30,33 +30,22 @@ stages:
       displayName: Set release info
     - script: echo $(setReleaseInfoStep.releaseInfoVar)
       displayName: Echo release info
-    - script: echo "##vso[task.setvariable variable=currentVersionVar;isOutput=true]$(curl -s https://api.github.com/repos/TinyMapper/TinyMapper/releases | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[0]["tag_name"]' | cut -c 2-100)"
+    - script: echo "##vso[task.setvariable variable=currentVersionVar;isOutput=true]$(curl -s https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[0]["tag_name"] if len(obj) > 0 else ""' | cut -c 2-100)"
       name: setCurrentVersionStep
       displayName: Set current version
     - script: echo $(setCurrentVersionStep.currentVersionVar)
       displayName: Echo current version
 
-  - job: Build
-    dependsOn: Version
-    pool:
-      vmImage: 'ubuntu-16.04'
-    variables:
-      version: $[ dependencies.Version.outputs['setVersionStep.versionVar'] ]
-    steps:
-    - script: docker build . -t build-image -f Dockerfile --build-arg Version=$(version)
-      displayName: Build an image
-    - script: docker create --name build-container build-image
-      displayName: Create a container
-    - script: docker cp build-container:./app/out ./out
-      displayName: Copy artifacts
-    - publish: ./out
-      artifact: NuGetPackage
-
   - job: Publish
     dependsOn:
-    - Build
     - Version
     pool:
       vmImage: 'ubuntu-16.04'
     variables:
       releaseInfo: $[ dependencies.Version.outputs['setReleaseInfoStep.releaseInfoVar'] ]
+      version: $[ dependencies.Version.outputs['setVersionStep.versionVar'] ]
+      currentVersion: $[ dependencies.Version.outputs['setCurrentVersionStep.currentVersionVar'] ]
+    condition: ne($(version), $(version)) #map doThing and check if true
+    steps:
+    - download: current
+      artifact: NuGetPackage
