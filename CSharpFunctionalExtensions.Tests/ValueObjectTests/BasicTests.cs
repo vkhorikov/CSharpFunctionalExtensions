@@ -28,7 +28,17 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         }
 
         [Fact]
-        public void It_is_possible_to_override_defaul_equality_comparison_behavior()
+        public void Two_PVO_of_the_same_content_are_equal()
+        {
+            var emailAddress1 = new EmailAddress("a@b.com");
+            var emailAddress2 = new EmailAddress("a@b.com");
+
+            emailAddress1.Equals(emailAddress2).Should().BeTrue();
+            emailAddress1.GetHashCode().Equals(emailAddress2.GetHashCode()).Should().BeTrue();
+        }
+
+        [Fact]
+        public void It_is_possible_to_override_default_equality_comparison_behavior()
         {
             var money1 = new Money("usd", 2.2222m);
             var money2 = new Money("USD", 2.22m);
@@ -44,6 +54,15 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             var vo2 = new VO2("2");
 
             vo1.Equals(vo2).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Comparing_primitive_value_objects_of_different_types_returns_false()
+        {
+            var emailAddress1 = new EmailAddress("a@b.com");
+            var emailAddress2 = new EmailAddress("c@d.com");
+
+            emailAddress1.Equals(emailAddress2).Should().BeFalse();
         }
 
         public class VO1 : ValueObject
@@ -153,6 +172,11 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             {
                 return other is DerivedAddress derived && base.EqualsCore(derived) && Country == derived.Country;
             }
+        }
+
+        public class EmailAddress : PrimitiveValueObject<string>
+        {
+            public EmailAddress(string value) : base(value) { }
         }
     }
 }
