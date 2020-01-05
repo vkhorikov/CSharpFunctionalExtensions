@@ -51,16 +51,25 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         public void Comparing_value_objects_of_different_types_returns_false()
         {
             var vo1 = new VO1("1");
-            var vo2 = new VO2("2");
+            var vo2 = new VO2("1");
 
             vo1.Equals(vo2).Should().BeFalse();
         }
 
         [Fact]
-        public void Comparing_primitive_value_objects_of_different_types_returns_false()
+        public void Comparing_simple_value_objects_of_different_values_returns_false()
         {
             var emailAddress1 = new EmailAddress("a@b.com");
             var emailAddress2 = new EmailAddress("c@d.com");
+
+            emailAddress1.Equals(emailAddress2).Should().BeFalse();
+        }
+
+        [Fact]
+        public void Comparing_simple_value_objects_of_different_types_returns_false()
+        {
+            var emailAddress1 = new EmailAddress("a@b.com");
+            var emailAddress2 = new EmailAddress2("a@b.com");
 
             emailAddress1.Equals(emailAddress2).Should().BeFalse();
         }
@@ -174,9 +183,14 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             }
         }
 
-        public class EmailAddress : PrimitiveValueObject<string>
+        public class EmailAddress : SimpleValueObject<string>
         {
             public EmailAddress(string value) : base(value) { }
+        }
+
+        public class EmailAddress2 : SimpleValueObject<string>
+        {
+            public EmailAddress2(string value) : base(value) { }
         }
     }
 }
