@@ -1,13 +1,2 @@
-2.2.2
-Auto publishing of artifacts and release info -- first run.
-
-```
-TestMarkup();
-```
-
-This is **bold** and _italics_.
-
-These are links to some issues:
-- #161
-- #160,
-- #159.
+2.3.0
+Added `SimpleValueObject`, #175
