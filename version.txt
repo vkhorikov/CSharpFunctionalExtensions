@@ -1,2 +1,2 @@
 2.3.0
-Added `SimpleValueObject`, #175
+Added `SimpleValueObject` containing a single property, #175
