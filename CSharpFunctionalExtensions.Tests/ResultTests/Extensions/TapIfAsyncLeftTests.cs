@@ -166,5 +166,157 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             actionExecuted.Should().Be(condition);
             result.Should().Be(returned);
         }
+
+
+
+
+
+
+
+
+
+
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TapIf_T_AsyncLeft_executes_action_based_on_func_and_returns_self(bool value)
+        {
+            Result<K> result = Result.Success<K>(K.FromBool(value));
+            Task<Result<K>> resultTask = Task.FromResult(result);
+            bool actionExecuted = false;
+            Func<K, bool> condition = k => k.Value;
+            Action action = () => actionExecuted = true;
+
+            var returned = resultTask.TapIf(condition, action).Result;
+
+            actionExecuted.Should().Be(value);
+            result.Should().Be(returned);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TapIf_T_AsyncLeft_executes_action_T_based_on_func_and_returns_self(bool value)
+        {
+            Result<K> result = Result.Success<K>(K.FromBool(value));
+            Task<Result<K>> resultTask = Task.FromResult(result);
+            bool actionExecuted = false;
+            Func<K, bool> condition = k => k.Value;
+            Action<K> action = (K _) => actionExecuted = true;
+
+            var returned = resultTask.TapIf(condition, action).Result;
+
+            actionExecuted.Should().Be(value);
+            result.Should().Be(returned);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TapIf_T_E_AsyncLeft_executes_action_based_on_func_and_returns_self(bool value)
+        {
+            Result<K, E> result = Result.Success<K, E>(K.FromBool(value));
+            Task<Result<K, E>> resultTask = Task.FromResult(result);
+            bool actionExecuted = false;
+            Func<K, bool> condition = k => k.Value;
+            Action action = () => actionExecuted = true;
+
+            var returned = resultTask.TapIf(condition, action).Result;
+
+            actionExecuted.Should().Be(value);
+            result.Should().Be(returned);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TapIf_T_E_AsyncLeft_executes_action_T_based_on_func_and_returns_self(bool value)
+        {
+            Result<K, E> result = Result.Success<K, E>(K.FromBool(value));
+            Task<Result<K, E>> resultTask = Task.FromResult(result);
+            bool actionExecuted = false;
+            Func<K, bool> condition = k => k.Value;
+            Action<K> action = (K _) => actionExecuted = true;
+
+            var returned = resultTask.TapIf(condition, action).Result;
+
+            actionExecuted.Should().Be(value);
+            result.Should().Be(returned);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TapIf_T_AsyncLeft_executes_func_based_on_func_and_returns_self(bool value)
+        {
+            K resultValue = K.FromBool(value);
+            K tapIfFuncReturn = K.FromBool(value);
+
+            Result<K> result = Result.Success<K>(resultValue);
+            Task<Result<K>> resultTask = Task.FromResult(result);
+            bool actionExecuted = false;
+            Func<K, bool> condition = k => k.Value;
+            Func<K> func = () => { actionExecuted = true; return tapIfFuncReturn; };
+
+            var returned = resultTask.TapIf(condition, func).Result;
+
+            actionExecuted.Should().Be(value);
+            result.Should().Be(returned);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TapIf_T_AsyncLeft_executes_func_T_based_on_func_and_returns_self(bool value)
+        {
+            Result<K> result = Result.Success<K>(K.FromBool(value));
+            Task<Result<K>> resultTask = Task.FromResult(result);
+            bool actionExecuted = false;
+            Func<K, bool> condition = k => k.Value;
+            Func<K, Discard> func = (K _) => { actionExecuted = true; return Discard.Value; };
+
+            var returned = resultTask.TapIf(condition, func).Result;
+
+            actionExecuted.Should().Be(value);
+            result.Should().Be(returned);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TapIf_T_E_AsyncLeft_executes_func_based_on_func_and_returns_self(bool value)
+        {
+            K resultValue = K.FromBool(value);
+            K tapIfFuncReturn = K.FromBool(value);
+
+            Result<K, E> result = Result.Success<K, E>(resultValue);
+            Task<Result<K, E>> resultTask = Task.FromResult(result);
+            bool actionExecuted = false;
+            Func<K, bool> condition = k => k.Value;
+            Func<K> func = () => { actionExecuted = true; return tapIfFuncReturn; };
+
+            var returned = resultTask.TapIf(condition, func).Result;
+
+            actionExecuted.Should().Be(value);
+            result.Should().Be(returned);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TapIf_T_E_AsyncLeft_executes_func_T_based_on_func_and_returns_self(bool value)
+        {
+            Result<K, E> result = Result.Success<K, E>(K.FromBool(value));
+            Task<Result<K, E>> resultTask = Task.FromResult(result);
+            bool actionExecuted = false;
+            Func<K, bool> condition = k => k.Value;
+            Func<K, Discard> func = (K _) => { actionExecuted = true; return Discard.Value; };
+
+            var returned = resultTask.TapIf(condition, func).Result;
+
+            actionExecuted.Should().Be(value);
+            result.Should().Be(returned);
+        }
     }
 }
