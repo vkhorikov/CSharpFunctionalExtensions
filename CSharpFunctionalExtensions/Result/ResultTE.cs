@@ -29,21 +29,5 @@ namespace CSharpFunctionalExtensions
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
             => _logic.GetObjectData(info, this);
-
-        public static implicit operator Result(Result<T, E> result)
-        {
-            if (result.IsSuccess)
-                return Result.Success();
-            else
-                return Result.Failure(result.Error.ToString());
-        }
-
-        public static implicit operator Result<T>(Result<T, E> result)
-        {
-            if (result.IsSuccess)
-                return Result.Success(result.Value);
-            else
-                return Result.Failure<T>(result.Error.ToString());
-        }
     }
 }

@@ -14,7 +14,7 @@ namespace CSharpFunctionalExtensions
             => Finally(result, func);
 
         [Obsolete("Use Finally() instead.")]
-        public static Task<K> OnBoth<T, K, E>(this Result<T, E> result, Func<Result<T>, Task<K>> func)
+        public static Task<K> OnBoth<T, K, E>(this Result<T, E> result, Func<Result<T, E>, Task<K>> func)
             => Finally(result, func);
     }
 }
