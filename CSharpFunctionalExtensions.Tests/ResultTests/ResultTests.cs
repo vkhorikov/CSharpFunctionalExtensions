@@ -1,6 +1,6 @@
+using FluentAssertions;
 using System;
 using System.Threading.Tasks;
-using FluentAssertions;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests

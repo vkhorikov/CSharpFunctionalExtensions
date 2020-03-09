@@ -1,8 +1,8 @@
-﻿using System;
+﻿using FluentAssertions;
+using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using FluentAssertions;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.MaybeTests
