@@ -33,7 +33,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             deserialized.HasValue.Should().BeTrue();
             deserialized.HasNoValue.Should().BeFalse();
-            deserialized.Value.ShouldBeEquivalentTo(instance);
+            deserialized.Value.Should().BeEquivalentTo(instance);
         }
 
         private static Stream Serialize(object source)

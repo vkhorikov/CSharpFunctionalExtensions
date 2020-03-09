@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Action action = () => okResultWithoutValue.ConvertFailure<MyValueClass>();
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.Should().Throw<InvalidOperationException>();
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Action action = () => okResultWithValue.ConvertFailure();
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.Should().Throw<InvalidOperationException>();
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Action action = () => okResultWithValue.ConvertFailure<MyValueClass2>();
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.Should().Throw<InvalidOperationException>();
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Action action = () => okResultWithValue.ConvertFailure<MyValueClass2>();
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.Should().Throw<InvalidOperationException>();
         }
 
         [Fact]
@@ -93,7 +93,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             Result<MyValueClass2, MyErrorClass> failedResultWithoutValue = failedResultWithValue.ConvertFailure<MyValueClass2>();
 
             failedResultWithoutValue.IsFailure.Should().BeTrue();
-            failedResultWithoutValue.Error.ShouldBeEquivalentTo(new MyErrorClass
+            failedResultWithoutValue.Error.Should().BeEquivalentTo(new MyErrorClass
             {
                 Prop = "Failed"
             });

@@ -43,7 +43,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
                 MyClass myClass = maybe.Value;
             };
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.Should().Throw<InvalidOperationException>();
         }
 
         [Fact]

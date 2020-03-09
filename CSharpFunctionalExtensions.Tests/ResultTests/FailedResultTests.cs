@@ -34,7 +34,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Action action = () => { MyClass myClass = result.Value; };
 
-            action.ShouldThrow<ResultFailureException>();
+            action.Should().Throw<ResultFailureException>();
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             Action action = () => { MyClass myClass = result.Value; };
 
-            action.ShouldThrow<ResultFailureException<MyErrorClass>>();
+            action.Should().Throw<ResultFailureException<MyErrorClass>>();
         }
 
         [Fact]
@@ -55,10 +55,10 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             Action action3 = () => { Result.Failure<MyClass>(null); };
             Action action4 = () => { Result.Failure<MyClass>(string.Empty); };
 
-            action1.ShouldThrow<ArgumentNullException>();
-            action2.ShouldThrow<ArgumentNullException>();
-            action3.ShouldThrow<ArgumentNullException>();
-            action4.ShouldThrow<ArgumentNullException>();
+            action1.Should().Throw<ArgumentNullException>();
+            action2.Should().Throw<ArgumentNullException>();
+            action3.Should().Throw<ArgumentNullException>();
+            action4.Should().Throw<ArgumentNullException>();
         }
 
 

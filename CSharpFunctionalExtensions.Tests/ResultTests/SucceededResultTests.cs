@@ -54,7 +54,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 string error = result.Error;
             };
 
-            action.ShouldThrow<ResultSuccessException>();
+            action.Should().Throw<ResultSuccessException>();
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 string error = result.Error;
             };
 
-            action.ShouldThrow<ResultSuccessException>();
+            action.Should().Throw<ResultSuccessException>();
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 MyErrorClass error = result.Error;
             };
 
-            action.ShouldThrow<ResultSuccessException>();
+            action.Should().Throw<ResultSuccessException>();
         }
 
         private void Can_create_a_generic_version_with_a_generic_error_typed<E>()
