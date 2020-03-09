@@ -63,12 +63,12 @@ namespace CSharpFunctionalExtensions
         }
 
         public static Maybe<V> SelectMany<T, U, V>(this Maybe<T> maybe,
-	        Func<T, Maybe<U>> selector,
-	        Func<T, U, V> project)
+            Func<T, Maybe<U>> selector,
+            Func<T, U, V> project)
         {
-	        return maybe.Unwrap(
-		        x => selector(x).Unwrap(u => project(x, u), Maybe<V>.None),
-		        Maybe<V>.None);
+            return maybe.Unwrap(
+                x => selector(x).Unwrap(u => project(x, u), Maybe<V>.None),
+                Maybe<V>.None);
         }
 
         public static Maybe<K> Map<T, K>(this Maybe<T> maybe, Func<T, K> selector)
@@ -168,22 +168,22 @@ namespace CSharpFunctionalExtensions
         }
 
 #if NET40
-        public static Maybe<V> TryFind<K, V>(this IDictionary<K, V> dict, K key) 
+        public static Maybe<V> TryFind<K, V>(this IDictionary<K, V> dict, K key)
         {
-            if (dict.ContainsKey(key)) 
+            if (dict.ContainsKey(key))
             {
                 return dict[key];
             }
-            return Maybe<V>.None;   
+            return Maybe<V>.None;
         }
 #else
-        public static Maybe<V> TryFind<K, V>(this IReadOnlyDictionary<K, V> dict, K key) 
+        public static Maybe<V> TryFind<K, V>(this IReadOnlyDictionary<K, V> dict, K key)
         {
-            if (dict.ContainsKey(key)) 
+            if (dict.ContainsKey(key))
             {
                 return dict[key];
             }
-            return Maybe<V>.None;   
+            return Maybe<V>.None;
         }
 #endif
     }
