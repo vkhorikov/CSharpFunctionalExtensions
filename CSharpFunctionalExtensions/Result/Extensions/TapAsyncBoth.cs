@@ -10,10 +10,10 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result> Tap(this Task<Result> resultTask, Func<Task> func)
         {
-            Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result result = await resultTask.DefaultAwait();
 
             if (result.IsSuccess)
-                await func().ConfigureAwait(Result.DefaultConfigureAwait);
+                await func().DefaultAwait();
 
             return result;
         }
@@ -23,10 +23,10 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T>> Tap<T>(this Task<Result<T>> resultTask, Func<Task> func)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T> result = await resultTask.DefaultAwait();
 
             if (result.IsSuccess)
-                await func().ConfigureAwait(Result.DefaultConfigureAwait);
+                await func().DefaultAwait();
 
             return result;
         }
@@ -36,10 +36,10 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T>> Tap<T>(this Task<Result<T>> resultTask, Func<T, Task> func)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T> result = await resultTask.DefaultAwait();
 
             if (result.IsSuccess)
-                await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
+                await func(result.Value).DefaultAwait();
 
             return result;
         }
@@ -49,10 +49,10 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T, E>> Tap<T, E>(this Task<Result<T, E>> resultTask, Func<Task> func)
         {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.DefaultAwait();
 
             if (result.IsSuccess)
-                await func().ConfigureAwait(Result.DefaultConfigureAwait);
+                await func().DefaultAwait();
 
             return result;
         }
@@ -62,10 +62,10 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T, E>> Tap<T, E>(this Task<Result<T, E>> resultTask, Func<T, Task> func)
         {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.DefaultAwait();
 
             if (result.IsSuccess)
-                await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
+                await func(result.Value).DefaultAwait();
 
             return result;
         }

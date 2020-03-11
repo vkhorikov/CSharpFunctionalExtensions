@@ -35,7 +35,7 @@ namespace CSharpFunctionalExtensions
 
             try
             {
-                await action().ConfigureAwait(DefaultConfigureAwait);
+                await action().DefaultAwait();
                 return Success();
             }
             catch (Exception exc)
@@ -74,7 +74,7 @@ namespace CSharpFunctionalExtensions
 
             try
             {
-                var result = await func().ConfigureAwait(DefaultConfigureAwait);
+                var result = await func().DefaultAwait();
                 return Success(result);
             }
             catch (Exception exc)
@@ -109,7 +109,7 @@ namespace CSharpFunctionalExtensions
         {
             try
             {
-                var result = await func().ConfigureAwait(DefaultConfigureAwait);
+                var result = await func().DefaultAwait();
                 return Success<T, E>(result);
             }
             catch (Exception exc)

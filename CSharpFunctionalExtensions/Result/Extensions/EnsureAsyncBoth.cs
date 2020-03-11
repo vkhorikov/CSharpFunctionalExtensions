@@ -10,12 +10,12 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<T, Task<bool>> predicate, string errorMessage)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T> result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
                 return result;
 
-            if (!await predicate(result.Value).ConfigureAwait(Result.DefaultConfigureAwait))
+            if (!await predicate(result.Value).DefaultAwait())
                 return Result.Failure<T>(errorMessage);
 
             return result;
@@ -26,12 +26,12 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T, E>> Ensure<T, E>(this Task<Result<T, E>> resultTask, Func<T, Task<bool>> predicate, E error)
         {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
                 return result;
 
-            if (!await predicate(result.Value).ConfigureAwait(Result.DefaultConfigureAwait))
+            if (!await predicate(result.Value).DefaultAwait())
                 return Result.Failure<T, E>(error);
 
             return result;
@@ -42,12 +42,12 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result> Ensure(this Task<Result> resultTask, Func<Task<bool>> predicate, string errorMessage)
         {
-            Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
                 return result;
 
-            if (!await predicate().ConfigureAwait(Result.DefaultConfigureAwait))
+            if (!await predicate().DefaultAwait())
                 return Result.Failure(errorMessage);
 
             return result;
