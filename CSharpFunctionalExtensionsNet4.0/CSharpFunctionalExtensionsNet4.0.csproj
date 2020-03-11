@@ -60,6 +60,7 @@
     <Compile Include="..\CSharpFunctionalExtensions\Result\Extensions\TapAsyncRight.cs" Link="Result\Extensions\TapAsyncRight.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Internal\ResultCommonLogic.cs" Link="Result\Internal\ResultCommonLogic.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Internal\Result.Messages.cs" Link="Result\Internal\Result.Messages.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Result\Internal\TaskExtensions.cs" Link="Result\Internal\TaskExtensions.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Combine.cs" Link="Result\Methods\Combine.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\ConvertFailure.cs" Link="Result\Methods\ConvertFailure.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\Methods\Failure.cs" Link="Result\Methods\Failure.cs" />

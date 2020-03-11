@@ -43,7 +43,7 @@ namespace CSharpFunctionalExtensions
         public static Result Bind<T>(this Result<T> result, Func<T, Result> func)
         {
             if (result.IsFailure)
-                return Result.Failure(result.Error);
+                return result;
 
             return func(result.Value);
         }
