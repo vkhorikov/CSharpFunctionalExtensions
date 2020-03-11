@@ -7,6 +7,11 @@
             public static readonly T Value = new T();
         }
 
+        protected class K
+        {
+            public static readonly K Value = new K();
+        }
+
         protected class E
         {
             public static readonly E Value = new E();
