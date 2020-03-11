@@ -37,13 +37,15 @@ namespace CSharpFunctionalExtensions
         ///     A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
         public static Result Combine<T>(IEnumerable<Result<T>> results, string errorMessagesSeparator = null)
         {
-            var untyped = results.Select(result => (Result)result);
+            IEnumerable<Result> untyped = results.Select(result => (Result)result);
             return Combine(untyped, errorMessagesSeparator);
         }
 
+        // TODO: Ideally, we would be using BaseResult<E> or equivalent instead of Result<bool, E>.
         /// <summary>
         ///     Combines several results (and any errors) into a single result.
-        ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.</summary>
+        ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.
+        ///     NB: The bool value type is arbitrary - the value is not intended to be used.</summary>
         /// <param name="results">
         ///     The Results to be combined.</param>
         /// <param name="composerError">
@@ -57,23 +59,23 @@ namespace CSharpFunctionalExtensions
             if (failedResults.Count == 0)
                 return Success<bool, E>(true);
 
-            var errorMessage = composerError(failedResults.Select(x => x.Error));
-            return Failure<bool, E>(errorMessage);
+            E error = composerError(failedResults.Select(x => x.Error));
+            return Failure<bool, E>(error);
         }
 
+        // TODO: Ideally, we would be using BaseResult<E> or equivalent instead of Result<bool, E>.
         /// <summary>
         ///     Combines several results (and any errors) into a single result.
         ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.
-        ///     The E error class must implement ICombine to provide an accumulator function for combining any errors.</summary>
+        ///     The E error class must implement ICombine to provide an accumulator function for combining any errors.
+        ///     NB: The bool value type is arbitrary - the value is not intended to be used.</summary>
         /// <param name="results">
         ///     The Results to be combined.</param>
         /// <returns>
         ///     A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
         public static Result<bool, E> Combine<T, E>(IEnumerable<Result<T, E>> results)
             where E : ICombine
-        {
-            return Combine(results, (errors) => errors.Aggregate((x, y) => (E)x.Combine(y)));
-        }
+            => Combine(results, (errors) => errors.Aggregate((x, y) => (E)x.Combine(y)));
 
         /// <summary>
         ///     Combines several results (and any error messages) into a single result.
@@ -97,17 +99,19 @@ namespace CSharpFunctionalExtensions
         public static Result Combine<T>(params Result<T>[] results)
             => Combine(results, ErrorMessagesSeparator);
 
+        // TODO: Ideally, we would be using BaseResult<E> or equivalent instead of Result<bool, E>.
         /// <summary>
         ///     Combines several results (and any errors) into a single result.
         ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.
-        ///     The E error class must implement ICombine to provide an accumulator function for combining any errors.</summary>
+        ///     The E error class must implement ICombine to provide an accumulator function for combining any errors.
+        ///     NB: The bool value type is arbitrary - the result Value is not intended to be used.</summary>
         /// <param name="results">
         ///     The Results to be combined.</param>
         /// <returns>
         ///     A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
         public static Result<bool, E> Combine<T, E>(params Result<T, E>[] results)
             where E : ICombine
-            => Combine<T, E>(results, (errors) => errors.Aggregate((x, y) => (E)x.Combine(y)));
+            => Combine(results, (errors) => errors.Aggregate((x, y) => (E)x.Combine(y)));
 
         /// <summary>
         ///     Combines several results (and any error messages) into a single result.
@@ -133,9 +137,11 @@ namespace CSharpFunctionalExtensions
         public static Result Combine<T>(string errorMessagesSeparator, params Result<T>[] results)
             => Combine(results, errorMessagesSeparator);
 
+        // TODO: Ideally, we would be using BaseResult<E> or equivalent instead of Result<bool, E>.
         /// <summary>
         ///     Combines several results (and any errors) into a single result.
-        ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.</summary>
+        ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.
+        ///     NB: The bool value type is arbitrary - the result Value is not intended to be used.</summary>
         /// <param name="composerError">
         ///     A function that combines any errors.</param>
         /// <param name="results">
@@ -143,6 +149,6 @@ namespace CSharpFunctionalExtensions
         /// <returns>
         ///     A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
         public static Result<bool, E> Combine<T, E>(Func<IEnumerable<E>, E> composerError, params Result<T, E>[] results)
-            => Combine<T, E>(results, composerError);
+            => Combine(results, composerError);
     }
 }
