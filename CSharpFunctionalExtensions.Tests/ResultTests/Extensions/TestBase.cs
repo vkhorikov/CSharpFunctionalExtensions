@@ -7,9 +7,9 @@
             public static readonly T Value = new T();
         }
 
-        protected class K
+        protected class F
         {
-            public static readonly K Value = new K();
+            public static readonly F Value = new F();
         }
 
         protected class E
