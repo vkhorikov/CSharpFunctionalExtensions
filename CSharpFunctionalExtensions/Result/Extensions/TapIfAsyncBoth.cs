@@ -65,10 +65,10 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T>> TapIf<T>(this Task<Result<T>> resultTask, Func<T, bool> condition, Func<Task> func)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T> result = await resultTask.DefaultAwait();
 
             if (result.IsSuccess && condition(result.Value))
-                return await result.Tap(func);
+                return await result.Tap(func).DefaultAwait();
             else
                 return result;
         }
@@ -78,10 +78,10 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T>> TapIf<T>(this Task<Result<T>> resultTask, Func<T, bool> condition, Func<T, Task> func)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T> result = await resultTask.DefaultAwait();
 
             if (result.IsSuccess && condition(result.Value))
-                return await result.Tap(func);
+                return await result.Tap(func).DefaultAwait();
             else
                 return result;
         }
@@ -91,10 +91,10 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T, E>> TapIf<T, E>(this Task<Result<T, E>> resultTask, Func<T, bool> condition, Func<Task> func)
         {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.DefaultAwait();
 
             if (result.IsSuccess && condition(result.Value))
-                return await result.Tap(func);
+                return await result.Tap(func).DefaultAwait();
             else
                 return result;
         }
@@ -104,10 +104,10 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T, E>> TapIf<T, E>(this Task<Result<T, E>> resultTask, Func<T, bool> condition, Func<T, Task> func)
         {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.DefaultAwait();
 
             if (result.IsSuccess && condition(result.Value))
-                return await result.Tap(func);
+                return await result.Tap(func).DefaultAwait();
             else
                 return result;
         }
