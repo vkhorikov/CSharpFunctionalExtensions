@@ -1,4 +1,4 @@
-2.4.0
+2.4.1
 * #187 -- Async code improvements, C#8, Bind() unit tests
 * #186 -- Quality improvements
 * #184 -- Overload for TapIf with Func<T, bool> condition
