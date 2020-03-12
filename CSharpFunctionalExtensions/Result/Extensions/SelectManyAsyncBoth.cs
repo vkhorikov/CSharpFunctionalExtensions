@@ -13,8 +13,8 @@ namespace CSharpFunctionalExtensions
             Func<T, Task<Result<TK>>> func,
             Func<T, TK, TR> project)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
-            return await result.SelectMany(func, project);
+            Result<T> result = await resultTask.DefaultAwait();
+            return await result.SelectMany(func, project).DefaultAwait();
         }
 
         /// <summary>
@@ -25,8 +25,8 @@ namespace CSharpFunctionalExtensions
             Func<T, Task<Result<TK, TE>>> func,
             Func<T, TK, TR> project)
         {
-            Result<T, TE> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
-            return await result.SelectMany(func, project);
+            Result<T, TE> result = await resultTask.DefaultAwait();
+            return await result.SelectMany(func, project).DefaultAwait();
         }
     }
 }

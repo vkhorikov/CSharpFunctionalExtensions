@@ -10,12 +10,12 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<K, E>> Map<T, K, E>(this Task<Result<T, E>> resultTask, Func<T, Task<K>> func)
         {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
                 return Result.Failure<K, E>(result.Error);
 
-            K value = await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
+            K value = await func(result.Value).DefaultAwait();
 
             return Result.Success<K, E>(value);
         }
@@ -25,12 +25,12 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<K>> Map<T, K>(this Task<Result<T>> resultTask, Func<T, Task<K>> func)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T> result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
                 return Result.Failure<K>(result.Error);
 
-            K value = await func(result.Value).ConfigureAwait(Result.DefaultConfigureAwait);
+            K value = await func(result.Value).DefaultAwait();
 
             return Result.Success(value);
         }
@@ -40,12 +40,12 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<K>> Map<K>(this Task<Result> resultTask, Func<Task<K>> func)
         {
-            Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
                 return Result.Failure<K>(result.Error);
 
-            K value = await func().ConfigureAwait(Result.DefaultConfigureAwait);
+            K value = await func().DefaultAwait();
 
             return Result.Success(value);
         }

@@ -28,7 +28,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result> SuccessIf(Func<Task<bool>> predicate, string error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(DefaultConfigureAwait);
+            bool isSuccess = await predicate().DefaultAwait();
             return SuccessIf(isSuccess, error);
         }
 
@@ -55,7 +55,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T>> SuccessIf<T>(Func<Task<bool>> predicate, T value, string error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(DefaultConfigureAwait);
+            bool isSuccess = await predicate().DefaultAwait();
             return SuccessIf(isSuccess, value, error);
         }
 
@@ -82,7 +82,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T, E>> SuccessIf<T, E>(Func<Task<bool>> predicate, T value, E error)
         {
-            bool isSuccess = await predicate().ConfigureAwait(DefaultConfigureAwait);
+            bool isSuccess = await predicate().DefaultAwait();
             return SuccessIf(isSuccess, value, error);
         }
     }

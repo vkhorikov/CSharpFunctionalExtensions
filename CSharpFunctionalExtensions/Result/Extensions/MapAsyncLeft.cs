@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<K, E>> Map<T, K, E>(this Task<Result<T, E>> resultTask, Func<T, K> func)
         {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.DefaultAwait();
             return result.Map(func);
         }
 
@@ -19,7 +19,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<K>> Map<T, K>(this Task<Result<T>> resultTask, Func<T, K> func)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T> result = await resultTask.DefaultAwait();
             return result.Map(func);
         }
 
@@ -28,7 +28,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<K>> Map<K>(this Task<Result> resultTask, Func<K> func)
         {
-            Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result result = await resultTask.DefaultAwait();
             return result.Map(func);
         }
     }

@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<T> Finally<T>(this Task<Result> resultTask, Func<Result, T> func)
         {
-            Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result result = await resultTask.DefaultAwait();
             return result.Finally(func);
         }
 
@@ -19,7 +19,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<K> Finally<T, K>(this Task<Result<T>> resultTask, Func<Result<T>, K> func)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T> result = await resultTask.DefaultAwait();
             return result.Finally(func);
         }
 
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
         public static async Task<K> Finally<T, K, E>(this Task<Result<T, E>> resultTask,
             Func<Result<T, E>, K> func)
         {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.DefaultAwait();
             return result.Finally(func);
         }
     }

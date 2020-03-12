@@ -10,11 +10,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T, E>> OnFailure<T, E>(this Task<Result<T, E>> resultTask, Func<Task> func)
         {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
             {
-                await func().ConfigureAwait(Result.DefaultConfigureAwait);
+                await func().DefaultAwait();
             }
 
             return result;
@@ -25,11 +25,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> resultTask, Func<Task> func)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T> result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
             {
-                await func().ConfigureAwait(Result.DefaultConfigureAwait);
+                await func().DefaultAwait();
             }
 
             return result;
@@ -40,11 +40,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result> OnFailure(this Task<Result> resultTask, Func<Task> func)
         {
-            Result result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
             {
-                await func().ConfigureAwait(Result.DefaultConfigureAwait);
+                await func().DefaultAwait();
             }
 
             return result;
@@ -55,11 +55,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> resultTask, Func<string, Task> func)
         {
-            Result<T> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T> result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
             {
-                await func(result.Error).ConfigureAwait(Result.DefaultConfigureAwait);
+                await func(result.Error).DefaultAwait();
             }
 
             return result;
@@ -70,11 +70,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T, E>> OnFailure<T, E>(this Task<Result<T, E>> resultTask, Func<E, Task> func)
         {
-            Result<T, E> result = await resultTask.ConfigureAwait(Result.DefaultConfigureAwait);
+            Result<T, E> result = await resultTask.DefaultAwait();
 
             if (result.IsFailure)
             {
-                await func(result.Error).ConfigureAwait(Result.DefaultConfigureAwait);
+                await func(result.Error).DefaultAwait();
             }
 
             return result;

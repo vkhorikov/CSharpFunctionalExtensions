@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions
         {
             if (result.IsFailure)
             {
-                await func().ConfigureAwait(Result.DefaultConfigureAwait);
+                await func().DefaultAwait();
             }
 
             return result;
@@ -25,7 +25,7 @@ namespace CSharpFunctionalExtensions
         {
             if (result.IsFailure)
             {
-                await func().ConfigureAwait(Result.DefaultConfigureAwait);
+                await func().DefaultAwait();
             }
 
             return result;
@@ -38,7 +38,7 @@ namespace CSharpFunctionalExtensions
         {
             if (result.IsFailure)
             {
-                await func().ConfigureAwait(Result.DefaultConfigureAwait);
+                await func().DefaultAwait();
             }
 
             return result;
@@ -51,7 +51,7 @@ namespace CSharpFunctionalExtensions
         {
             if (result.IsFailure)
             {
-                await func(result.Error).ConfigureAwait(Result.DefaultConfigureAwait);
+                await func(result.Error).DefaultAwait();
             }
 
             return result;
@@ -64,7 +64,7 @@ namespace CSharpFunctionalExtensions
         {
             if (result.IsFailure)
             {
-                await func(result.Error).ConfigureAwait(Result.DefaultConfigureAwait);
+                await func(result.Error).DefaultAwait();
             }
 
             return result;
