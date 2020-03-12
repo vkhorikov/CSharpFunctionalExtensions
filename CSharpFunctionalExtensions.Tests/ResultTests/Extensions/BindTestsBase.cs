@@ -85,6 +85,13 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             output.Error.Should().Be(E.Value);
         }
 
+        protected void AssertFailure(Result<T, E> output)
+        {
+            funcExecuted.Should().BeFalse();
+            output.IsFailure.Should().BeTrue();
+            output.Error.Should().Be(E.Value);
+        }
+
         protected void AssertSuccess(Result output)
         {
             funcExecuted.Should().BeTrue();
@@ -103,6 +110,13 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             funcExecuted.Should().BeTrue();
             output.IsSuccess.Should().BeTrue();
             output.Value.Should().Be(F.Value);
+        }
+
+        protected void AssertSuccess(Result<T, E> output)
+        {
+            funcExecuted.Should().BeTrue();
+            output.IsSuccess.Should().BeTrue();
+            output.Value.Should().Be(T.Value);
         }
     }
 }
