@@ -113,5 +113,93 @@ namespace CSharpFunctionalExtensions
             else
                 return result;
         }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a success and condition is true. Returns the calling result.
+        /// </summary>
+        public static Result<T> TapIf<T>(this Result<T> result, Func<T, bool> condition, Action action)
+        {
+            if (result.IsSuccess && condition(result.Value))
+                return result.Tap(action);
+            else
+                return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a success and condition is true. Returns the calling result.
+        /// </summary>
+        public static Result<T> TapIf<T>(this Result<T> result, Func<T, bool> condition, Action<T> action)
+        {
+            if (result.IsSuccess && condition(result.Value))
+                return result.Tap(action);
+            else
+                return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a success and condition is true. Returns the calling result.
+        /// </summary>
+        public static Result<T, E> TapIf<T, E>(this Result<T, E> result, Func<T, bool> condition, Action action)
+        {
+            if (result.IsSuccess && condition(result.Value))
+                return result.Tap(action);
+            else
+                return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a success and condition is true. Returns the calling result.
+        /// </summary>
+        public static Result<T, E> TapIf<T, E>(this Result<T, E> result, Func<T, bool> condition, Action<T> action)
+        {
+            if (result.IsSuccess && condition(result.Value))
+                return result.Tap(action);
+            else
+                return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a success and condition is true. Returns the calling result.
+        /// </summary>
+        public static Result<T> TapIf<T, _>(this Result<T> result, Func<T, bool> condition, Func<_> func)
+        {
+            if (result.IsSuccess && condition(result.Value))
+                return result.Tap(func);
+            else
+                return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a success and condition is true. Returns the calling result.
+        /// </summary>
+        public static Result<T> TapIf<T, _>(this Result<T> result, Func<T, bool> condition, Func<T, _> func)
+        {
+            if (result.IsSuccess && condition(result.Value))
+                return result.Tap(func);
+            else
+                return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a success and condition is true. Returns the calling result.
+        /// </summary>
+        public static Result<T, E> TapIf<T, E, _>(this Result<T, E> result, Func<T, bool> condition, Func<_> func)
+        {
+            if (result.IsSuccess && condition(result.Value))
+                return result.Tap(func);
+            else
+                return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a success and condition is true. Returns the calling result.
+        /// </summary>
+        public static Result<T, E> TapIf<T, E, _>(this Result<T, E> result, Func<T, bool> condition, Func<T, _> func)
+        {
+            if (result.IsSuccess && condition(result.Value))
+                return result.Tap(func);
+            else
+                return result;
+        }
     }
 }

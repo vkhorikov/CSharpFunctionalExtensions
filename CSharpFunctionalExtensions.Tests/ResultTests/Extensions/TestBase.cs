@@ -16,5 +16,20 @@
         {
             public static readonly Discard Value = new Discard();
         }
+
+        protected class K
+        {
+            public bool Value { get; }
+
+            private K(bool condition)
+            {
+                Value = condition;
+            }
+
+            public static K FromBool(bool b)
+            {
+                return new K(b);
+            }
+        }
     }
 }
