@@ -1,8 +1,8 @@
-﻿using System;
+﻿using FluentAssertions;
+using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using FluentAssertions;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.MaybeTests
@@ -33,7 +33,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             deserialized.HasValue.Should().BeTrue();
             deserialized.HasNoValue.Should().BeFalse();
-            deserialized.Value.ShouldBeEquivalentTo(instance);
+            deserialized.Value.Should().BeEquivalentTo(instance);
         }
 
         private static Stream Serialize(object source)

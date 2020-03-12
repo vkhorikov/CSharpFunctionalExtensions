@@ -24,7 +24,7 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
         /// </summary>
-        public static async Task<K> Finally<T, K, E>(this Result<T, E> result, Func<Result<T>, Task<K>> func)
+        public static async Task<K> Finally<T, K, E>(this Result<T, E> result, Func<Result<T, E>, Task<K>> func)
         {
             return await func(result).ConfigureAwait(Result.DefaultConfigureAwait);
         }

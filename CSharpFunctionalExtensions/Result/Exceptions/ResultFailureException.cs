@@ -1,5 +1,4 @@
-﻿using CSharpFunctionalExtensions.Internal;
-using System;
+﻿using System;
 
 namespace CSharpFunctionalExtensions
 {

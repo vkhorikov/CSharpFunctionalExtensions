@@ -1,5 +1,5 @@
-﻿using System.Runtime.Serialization;
-using FluentAssertions;
+﻿using FluentAssertions;
+using System.Runtime.Serialization;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests

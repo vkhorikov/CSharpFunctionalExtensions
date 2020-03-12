@@ -4,6 +4,9 @@ namespace CSharpFunctionalExtensions
 {
     public partial struct Result
     {
+        /// <summary>
+        ///     Throws if the result is a success. Else returns a new failure result of the given type.
+        /// </summary>
         public Result<K> ConvertFailure<K>()
         {
             if (IsSuccess)
@@ -15,6 +18,9 @@ namespace CSharpFunctionalExtensions
 
     public partial struct Result<T>
     {
+        /// <summary>
+        ///     Throws if the result is a success. Else returns a new failure result.
+        /// </summary>
         public Result ConvertFailure()
         {
             if (IsSuccess)
@@ -23,6 +29,9 @@ namespace CSharpFunctionalExtensions
             return Result.Failure(Error);
         }
 
+        /// <summary>
+        ///     Throws if the result is a success. Else returns a new failure result of the given type.
+        /// </summary>
         public Result<K> ConvertFailure<K>()
         {
             if (IsSuccess)
@@ -34,6 +43,9 @@ namespace CSharpFunctionalExtensions
 
     public partial struct Result<T, E>
     {
+        /// <summary>
+        ///     Throws if the result is a success. Else returns a new failure result of the given type.
+        /// </summary>
         public Result<K, E> ConvertFailure<K>()
         {
             if (IsSuccess)

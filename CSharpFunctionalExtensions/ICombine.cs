@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CSharpFunctionalExtensions
+﻿namespace CSharpFunctionalExtensions
 {
     public interface ICombine
     {

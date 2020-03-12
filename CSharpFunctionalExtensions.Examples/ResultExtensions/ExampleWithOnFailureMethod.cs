@@ -28,7 +28,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
         {
             public void AddBalance(decimal moneyAmount)
             {
-                
+
             }
         }
 
@@ -41,7 +41,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
 
             public void RollbackLastTransaction()
             {
-                
+
             }
 
             public Task RollbackLastTransactionAsync()

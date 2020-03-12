@@ -29,10 +29,6 @@ namespace CSharpFunctionalExtensions
             => Bind(result, func);
 
         [Obsolete("Use Bind() instead.")]
-        public static Result<K> OnSuccess<T, K, E>(this Result<T, E> result, Func<T, Result<K>> func)
-            => Bind(result, func);
-
-        [Obsolete("Use Bind() instead.")]
         public static Result OnSuccess<T>(this Result<T> result, Func<T, Result> func)
             => Bind(result, func);
 

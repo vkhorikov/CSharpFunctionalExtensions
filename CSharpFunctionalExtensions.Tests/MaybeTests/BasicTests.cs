@@ -1,5 +1,5 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
+using System;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.MaybeTests
@@ -43,7 +43,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
                 MyClass myClass = maybe.Value;
             };
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.Should().Throw<InvalidOperationException>();
         }
 
         [Fact]

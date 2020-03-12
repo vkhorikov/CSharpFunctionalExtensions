@@ -1,6 +1,6 @@
-﻿using System;
+﻿using FluentAssertions;
+using System;
 using System.Collections.Generic;
-using FluentAssertions;
 using Xunit;
 
 
@@ -165,27 +165,27 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         [Fact]
         public void SelectMany_returns_no_value_if_maybe_has_no_value()
         {
-	        Maybe<int> maybe1 = 1;
-	        var maybe2 = Maybe<int>.None;
+            Maybe<int> maybe1 = 1;
+            var maybe2 = Maybe<int>.None;
 
-	        var maybe3 = from a in maybe1 from b in maybe2 select a + b;
+            var maybe3 = from a in maybe1 from b in maybe2 select a + b;
 
-	        maybe3.HasValue.Should().BeFalse();
+            maybe3.HasValue.Should().BeFalse();
         }
 
         [Fact]
         public void SelectMany_returns_projection_if_maybes_has_values()
         {
-	        Maybe<int> maybe1 = 1;
-	        Maybe<int> maybe2 = 2;
+            Maybe<int> maybe1 = 1;
+            Maybe<int> maybe2 = 2;
 
-	        var maybe3 = from a in maybe1 from b in maybe2 select a + b;
+            var maybe3 = from a in maybe1 from b in maybe2 select a + b;
 
-	        maybe3.HasValue.Should().BeTrue();
-	        maybe3.Value.Should().Be(3);
+            maybe3.HasValue.Should().BeTrue();
+            maybe3.Value.Should().Be(3);
         }
 
-		[Fact]
+        [Fact]
         public void Bind_returns_new_maybe()
         {
             Maybe<MyClass> maybe = new MyClass { Property = "Some value" };
@@ -262,18 +262,18 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         [Fact]
         public void Choose_double_values()
         {
-            var source = new [] 
-            { 
-                Maybe<int>.None, 
+            var source = new[]
+            {
+                Maybe<int>.None,
                 1,
-                Maybe<int>.None, 
-                2, 
-                3 
+                Maybe<int>.None,
+                2,
+                3
             };
 
             var doubled = source.Choose(x => x * 2);
 
-            var expected = new [] { 2, 4, 6 };
+            var expected = new[] { 2, 4, 6 };
             doubled.Should().BeEquivalentTo(expected);
         }
 
@@ -392,11 +392,11 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public void TryFind_dict_contains_key() 
+        public void TryFind_dict_contains_key()
         {
-            var dict = new Dictionary<string, string> 
-            { 
-                { "key", "value" } 
+            var dict = new Dictionary<string, string>
+            {
+                { "key", "value" }
             };
 
             var maybe = dict.TryFind("key");
@@ -406,7 +406,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public void TryFind_dict_does_not_contains_key() 
+        public void TryFind_dict_does_not_contains_key()
         {
             var dict = new Dictionary<string, string>();
 
