@@ -1,2 +1,4 @@
-2.3.0
-Added `SimpleValueObject` containing a single property, #175
+2.4.0
+* #187 -- Async code improvements, C#8, Bind() unit tests
+* #186 -- Quality improvements
+* #184 -- Overload for TapIf with Func<T, bool> condition
