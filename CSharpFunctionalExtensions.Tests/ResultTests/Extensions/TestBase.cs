@@ -2,39 +2,21 @@
 {
     public abstract class TestBase
     {
+        protected const string ErrorMessage = "Error Message";
+
         protected class T
         {
             public static readonly T Value = new T();
         }
 
-        protected class F
+        protected class K
         {
-            public static readonly F Value = new F();
+            public static readonly K Value = new K();
         }
 
         protected class E
         {
             public static readonly E Value = new E();
-        }
-
-        protected class Discard
-        {
-            public static readonly Discard Value = new Discard();
-        }
-
-        protected class K
-        {
-            public bool Value { get; }
-
-            private K(bool condition)
-            {
-                Value = condition;
-            }
-
-            public static K FromBool(bool b)
-            {
-                return new K(b);
-            }
         }
     }
 }
