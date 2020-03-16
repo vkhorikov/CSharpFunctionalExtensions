@@ -4,141 +4,236 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
 {
     public class TapExamples
     {
+        class Customer
+        {
+            public string Name { get; set; }
+        }
+
+        class Error
+        {
+        }
+
+
+        // Action
+        void RaiseAlert() { }
+
+        // Func<Task>
+        Task RaiseAlertAsync() => Task.CompletedTask;
+
+        // Action<T>
+        void DeleteCustomer(Customer customer) { }
+
+        // Func<T, Task>
+        Task DeleteCustomerAsync(Customer customer) => Task.CompletedTask;
+
+        // Func<TResult>
+        int GetTotal() => 11;
+
+        // Func<Task<T>>
+        Task<int> GetTotalAsync() => Task.FromResult(11);
+
+        // Func<T, TResult>>
+        int AppendLog(string entry) => 332;
+
+        // Func<T, Task<TResult>>
+        Task<int> AppendLogAsync(string entry) => Task.FromResult(332);
+
+
+        // A method that returns a Result
+        Result DoWork() => Result.Success();
+        Task<Result> DoWorkAsync() => Task.FromResult(Result.Success());
+
+        // A method that returns a Result<T>
+        Result<Customer> GetCustomer(int customer) => Result.Success(new Customer());
+        Task<Result<Customer>> GetCustomerAsync(int customer) => Task.FromResult(Result.Success(new Customer()));
+
+        // A method that returns a Result<T, E>
+        Result<Customer, Error> GetCustomerB(int customer) => Result.Success<Customer, Error>(new Customer());
+        Task<Result<Customer, Error>> GetCustomerBAsync(int customer) => Task.FromResult(Result.Success<Customer, Error>(new Customer()));
+
+
         public void ResultExtensions()
         {
-            var value = 0;
+            var customer = new Customer();
 
-            Result.Success()
-                .Tap(Do)
-                .Tap(GetId)
-                .Tap(() => value = 1)
-                .Tap(() => { });
+            // Result
+            DoWork()
+                .Tap(RaiseAlert)
+                .Tap(() => DeleteCustomer(customer))
+                .Tap(() => GetTotal())                   // The int return value is ignored
+                .Tap(() => AppendLog("log"))             // The int return value is ignored
+                .Tap(() => customer.Name = "Matt")       // Inline lambda, external variable
+                .Tap(() =>
+                {                                        // Do whatever you want!
+                    DeleteCustomer(customer);
+                    GetTotal();
+                });
 
-            Result.Success(new Customer())
-                .Tap(Do)
-                .Tap(GetId)
-                .Tap(() => value = 1)
-                .Tap(c => Do())
-                .Tap(c => GetId())
-                .Tap(c => value = 1)
-                .Map(cs => cs.Email);
+            // Result<T>
+            GetCustomer(21)                              // Result.Value contains the customer
+                .Tap(RaiseAlert)
+                .Tap(c => DeleteCustomer(c))             // Result.Value is passed as the parameter to the lambda
+                .Tap(DeleteCustomer)                     // Shorthand version of the above line, using method group conversion.
+                .Tap(() => GetTotal())
+                // .Tap(GetTotal)                        // Method group conversion ONLY doesn't work for non-async parameterless Funcs.
+                .Tap(() => AppendLog("log"))
+                .Tap(c => c.Name = "Jenkins")
+                .Tap(c =>
+                {
+                    DeleteCustomer(c);
+                    GetTotal();
+                });
 
-            Result.Success<Customer, Error>(new Customer())
-                .Tap(Do)
-                .Tap(GetId)
-                .Tap(() => value = 1)
-                .Tap(c => Do())
-                .Tap(c => GetId())
-                .Tap(c => value = 1)
-                .Map(cs => cs.Email);
+            // Result<T, E>
+            GetCustomerB(21)
+                .Tap(RaiseAlert)
+                .Tap(c => DeleteCustomer(c))
+                .Tap(DeleteCustomer)
+                .Tap(() => GetTotal())
+                .Tap(() => AppendLog("log"))
+                .Tap(c => c.Name = "Jenkins")
+                .Tap(c =>
+                {
+                    DeleteCustomer(c);
+                    GetTotal();
+                });
         }
 
         public async Task AsyncResultExtensionsRightOperand()
         {
-            await Result.Success()
-                .Tap(DoAsync)
-                .Tap(() => { });
+            var customer = new Customer();
 
-            await Result.Success()
-                .Tap(GetIdAsync)
-                .Tap(() => { });
+            // Result
+            await DoWork()                                   // await the entire chain
+                .Tap(RaiseAlert)
+                .Tap(() => RaiseAlertAsync())                // The first method to return a Task brings the entire chain into the Task<Result> space
+                .Tap(() => DeleteCustomer(customer))         // Non-async methods can still be used interchangeably though
+                .Tap(() => DeleteCustomerAsync(customer))
+                .Tap(() => GetTotal())
+                .Tap(() => GetTotalAsync())
+                .Tap(GetTotalAsync)                          // Since this is a Func (GetTotalAsync() returns a Task),
+                                                             // method group conversion works fine. The Task inner return value 
+                                                             // is discarded, of course, as with all the Tap methods.
+                .Tap(() => AppendLog("log"))
+                .Tap(() => AppendLogAsync("log"))
+                .Tap(() => customer.Name = "Matt")
+                .Tap(() =>
+                {
+                    DeleteCustomer(customer);
+                    GetTotal();
+                })
+                .Tap(async () =>                             // Even inline lambdas can be async!
+                {
+                    await DeleteCustomerAsync(customer);
+                    await GetTotalAsync();
+                });
 
-            await Result.Success(new Customer())
-                .Tap(DoAsync)
-                .Map(cs => cs.Email);
+            // Result<T>
+            await GetCustomer(21)                            // Result.Value contains the customer
+                .Tap(RaiseAlert)
+                .Tap(RaiseAlertAsync)
+                .Tap(c => DeleteCustomer(c))
+                .Tap(DeleteCustomer)
+                .Tap(c => DeleteCustomerAsync(c))
+                .Tap(DeleteCustomerAsync)
+                .Tap(() => GetTotal())
+                .Tap(GetTotalAsync)
+                .Tap(() => AppendLog("log"))
+                .Tap(() => AppendLogAsync("log"))
+                .Tap(() => customer.Name = "Jenkins")
+                .Tap(c =>
+                {
+                    DeleteCustomer(c);
+                    GetTotal();
+                })
+                .Tap(async c =>
+                {
+                    await DeleteCustomerAsync(c);
+                    await GetTotalAsync();
+                });
 
-            await Result.Success(new Customer())
-                .Tap(c => DoAsync())
-                .Map(cs => cs.Email);
+            // Result<T, E>
+            await GetCustomerB(21)
+                .Tap(RaiseAlert)
+                .Tap(RaiseAlertAsync)
+                .Tap(DeleteCustomer)
+                .Tap(DeleteCustomerAsync)
+                .Tap(() => GetTotal())
+                .Tap(GetTotalAsync)
+                .Tap(() => AppendLog("log"))
+                .Tap(() => AppendLogAsync("log"))
+                .Tap(() => customer.Name = "Jenkins")
+                .Tap(c =>
+                {
+                    DeleteCustomer(c);
+                    GetTotal();
+                })
+                .Tap(async c =>
+                {
+                    await DeleteCustomerAsync(c);
+                    await GetTotalAsync();
+                });
 
-            await Result.Success(new Customer())
-                .Tap(GetIdAsync)
-                .Map(cs => cs.Email);
 
-            await Result.Success(new Customer())
-                .Tap(c => GetIdAsync())
-                .Map(cs => cs.Email);
+            // Result
+            await DoWork()
+                .Tap(RaiseAlertAsync);
 
-            await Result.Success<Customer, Error>(new Customer())
-                .Tap(DoAsync)
-                .Map(c => c.Email);
+            // Result<T>
+            await GetCustomer(21)
+                .Tap(RaiseAlertAsync);
 
-            await Result.Success<Customer, Error>(new Customer())
-                .Tap(GetIdAsync)
-                .Map(c => c.Email);
+            await GetCustomer(21)
+                .Tap(DeleteCustomerAsync);
 
-            await Result.Success<Customer, Error>(new Customer())
-                .Tap(c => DoAsync())
-                .Map(c => c.Email);
+            // Result<T, E>
+            await GetCustomerB(21)
+                .Tap(RaiseAlertAsync);
 
-            await Result.Success<Customer, Error>(new Customer())
-                .Tap(c => GetIdAsync())
-                .Map(c => c.Email);
+            await GetCustomerB(21)
+                .Tap(DeleteCustomerAsync);
         }
 
         public async Task AsyncResultExtensionsLeftOperand()
         {
-            var value = 0;
+            // Task<Result>
+            await DoWorkAsync()
+                .Tap(RaiseAlert);
 
-            await Task.FromResult(Result.Success())
-                .Tap(Do)
-                .Tap(GetId)
-                .Tap(() => value = 1)
-                .Tap(() => { });
+            // Task<Result<T>>
+            await GetCustomerAsync(21)
+                .Tap(RaiseAlert);
 
-            await Task.FromResult(Result.Success(new Customer()))
-                .Tap(Do)
-                .Tap(GetId)
-                .Tap(() => value = 1)
-                .Tap(c => Do())
-                .Tap(c => GetId())
-                .Tap(c => value = 1)
-                .Map(cs => cs.Email);
+            await GetCustomerAsync(21)
+                .Tap(DeleteCustomer);
 
-            await Task.FromResult(Result.Success<Customer, Error>(new Customer()))
-                .Tap(Do)
-                .Tap(GetId)
-                .Tap(() => value = 1)
-                .Tap(c => Do())
-                .Tap(c => GetId())
-                .Tap(c => value = 1)
-                .Map(cs => cs.Email);
+            // Task<Result<T, E>>
+            await GetCustomerBAsync(21)
+                .Tap(RaiseAlert);
+
+            await GetCustomerBAsync(21)
+                .Tap(DeleteCustomer);
         }
 
         public async Task AsyncResultExtensionsBothOperands()
         {
-            await Task.FromResult(Result.Success())
-                .Tap(DoAsync)
-                .Tap(GetIdAsync)
-                .Tap(() => { });
+            // Task<Result>
+            await DoWorkAsync()
+                .Tap(RaiseAlertAsync);
 
-            await Task.FromResult(Result.Success(new Customer()))
-                .Tap(DoAsync)
-                .Tap(GetIdAsync)
-                .Tap(c => DoAsync())
-                .Tap(c => GetIdAsync())
-                .Map(cs => cs.Email);
+            // Task<Result<T>>
+            await GetCustomerAsync(21)
+                .Tap(RaiseAlertAsync);
 
-            await Task.FromResult(Result.Success<Customer, Error>(new Customer()))
-                .Tap(DoAsync)
-                .Tap(GetIdAsync)
-                .Tap(c => DoAsync())
-                .Tap(c => GetIdAsync())
-                .Map(cs => cs.Email);
-        }
+            await GetCustomerAsync(21)
+                .Tap(DeleteCustomerAsync);
 
-        void Do() { }
-        int GetId() => 1;
-        Task DoAsync() => Task.FromResult(1);
-        Task<int> GetIdAsync() => Task.FromResult(GetId());
+            // Task<Result<T, E>>
+            await GetCustomerBAsync(21)
+                .Tap(RaiseAlertAsync);
 
-        public class Customer
-        {
-            public string Email { get; }
-        }
-
-        private class Error
-        {
+            await GetCustomerBAsync(21)
+                .Tap(DeleteCustomerAsync);
         }
     }
 }

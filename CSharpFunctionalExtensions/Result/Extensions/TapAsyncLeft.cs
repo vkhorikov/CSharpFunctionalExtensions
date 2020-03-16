@@ -49,50 +49,5 @@ namespace CSharpFunctionalExtensions
             Result<T, E> result = await resultTask.DefaultAwait();
             return result.Tap(action);
         }
-
-        /// <summary>
-        ///     Executes the given action if the calling result is a success. Returns the calling result.
-        /// </summary>
-        public static async Task<Result> Tap<_>(this Task<Result> resultTask, Func<_> func)
-        {
-            Result result = await resultTask.DefaultAwait();
-            return result.Tap(func);
-        }
-
-        /// <summary>
-        ///     Executes the given action if the calling result is a success. Returns the calling result.
-        /// </summary>
-        public static async Task<Result<T>> Tap<T, _>(this Task<Result<T>> resultTask, Func<_> func)
-        {
-            Result<T> result = await resultTask.DefaultAwait();
-            return result.Tap(func);
-        }
-
-        /// <summary>
-        ///     Executes the given action if the calling result is a success. Returns the calling result.
-        /// </summary>
-        public static async Task<Result<T>> Tap<T, _>(this Task<Result<T>> resultTask, Func<T, _> func)
-        {
-            Result<T> result = await resultTask.DefaultAwait();
-            return result.Tap(func);
-        }
-
-        /// <summary>
-        ///     Executes the given action if the calling result is a success. Returns the calling result.
-        /// </summary>
-        public static async Task<Result<T, E>> Tap<T, E, _>(this Task<Result<T, E>> resultTask, Func<_> func)
-        {
-            Result<T, E> result = await resultTask.DefaultAwait();
-            return result.Tap(func);
-        }
-
-        /// <summary>
-        ///     Executes the given action if the calling result is a success. Returns the calling result.
-        /// </summary>
-        public static async Task<Result<T, E>> Tap<T, E, _>(this Task<Result<T, E>> resultTask, Func<T, _> func)
-        {
-            Result<T, E> result = await resultTask.DefaultAwait();
-            return result.Tap(func);
-        }
     }
 }

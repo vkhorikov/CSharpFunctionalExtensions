@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
@@ -9,9 +8,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_AsyncLeft_returns_failure_and_does_not_execute_func()
         {
-            Task<Result> input = Result.Failure(ErrorMessage).AsCompletedTask();
+            Result input = Result.Failure(ErrorMessage);
 
-            Result output = input.Bind(GetResult).Result;
+            Result output = input.AsTask().Bind(GetResult).Result;
 
             AssertFailure(output);
         }
@@ -19,9 +18,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_AsyncLeft_selects_new_result()
         {
-            Task<Result> input = Result.Success().AsCompletedTask();
+            Result input = Result.Success();
 
-            Result output = input.Bind(GetResult).Result;
+            Result output = input.AsTask().Bind(GetResult).Result;
 
             AssertSuccess(output);
         }
@@ -29,9 +28,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_T_AsyncLeft_returns_failure_and_does_not_execute_func()
         {
-            Task<Result<T>> input = Result.Failure<T>(ErrorMessage).AsCompletedTask();
+            Result<T> input = Result.Failure<T>(ErrorMessage);
 
-            Result output = input.Bind(GetResult_WithParam).Result;
+            Result output = input.AsTask().Bind(GetResult_WithParam).Result;
 
             AssertFailure(output);
         }
@@ -39,71 +38,71 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_T_AsyncLeft_selects_new_result()
         {
-            Task<Result<T>> input = Result.Success(T.Value).AsCompletedTask();
+            Result<T> input = Result.Success(T.Value);
 
-            Result output = input.Bind(GetResult_WithParam).Result;
-
-            funcParam.Should().Be(T.Value);
-            AssertSuccess(output);
-        }
-
-        [Fact]
-        public void Bind_F_AsyncLeft_returns_failure_and_does_not_execute_func()
-        {
-            Task<Result> input = Result.Failure(ErrorMessage).AsCompletedTask();
-
-            Result<F> output = input.Bind(GetResult_F).Result;
-
-            AssertFailure(output);
-        }
-
-        [Fact]
-        public void Bind_F_AsyncLeft_selects_new_result()
-        {
-            Task<Result> input = Result.Success().AsCompletedTask();
-
-            Result<F> output = input.Bind(GetResult_F).Result;
-
-            AssertSuccess(output);
-        }
-
-        [Fact]
-        public void Bind_T_F_AsyncLeft_returns_failure_and_does_not_execute_func()
-        {
-            Task<Result<T>> input = Result.Failure<T>(ErrorMessage).AsCompletedTask();
-
-            Result<F> output = input.Bind(GetResult_F_WithParam).Result;
-
-            AssertFailure(output);
-        }
-
-        [Fact]
-        public void Bind_T_F_AsyncLeft_selects_new_result()
-        {
-            Task<Result<T>> input = Result.Success(T.Value).AsCompletedTask();
-
-            Result<F> output = input.Bind(GetResult_F_WithParam).Result;
+            Result output = input.AsTask().Bind(GetResult_WithParam).Result;
 
             funcParam.Should().Be(T.Value);
             AssertSuccess(output);
         }
 
         [Fact]
-        public void Bind_T_F_E_AsyncLeft_returns_failure_and_does_not_execute_func()
+        public void Bind_K_AsyncLeft_returns_failure_and_does_not_execute_func()
         {
-            Task<Result<T, E>> input = Result.Failure<T, E>(E.Value).AsCompletedTask();
+            Result input = Result.Failure(ErrorMessage);
 
-            Result<F, E> output = input.Bind(GetResult_F_E_WithParam).Result;
+            Result<K> output = input.AsTask().Bind(GetResult_K).Result;
 
             AssertFailure(output);
         }
 
         [Fact]
-        public void Bind_T_F_E_AsyncLeft_selects_new_result()
+        public void Bind_K_AsyncLeft_selects_new_result()
         {
-            Task<Result<T, E>> input = Result.Success<T, E>(T.Value).AsCompletedTask();
+            Result input = Result.Success();
 
-            Result<F, E> output = input.Bind(GetResult_F_E_WithParam).Result;
+            Result<K> output = input.AsTask().Bind(GetResult_K).Result;
+
+            AssertSuccess(output);
+        }
+
+        [Fact]
+        public void Bind_T_K_AsyncLeft_returns_failure_and_does_not_execute_func()
+        {
+            Result<T> input = Result.Failure<T>(ErrorMessage);
+
+            Result<K> output = input.AsTask().Bind(GetResult_K_WithParam).Result;
+
+            AssertFailure(output);
+        }
+
+        [Fact]
+        public void Bind_T_K_AsyncLeft_selects_new_result()
+        {
+            Result<T> input = Result.Success(T.Value);
+
+            Result<K> output = input.AsTask().Bind(GetResult_K_WithParam).Result;
+
+            funcParam.Should().Be(T.Value);
+            AssertSuccess(output);
+        }
+
+        [Fact]
+        public void Bind_T_K_E_AsyncLeft_returns_failure_and_does_not_execute_func()
+        {
+            Result<T, E> input = Result.Failure<T, E>(E.Value);
+
+            Result<K, E> output = input.AsTask().Bind(GetResult_K_E_WithParam).Result;
+
+            AssertFailure(output);
+        }
+
+        [Fact]
+        public void Bind_T_K_E_AsyncLeft_selects_new_result()
+        {
+            Result<T, E> input = Result.Success<T, E>(T.Value);
+
+            Result<K, E> output = input.AsTask().Bind(GetResult_K_E_WithParam).Result;
 
             funcParam.Should().Be(T.Value);
             AssertSuccess(output);
