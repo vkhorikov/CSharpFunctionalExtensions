@@ -1,322 +1,146 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 
-namespace CSharpFunctionalExtensions.Tests.ResultTests
+namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 {
-    public class TapIf : TestBase
+    public class TapIf : TapIfTestsBase
     {
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_executes_action_conditionally_and_returns_self(bool condition)
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void TapIf_executes_action_conditionally_and_returns_self(bool isSuccess, bool condition)
         {
-            Result result = Result.Success();
-            bool actionExecuted = false;
-            Action action = () => actionExecuted = true;
+            Result result = Result.SuccessIf(isSuccess, ErrorMessage);
 
-            var returned = result.TapIf(condition, action);
+            var returned = result.TapIf(condition, Action);
 
-            actionExecuted.Should().Be(condition);
+            actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_executes_action_conditionally_and_returns_self(bool condition)
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void TapIf_T_executes_action_conditionally_and_returns_self(bool isSuccess, bool condition)
         {
-            Result<T> result = Result.Success(T.Value);
-            bool actionExecuted = false;
-            Action action = () => actionExecuted = true;
+            Result<T> result = Result.SuccessIf(isSuccess, T.Value, ErrorMessage);
 
-            var returned = result.TapIf(condition, action);
+            var returned = result.TapIf(condition, Action);
 
-            actionExecuted.Should().Be(condition);
+            actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_executes_action_T_conditionally_and_returns_self(bool condition)
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void TapIf_T_executes_action_T_conditionally_and_returns_self(bool isSuccess, bool condition)
         {
-            Result<T> result = Result.Success(T.Value);
-            bool actionExecuted = false;
-            Action<T> action = _ => actionExecuted = true;
+            Result<T> result = Result.SuccessIf(isSuccess, T.Value, ErrorMessage);
 
-            var returned = result.TapIf(condition, action);
+            var returned = result.TapIf(condition, Action_T);
 
-            actionExecuted.Should().Be(condition);
+            actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_E_executes_action_conditionally_and_returns_self(bool condition)
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void TapIf_T_E_executes_action_conditionally_and_returns_self(bool isSuccess, bool condition)
         {
-            Result<T, E> result = Result.Success<T, E>(T.Value);
-            bool actionExecuted = false;
-            Action action = () => actionExecuted = true;
+            Result<T, E> result = Result.SuccessIf(isSuccess, T.Value, E.Value);
 
-            var returned = result.TapIf(condition, action);
+            var returned = result.TapIf(condition, Action);
 
-            actionExecuted.Should().Be(condition);
+            actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_E_executes_action_T_conditionally_and_returns_self(bool condition)
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void TapIf_T_E_executes_action_T_conditionally_and_returns_self(bool isSuccess, bool condition)
         {
-            Result<T, E> result = Result.Success<T, E>(T.Value);
-            bool actionExecuted = false;
-            Action<T> action = _ => actionExecuted = true;
+            Result<T, E> result = Result.SuccessIf(isSuccess, T.Value, E.Value);
 
-            var returned = result.TapIf(condition, action);
+            var returned = result.TapIf(condition, Action_T);
 
-            actionExecuted.Should().Be(condition);
+            actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_executes_func_conditionally_and_returns_self(bool condition)
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void TapIf_T_executes_action_per_predicate_and_returns_self(bool isSuccess, bool condition)
         {
-            Result result = Result.Success();
-            bool actionExecuted = false;
-            Func<Discard> func = () =>
-            {
-                actionExecuted = true;
-                return Discard.Value;
-            };
+            Result<bool> result = Result.SuccessIf(isSuccess, condition, ErrorMessage);
 
-            var returned = result.TapIf(condition, func);
+            var returned = result.TapIf(Predicate, Action);
 
-            actionExecuted.Should().Be(condition);
+            predicateExecuted.Should().Be(isSuccess);
+            actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_executes_func_conditionally_and_returns_self(bool condition)
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void TapIf_T_executes_action_T_per_predicate_and_returns_self(bool isSuccess, bool condition)
         {
-            Result<T> result = Result.Success(T.Value);
-            bool actionExecuted = false;
-            Func<Discard> func = () =>
-            {
-                actionExecuted = true;
-                return Discard.Value;
-            };
+            Result<bool> result = Result.SuccessIf(isSuccess, condition, ErrorMessage);
 
-            var returned = result.TapIf(condition, func);
+            var returned = result.TapIf(Predicate, Action_T);
 
-            actionExecuted.Should().Be(condition);
+            predicateExecuted.Should().Be(isSuccess);
+            actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_executes_func_T_conditionally_and_returns_self(bool condition)
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void TapIf_T_E_executes_action_per_predicate_and_returns_self(bool isSuccess, bool condition)
         {
-            Result<T> result = Result.Success(T.Value);
-            bool actionExecuted = false;
-            Func<T, Discard> func = _ =>
-            {
-                actionExecuted = true;
-                return Discard.Value;
-            };
+            Result<bool, E> result = Result.SuccessIf(isSuccess, condition, E.Value);
 
-            var returned = result.TapIf(condition, func);
+            var returned = result.TapIf(Predicate, Action);
 
-            actionExecuted.Should().Be(condition);
+            predicateExecuted.Should().Be(isSuccess);
+            actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_E_executes_func_conditionally_and_returns_self(bool condition)
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void TapIf_T_E_executes_action_T_per_predicate_and_returns_self(bool isSuccess, bool condition)
         {
-            Result<T, E> result = Result.Success<T, E>(T.Value);
-            bool actionExecuted = false;
-            Func<Discard> func = () =>
-            {
-                actionExecuted = true;
-                return Discard.Value;
-            };
+            Result<bool, E> result = Result.SuccessIf(isSuccess, condition, E.Value);
 
-            var returned = result.TapIf(condition, func);
+            var returned = result.TapIf(Predicate, Action_T);
 
-            actionExecuted.Should().Be(condition);
-            result.Should().Be(returned);
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_E_executes_func_T_conditionally_and_returns_self(bool condition)
-        {
-            Result<T, E> result = Result.Success<T, E>(T.Value);
-            bool actionExecuted = false;
-            Func<T, Discard> func = _ =>
-            {
-                actionExecuted = true;
-                return Discard.Value;
-            };
-
-            var returned = result.TapIf(condition, func);
-
-            actionExecuted.Should().Be(condition);
-            result.Should().Be(returned);
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_executes_action_based_on_func_and_returns_self(bool value)
-        {
-            Result<K> result = Result.Success(K.FromBool(value));
-            bool actionExecuted = false;
-            Func<K, bool> condition = k => k.Value;
-            Action action = () => actionExecuted = true;
-
-            var returned = result.TapIf(condition, action);
-
-            actionExecuted.Should().Be(value);
-            result.Should().Be(returned);
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_executes_action_T_based_on_func_and_returns_self(bool value)
-        {
-            Result<K> result = Result.Success(K.FromBool(value));
-            bool actionExecuted = false;
-            Func<K, bool> condition = k => k.Value;
-            Action<K> action = _ => actionExecuted = true;
-
-            var returned = result.TapIf(condition, action);
-
-            actionExecuted.Should().Be(value);
-            result.Should().Be(returned);
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_E_executes_action_based_on_func_and_returns_self(bool value)
-        {
-            Result<K, E> result = Result.Success<K, E>(K.FromBool(value));
-            bool actionExecuted = false;
-            Func<K, bool> condition = k => k.Value;
-            Action action = () => actionExecuted = true;
-
-            var returned = result.TapIf(condition, action);
-
-            actionExecuted.Should().Be(value);
-            result.Should().Be(returned);
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_E_executes_action_T_based_on_func_and_returns_self(bool value)
-        {
-            Result<K, E> result = Result.Success<K, E>(K.FromBool(value));
-            bool actionExecuted = false;
-            Func<K, bool> condition = k => k.Value;
-            Action<K> action = _ => actionExecuted = true;
-
-            var returned = result.TapIf(condition, action);
-
-            actionExecuted.Should().Be(value);
-            result.Should().Be(returned);
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_executes_func_based_on_func_and_returns_self(bool value)
-        {
-            Result<K> result = Result.Success(K.FromBool(value));
-            bool actionExecuted = false;
-            Func<K, bool> condition = k => k.Value;
-            Func<Discard> func = () =>
-            {
-                actionExecuted = true;
-                return Discard.Value;
-            };
-
-            var returned = result.TapIf(condition, func);
-
-            actionExecuted.Should().Be(value);
-            result.Should().Be(returned);
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_executes_func_T_based_on_func_and_returns_self(bool value)
-        {
-            Result<K> result = Result.Success(K.FromBool(value));
-            bool actionExecuted = false;
-            Func<K, bool> condition = k => k.Value;
-            Func<K, Discard> func = _ =>
-            {
-                actionExecuted = true;
-                return Discard.Value;
-            };
-
-            var returned = result.TapIf(condition, func);
-
-            actionExecuted.Should().Be(value);
-            result.Should().Be(returned);
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_E_executes_func_based_on_func_and_returns_self(bool value)
-        {
-            Result<K, E> result = Result.Success<K, E>(K.FromBool(value));
-            bool actionExecuted = false;
-            Func<K, bool> condition = k => k.Value;
-            Func<Discard> func = () =>
-            {
-                actionExecuted = true;
-                return Discard.Value;
-            };
-
-            var returned = result.TapIf(condition, func);
-
-            actionExecuted.Should().Be(value);
-            result.Should().Be(returned);
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TapIf_T_E_executes_func_T_based_on_func_and_returns_self(bool value)
-        {
-            Result<K, E> result = Result.Success<K, E>(K.FromBool(value));
-            bool actionExecuted = false;
-            Func<K, bool> condition = k => k.Value;
-            Func<K, Discard> func = _ =>
-            {
-                actionExecuted = true;
-                return Discard.Value;
-            };
-
-            var returned = result.TapIf(condition, func);
-
-            actionExecuted.Should().Be(value);
+            predicateExecuted.Should().Be(isSuccess);
+            actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
     }
