@@ -60,7 +60,7 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        ///     Executes the given action if the calling result is a success. Returns the calling result on success.
+        ///     If the calling result is a success, the given function is executed and its Result is checked. If this Result is a failure, it is returned. Otherwise, the calling result is returned.
         /// </summary>
         public static Result<T> Tap<T>(this Result<T> result, Func<T, Result> func)
         {
@@ -68,7 +68,7 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        ///     Executes the given action if the calling result is a success. Returns the calling result on success.
+        ///     If the calling result is a success, the given function is executed and its Result is checked. If this Result is a failure, it is returned. Otherwise, the calling result is returned.
         /// </summary>
         public static Result<T> Tap<T, K>(this Result<T> result, Func<T, Result<K>> func)
         {
@@ -76,7 +76,7 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        ///     Executes the given action if the calling result is a success. Returns the calling result on success.
+        ///     If the calling result is a success, the given function is executed and its Result is checked. If this Result is a failure, it is returned. Otherwise, the calling result is returned.
         /// </summary>
         public static Result<T, E> Tap<T, K, E>(this Result<T, E> result, Func<T, Result<K, E>> func)
         {
