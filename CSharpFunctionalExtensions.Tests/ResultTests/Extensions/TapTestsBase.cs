@@ -17,24 +17,17 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         protected async Task Task_Action() { actionExecuted = true; }
         protected async Task Task_Action_T(T _) { actionExecuted = true; }
 
-        protected Result FailedResult = Result.Failure<T>(ErrorMessage);
-        protected Result<T> FailedResultT = Result.Failure<T>(ErrorMessage);
-        protected Result<K> FailedResultK = Result.Failure<K>(ErrorMessage);
-        protected Result<K, E> FailedResultKE = Result.Failure<K, E>(E.Value);
+        protected Result FailedResult => Result.Failure(ErrorMessage);
+        protected Result<T> FailedResultT => Result.Failure<T>(ErrorMessage);
+        protected Result<K> FailedResultK => Result.Failure<K>(ErrorMessage);
+        protected Result<K, E> FailedResultKE => Result.Failure<K, E>(E.Value);
 
-        protected Func<T, Result> Func_Result(bool isSuccess)
+        protected Result GetResult(bool isSuccess)
         {
+            actionExecuted = true;
             return isSuccess
-                ? new Func<T, Result>(t =>
-                {
-                    actionExecuted = true;
-                    return Result.Success();
-                })
-                : t =>
-                {
-                    actionExecuted = true;
-                    return FailedResult;
-                };
+                ? Result.Success()
+                : FailedResult;
         }
 
         protected Func<T, Result<K>> Func_Result_K(bool isSuccess)

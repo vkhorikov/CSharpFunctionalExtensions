@@ -78,7 +78,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         {
             Result<T> result = Result.SuccessIf(resultSuccess, T.Value, ErrorMessage);
 
-            var returned = result.Tap(Func_Task_Result(funcSuccess)).Result;
+            var returned = result.Tap(_ => GetResult(funcSuccess).AsTask()).Result;
 
             actionExecuted.Should().Be(resultSuccess);
             returned.Should().Be(funcSuccess ? result : FailedResultT);
