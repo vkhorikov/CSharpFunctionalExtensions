@@ -1,4 +1,8 @@
-2.4.1
-* #187 -- Async code improvements, C#8, Bind() unit tests
-* #186 -- Quality improvements
-* #184 -- Overload for TapIf with Func<T, bool> condition
+2.5.0
+PRs:
+* #188 -- Tap()/TapIf() - Major overhaul including examples
+* #192 -- TapIf overloads for handling result-returning funcs
+
+Fixed issues:
+* #174 -- Risky Tap signatures
+* #179 -- Add Task<Result<T, E>> Tap<T, E, _>(this Task<Result<T, E>> resultTask, Func<T, Task<_>> func) override to TapAsyncBoth
