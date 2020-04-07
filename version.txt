@@ -1,8 +1,6 @@
-2.5.0
+2.6.0
 PRs:
-* #188 -- Tap()/TapIf() - Major overhaul including examples
-* #192 -- TapIf overloads for handling result-returning funcs
+* #195 -- Implement ToString() for Result<T>, Result<T,E>, Result
 
 Fixed issues:
-* #174 -- Risky Tap signatures
-* #179 -- Add Task<Result<T, E>> Tap<T, E, _>(this Task<Result<T, E>> resultTask, Func<T, Task<_>> func) override to TapAsyncBoth
+* #194 -- Better Debugging Experience
