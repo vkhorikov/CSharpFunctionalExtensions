@@ -16,6 +16,9 @@ namespace CSharpFunctionalExtensions
 
         public static Result BindWithTransactionScope(this Result self, Func<Result> f)
             => WithTransactionScope(() => self.Bind(f));
+
+        public static Result<K, E> BindWithTransactionScope<T, K, E>(this Result<T, E> self, Func<T, Result<K, E>> f)
+            => WithTransactionScope(() => self.Bind(f));
     }
 }
 #endif
