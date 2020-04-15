@@ -72,6 +72,7 @@ return _customerRepository.GetById(id)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [mnissl](https://github.com/mnissl)
  * [Vladimir Makaev](https://github.com/VladimirMakaev)
  * [Ben Smith](https://github.com/benprime)
  * [pedromtcosta](https://github.com/pedromtcosta)
