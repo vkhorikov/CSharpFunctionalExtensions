@@ -1,6 +1,6 @@
-2.6.0
+2.7.0
 PRs:
-* #195 -- Implement ToString() for Result<T>, Result<T,E>, Result
+* #196 -- BindWithTransactionScope<T, K, E> added
 
 Fixed issues:
-* #194 -- Better Debugging Experience
+* #193 -- BindWithTransactionScope<T, K, E> missing
