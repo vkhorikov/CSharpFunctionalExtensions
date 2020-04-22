@@ -1,6 +1,6 @@
-2.7.0
+2.7.1
 PRs:
-* #196 -- BindWithTransactionScope<T, K, E> added
+* None
 
 Fixed issues:
-* #193 -- BindWithTransactionScope<T, K, E> missing
+* #198 Serializable value objects
