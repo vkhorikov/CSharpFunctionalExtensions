@@ -1,6 +1,6 @@
 2.7.1
 PRs:
-* None
+* None 
 
 Fixed issues:
 * #198 Serializable value objects
