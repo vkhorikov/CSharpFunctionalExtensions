@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CSharpFunctionalExtensions
 {
+    [Serializable]
     public abstract class SimpleValueObject<T> : ValueObject
     {
         public T Value { get; }

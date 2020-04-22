@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 
@@ -7,6 +8,7 @@ namespace CSharpFunctionalExtensions
     /// <summary>
     /// Use non-generic ValueObject whenever possible: http://bit.ly/vo-new
     /// </summary>
+    [Serializable]
     public abstract class ValueObject<T>
         where T : ValueObject<T>
     {
@@ -49,6 +51,7 @@ namespace CSharpFunctionalExtensions
         }
     }
 
+    [Serializable]
     public abstract class ValueObject
     {
         protected abstract IEnumerable<object> GetEqualityComponents();
