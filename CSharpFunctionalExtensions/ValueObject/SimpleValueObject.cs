@@ -22,5 +22,7 @@ namespace CSharpFunctionalExtensions
         {
             return Value?.ToString();
         }
+
+        public static implicit operator T(SimpleValueObject<T> valueObject) => valueObject.Value;
     }
 }
