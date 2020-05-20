@@ -1,6 +1,7 @@
-2.7.1
-PRs:
-* None 
+2.8.0
+Code changes:
+* #202 Add implicit conversions from T to Result<T> and Result<T, E>
+* Added implicit operator for SimpleValueObject<T> => T conversion
 
 Fixed issues:
-* #198 Serializable value objects
+* #201 Implicit conversion from T to Result<T>
