@@ -1,6 +1,6 @@
-2.8.1
-Code changes:
-* #206 Add OnSuccessTry returning Task
+2.8.2
+New features:
+* None
 
 Fixed issues:
-* None
+* #204 Wrong return Type in 2.8.0
