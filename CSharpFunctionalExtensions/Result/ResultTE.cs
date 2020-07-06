@@ -37,5 +37,13 @@ namespace CSharpFunctionalExtensions
 
             return Result.Success<T, E>(value);
         }
+        
+        public static implicit operator Result<T, E>(E error)
+        {
+            if (error is Result<T, E> result)
+                return result;
+
+            return Result.Failure<T, E>(error);
+        }
     }
 }
