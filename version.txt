@@ -1,6 +1,6 @@
-2.7.1
-PRs:
-* None 
+2.9.0
+New features:
+* #209 Proposal: implicit conversion from E to Result<T, E>
 
 Fixed issues:
-* #198 Serializable value objects
+* None

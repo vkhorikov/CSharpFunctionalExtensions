@@ -32,5 +32,21 @@ namespace CSharpFunctionalExtensions
             var result = await task.DefaultAwait();
             return result.OnSuccessTry(action, errorHandler);
         }
+
+        public static async Task OnSuccessTry<T>(this Result<T> result, Func<T, Task> func)
+        {
+            if (result.IsSuccess)
+            {
+                await func(result.Value);
+            }
+        }
+
+        public static async Task OnSuccessTry<T, E>(this Result<T, E> result, Func<T, Task> func)
+        {
+            if (result.IsSuccess)
+            {
+                await func(result.Value);
+            }
+        }
     }
 }

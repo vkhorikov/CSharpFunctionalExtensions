@@ -30,6 +30,20 @@ namespace CSharpFunctionalExtensions
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
             => _logic.GetObjectData(info, this);
 
-        public static implicit operator Result<T, E>(T value) => Result.Success<T, E>(value);
+        public static implicit operator Result<T, E>(T value)
+        {
+            if (value is Result<T, E> result)
+                return result;
+
+            return Result.Success<T, E>(value);
+        }
+        
+        public static implicit operator Result<T, E>(E error)
+        {
+            if (error is Result<T, E> result)
+                return result;
+
+            return Result.Failure<T, E>(error);
+        }
     }
 }

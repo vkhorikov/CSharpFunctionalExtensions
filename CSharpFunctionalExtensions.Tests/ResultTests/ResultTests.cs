@@ -674,5 +674,35 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         private class Error
         {
         }
+
+        [Fact]
+        public async Task When_Asynchronous_Continuation_Passed_To_On_Success_Try_Then_Needs_To_Be_Handled_As_Awaitable() {
+            var content = "my key";
+            var result = Result.Success<string>(content);
+
+            await result
+                .OnSuccessTry(async (key) => {
+                    await Task.Delay(10);
+                    var task = Task.FromResult(key);
+                    var k = await task;
+                    k.Should().Be(content);
+                });
+        }
+
+        [Fact]
+        public async Task When_Asynchronous_Continuation_Passed_With_Typed_Error_To_On_Success_Try_Then_Needs_To_Be_Handled_As_Awaitable()
+        {
+            var content = "my key";
+            var result = Result.Success<string, Error>(content);
+
+            await result
+                .OnSuccessTry(async (key) =>
+                {
+                    await Task.Delay(10);
+                    var task = Task.FromResult(key);
+                    var k = await task;
+                    k.Should().Be(content);
+                });
+        }
     }
 }
