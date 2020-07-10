@@ -56,7 +56,7 @@ return _customerRepository.GetById(id)
 return _customerRepository.GetById(id)
     .ToResult("Customer with such Id is not found: " + id)
     .Ensure(customer => customer.CanBePromoted(), "The customer has the highest status possible")
-    .WithTransactionScope(customer => Result.Ok(customer)
+    .WithTransactionScope(customer => Result.Success(customer)
         .Tap(customer => customer.Promote())
         .Tap(customer => customer.ClearAppointments()))
     .Tap(customer => _emailGateway.SendPromotionNotification(customer.PrimaryEmail, customer.Status))
@@ -72,6 +72,7 @@ return _customerRepository.GetById(id)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [svroonland](https://github.com/svroonland)
  * [JvSSD](https://github.com/JvSSD)
  * [mnissl](https://github.com/mnissl)
  * [Vladimir Makaev](https://github.com/VladimirMakaev)

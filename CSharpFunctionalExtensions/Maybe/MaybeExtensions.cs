@@ -35,6 +35,11 @@ namespace CSharpFunctionalExtensions
             return defaultValue;
         }
 
+        public static List<T> ToList<T>(this Maybe<T> maybe)
+        {
+            return maybe.Unwrap(value => new List<T> {value}, new List<T>());
+        }
+
         public static Maybe<T> Where<T>(this Maybe<T> maybe, Func<T, bool> predicate)
         {
             if (maybe.HasNoValue)

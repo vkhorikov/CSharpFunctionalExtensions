@@ -415,6 +415,28 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             maybe.HasValue.Should().BeFalse();
         }
 
+        [Fact]
+        public void ToList_gives_empty_list_if_null()
+        {
+            Maybe<MyClass> maybe = null;
+
+            List<MyClass> myClasses = maybe.ToList();
+
+            myClasses.Count.Should().Be(0);
+        }
+
+        [Fact]
+        public void ToList_gives_single_item_list_if_not_null()
+        {
+            var instance = new MyClass();
+            Maybe<MyClass> maybe = instance;
+
+            List<MyClass> myClasses = maybe.ToList();
+
+            myClasses.Count.Should().Be(1);
+            myClasses[0].Should().Be(instance);
+        }
+
         private static Maybe<string> GetPropertyIfExists(MyClass myClass)
         {
             return myClass.Property;
