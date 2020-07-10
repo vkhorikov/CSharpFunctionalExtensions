@@ -72,6 +72,7 @@ return _customerRepository.GetById(id)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [svroonland](https://github.com/svroonland)
  * [JvSSD](https://github.com/JvSSD)
  * [mnissl](https://github.com/mnissl)
  * [Vladimir Makaev](https://github.com/VladimirMakaev)

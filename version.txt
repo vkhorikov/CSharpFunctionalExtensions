@@ -1,6 +1,7 @@
-2.9.0
+2.10.0
 New features:
-* #209 Proposal: implicit conversion from E to Result<T, E>
+* #212 Add `Maybe<T>.ToList()`
+* #213 Add `[Obsolete]` on top of `Result.Ok` methods
 
 Fixed issues:
 * None
