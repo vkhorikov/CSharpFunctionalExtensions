@@ -1,8 +1,10 @@
-﻿using FluentAssertions;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Xunit;
+using static CSharpFunctionalExtensions.Tests.ResultTests.CombineWithErrorMethodTests;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests
 {
@@ -183,6 +185,114 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be("m;o");
+        }
+
+        [Fact]
+        public void Combine_T_E_results_in_only_one_iteration_over_input_enumerable()
+        {
+            var count = 0;
+            Result<int, Error> CountIterations(int input)
+            {
+                count++;
+                return input;
+            };
+
+            IEnumerable<Result<int, Error>> results = Enumerable.Range(0, 1)
+                .Select(i => CountIterations(i));
+
+            var result = results.Combine().Value.ToList();
+
+            count.Should().Be(1);
+        }
+
+        [Fact]
+        public void Combine_T_E_with_composer_results_in_only_one_iteration_over_input_enumerable()
+        {
+            var count = 0;
+            Result<int, Exception> CountIterations(int input)
+            {
+                count++;
+                return input;
+            };
+
+            IEnumerable<Result<int, Exception>> results = Enumerable.Range(0, 1)
+                .Select(i => CountIterations(i));
+
+            var result = results.Combine(exs => new AggregateException(exs)).Value.ToList();
+
+            count.Should().Be(1);
+        }
+
+        [Fact]
+        public void Combine_T_results_in_only_one_iteration_over_input_enumerable()
+        {
+            var count = 0;
+            Result<int> CountIterations(int input)
+            {
+                count++;
+                return input;
+            };
+
+            IEnumerable<Result<int>> results = Enumerable.Range(0, 1)
+                .Select(i => CountIterations(i));
+
+            var result = results.Combine().Value.ToList();
+
+            count.Should().Be(1);
+        }
+
+        [Fact]
+        public void Combine_T_K_E_with_composer_error_results_in_only_one_iteration_over_input_enumerable()
+        {
+            var count = 0;
+            Result<int, Exception> CountIterations(int input)
+            {
+                count++;
+                return input;
+            };
+
+            IEnumerable<Result<int, Exception>> results = Enumerable.Range(0, 1)
+                .Select(i => CountIterations(i));
+
+            var result = results.Combine(v => v.Sum(), exs => new AggregateException(exs)).Value;
+
+            count.Should().Be(1);
+        }
+
+        [Fact]
+        public void Combine_T_K_E_results_in_only_one_iteration_over_input_enumerable()
+        {
+            var count = 0;
+            Result<int, Error> CountIterations(int input)
+            {
+                count++;
+                return input;
+            };
+
+            IEnumerable<Result<int, Error>> results = Enumerable.Range(0, 1)
+                .Select(i => CountIterations(i));
+
+            var result = results.Combine(v => v.Sum()).Value;
+
+            count.Should().Be(1);
+        }
+
+        [Fact]
+        public void Combine_T_K_results_in_only_one_iteration_over_input_enumerable()
+        {
+            var count = 0;
+            Result<int> CountIterations(int input)
+            {
+                count++;
+                return input;
+            };
+
+            IEnumerable<Result<int>> results = Enumerable.Range(0, 1)
+                .Select(i => CountIterations(i));
+
+            var result = results.Combine(v => v.Sum()).Value;
+
+            count.Should().Be(1);
         }
 
         [Fact]

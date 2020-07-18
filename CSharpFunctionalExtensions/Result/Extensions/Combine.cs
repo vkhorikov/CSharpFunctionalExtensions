@@ -12,6 +12,7 @@ namespace CSharpFunctionalExtensions
         public static Result<IEnumerable<T>, E> Combine<T, E>(this IEnumerable<Result<T, E>> results)
             where E : ICombine
         {
+            results = results.ToList();
             Result<bool, E> result = Result.Combine(results);
 
             return result.IsSuccess
@@ -22,6 +23,7 @@ namespace CSharpFunctionalExtensions
 
         public static Result<IEnumerable<T>, E> Combine<T, E>(this IEnumerable<Result<T, E>> results, Func<IEnumerable<E>, E> composerError)
         {
+            results = results.ToList();
             Result<bool, E> result = Result.Combine(results, composerError);
 
             return result.IsSuccess
@@ -31,6 +33,7 @@ namespace CSharpFunctionalExtensions
 
         public static Result<IEnumerable<T>> Combine<T>(this IEnumerable<Result<T>> results, string errorMessageSeparator = null)
         {
+            results = results.ToList();
             Result result = Result.Combine(results, errorMessageSeparator);
 
             return result.IsSuccess
