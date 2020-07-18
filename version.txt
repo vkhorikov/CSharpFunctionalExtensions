@@ -1,6 +1,6 @@
 2.11.0
 New features:
-* #214 Add async overloads for Maybe's `Where`, `Map` and `Bind`
+* #214 Add async overloads for Maybes `Where`, `Map` and `Bind`
 
 Fixed issues:
 * #215 Calling `.Combine()` and getting its value on a `Result` leads to multiple enumeration
