@@ -335,9 +335,9 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
         
         [Fact]
-        public void TryFirst_predicate_source_empty()
+        public void TryFirst_source_predicate_not_contains_default_is_not_null()
         {
-            var source = new int[0];
+            var source = new[] { 1, 2, 3 };
 
             var maybe = source.TryFirst(x => x == 5);
 
