@@ -145,10 +145,10 @@ namespace CSharpFunctionalExtensions
 
         public static Maybe<T> TryFirst<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
-            var first = source.FirstOrDefault(predicate);
-            if (first != null)
+            var firstOrEmpty = source.Where(predicate).Take(1).ToList();
+            if (firstOrEmpty.Any())
             {
-                return Maybe<T>.From(first);
+                return Maybe<T>.From(firstOrEmpty[0]);
             }
             return Maybe<T>.None;
         }
