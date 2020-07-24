@@ -333,6 +333,16 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             maybe.HasValue.Should().BeFalse();
         }
+        
+        [Fact]
+        public void TryFirst_source_predicate_not_contains_default_is_not_null()
+        {
+            var source = new[] { 1, 2, 3 };
+
+            var maybe = source.TryFirst(x => x == 5);
+
+            maybe.HasValue.Should().BeFalse();
+        }
 
         [Fact]
         public void TryLast_source_has_elements()
