@@ -1,6 +1,6 @@
-2.11.0
+2.11.1
 New features:
-* #214 Add async overloads for Maybes `Where`, `Map` and `Bind`
+* None
 
 Fixed issues:
-* #215 Calling `.Combine()` and getting its value on a `Result` leads to multiple enumeration
+* #217 Fix Maybe.TryFirst with predicate for types where null is not the default
