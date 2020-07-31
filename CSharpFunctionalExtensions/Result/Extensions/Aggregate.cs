@@ -17,7 +17,7 @@ namespace CSharpFunctionalExtensions
                 return Result.Failure<IEnumerable<TValue>>(combined.Error);
             }
 
-            return Result.Success<IEnumerable<TValue>>(resultsArray.Select(result => result.Value).ToList());
+            return Result.Success(resultsArray.Select(result => result.Value));
         }
 
         /// <summary>
