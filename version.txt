@@ -1,6 +1,6 @@
-2.11.2
+2.11.3
 New features:
-* #220 IResult<out T> interface
+* #218 Proposal: include Error in failed result exception.
 
 Fixed issues:
 * None
