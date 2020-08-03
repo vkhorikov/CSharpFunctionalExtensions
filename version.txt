@@ -1,6 +1,6 @@
-2.11.1
+2.11.2
 New features:
-* None
+* #220 IResult<out T> interface
 
 Fixed issues:
-* #217 Fix Maybe.TryFirst with predicate for types where null is not the default
+* None
