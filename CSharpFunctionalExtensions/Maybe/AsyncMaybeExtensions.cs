@@ -6,13 +6,12 @@ namespace CSharpFunctionalExtensions
     public static class AsyncMaybeExtensions
     {
         public static async Task<Result<T>> ToResult<T>(this Task<Maybe<T>> maybeTask, string errorMessage)
-            where T : class
         {
             Maybe<T> maybe = await maybeTask.DefaultAwait();
             return maybe.ToResult(errorMessage);
         }
 
-        public static async Task<Result<T, E>> ToResult<T, E>(this Task<Maybe<T>> maybeTask, E error) where T : class
+        public static async Task<Result<T, E>> ToResult<T, E>(this Task<Maybe<T>> maybeTask, E error)
         {
             Maybe<T> maybe = await maybeTask.DefaultAwait();
             return maybe.ToResult(error);
