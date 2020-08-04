@@ -8,6 +8,89 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
     public class AsyncExtensionsTests
     {
         [Fact]
+        public async Task ToResult_returns_failure_if_has_no_value()
+        {
+            var maybeTask = GetMaybeTask(Maybe<MyClass>.None);
+
+            Result<MyClass> result = await maybeTask.ToResult("Error");
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be("Error");
+        }
+
+        [Fact]
+        public async Task ToResult_returns_success_if_has_value()
+        {
+            var instance = new MyClass();
+            var maybeTask = GetMaybeTask(instance);
+
+            Result<MyClass> result = await maybeTask.ToResult("Error");
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(instance);
+        }
+
+        [Fact]
+        public async Task ToResult_value_type_returns_success_if_has_value()
+        {
+            var instance = Guid.NewGuid();
+            var maybeTask = Maybe<Guid>.From(instance).AsTask();
+
+            Result<Guid> result = await maybeTask.ToResult("Error");
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(instance);
+        }
+
+        [Fact]
+        public async Task ToResult_returns_custom_failure_if_has_no_value()
+        {
+            var maybeTask = GetMaybeTask(Maybe<MyClass>.None);
+            var error = new MyErrorClass();
+
+            Result<MyClass, MyErrorClass> result = await maybeTask.ToResult(error);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be(error);
+        }
+
+        [Fact]
+        public async Task ToResult_returns_custom_value_type_failure_if_has_no_value()
+        {
+            var maybeTask = GetMaybeTask(Maybe<MyClass>.None);
+            var error = Guid.NewGuid();
+
+            Result<MyClass, Guid> result = await maybeTask.ToResult(error);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be(error);
+        }
+
+        [Fact]
+        public async Task ToResult_custom_failure_returns_success_if_has_value()
+        {
+            var instance = new MyClass();
+            var maybeTask = GetMaybeTask(instance);
+
+            Result<MyClass, MyErrorClass> result = await maybeTask.ToResult(new MyErrorClass());
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(instance);
+        }
+
+        [Fact]
+        public async Task ToResult_custom_failure_value_type_returns_success_if_has_value()
+        {
+            var instance = Guid.NewGuid();
+            var maybeTask = Maybe<Guid>.From(instance).AsTask();
+
+            Result<Guid, MyErrorClass> result = await maybeTask.ToResult(new MyErrorClass());
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(instance);
+        }
+
+        [Fact]
         public async Task Async_Left_Where_returns_value_if_predicate_returns_true()
         {
             var instance = new MyClass { Property = "Some value" };
@@ -319,6 +402,10 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         {
             public string Property { get; set; }
             public int IntProperty { get; set; }
+        }
+
+        private class MyErrorClass
+        {
         }
     }
 }
