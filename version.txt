@@ -1,6 +1,6 @@
-2.11.3
+2.11.4
 New features:
-* #218 Proposal: include Error in failed result exception.
+* None
 
 Fixed issues:
-* None
+* #223 Remove unnecessary generic constraints and add tests
