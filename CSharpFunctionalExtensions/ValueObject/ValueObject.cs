@@ -19,7 +19,7 @@ namespace CSharpFunctionalExtensions
             if (ReferenceEquals(valueObject, null))
                 return false;
 
-            if (GetType() != obj.GetType())
+            if (ValueObject.GetUnproxiedType(this) != ValueObject.GetUnproxiedType(obj))
                 return false;
 
             return EqualsCore(valueObject);
@@ -61,7 +61,7 @@ namespace CSharpFunctionalExtensions
             if (obj == null)
                 return false;
 
-            if (GetType() != obj.GetType())
+            if (GetUnproxiedType(this) != GetUnproxiedType(obj))
                 return false;
 
             var valueObject = (ValueObject)obj;
@@ -95,6 +95,18 @@ namespace CSharpFunctionalExtensions
         public static bool operator !=(ValueObject a, ValueObject b)
         {
             return !(a == b);
+        }
+
+        internal static Type GetUnproxiedType(object obj)
+        {
+            const string EFCoreProxyPrefix = "Castle.Proxies.";
+
+            Type type = obj.GetType();
+
+            if (type.ToString().Contains(EFCoreProxyPrefix))
+                return type.BaseType;
+
+            return type;
         }
     }
 }
