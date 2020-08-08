@@ -1,6 +1,6 @@
-2.11.4
+2.11.5
 New features:
 * None
 
 Fixed issues:
-* #223 Remove unnecessary generic constraints and add tests
+* #224 ValueObject is not equivalent to a Castle.Proxies ValueObject
