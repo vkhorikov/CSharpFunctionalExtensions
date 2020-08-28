@@ -6,6 +6,9 @@ namespace CSharpFunctionalExtensions
 {
     public static partial class ResultExtensions
     {
+        public static Task<Result<K, E>> BindWithTransactionScope<T, K, E>(this Task<Result<T, E>> self, Func<T, Task<Result<K, E>>> f)
+            => WithTransactionScope(() => self.Bind(f));
+
         public static Task<Result<K>> BindWithTransactionScope<T, K>(this Task<Result<T>> self, Func<T, Task<Result<K>>> f)
             => WithTransactionScope(() => self.Bind(f));
 
