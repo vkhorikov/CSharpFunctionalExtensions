@@ -1,6 +1,6 @@
-2.11.5
+2.11.6
 New features:
 * None
 
 Fixed issues:
-* #224 ValueObject is not equivalent to a Castle.Proxies ValueObject 
+* #229 BindWithTransactionScopeAsync(Both/Left/Right) support Result<T, E>
