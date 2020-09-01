@@ -12,6 +12,8 @@ namespace CSharpFunctionalExtensions
     public abstract class ValueObject<T>
         where T : ValueObject<T>
     {
+        private int? _cachedHashCode;
+
         public override bool Equals(object obj)
         {
             var valueObject = obj as T;
@@ -29,7 +31,12 @@ namespace CSharpFunctionalExtensions
 
         public override int GetHashCode()
         {
-            return GetHashCodeCore();
+            if (!_cachedHashCode.HasValue)
+            {
+                _cachedHashCode = GetHashCodeCore();
+            }
+
+            return _cachedHashCode.Value;
         }
 
         protected abstract int GetHashCodeCore();
@@ -54,6 +61,8 @@ namespace CSharpFunctionalExtensions
     [Serializable]
     public abstract class ValueObject
     {
+        private int? _cachedHashCode;
+
         protected abstract IEnumerable<object> GetEqualityComponents();
 
         public override bool Equals(object obj)
@@ -71,14 +80,19 @@ namespace CSharpFunctionalExtensions
 
         public override int GetHashCode()
         {
-            return GetEqualityComponents()
-                .Aggregate(1, (current, obj) =>
-                {
-                    unchecked
+            if (!_cachedHashCode.HasValue)
+            {
+                _cachedHashCode = GetEqualityComponents()
+                    .Aggregate(1, (current, obj) =>
                     {
-                        return (current * 23) + (obj?.GetHashCode() ?? 0);
-                    }
-                });
+                        unchecked
+                        {
+                            return (current * 23) + (obj?.GetHashCode() ?? 0);
+                        }
+                    });
+            }
+
+            return _cachedHashCode.Value;
         }
 
         public static bool operator ==(ValueObject a, ValueObject b)
