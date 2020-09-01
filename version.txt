@@ -1,6 +1,6 @@
-2.11.6
+2.11.7
 New features:
-* None
+* #230 Cache hash code of value objects
 
 Fixed issues:
-* #229 BindWithTransactionScopeAsync(Both/Left/Right) support Result<T, E> 
+* None
