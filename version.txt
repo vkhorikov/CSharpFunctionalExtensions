@@ -1,6 +1,6 @@
-2.11.7
+2.11.8
 New features:
-* #230 Cache hash code of value objects
+* None
 
 Fixed issues:
-* None
+* #183 OnSuccessTry doesn't handle async lambda
