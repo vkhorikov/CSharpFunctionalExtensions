@@ -3,4 +3,4 @@ New features:
 * None
 
 Fixed issues:
-* #183 OnSuccessTry doesn't handle async lambda
+* #183 OnSuccessTry doesn't handle async lambda 
