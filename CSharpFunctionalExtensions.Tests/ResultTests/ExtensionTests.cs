@@ -129,7 +129,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var originalResult = Result.Success();
 
-            var result = originalResult.OnSuccessTry(() => throw new Exception("execute action exception."));
+            var result = originalResult.OnSuccessTry((Action)(() => throw new Exception("execute action exception.")));
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("execute action exception.");
