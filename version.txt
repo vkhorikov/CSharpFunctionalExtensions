@@ -1,6 +1,6 @@
-2.11.8
+2.11.9
 New features:
-* None
+* #233 Added Ensure method where the object is available to generate error message
 
 Fixed issues:
-* #183 OnSuccessTry doesnt handle async lambda 
+* None
