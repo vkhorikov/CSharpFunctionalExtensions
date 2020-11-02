@@ -68,14 +68,17 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         }
 
         [Fact]
-        public void Sorting_value_objects_throws_if_one_of_properties_doesnt_implement_IComparable()
+        public void Sorting_value_objects_returns_same_collection_if_one_of_properties_doesnt_implement_IComparable()
         {
             var vo1 = new VOWithObjectProperty(new object());
             var vo2 = new VOWithObjectProperty(new object());
 
-            Action action = () => new[] { vo1, vo2 }.OrderBy(x => x).ToArray();
+            VOWithObjectProperty[] array = new[] { vo1, vo2 }
+                .OrderBy(x => x)
+                .ToArray();
 
-            action.Should().Throw<InvalidOperationException>();
+            array[0].Should().Be(vo1);
+            array[1].Should().Be(vo2);
         }
 
         private class VOWithObjectProperty : ValueObject

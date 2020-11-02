@@ -133,7 +133,7 @@ namespace CSharpFunctionalExtensions
             var component2 = object2 as IComparable;
 
             if (component1 == null || component2 == null)
-                throw new InvalidOperationException($"Not all components in {GetUnproxiedType(this)} implement IComparable");
+                return 0;
 
             return component1.CompareTo(component2);
         }
