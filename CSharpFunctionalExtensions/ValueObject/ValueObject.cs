@@ -129,13 +129,10 @@ namespace CSharpFunctionalExtensions
             if (object2 is null)
                 return 1;
 
-            var component1 = object1 as IComparable;
-            var component2 = object2 as IComparable;
+            if (object1 is IComparable comparable1 && object2 is IComparable comparable2)
+                return comparable1.CompareTo(comparable2);
 
-            if (component1 == null || component2 == null)
-                return 0;
-
-            return component1.CompareTo(component2);
+            return object1.Equals(object2) ? 0 : -1;
         }
 
         public int CompareTo(ValueObject other)
