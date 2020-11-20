@@ -38,6 +38,17 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public void Include_Error_in_Exception_message()
+        {
+            Result<MyClass> result = Result.Failure<MyClass>("Error message");
+
+            Action action = () => { MyClass myClass = result.Value; };
+
+            action.Should().Throw<ResultFailureException>()
+                .WithMessage("You attempted to access the Value property for a failed result. A failed result has no Value. The error was: Error message");
+        }
+
+        [Fact]
         public void Cannot_access_Value_property_with_a_generic_error()
         {
             Result<MyClass, MyErrorClass> result = Result.Failure<MyClass, MyErrorClass>(new MyErrorClass());

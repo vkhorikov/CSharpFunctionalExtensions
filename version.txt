@@ -1,7 +1,6 @@
-2.10.0
+2.12.2
 New features:
-* #212 Add `Maybe<T>.ToList()`
-* #213 Add `[Obsolete]` on top of `Result.Ok` methods
+* None
 
 Fixed issues:
-* None
+* #237 ValueObject : IComparable<ValueObject> is Potentially Breaking due to Type Ambiguity
