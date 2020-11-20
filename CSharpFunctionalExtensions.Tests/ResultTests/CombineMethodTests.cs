@@ -24,6 +24,20 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public void Combine_aggregates_identical_errors_with_count()
+        {
+            Result result1 = Result.Success();
+            Result result2 = Result.Failure("Failure 1");
+            Result result3 = Result.Failure("Failure 1");
+            Result result4 = Result.Failure("Failure 2");
+
+            Result result = Result.Combine(";", result1, result2, result3, result4);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be("Failure 1 (2×);Failure 2");
+        }
+
+        [Fact]
         public void Combine_returns_Ok_if_no_failures()
         {
             Result result1 = Result.Success();
@@ -109,6 +123,23 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public void Combine_aggregates_all_identical_collection_errors_together_with_count()
+        {
+            IEnumerable<Result> results = new Result[]
+            {
+                Result.Success(),
+                Result.Failure("Failure 1"),
+                Result.Failure("Failure 1"),
+                Result.Failure("Failure 2")
+            };
+
+            Result result = results.Combine(";");
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be("Failure 1 (2×);Failure 2");
+        }
+
+        [Fact]
         public void Combine_returns_Ok_if_no_failures_in_collection()
         {
             IEnumerable<Result> results = new Result[]
@@ -137,6 +168,23 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be("Failure 1;Failure 2");
+        }
+
+        [Fact]
+        public void Combine_aggregates_all_identical_Generic_results_collection_errors_together_with_count()
+        {
+            IEnumerable<Result<string>> results = new Result<string>[]
+            {
+                Result.Success<string>("str 1"),
+                Result.Failure<string>("Failure 1"),
+                Result.Failure<string>("Failure 1"),
+                Result.Failure<string>("Failure 2")
+            };
+
+            Result<IEnumerable<string>> result = results.Combine(";");
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be("Failure 1 (2×);Failure 2");
         }
 
         [Fact]
@@ -317,6 +365,22 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             {
                 Task.FromResult(Result.Success()),
                 Task.FromResult(Result.Failure("e")),
+                Task.FromResult(Result.Failure("r"))
+            };
+
+            Result result = await tasks.Combine(";");
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("e;r");
+        }
+
+        [Fact]
+        public async Task Combine_works_with_collection_of_Tasks_aggregates_all_identical_collection_errors_together_with_count()
+        {
+            IEnumerable<Task<Result>> tasks = new Task<Result>[]
+            {
+                Task.FromResult(Result.Success()),
+                Task.FromResult(Result.Failure("e")),
                 Task.FromResult(Result.Failure("r")),
                 Task.FromResult(Result.Failure("r"))
             };
@@ -324,7 +388,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             Result result = await tasks.Combine(";");
 
             result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be("e;r;r");
+            result.Error.Should().Be("e;r (2×)");
         }
 
         [Fact]
@@ -495,6 +559,24 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public async Task Combine_works_with_task_with_collection_of_tasks_of_Generic_results_failure_with_identical_errors_aggregated_with_count()
+        {
+            IEnumerable<Task<Result<int>>> tasks = new Task<Result<int>>[]
+            {
+                Task.FromResult(Result.Success(13)),
+                Task.FromResult(Result.Failure<int>("error")),
+                Task.FromResult(Result.Failure<int>("error")),
+                Task.FromResult(Result.Failure<int>("fail"))
+            };
+            Task<IEnumerable<Task<Result<int>>>> task = Task.FromResult(tasks);
+
+            Result<IEnumerable<int>> result = await task.Combine(";");
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be("error (2×);fail");
+        }
+
+        [Fact]
         public void Combine_works_with_collection_of_results_and_compose_to_new_result_success()
         {
             IEnumerable<Result<int>> results = new Result<int>[]
@@ -526,6 +608,25 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("error 1;error 2");
+        }
+
+        [Fact]
+        public void Combine_works_with_collection_of_results_and_compose_to_new_result_failure_with_identical_errors_aggregated_with_count()
+        {
+            IEnumerable<Result<string>> results = new Result<string>[]
+            {
+                Result.Success("one"),
+                Result.Success("five"),
+                Result.Success("three"),
+                Result.Failure<string>("error 1"),
+                Result.Failure<string>("error 1"),
+                Result.Failure<string>("error 2")
+            };
+
+            Result<string> result = results.Combine(values => values.OrderBy(e => e.Length).First(), ";");
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("error 1 (2×);error 2");
         }
 
         [Fact]

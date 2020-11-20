@@ -22,7 +22,7 @@ namespace CSharpFunctionalExtensions
             if (failedResults.Count == 0)
                 return Success();
 
-            string errorMessage = string.Join(errorMessagesSeparator ?? ErrorMessagesSeparator, failedResults.Select(x => x.Error));
+            string errorMessage = string.Join(errorMessagesSeparator ?? ErrorMessagesSeparator, AggregateMessages(failedResults.Select(x => x.Error)));
             return Failure(errorMessage);
         }
 
@@ -150,5 +150,19 @@ namespace CSharpFunctionalExtensions
         ///     A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
         public static Result<bool, E> Combine<T, E>(Func<IEnumerable<E>, E> composerError, params Result<T, E>[] results)
             => Combine(results, composerError);
+
+        private static IEnumerable<string> AggregateMessages(IEnumerable<string> messages)
+        {
+            var dict = new Dictionary<string, int>();
+            foreach (var message in messages)
+            {
+                if (!dict.ContainsKey(message))
+                    dict.Add(message, 0);
+
+                dict[message]++;
+            }
+
+            return dict.Select(x => x.Value == 1 ? x.Key : $"{x.Key} ({x.Value}×)");
+        }
     }
 }
