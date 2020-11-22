@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
 {
-    public static partial class AsyncResultExtensionsLeftOperand
+    public static partial class ResultExtensions
     {
         public static async Task<Result> OnSuccessTry(this Task<Result> task, Action action,
             Func<Exception, string> errorHandler = null)
@@ -31,22 +31,6 @@ namespace CSharpFunctionalExtensions
         {
             var result = await task.DefaultAwait();
             return result.OnSuccessTry(action, errorHandler);
-        }
-
-        public static async Task OnSuccessTry<T>(this Result<T> result, Func<T, Task> func)
-        {
-            if (result.IsSuccess)
-            {
-                await func(result.Value);
-            }
-        }
-
-        public static async Task OnSuccessTry<T, E>(this Result<T, E> result, Func<T, Task> func)
-        {
-            if (result.IsSuccess)
-            {
-                await func(result.Value);
-            }
         }
     }
 }

@@ -10,4 +10,8 @@
     {
         T Value { get; }
     }
+
+    public interface IResult<out T> : IResult, IValue<T>
+    {
+    }
 }

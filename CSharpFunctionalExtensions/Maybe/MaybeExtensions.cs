@@ -35,6 +35,11 @@ namespace CSharpFunctionalExtensions
             return defaultValue;
         }
 
+        public static List<T> ToList<T>(this Maybe<T> maybe)
+        {
+            return maybe.Unwrap(value => new List<T> {value}, new List<T>());
+        }
+
         public static Maybe<T> Where<T>(this Maybe<T> maybe, Func<T, bool> predicate)
         {
             if (maybe.HasNoValue)
@@ -140,10 +145,10 @@ namespace CSharpFunctionalExtensions
 
         public static Maybe<T> TryFirst<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
-            var first = source.FirstOrDefault(predicate);
-            if (first != null)
+            var firstOrEmpty = source.Where(predicate).Take(1).ToList();
+            if (firstOrEmpty.Any())
             {
-                return Maybe<T>.From(first);
+                return Maybe<T>.From(firstOrEmpty[0]);
             }
             return Maybe<T>.None;
         }

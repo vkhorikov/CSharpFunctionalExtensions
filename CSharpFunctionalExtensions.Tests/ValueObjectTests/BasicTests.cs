@@ -8,7 +8,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
     public class BasicTests
     {
         [Fact]
-        public void Derived_value_objects_dont_match()
+        public void Derived_value_objects_are_not_equal()
         {
             var address = new Address("Street", "City");
             var derivedAddress = new DerivedAddress("Country", "Street", "City");
@@ -28,7 +28,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         }
 
         [Fact]
-        public void Two_PVO_of_the_same_content_are_equal()
+        public void Two_SVO_of_the_same_content_are_equal()
         {
             var emailAddress1 = new EmailAddress("a@b.com");
             var emailAddress2 = new EmailAddress("a@b.com");
