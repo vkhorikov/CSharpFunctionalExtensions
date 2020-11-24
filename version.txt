@@ -1,6 +1,7 @@
-2.12.2
+2.13.0
 New features:
-* None
+* #210 ValueObject : MapError extensions
+* #240 Provide option for .Combine() to condense the error messages
 
 Fixed issues:
-* #237 ValueObject : IComparable<ValueObject> is Potentially Breaking due to Type Ambiguity
+* None
