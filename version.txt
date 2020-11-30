@@ -1,7 +1,6 @@
-2.13.0
+2.13.1
 New features:
-* #210 ValueObject : MapError extensions
-* #240 Provide option for .Combine() to condense the error messages
+* None
 
 Fixed issues:
-* None
+* #245 How to acquire Result<dynamic>?
