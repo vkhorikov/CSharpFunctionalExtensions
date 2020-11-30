@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace CSharpFunctionalExtensions.Internal
 {
-    internal struct ResultCommonLogic<E>
+    internal readonly struct ResultCommonLogic<E>
     {
         private readonly E _error;
         public bool IsFailure { get; }
