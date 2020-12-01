@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 {
-    public class CheckIfTestsBase : TestBase
+    public abstract class CheckIfTestsBase : TestBase
     {
         protected bool actionExecuted;
         protected bool predicateExecuted;
