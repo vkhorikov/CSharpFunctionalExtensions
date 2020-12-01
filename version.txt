@@ -1,6 +1,6 @@
-2.13.1
+2.13.2
 New features:
 * None
 
 Fixed issues:
-* #245 How to acquire Result<dynamic>? 
+* #242 Usage and meaning of Tap extension method

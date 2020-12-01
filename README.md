@@ -72,6 +72,7 @@ return _customerRepository.GetById(id)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [Vadim Mingazhev](https://github.com/mingazhev)
  * [Darick Carpenter](https://github.com/darickc)
  * [Stéphane Mitermite](https://github.com/kakone)
  * [Markus Nißl](https://github.com/mnissl)
