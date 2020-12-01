@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [InlineData(true, false)]
         [InlineData(false, true)]
         [InlineData(false, false)]
-        public void TapIf_T_AsyncBoth_executes_func_result_T_conditionally_and_returns_self(bool isSuccess, bool condition)
+        public void CheckIf_T_AsyncBoth_executes_func_result_T_conditionally_and_returns_self(bool isSuccess, bool condition)
         {
             Result<bool> result = Result.SuccessIf(isSuccess, condition, ErrorMessage);
 
@@ -25,7 +25,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [InlineData(true, false)]
         [InlineData(false, true)]
         [InlineData(false, false)]
-        public void TapIf_T_AsyncBoth_executes_func_result_K_conditionally_and_returns_self(bool isSuccess, bool condition)
+        public void CheckIf_T_AsyncBoth_executes_func_result_K_conditionally_and_returns_self(bool isSuccess, bool condition)
         {
             Result<bool> result = Result.SuccessIf(isSuccess, condition, ErrorMessage);
 
@@ -40,7 +40,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [InlineData(true, false)]
         [InlineData(false, true)]
         [InlineData(false, false)]
-        public void TapIf_T_AsyncBoth_executes_func_result_K_E_conditionally_and_returns_self(bool isSuccess, bool condition)
+        public void CheckIf_T_AsyncBoth_executes_func_result_K_E_conditionally_and_returns_self(bool isSuccess, bool condition)
         {
             Result<bool, E> result = Result.SuccessIf(isSuccess, condition, E.Value);
 
@@ -55,7 +55,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [InlineData(true, false)]
         [InlineData(false, true)]
         [InlineData(false, false)]
-        public void TapIf_T_AsyncBoth_executes_func_result_T_per_predicate_and_returns_self(bool isSuccess, bool condition)
+        public void CheckIf_T_AsyncBoth_executes_func_result_T_per_predicate_and_returns_self(bool isSuccess, bool condition)
         {
             Result<bool> result = Result.SuccessIf(isSuccess, condition, ErrorMessage);
 
@@ -70,7 +70,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [InlineData(true, false)]
         [InlineData(false, true)]
         [InlineData(false, false)]
-        public void TapIf_T_AsyncBoth_executes_func_result_K_per_predicate_and_returns_self(bool isSuccess, bool condition)
+        public void CheckIf_T_AsyncBoth_executes_func_result_K_per_predicate_and_returns_self(bool isSuccess, bool condition)
         {
             Result<bool> result = Result.SuccessIf(isSuccess, condition, ErrorMessage);
 
@@ -85,7 +85,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [InlineData(true, false)]
         [InlineData(false, true)]
         [InlineData(false, false)]
-        public void TapIf_T_AsyncBoth_executes_func_result_K_E_per_predicate_and_returns_self(bool isSuccess, bool condition)
+        public void CheckIf_T_AsyncBoth_executes_func_result_K_E_per_predicate_and_returns_self(bool isSuccess, bool condition)
         {
             Result<bool, E> result = Result.SuccessIf(isSuccess, condition, E.Value);
 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 {
-    public class CheckTestsBase : TestBase
+    public abstract class CheckTestsBase : TestBase
     {
         protected bool actionExecuted;
         
