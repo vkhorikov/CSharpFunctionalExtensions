@@ -3,4 +3,4 @@ New features:
 * None
 
 Fixed issues:
-* #242 Usage and meaning of Tap extension method
+* #242 Usage and meaning of Tap extension method 
