@@ -25,5 +25,13 @@
         {
             return new Result<T, E>(true, error, default);
         }
+
+        /// <summary>
+        ///     Creates a failure result with the given error.
+        /// </summary>
+        public static UnitResult<E> Failure<E>(E error)
+        {
+            return new UnitResult<E>(true, error);
+        }
     }
 }
