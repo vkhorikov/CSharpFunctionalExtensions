@@ -24,5 +24,10 @@ namespace CSharpFunctionalExtensions
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
             => _logic.GetObjectData(info);
+        
+        public static implicit operator UnitResult<string>(Result result)
+            => result.IsSuccess
+                ? Success<string>()
+                : Failure(result.Error);
     }
 }

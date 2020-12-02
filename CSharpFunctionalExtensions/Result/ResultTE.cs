@@ -55,5 +55,10 @@ namespace CSharpFunctionalExtensions
 
             return Result.Failure<T, E>(error);
         }
+
+        public static implicit operator UnitResult<E>(Result<T, E> result)
+            => result.IsSuccess
+                ? Result.Success<E>()
+                : Result.Failure(result.Error);
     }
 }
