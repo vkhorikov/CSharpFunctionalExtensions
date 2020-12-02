@@ -85,6 +85,7 @@
     <Compile Include="..\CSharpFunctionalExtensions\Result\Result.cs" Link="Result\Result.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\ResultT.cs" Link="Result\ResultT.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\Result\ResultTE.cs" Link="Result\ResultTE.cs" />
+    <Compile Include="..\CSharpFunctionalExtensions\Unit\Unit.cs" Link="Unit\Unit.cs" />
     <Compile Include="..\CSharpFunctionalExtensions\ValueObject\ValueObject.cs" Link="ValueObject\ValueObject.cs" />
   </ItemGroup>
 
