@@ -63,12 +63,12 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             Action action1 = () => { Result.Failure(null); };
             Action action2 = () => { Result.Failure(string.Empty); };
-            Action action3 = () => { Result.Failure<MyClass>(null); };
+            //Action action3 = () => { Result.Failure<MyClass>(null); };
             Action action4 = () => { Result.Failure<MyClass>(string.Empty); };
 
             action1.Should().Throw<ArgumentNullException>();
             action2.Should().Throw<ArgumentNullException>();
-            action3.Should().Throw<ArgumentNullException>();
+            //action3.Should().Throw<ArgumentNullException>();
             action4.Should().Throw<ArgumentNullException>();
         }
 
