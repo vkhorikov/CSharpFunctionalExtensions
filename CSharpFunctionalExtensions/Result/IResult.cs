@@ -6,7 +6,7 @@
         bool IsSuccess { get; }
     }
 
-    public interface IResult<E> : IResult
+    public interface IResult<out E> : IResult
     {
         E Error { get; }
     }
@@ -16,7 +16,7 @@
         T Value { get; }
     }
 
-    public interface IResult<out T, E> : IResult<E>, IValue<T>
+    public interface IResult<out T, out E> : IResult<E>, IValue<T>
     {
     }
 }

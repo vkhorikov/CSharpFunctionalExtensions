@@ -73,6 +73,18 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             castValue.Should().Be(value);
         }
 
+        [Fact]
+        public void Error_in_Result_TE_of_can_be_cast_dynamicly()
+        {
+            dynamic error = new MyError();
+            dynamic result = Result.Failure<string, MyError>(error);
+
+            var cast = (Result<string, dynamic>)result;
+
+            MyError castError = cast.Error;
+            castError.Should().Be(error);
+        }
+
         private class MyError
         {
         }
