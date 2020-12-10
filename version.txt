@@ -1,6 +1,6 @@
-2.12.2
+2.13.2
 New features:
 * None
 
 Fixed issues:
-* #237 ValueObject : IComparable<ValueObject> is Potentially Breaking due to Type Ambiguity
+* #242 Usage and meaning of Tap extension method 

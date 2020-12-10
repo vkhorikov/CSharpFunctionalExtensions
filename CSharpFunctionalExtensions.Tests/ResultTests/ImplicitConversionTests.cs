@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
@@ -14,29 +15,29 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             Type type = result.Value.GetType();
             type.Should().Be(typeof(string));
         }
-        
+
         [Fact]
         public void Implicit_conversion_T_is_converted_to_Success_result_of_T()
         {
-            var value = "result";
+            string value = "result";
 
             Result<string> result = value;
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(value);
         }
-        
+
         [Fact]
         public void Implicit_conversion_T_is_converted_to_Success_result_of_T_E()
         {
-            var value = "result";
+            string value = "result";
 
             Result<string, int> result = value;
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(value);
         }
-        
+
         [Fact]
         public void Implicit_conversion_E_is_converted_to_Failure_result_of_T_E()
         {
@@ -46,6 +47,46 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(value);
+        }
+
+        [Fact]
+        public void Result_of_dynamic_can_be_cast_as_dynamic_result()
+        {
+            dynamic value = "Test";
+            dynamic result = Result.Success(value);
+
+            var cast = (Result<dynamic>)result;
+
+            string castValue = cast.Value;
+            castValue.Should().Be(value);
+        }
+
+        [Fact]
+        public void Result_TE_of_dynamic_can_be_cast_as_dynamic_result()
+        {
+            dynamic value = "Test";
+            dynamic result = Result.Success<string, MyError>(value);
+
+            var cast = (Result<dynamic, MyError>)result;
+
+            string castValue = cast.Value;
+            castValue.Should().Be(value);
+        }
+
+        [Fact]
+        public void Error_in_Result_TE_of_can_be_cast_dynamicly()
+        {
+            dynamic error = new MyError();
+            dynamic result = Result.Failure<string, MyError>(error);
+
+            var cast = (Result<string, dynamic>)result;
+
+            MyError castError = cast.Error;
+            castError.Should().Be(error);
+        }
+
+        private class MyError
+        {
         }
     }
 }
