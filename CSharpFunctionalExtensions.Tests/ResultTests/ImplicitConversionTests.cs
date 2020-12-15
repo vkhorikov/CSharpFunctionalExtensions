@@ -88,52 +88,52 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void IResult_T_can_be_used_covariantly()
         {
-            var covariantResult = GetCovariantResultT();
-            Assert.IsType<Covariant>(covariantResult.Value);
+            IResult<ICovariantResult> covariantResult = GetCovariantResultT();
+            Assert.IsType<CovariantResult>(covariantResult.Value);
         }
 
         [Fact]
         public void Value_in_IResult_TE_value_can_be_used_covariantly()
         {
-            var covariantResult = GetCovariantSuccessResultTE();
-            Assert.IsType<Covariant>(covariantResult.Value);
+            IResult<ICovariantResult, IMyError> covariantResult = GetCovariantSuccessResultTE();
+            Assert.IsType<CovariantResult>(covariantResult.Value);
         }
 
         [Fact]
         public void Error_in_IResult_TE_can_be_used_covariantly()
         {
-            var covariantResult = GetCovariantFailureResultTE();
+            IResult<ICovariantResult, IMyError> covariantResult = GetCovariantFailureResultTE();
             Assert.IsType<MyError>(covariantResult.Error);
         }
 
-        private static IResult<ICovariantTest> GetCovariantResultT()
+        private static IResult<ICovariantResult> GetCovariantResultT()
         {
-            return Result.Success(new Covariant());
+            return Result.Success(new CovariantResult());
         }
 
-        private static IResult<ICovariantTest, ITestError> GetCovariantSuccessResultTE()
+        private static IResult<ICovariantResult, IMyError> GetCovariantSuccessResultTE()
         {
-            return Result.Success<Covariant, MyError>(new Covariant());
+            return Result.Success<CovariantResult, MyError>(new CovariantResult());
         }
 
-        private static IResult<ICovariantTest, ITestError> GetCovariantFailureResultTE()
+        private static IResult<ICovariantResult, IMyError> GetCovariantFailureResultTE()
         {
-            return Result.Failure<Covariant, MyError>(new MyError());
+            return Result.Failure<CovariantResult, MyError>(new MyError());
         }
 
-        private interface ICovariantTest
+        private interface ICovariantResult
         { 
         }
 
-        private interface ITestError
+        private interface IMyError
         {
         }
 
-        private class Covariant : ICovariantTest
+        private class CovariantResult : ICovariantResult
         {
         }
 
-        private class MyError : ITestError
+        private class MyError : IMyError
         {
         }
     }
