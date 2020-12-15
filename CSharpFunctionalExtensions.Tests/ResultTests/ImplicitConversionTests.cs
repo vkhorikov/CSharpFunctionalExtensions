@@ -62,7 +62,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void Result_TE_of_dynamic_can_be_cast_as_dynamic_result()
+        public void Value_in_Result_TE_can_be_cast_to_dynamic()
         {
             dynamic value = "Test";
             dynamic result = Result.Success<string, MyError>(value);
@@ -74,7 +74,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void Error_in_Result_TE_of_can_be_cast_dynamicly()
+        public void Error_in_Result_TE_can_be_cast_to_dynamic()
         {
             dynamic error = new MyError();
             dynamic result = Result.Failure<string, MyError>(error);
@@ -85,7 +85,55 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             castError.Should().Be(error);
         }
 
-        private class MyError
+        [Fact]
+        public void IResult_T_can_be_used_covariantly()
+        {
+            var covariantResult = GetCovariantResultT();
+            Assert.IsType<Covariant>(covariantResult.Value);
+        }
+
+        [Fact]
+        public void Value_in_IResult_TE_value_can_be_used_covariantly()
+        {
+            var covariantResult = GetCovariantSuccessResultTE();
+            Assert.IsType<Covariant>(covariantResult.Value);
+        }
+
+        [Fact]
+        public void Error_in_IResult_TE_can_be_used_covariantly()
+        {
+            var covariantResult = GetCovariantFailureResultTE();
+            Assert.IsType<MyError>(covariantResult.Error);
+        }
+
+        private static IResult<ICovariantTest> GetCovariantResultT()
+        {
+            return Result.Success(new Covariant());
+        }
+
+        private static IResult<ICovariantTest, ITestError> GetCovariantSuccessResultTE()
+        {
+            return Result.Success<Covariant, MyError>(new Covariant());
+        }
+
+        private static IResult<ICovariantTest, ITestError> GetCovariantFailureResultTE()
+        {
+            return Result.Failure<Covariant, MyError>(new MyError());
+        }
+
+        private interface ICovariantTest
+        { 
+        }
+
+        private interface ITestError
+        {
+        }
+
+        private class Covariant : ICovariantTest
+        {
+        }
+
+        private class MyError : ITestError
         {
         }
     }
