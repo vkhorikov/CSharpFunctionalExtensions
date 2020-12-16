@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public partial struct Result<T> : IResult<T, string>, ISerializable
+    public partial struct Result<T> : IResult<T>, ISerializable
     {
         private readonly ResultCommonLogic<string> _logic;
         public bool IsFailure => _logic.IsFailure;
@@ -32,7 +32,7 @@ namespace CSharpFunctionalExtensions
 
         public static implicit operator Result<T>(T value)
         {
-            if (value is IResult<T, string> result)
+            if (value is IResult<T> result)
             {
                 string resultError = result.IsFailure ? result.Error : default;
                 T resultValue = result.IsSuccess ? result.Value : default;
