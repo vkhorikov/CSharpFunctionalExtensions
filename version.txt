@@ -1,6 +1,6 @@
-2.13.2
+2.13.3
 New features:
 * None
 
 Fixed issues:
-* #242 Usage and meaning of Tap extension method 
+* #249 Upgrading from 2.13.0 to 2.13.1 gives us compile-time errors
