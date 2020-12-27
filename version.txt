@@ -1,7 +1,7 @@
 2.14.0
 New features:
 * Added support for net5.0
-* Added support for .NET Framework 4.0 (no need for separate package anymore)
+* Added support for .NET Framework 4.0, no need for separate package anymore
 
 Fixed issues:
 * Removed Mono from docker file
