@@ -1,3 +1,4 @@
+#if !NET40
 using System;
 using System.Threading.Tasks;
 
@@ -105,3 +106,4 @@ namespace CSharpFunctionalExtensions
         }
     }
 }
+#endif
