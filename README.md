@@ -14,9 +14,9 @@ Available on [nuget](https://www.nuget.org/packages/CSharpFunctionalExtensions/)
 
 ## .NET 4.0 version Installation
 
-.NET 4.0 version is available as a separate package on [nuget](https://www.nuget.org/packages/CSharpFunctionalExtensionsNet4.0/)
+~~.NET 4.0 version is available as a separate package on [nuget](https://www.nuget.org/packages/CSharpFunctionalExtensionsNet4.0/)~~
 
-	PM> Install-Package CSharpFunctionalExtensionsNet4.0
+No need for a separate 4.0 package anymore! Use the regular CSharpFunctionalExtensions
 
 ## Get rid of primitive obsession
 
