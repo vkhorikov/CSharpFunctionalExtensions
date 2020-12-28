@@ -27,7 +27,6 @@ stages:
     - powershell: |
         $json = Invoke-RestMethod -Method 'GET' -Uri "https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases"
         $currentVersion = $json[0].tag_name.Substring(1)
-        echo $(currentVersion)
         echo "##vso[task.setvariable variable=currentVersion;isOutput=true]$($currentVersion)"
       name: readCurrentVersionStep
       displayName: Read current version
