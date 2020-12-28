@@ -37,9 +37,6 @@ stages:
     variables:
       newVersion: $[ dependencies.Version.outputs['readNewVersionStep.newVersion'] ]
     steps:
-    - script: echo $(newVersion)
-      displayName: Echo version
-
     - script: docker build . -t build-image -f Dockerfile --build-arg Version=$(newVersion)
       displayName: Build image
 
@@ -78,6 +75,11 @@ stages:
       createReleaseRequest: '{ "tag_name": "v$(newVersion)", "target_commitish": "master", "name": "v$(newVersion)", "body": "$(releaseInfo)", "draft": false, "prerelease": false }'
     condition: ne(dependencies.Version.outputs['readNewVersionStep.newVersion'], dependencies.Version.outputs['readNewVersionStep.currentVersion'])
     steps:
+    - script: |
+        echo $(newVersion)
+        echo $(currentVersion)
+      displayName: Echo versions
+
     - download: current
       artifact: NuGetPackage
 
