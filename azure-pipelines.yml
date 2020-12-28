@@ -19,7 +19,6 @@ stages:
     - powershell: |
         $newVersion = Get-Content "$(Build.SourcesDirectory)/$(versionFileName)"  -First 1
         $releaseInfo = (Get-Content "$(Build.SourcesDirectory)/$(versionFileName)" | Select-Object -Skip 1).Replace('\r\n', '\n')
-        echo $(newVersion)
         echo "##vso[task.setvariable variable=newVersion;isOutput=true]$($newVersion)"
         echo "##vso[task.setvariable variable=releaseInfo;isOutput=true]$($releaseInfo)"
       name: readNewVersionStep
@@ -39,6 +38,9 @@ stages:
     variables:
       newVersion: $[ dependencies.Version.outputs['readNewVersionStep.newVersion'] ]
     steps:
+    - script: echo $(newVersion)
+      displayName: Echo version
+
     - script: docker build . -t build-image -f Dockerfile --build-arg Version=$(newVersion)
       displayName: Build image
 
