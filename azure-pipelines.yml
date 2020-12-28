@@ -45,7 +45,7 @@ stages:
 
     - script: |
         docker create --name build-container build-image
-        docker cp build-container:./app/Tests/TestResults ./testresults
+        docker cp build-container:./app/CSharpFunctionalExtensions.Tests/TestResults ./testresults
       displayName: Extract test results
 
     - task: PublishTestResults@2
