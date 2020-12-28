@@ -44,7 +44,7 @@ stages:
       displayName: Build image
 
     - script: |
-        docker create --name build-container
+        docker create --name build-container build-image
         docker cp build-container:./app/Tests/TestResults ./testresults
       displayName: Extract test results
 
