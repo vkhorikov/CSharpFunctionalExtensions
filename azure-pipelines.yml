@@ -68,12 +68,12 @@ stages:
     variables:
       releaseInfo: $[ dependencies.Version.outputs['readNewVersionStep.releaseInfo'] ]
       newVersion: $[ dependencies.Version.outputs['readNewVersionStep.newVersion'] ]
-      currentVersion: $[ dependencies.Version.outputs['readNewVersionStep.currentVersion'] ]
+      currentVersion: $[ dependencies.Version.outputs['readCurrentVersionStep.currentVersion'] ]
       contentTypeHeader1: 'Content-Type: application/json'
       contentTypeHeader2: 'Content-Type: application/octet-stream'
       authHeader: 'Authorization: token $(gitHubToken)'
       createReleaseRequest: '{ "tag_name": "v$(newVersion)", "target_commitish": "master", "name": "v$(newVersion)", "body": "$(releaseInfo)", "draft": false, "prerelease": false }'
-    condition: ne(dependencies.Version.outputs['readNewVersionStep.newVersion'], dependencies.Version.outputs['readNewVersionStep.currentVersion'])
+    condition: ne(dependencies.Version.outputs['readNewVersionStep.newVersion'], dependencies.Version.outputs['readCurrentVersionStep.currentVersion'])
     steps:
     - script: |
         echo $(newVersion)
