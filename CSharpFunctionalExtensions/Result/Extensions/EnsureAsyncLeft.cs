@@ -27,6 +27,24 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
         /// </summary>
+        public static async Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, string> errorPredicate)
+        {
+            Result<T> result = await resultTask.DefaultAwait();
+            return result.Ensure(predicate, errorPredicate(result.Value));
+        }
+
+        /// <summary>
+        ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
+        /// </summary>
+        public static async Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Task<string>> errorPredicate)
+        {
+            Result<T> result = await resultTask.DefaultAwait();
+            return result.Ensure(predicate, await errorPredicate(result.Value));
+        }
+
+        /// <summary>
+        ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
+        /// </summary>
         public static async Task<Result> Ensure(this Task<Result> resultTask, Func<bool> predicate, string errorMessage)
         {
             Result result = await resultTask.DefaultAwait();
