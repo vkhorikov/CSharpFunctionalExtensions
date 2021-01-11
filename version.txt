@@ -1,7 +1,6 @@
-2.14.0
+2.14.1
 New features:
-* Added support for net5.0
-* Added support for .NET Framework 4.0, no need for separate package anymore
+* #257 Additional overloads for async Ensure method
 
 Fixed issues:
-* Removed Mono from docker file 
+* None
