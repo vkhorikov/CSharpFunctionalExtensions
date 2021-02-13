@@ -1,6 +1,6 @@
-2.14.1
+2.14.2
 New features:
-* #257 Additional overloads for async Ensure method
+* None
 
 Fixed issues:
-* None
+* #260 Ensure with errorPredicate checks initial result state
