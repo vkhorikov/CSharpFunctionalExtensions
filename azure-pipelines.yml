@@ -18,7 +18,7 @@ stages:
     steps:
     - powershell: |
         $newVersion = Get-Content "$(Build.SourcesDirectory)/$(versionFileName)"  -First 1
-        $releaseInfo = (Get-Content "$(Build.SourcesDirectory)/$(versionFileName)" | Select-Object -Skip 1)
+        $releaseInfo = (Get-Content "$(Build.SourcesDirectory)/$(versionFileName)" | Select-Object -Skip 1).Replace('\r\n', '\n')
         echo "##vso[task.setvariable variable=newVersion;isOutput=true]$($newVersion)"
         echo "##vso[task.setvariable variable=releaseInfo;isOutput=true]$($releaseInfo)"
       name: readNewVersionStep
@@ -78,6 +78,7 @@ stages:
     - script: |
         echo $(newVersion)
         echo $(currentVersion)
+        echo $(releaseInfo)
       displayName: Echo versions
 
     - download: current
