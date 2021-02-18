@@ -48,7 +48,10 @@ namespace CSharpFunctionalExtensions
                 return maybe.Equals(value);
 
             if (maybe.HasNoValue)
-                return false;
+                if (ReferenceEquals(value, null))
+                    return true;
+                else
+                    return false;
 
             return maybe.Value.Equals(value);
         }
