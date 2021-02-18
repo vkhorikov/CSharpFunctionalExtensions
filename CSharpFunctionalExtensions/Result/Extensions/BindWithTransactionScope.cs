@@ -1,4 +1,4 @@
-#if NETSTANDARD2_0 || NET50
+#if NETSTANDARD2_0 || NET5_0
 using System;
 
 namespace CSharpFunctionalExtensions
