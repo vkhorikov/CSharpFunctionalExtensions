@@ -73,9 +73,56 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             var vo1 = new VOWithObjectProperty(new object());
             var vo2 = new VOWithObjectProperty(new object());
 
-            int result = vo1.CompareTo(vo2);
+            int result1 = vo1.CompareTo(vo2);
+            int result2 = vo2.CompareTo(vo1);
 
-            result.Should().NotBe(0);
+            result1.Should().NotBe(0);
+            result2.Should().NotBe(0);
+        }
+
+        [Fact]
+        public void Can_compare_value_objects_with_collections()
+        {
+            var vo1 = new VOWithCollection("one", "two");
+            var vo2 = new VOWithCollection("one", "three");
+
+            int result1 = vo1.CompareTo(vo2);
+            int result2 = vo2.CompareTo(vo1);
+
+            result1.Should().NotBe(0);
+            result2.Should().NotBe(0);
+        }
+
+        [Fact]
+        public void Can_compare_value_objects_with_collections_of_variable_size()
+        {
+            var vo1 = new VOWithCollection("one", "two");
+            var vo2 = new VOWithCollection("one", "two", "three");
+
+            int result1 = vo1.CompareTo(vo2);
+            int result2 = vo2.CompareTo(vo1);
+
+            result1.Should().NotBe(0);
+            result2.Should().NotBe(0);
+        }
+
+        private class VOWithCollection : ValueObject
+        {
+            readonly string[] _components;
+
+            public VOWithCollection(params string[] components)
+            {
+                _components = components;
+            }
+
+            protected override IEnumerable<object> GetEqualityComponents()
+            {
+                yield return _components.Length;
+                foreach (string component in _components)
+                {
+                    yield return component;
+                }
+            }
         }
 
         private class VOWithObjectProperty : ValueObject

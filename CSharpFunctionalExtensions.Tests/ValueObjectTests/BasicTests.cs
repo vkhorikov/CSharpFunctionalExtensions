@@ -74,6 +74,47 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             emailAddress1.Equals(emailAddress2).Should().BeFalse();
         }
 
+        [Fact]
+        public void Comparing_value_objects_with_different_collections_returns_false()
+        {
+            var vo1 = new VOWithCollection("one", "two");
+            var vo2 = new VOWithCollection("one", "three");
+
+            bool result1 = vo1.Equals(vo2);
+            bool result2 = vo2.Equals(vo1);
+
+            result1.Should().BeFalse();
+            result2.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Comparing_value_objects_with_collections_of_different_size_returns_false()
+        {
+            var vo1 = new VOWithCollection("one", "two");
+            var vo2 = new VOWithCollection("one", "two", "three");
+
+            bool result1 = vo1.Equals(vo2);
+            bool result2 = vo2.Equals(vo1);
+
+            result1.Should().BeFalse();
+            result2.Should().BeFalse();
+        }
+
+        private class VOWithCollection : ValueObject
+        {
+            readonly string[] _components;
+
+            public VOWithCollection(params string[] components)
+            {
+                _components = components;
+            }
+
+            protected override IEnumerable<object> GetEqualityComponents()
+            {
+                return _components;
+            }
+        }
+
         public class VO1 : ValueObject
         {
             public string Value { get; }
