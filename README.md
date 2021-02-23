@@ -20,7 +20,7 @@ No need for a separate 4.0 package anymore! Use the regular CSharpFunctionalExte
 
 ## Testing
 
-For extension methods on top of this library's `Result` and `Maybe` that you can use in tests, see [this nuget package](https://www.nuget.org/packages/FluentAssertions.CSharpFunctionalExtensions/) ([GitHub link][https://github.com/pedromtcosta/FluentAssertions.CSharpFunctionalExtensions]).
+For extension methods on top of this library's `Result` and `Maybe` that you can use in tests, see [this nuget package](https://www.nuget.org/packages/FluentAssertions.CSharpFunctionalExtensions/) (GitHub link: https://github.com/pedromtcosta/FluentAssertions.CSharpFunctionalExtensions).
 
 Example:
 
