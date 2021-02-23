@@ -1,6 +1,7 @@
-2.14.3
+2.14.4
 New features:
-* 258 Enhance overloads for Match
+* None
 
 Fixed issues:
-* None
+* #264 Maybe<T>.None == null returns false
+* #266 Bind-/Map-/WithTransactionScope() fixed for net5.0
