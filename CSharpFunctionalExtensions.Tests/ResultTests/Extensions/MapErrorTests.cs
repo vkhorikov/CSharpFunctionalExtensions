@@ -109,6 +109,23 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
+        public void MapError_T_E_string_returns_success()
+        {
+            Result<T, E> result = Result.Success<T, E>(T.Value);
+            var invocations = 0;
+
+            Result<T> actual = result.MapError(_ =>
+            {
+                invocations++;
+                return "error";
+            });
+
+            actual.IsSuccess.Should().BeTrue();
+            actual.Value.Should().Be(T.Value);
+            invocations.Should().Be(0);
+        }
+
+        [Fact]
         public void MapError_T_E_E2_returns_success()
         {
             Result<T, E> result = Result.Success<T, E>(T.Value);
@@ -123,6 +140,25 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             actual.IsSuccess.Should().BeTrue();
             actual.Value.Should().Be(T.Value);
             invocations.Should().Be(0);
+        }
+
+        [Fact]
+        public void MapError_T_E_string_returns_new_failure()
+        {
+            Result<T, E> result = Result.Failure<T, E>(E.Value);
+            var invocations = 0;
+
+            Result<T> actual = result.MapError(error =>
+            {
+                error.Should().Be(E.Value);
+
+                invocations++;
+                return "error";
+            });
+
+            actual.IsSuccess.Should().BeFalse();
+            actual.Error.Should().Be("error");
+            invocations.Should().Be(1);
         }
 
         [Fact]
