@@ -18,5 +18,10 @@
         {
             public static readonly E Value = new E();
         }
+
+        protected class E2
+        {
+            public static readonly E2 Value = new E2();
+        }
     }
 }

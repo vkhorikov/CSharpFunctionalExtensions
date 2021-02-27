@@ -4,7 +4,7 @@
 [![Nuget downloads](https://img.shields.io/nuget/v/csharpfunctionalextensions.svg)](https://www.nuget.org/packages/CSharpFunctionalExtensions/)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE)
 
-This library helps write code in more functional way. To get to know more about the principles behind it, check out the [Applying Functional Principles in C# Pluralsight course](http://pluralsight.com/courses/csharp-applying-functional-principles).
+This library helps write code in more functional way. To get to know more about the principles behind it, check out the [Applying Functional Principles in C# Pluralsight course](https://enterprisecraftsmanship.com/ps-func).
 
 ## Installation
 
@@ -14,9 +14,26 @@ Available on [nuget](https://www.nuget.org/packages/CSharpFunctionalExtensions/)
 
 ## .NET 4.0 version Installation
 
-.NET 4.0 version is available as a separate package on [nuget](https://www.nuget.org/packages/CSharpFunctionalExtensionsNet4.0/)
+~~.NET 4.0 version is available as a separate package on [nuget](https://www.nuget.org/packages/CSharpFunctionalExtensionsNet4.0/)~~
 
-	PM> Install-Package CSharpFunctionalExtensionsNet4.0
+No need for a separate 4.0 package anymore! Use the regular CSharpFunctionalExtensions
+
+## Testing
+
+For extension methods on top of this library's `Result` and `Maybe` that you can use in tests, see [this nuget package](https://www.nuget.org/packages/FluentAssertions.CSharpFunctionalExtensions/) (GitHub link: https://github.com/pedromtcosta/FluentAssertions.CSharpFunctionalExtensions).
+
+Example:
+
+```csharp
+// Arrange
+var myClass = new MyClass();
+
+// Act
+Result result = myClass.TheMethod();
+
+// Assert
+result.Should().BeSuccess();
+```
 
 ## Get rid of primitive obsession
 
@@ -68,10 +85,13 @@ return _customerRepository.GetById(id)
  * [Functional C#: Primitive obsession](http://enterprisecraftsmanship.com/2015/03/07/functional-c-primitive-obsession/)
  * [Functional C#: Non-nullable reference types](http://enterprisecraftsmanship.com/2015/03/13/functional-c-non-nullable-reference-types/)
  * [Functional C#: Handling failures, input errors](http://enterprisecraftsmanship.com/2015/03/20/functional-c-handling-failures-input-errors/)
- * [Applying Functional Principles in C# Pluralsight course](http://pluralsight.com/courses/csharp-applying-functional-principles)
+ * [Applying Functional Principles in C# Pluralsight course](https://enterprisecraftsmanship.com/ps-func)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [Renato Ramos Nascimento](https://github.com/renato04)
+ * [Patrick Drechsler](https://github.com/draptik)
+ * [Vadim Mingazhev](https://github.com/mingazhev)
  * [Darick Carpenter](https://github.com/darickc)
  * [Stéphane Mitermite](https://github.com/kakone)
  * [Markus Nißl](https://github.com/mnissl)

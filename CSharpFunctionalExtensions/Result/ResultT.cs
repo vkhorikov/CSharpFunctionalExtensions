@@ -32,8 +32,13 @@ namespace CSharpFunctionalExtensions
 
         public static implicit operator Result<T>(T value)
         {
-            if (value is Result<T> result)
-                return result;
+            if (value is IResult<T> result)
+            {
+                string resultError = result.IsFailure ? result.Error : default;
+                T resultValue = result.IsSuccess ? result.Value : default;
+
+                return new Result<T>(result.IsFailure, resultError, resultValue);
+            }
 
             return Result.Success(value);
         }

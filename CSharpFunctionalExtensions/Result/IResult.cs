@@ -11,7 +11,16 @@
         T Value { get; }
     }
 
-    public interface IResult<out T> : IResult, IValue<T>
+    public interface IError<out E>
+    {
+        E Error { get; }
+    }
+
+    public interface IResult<out T, out E> : IResult, IValue<T>, IError<E>
+    {
+    }
+
+    public interface IResult<out T> : IResult<T, string>
     {
     }
 }

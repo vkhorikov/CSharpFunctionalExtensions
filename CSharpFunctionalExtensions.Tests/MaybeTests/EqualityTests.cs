@@ -134,6 +134,15 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             equals5.Should().BeTrue();
         }
 
+        [Fact]
+        public void Compare_with_null_value()
+        {
+            Maybe<MyClass> maybe = null;
+
+            var result = maybe == null;
+
+            result.Should().BeTrue();
+        }
 
         private class MyClass
         {

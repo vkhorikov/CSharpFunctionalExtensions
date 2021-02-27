@@ -1,75 +1,96 @@
 trigger:
-  branches:
-    include:
-    - master
+- master
+
+pool:
+  vmImage: 'ubuntu-16.04'
 
 resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  versionFileName: 'version.txt'
 
 stages:
 - stage: Build_and_publish
   jobs:
   - job: Version
-    pool:
-      vmImage: 'ubuntu-16.04'
+    displayName: Read versions
     steps:
-    - script: echo "##vso[task.setvariable variable=versionVar;isOutput=true]$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | head -1)"
-      name: setVersionStep
-      displayName: Set version
-    - script: echo $(setVersionStep.versionVar)
-      displayName: Echo version
-    - script: echo "##vso[task.setvariable variable=releaseInfoVar;isOutput=true]$(curl -s https://raw.githubusercontent.com/vkhorikov/CSharpFunctionalExtensions/master/version.txt | tail -n +2 | sed 's/$/\\r\\n/' | tr -d '\n')"
-      name: setReleaseInfoStep
-      displayName: Set release info
-    - script: echo $(setReleaseInfoStep.releaseInfoVar)
-      displayName: Echo release info
-    - script: echo "##vso[task.setvariable variable=currentVersionVar;isOutput=true]$(curl -s https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases | python -c 'import json,sys;obj=json.load(sys.stdin);print obj[0]["tag_name"] if len(obj) > 0 else ""' | cut -c 2-100)"
-      name: setCurrentVersionStep
-      displayName: Set current version
-    - script: echo $(setCurrentVersionStep.currentVersionVar)
-      displayName: Echo current version
+    - powershell: |
+        $newVersion = Get-Content "$(Build.SourcesDirectory)/$(versionFileName)"  -First 1
+        $releaseInfo = (Get-Content "$(Build.SourcesDirectory)/$(versionFileName)" | Select-Object -Skip 1).Replace('\r\n', '\n')
+        echo "##vso[task.setvariable variable=newVersion;isOutput=true]$($newVersion)"
+        echo "##vso[task.setvariable variable=releaseInfo;isOutput=true]$($releaseInfo)"
+      name: readNewVersionStep
+      displayName: Read new version
+
+    - powershell: |
+        $json = Invoke-RestMethod -Method 'GET' -Uri "https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases"
+        $currentVersion = $json[0].tag_name.Substring(1)
+        echo "##vso[task.setvariable variable=currentVersion;isOutput=true]$($currentVersion)"
+      name: readCurrentVersionStep
+      displayName: Read current version
   
-  - job: Build
+  - job: BuildAndTest
+    displayName: Build and test
     dependsOn: Version
-    pool:
-      vmImage: 'ubuntu-16.04'
     variables:
-      version: $[ dependencies.Version.outputs['setVersionStep.versionVar'] ]
+      newVersion: $[ dependencies.Version.outputs['readNewVersionStep.newVersion'] ]
     steps:
-    - script: docker build . -t build-image -f Dockerfile --build-arg Version=$(version)
-      displayName: Build an image
-    - script: docker create --name build-container build-image
-      displayName: Create a container
-    - script: docker cp build-container:./app/out ./out
+    - script: docker build . -t build-image -f Dockerfile --build-arg Version=$(newVersion)
+      displayName: Build image
+
+    - script: |
+        docker create --name build-container build-image
+        docker cp build-container:./app/CSharpFunctionalExtensions.Tests/TestResults ./testresults
+      displayName: Extract test results
+
+    - task: PublishTestResults@2
+      inputs:
+        testRunner: VSTest
+        testResultsFiles: '**/*.trx'
+        searchFolder: '$(System.DefaultWorkingDirectory)/testresults'
+        failTaskOnFailedTests: true
+      displayName: Publish test results
+
+    - script: |
+        docker create --name build-container build-image
+        docker cp build-container:./app/out ./out
       displayName: Copy artifacts
+
     - publish: ./out
       artifact: NuGetPackage
 
   - job: Publish
     dependsOn:
     - Version
-    - Build
-    pool:
-      vmImage: 'ubuntu-16.04'
+    - BuildAndTest
     variables:
-      releaseInfo: $[ dependencies.Version.outputs['setReleaseInfoStep.releaseInfoVar'] ]
-      version: $[ dependencies.Version.outputs['setVersionStep.versionVar'] ]
+      releaseInfo: $[ dependencies.Version.outputs['readNewVersionStep.releaseInfo'] ]
+      newVersion: $[ dependencies.Version.outputs['readNewVersionStep.newVersion'] ]
+      currentVersion: $[ dependencies.Version.outputs['readCurrentVersionStep.currentVersion'] ]
       contentTypeHeader1: 'Content-Type: application/json'
       contentTypeHeader2: 'Content-Type: application/octet-stream'
       authHeader: 'Authorization: token $(gitHubToken)'
-      createReleaseRequest: '{ "tag_name": "v$(version)", "target_commitish": "master", "name": "v$(version)", "body": "$(releaseInfo)", "draft": false, "prerelease": false }'
-    condition: ne(dependencies.Version.outputs['setVersionStep.versionVar'], dependencies.Version.outputs['setCurrentVersionStep.currentVersionVar'])
+      createReleaseRequest: '{ "tag_name": "v$(newVersion)", "target_commitish": "master", "name": "v$(newVersion)", "body": "$(releaseInfo)", "draft": false, "prerelease": false }'
+    condition: ne(dependencies.Version.outputs['readNewVersionStep.newVersion'], dependencies.Version.outputs['readCurrentVersionStep.currentVersion'])
     steps:
+    - script: |
+        echo $(newVersion)
+        echo $(currentVersion)
+        echo $(releaseInfo)
+      displayName: Echo versions
+
     - download: current
       artifact: NuGetPackage
-    - script: curl -X POST -s -H '$(contentTypeHeader1)' -H '$(authHeader)' https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases -d '$(createReleaseRequest)'
-      displayName: Create release
-    - script: echo "##vso[task.setvariable variable=releaseId]$(curl -s https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/latest | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["id"]')"
-      displayName: Get release id
-    - script: curl -X POST -s -H '$(contentTypeHeader2)' -H '$(authHeader)' -F 'data=@$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(version).nupkg' https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.$(version).nupkg
-      displayName: Upload release artifact
-    - script: dotnet nuget push $(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(version).nupkg --source https://api.nuget.org/v3/index.json --api-key $(nugetToken)
-      displayName: NuGet push
+
+    - script: |
+        curl -X POST -s -H '$(contentTypeHeader1)' -H '$(authHeader)' https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases -d '$(createReleaseRequest)'
+        $json = Invoke-RestMethod -Method 'GET' -Uri "https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/latest"
+        $releaseId = $json.id
+        curl -X POST -s -H '$(contentTypeHeader2)' -H '$(authHeader)' -F 'data=@$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(newVersion).nupkg' https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.$(newVersion).nupkg
+      displayName: Publish to GitHub
+
+    - script: |
+        dotnet nuget push $(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(newVersion).nupkg --source https://api.nuget.org/v3/index.json --api-key $(nugetToken)
+      displayName: Publish to NuGet
