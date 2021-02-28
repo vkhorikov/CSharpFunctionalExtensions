@@ -95,7 +95,7 @@ namespace CSharpFunctionalExtensions
             return _cachedHashCode.Value;
         }
 
-        public int CompareTo(object obj)
+        public virtual int CompareTo(object obj)
         {
             Type thisType = GetUnproxiedType(this);
             Type otherType = GetUnproxiedType(obj);
@@ -135,7 +135,7 @@ namespace CSharpFunctionalExtensions
             return object1.Equals(object2) ? 0 : -1;
         }
 
-        public int CompareTo(ValueObject other)
+        public virtual int CompareTo(ValueObject other)
         {
             return CompareTo(other as object);
         }
