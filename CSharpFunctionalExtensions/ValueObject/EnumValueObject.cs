@@ -52,7 +52,7 @@ namespace CSharpFunctionalExtensions
             return !(b == a);
         }
         
-        public static Maybe<TEnumeration> Create(string key)
+        public static Maybe<TEnumeration> FromKey(string key)
         {
             return All.SingleOrDefault(p => p.Key == key);
         }
