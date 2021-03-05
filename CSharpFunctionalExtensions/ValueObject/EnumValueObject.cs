@@ -5,6 +5,72 @@ using System.Reflection;
 
 namespace CSharpFunctionalExtensions
 {
+    public abstract class EnumValueObject<TEnumeration, TId> : ValueObject
+        where TEnumeration : EnumValueObject<TEnumeration, TId>
+        where TId : struct
+    {
+        protected EnumValueObject(TId id, string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("The name cannot be null or empty");
+            }
+            
+            Id = id;
+            Name = name;
+        }
+
+        public TId Id { get; protected set; }
+        
+        public string Name { get; protected set; }
+        
+        public static bool operator ==(EnumValueObject<TEnumeration, TId> a, TId b)
+        {
+            if (a is null)
+            {
+                return false;
+            }
+            
+            return a.Id.Equals(b);
+        }
+
+        public static bool operator !=(EnumValueObject<TEnumeration, TId> a, TId b)
+        {
+            return !(a == b);
+        }
+
+        public static bool operator ==(TId a, EnumValueObject<TEnumeration, TId> b)
+        {
+            return b == a;
+        }
+
+        public static bool operator !=(TId a, EnumValueObject<TEnumeration, TId> b)
+        {
+            return !(b == a);
+        }
+
+        public static Maybe<TEnumeration> FromId(TId id)
+        {
+            return GetEnumerations().SingleOrDefault(i => i.Id.Equals(id));
+        }
+        
+        public static Maybe<TEnumeration> FromName(string name)
+        {
+            return GetEnumerations().SingleOrDefault(i => i.Name == name);
+        }
+        
+        private static TEnumeration[] GetEnumerations()
+        {
+            var enumerationType = typeof(TEnumeration);
+
+            return enumerationType
+                .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                .Where(info => info.FieldType == typeof(TEnumeration))
+                .Select(info => (TEnumeration)info.GetValue(null))
+                .ToArray();
+        }
+    }
+    
     public abstract class EnumValueObject<TEnumeration> : ValueObject
         where TEnumeration : EnumValueObject<TEnumeration>
     {
