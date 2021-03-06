@@ -74,19 +74,19 @@ namespace CSharpFunctionalExtensions
     public abstract class EnumValueObject<TEnumeration> : ValueObject
         where TEnumeration : EnumValueObject<TEnumeration>
     {
-        protected EnumValueObject(string key)
+        protected EnumValueObject(string id)
         {
-            if (string.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(id))
             {
                 throw new ArgumentException("The enum key cannot be null or empty");
             }
 
-            Key = key;
+            Id = id;
         }
 
         public static IEnumerable<TEnumeration> All = GetEnumerations();
 
-        public virtual string Key { get; protected set; }
+        public virtual string Id { get; protected set; }
         
         public static bool operator ==(EnumValueObject<TEnumeration> a, string b)
         {
@@ -100,7 +100,7 @@ namespace CSharpFunctionalExtensions
                 return false;
             }
 
-            return a.Key.Equals(b);
+            return a.Id.Equals(b);
         }
 
         public static bool operator !=(EnumValueObject<TEnumeration> a, string b)
@@ -120,16 +120,16 @@ namespace CSharpFunctionalExtensions
         
         public static Maybe<TEnumeration> FromKey(string key)
         {
-            return All.SingleOrDefault(p => p.Key == key);
+            return All.SingleOrDefault(p => p.Id == key);
         }
 
-        public static bool Is(string possibleKey) => All.Select(e => e.Key).Contains(possibleKey);
+        public static bool Is(string possibleKey) => All.Select(e => e.Id).Contains(possibleKey);
 
-        public override string ToString() => Key;
+        public override string ToString() => Id;
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return Key;
+            yield return Id;
         }
         
         private static TEnumeration[] GetEnumerations()

@@ -16,7 +16,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             var display = testEnum.ToString();
 
             // Assert
-            display.Should().Be(testEnum.Key);
+            display.Should().Be(testEnum.Id);
         }
         
         [Fact]
