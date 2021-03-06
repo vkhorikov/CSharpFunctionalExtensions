@@ -9,6 +9,9 @@ namespace CSharpFunctionalExtensions
         where TEnumeration : EnumValueObject<TEnumeration, TId>
         where TId : struct
     {
+        private static readonly Dictionary<TId, TEnumeration> EnumerationsById = GetEnumerations().ToDictionary(e => e.Id);
+        private static readonly Dictionary<string, TEnumeration> EnumerationsByName = GetEnumerations().ToDictionary(e => e.Name);
+        
         protected EnumValueObject(TId id, string name)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -51,12 +54,16 @@ namespace CSharpFunctionalExtensions
 
         public static Maybe<TEnumeration> FromId(TId id)
         {
-            return GetEnumerations().SingleOrDefault(i => i.Id.Equals(id));
+            return EnumerationsById.ContainsKey(id)
+                ? EnumerationsById[id]
+                : null;
         }
         
         public static Maybe<TEnumeration> FromName(string name)
         {
-            return GetEnumerations().SingleOrDefault(i => i.Name == name);
+            return EnumerationsByName.ContainsKey(name)
+                ? EnumerationsByName[name]
+                : null;
         }
         
         protected override IEnumerable<object> GetEqualityComponents()
