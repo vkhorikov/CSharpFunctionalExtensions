@@ -79,6 +79,8 @@ namespace CSharpFunctionalExtensions
     public abstract class EnumValueObject<TEnumeration> : ValueObject
         where TEnumeration : EnumValueObject<TEnumeration>
     {
+        private static readonly Dictionary<string, TEnumeration> Enumerations = GetEnumerations().ToDictionary(e => e.Id);
+        
         protected EnumValueObject(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -89,7 +91,7 @@ namespace CSharpFunctionalExtensions
             Id = id;
         }
 
-        public static IEnumerable<TEnumeration> All = GetEnumerations();
+        public static IEnumerable<TEnumeration> All = Enumerations.Values;
 
         public virtual string Id { get; protected set; }
         
@@ -125,7 +127,9 @@ namespace CSharpFunctionalExtensions
         
         public static Maybe<TEnumeration> FromId(string id)
         {
-            return All.SingleOrDefault(p => p.Id == id);
+            return Enumerations.ContainsKey(id)
+                ? Enumerations[id]
+                : null;
         }
 
         public static bool Is(string possibleKey) => All.Select(e => e.Id).Contains(possibleKey);
