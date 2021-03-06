@@ -123,9 +123,9 @@ namespace CSharpFunctionalExtensions
             return !(b == a);
         }
         
-        public static Maybe<TEnumeration> FromKey(string key)
+        public static Maybe<TEnumeration> FromId(string id)
         {
-            return All.SingleOrDefault(p => p.Id == key);
+            return All.SingleOrDefault(p => p.Id == id);
         }
 
         public static bool Is(string possibleKey) => All.Select(e => e.Id).Contains(possibleKey);

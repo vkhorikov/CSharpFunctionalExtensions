@@ -35,7 +35,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         {
             // Arrange
             var enum1 = TestEnumValueObject.One;
-            var alsoEnum1 = TestEnumValueObject.FromKey("One").Value;
+            var alsoEnum1 = TestEnumValueObject.FromId("One").Value;
 
             // Act
             var isEqual = enum1 == alsoEnum1;
@@ -61,7 +61,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         public void GivenInvalidKey_WhenCreatingEnumValueObject_ThenNoReturn()
         {
             // Act
-            var maybe = TestEnumValueObject.FromKey("InvalidKey");
+            var maybe = TestEnumValueObject.FromId("InvalidKey");
 
             // Assert
             maybe.Should().Be(Maybe<TestEnumValueObject>.None);
