@@ -90,6 +90,24 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             // Assert
             isEnumValueObject.Should().Be(isIn);
         }
+        
+        [Fact]
+        public void GivenId_WhenCreating_ThenCorrectOneReturned()
+        {
+            var maybeEnum = AnotherTestEnumValueObject.FromId(1);
+
+            maybeEnum.HasValue.Should().BeTrue();
+            maybeEnum.Value.Should().Be(AnotherTestEnumValueObject.One);
+        }
+
+        [Fact]
+        public void GivenName_WhenCreating_ThenCorrectOneReturned()
+        {
+            var maybeEnum = AnotherTestEnumValueObject.FromName(AnotherTestEnumValueObject.One.Name);
+
+            maybeEnum.HasValue.Should().BeTrue();
+            maybeEnum.Value.Should().Be(AnotherTestEnumValueObject.One);
+        }
     }
     
     public sealed class TestEnumValueObject : EnumValueObject<TestEnumValueObject>
@@ -99,6 +117,17 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         public static readonly TestEnumValueObject Two = new TestEnumValueObject(nameof(Two));
 
         public TestEnumValueObject(string key) : base(key)
+        {
+        }
+    }
+
+    public sealed class AnotherTestEnumValueObject : EnumValueObject<AnotherTestEnumValueObject, long>
+    {
+        public static readonly AnotherTestEnumValueObject One = new AnotherTestEnumValueObject(1, "name");
+
+        public static readonly AnotherTestEnumValueObject Two = new AnotherTestEnumValueObject(2, "test");
+        
+        private AnotherTestEnumValueObject(long id, string name) : base(id, name)
         {
         }
     }

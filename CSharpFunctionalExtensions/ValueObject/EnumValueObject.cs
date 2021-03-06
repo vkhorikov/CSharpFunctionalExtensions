@@ -59,6 +59,11 @@ namespace CSharpFunctionalExtensions
             return GetEnumerations().SingleOrDefault(i => i.Name == name);
         }
         
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Id;
+        }
+        
         private static TEnumeration[] GetEnumerations()
         {
             var enumerationType = typeof(TEnumeration);
