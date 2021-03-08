@@ -1,8 +1,6 @@
-2.14.5
+2.15.0
 New features:
-* #270 Additional async Match overloads
-* #259 Proposal: additional MapError overloads
-* #273 Make CompareTo virtual
+* #274 Add EnumValueObject
 
 Fixed issues:
 * None
