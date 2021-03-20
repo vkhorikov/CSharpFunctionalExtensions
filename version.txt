@@ -1,6 +1,6 @@
-2.15.0
+2.15.1
 New features:
-* #274 Add EnumValueObject
+* #277 add an overload to avoid nesting
 
 Fixed issues:
 * None
