@@ -13,7 +13,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Combine_combines_all_errors_together()
         {
-            Result result1 = Result.Success();
+            Result<int> result1 = Result.Success(1);
             Result result2 = Result.Failure("Failure 1");
             Result result3 = Result.Failure("Failure 2");
 
