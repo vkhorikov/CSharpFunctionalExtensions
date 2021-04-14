@@ -18,6 +18,23 @@ Available on [nuget](https://www.nuget.org/packages/CSharpFunctionalExtensions/)
 
 No need for a separate 4.0 package anymore! Use the regular CSharpFunctionalExtensions
 
+## Testing
+
+For extension methods on top of this library's `Result` and `Maybe` that you can use in tests, see [this nuget package](https://www.nuget.org/packages/FluentAssertions.CSharpFunctionalExtensions/) (GitHub link: https://github.com/pedromtcosta/FluentAssertions.CSharpFunctionalExtensions).
+
+Example:
+
+```csharp
+// Arrange
+var myClass = new MyClass();
+
+// Act
+Result result = myClass.TheMethod();
+
+// Assert
+result.Should().BeSuccess();
+```
+
 ## Get rid of primitive obsession
 
 ```csharp
@@ -72,6 +89,9 @@ return _customerRepository.GetById(id)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [michaeldileo](https://github.com/michaeldileo)
+ * [Renato Ramos Nascimento](https://github.com/renato04)
+ * [Patrick Drechsler](https://github.com/draptik)
  * [Vadim Mingazhev](https://github.com/mingazhev)
  * [Darick Carpenter](https://github.com/darickc)
  * [Stéphane Mitermite](https://github.com/kakone)

@@ -1,70 +1,62 @@
 using System;
+using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
 {
-    public static partial class ResultExtensions
+    public static partial class AsyncResultExtensionsLeftOperand
     {
         /// <summary>
         ///     Returns the result of the given <paramref name="onSuccess"/> function if the calling Result is a success. Otherwise, it returns the result of the given <paramref name="onFailure"/> function.
         /// </summary>
-        public static K Match<T, K, E>(this Result<T, E> result, Func<T, K> onSuccess, Func<E, K> onFailure)
+        public static async Task<K> Match<T, K, E>(this Task<Result<T, E>> resultTask, Func<T, Task<K>> onSuccess, Func<E, Task<K>> onFailure)
         {
-            return result.IsSuccess
-                ? onSuccess(result.Value)
-                : onFailure(result.Error);
+            return await (await resultTask.DefaultAwait())
+                .Match(onSuccess, onFailure).DefaultAwait();
         }
 
         /// <summary>
         ///     Returns the result of the given <paramref name="onSuccess"/> function if the calling Result is a success. Otherwise, it returns the result of the given <paramref name="onFailure"/> function.
         /// </summary>
-        public static K Match<K, T>(this Result<T> result, Func<T, K> onSuccess, Func<string, K> onFailure)
+        public static async Task<K> Match<K, T>(this Task<Result<T>> resultTask, Func<T, Task<K>> onSuccess, Func<string, Task<K>> onFailure)
         {
-            return result.IsSuccess
-                ? onSuccess(result.Value)
-                : onFailure(result.Error);
+            return await (await resultTask.DefaultAwait())
+                .Match(onSuccess, onFailure).DefaultAwait();
         }
 
         /// <summary>
         ///     Returns the result of the given <paramref name="onSuccess"/> function if the calling Result is a success. Otherwise, it returns the result of the given <paramref name="onFailure"/> function.
         /// </summary>
-        public static T Match<T>(this Result result, Func<T> onSuccess, Func<string, T> onFailure)
+        public static async Task<T> Match<T>(this Task<Result> resultTask, Func<Task<T>> onSuccess, Func<string, Task<T>> onFailure)
         {
-            return result.IsSuccess
-                ? onSuccess()
-                : onFailure(result.Error);
+            return await (await resultTask.DefaultAwait())
+                .Match(onSuccess, onFailure).DefaultAwait();
         }
 
         /// <summary>
         ///     Invokes the given <paramref name="onSuccess"/> action if the calling Result is a success. Otherwise, it invokes the given <paramref name="onFailure"/> action.
         /// </summary>
-        public static void Match<T, E>(this Result<T, E> result, Action<T> onSuccess, Action<E> onFailure)
+        public static async Task Match<T, E>(this Task<Result<T, E>> resultTask, Func<T, Task> onSuccess, Func<E, Task> onFailure)
         {
-            if (result.IsSuccess)
-                onSuccess(result.Value);
-            else
-                onFailure(result.Error);
+            await (await resultTask.DefaultAwait())
+                .Match(onSuccess, onFailure).DefaultAwait();
         }
 
         /// <summary>
         ///     Invokes the given <paramref name="onSuccess"/> action if the calling Result is a success. Otherwise, it invokes the given <paramref name="onFailure"/> action.
         /// </summary>
-        public static void Match<T>(this Result<T> result, Action<T> onSuccess, Action<string> onFailure)
+        public static async Task Match<T>(this Task<Result<T>> resultTask, Func<T, Task> onSuccess, Func<string, Task> onFailure)
         {
-            if (result.IsSuccess)
-                onSuccess(result.Value);
-            else
-                onFailure(result.Error);
+            await (await resultTask.DefaultAwait())
+                .Match(onSuccess, onFailure).DefaultAwait();
         }
 
         /// <summary>
         ///     Invokes the given <paramref name="onSuccess"/> action if the calling Result is a success. Otherwise, it invokes the given <paramref name="onFailure"/> action.
         /// </summary>
-        public static void Match(this Result result, Action onSuccess, Action<string> onFailure)
+        public static async Task Match(this Task<Result> resultTask, Func<Task> onSuccess, Func<string, Task> onFailure)
         {
-            if (result.IsSuccess)
-                onSuccess();
-            else
-                onFailure(result.Error);
+            await (await resultTask.DefaultAwait())
+                .Match(onSuccess, onFailure).DefaultAwait();
         }
     }
 }

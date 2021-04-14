@@ -40,6 +40,17 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given function.
         /// </summary>
+        public static Result<T> MapError<T, E>(this Result<T, E> result, Func<E, string> errorFactory)
+        {
+            if (result.IsFailure)
+                return Result.Failure<T>(errorFactory(result.Error));
+
+            return Result.Success(result.Value);
+        }
+        
+        /// <summary>
+        ///     If the calling Result is a success, a new success result is returned. Otherwise, creates a new failure result from the return value of a given function.
+        /// </summary>
         public static Result<T, E2> MapError<T, E, E2>(this Result<T, E> result, Func<E, E2> errorFactory)
         {
             if (result.IsFailure)

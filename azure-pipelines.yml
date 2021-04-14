@@ -78,6 +78,7 @@ stages:
     - script: |
         echo $(newVersion)
         echo $(currentVersion)
+        echo $(releaseInfo)
       displayName: Echo versions
 
     - download: current

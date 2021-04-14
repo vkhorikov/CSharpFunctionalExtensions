@@ -30,6 +30,10 @@ namespace CSharpFunctionalExtensions
         public static async Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, string> errorPredicate)
         {
             Result<T> result = await resultTask.DefaultAwait();
+            
+            if (result.IsFailure)
+                return result;
+
             return result.Ensure(predicate, errorPredicate(result.Value));
         }
 
@@ -39,6 +43,10 @@ namespace CSharpFunctionalExtensions
         public static async Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Task<string>> errorPredicate)
         {
             Result<T> result = await resultTask.DefaultAwait();
+            
+            if (result.IsFailure)
+                return result;
+
             return result.Ensure(predicate, await errorPredicate(result.Value));
         }
 
