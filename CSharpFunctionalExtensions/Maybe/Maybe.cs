@@ -5,7 +5,8 @@ namespace CSharpFunctionalExtensions
     [Serializable]
     public struct Maybe<T> : IEquatable<Maybe<T>>
     {
-        private readonly MaybeValueWrapper _value;
+        private readonly bool _valueSet;
+        private readonly T _value;
         public T Value
         {
             get
@@ -13,18 +14,26 @@ namespace CSharpFunctionalExtensions
                 if (HasNoValue)
                     throw new InvalidOperationException();
 
-                return _value.Value;
+                return _value;
             }
         }
 
         public static Maybe<T> None => new Maybe<T>();
 
-        public bool HasValue => _value != null;
+        public bool HasValue => _valueSet;
         public bool HasNoValue => !HasValue;
 
         private Maybe(T value)
         {
-            _value = value == null ? null : new MaybeValueWrapper(value);
+            if (value == null)
+            {
+                _valueSet = false;
+                _value = default(T);
+                return;
+            }
+
+            _valueSet = true;
+            _value = value;
         }
 
         public static implicit operator Maybe<T>(T value)
@@ -96,7 +105,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue || other.HasNoValue)
                 return false;
 
-            return _value.Value.Equals(other._value.Value);
+            return _value.Equals(other._value);
         }
 
         public override int GetHashCode()
@@ -104,7 +113,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue)
                 return 0;
 
-            return _value.Value.GetHashCode();
+            return _value.GetHashCode();
         }
 
         public override string ToString()
@@ -113,18 +122,6 @@ namespace CSharpFunctionalExtensions
                 return "No value";
 
             return Value.ToString();
-        }
-
-
-        [Serializable]
-        private class MaybeValueWrapper
-        {
-            public MaybeValueWrapper(T value)
-            {
-                Value = value;
-            }
-
-            internal readonly T Value;
         }
     }
 }
