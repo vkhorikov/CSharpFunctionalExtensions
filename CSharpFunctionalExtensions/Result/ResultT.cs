@@ -7,28 +7,32 @@ namespace CSharpFunctionalExtensions
     [Serializable]
     public partial struct Result<T> : IResult<T>, ISerializable
     {
-        private readonly ResultCommonLogic<string> _logic;
-        public bool IsFailure => _logic.IsFailure;
-        public bool IsSuccess => _logic.IsSuccess;
-        public string Error => _logic.Error;
+        public bool IsFailure { get; }
+        public bool IsSuccess => !IsFailure;
+
+        private readonly string _error;
+        public string Error => ResultCommonLogic.GetErrorWithSuccessGuard(IsFailure, _error);
 
         private readonly T _value;
         public T Value => IsSuccess ? _value : throw new ResultFailureException(Error);
 
         internal Result(bool isFailure, string error, T value)
         {
-            _logic = new ResultCommonLogic<string>(isFailure, error);
+            IsFailure = ResultCommonLogic.ErrorStateGuard(isFailure, error);
+            _error = error;
             _value = value;
         }
 
         private Result(SerializationInfo info, StreamingContext context)
         {
-            _logic = ResultCommonLogic<string>.Deserialize(info);
-            _value = _logic.IsFailure ? default : (T)info.GetValue("Value", typeof(T));
+            var values = ResultCommonLogic.Deserialize(info);
+            IsFailure = values.IsFailure;
+            _error = values.Error;
+            _value = IsFailure ? default : (T)info.GetValue("Value", typeof(T));
         }
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
-            => _logic.GetObjectData(info, this);
+            => ResultCommonLogic.GetObjectData(this, info, this);
 
         public static implicit operator Result<T>(T value)
         {
