@@ -4,14 +4,52 @@ using System.Runtime.Serialization;
 
 namespace CSharpFunctionalExtensions.Internal
 {
-    internal readonly struct ResultCommonLogic<E>
+    internal static class ResultCommonLogic
     {
-        private readonly E _error;
-        public bool IsFailure { get; }
-        public bool IsSuccess => !IsFailure;
-        public E Error => IsFailure ? _error : throw new ResultSuccessException();
+        internal static void GetObjectDataCommon(IResult result, SerializationInfo info)
+        {
+            info.AddValue("IsFailure", result.IsFailure);
+            info.AddValue("IsSuccess", result.IsSuccess);
+        }
 
-        public ResultCommonLogic(bool isFailure, E error)
+        internal static void GetObjectData(Result result, SerializationInfo info)
+        {
+            GetObjectDataCommon(result, info);
+            if (result.IsFailure)
+            {
+                info.AddValue("Error", result.Error);
+            }
+        }
+
+        internal static void GetObjectData<T>(Result<T> result, SerializationInfo info, IValue<T> valueResult)
+        {
+            GetObjectDataCommon(result, info);
+            if (result.IsFailure)
+            {
+                info.AddValue("Error", result.Error);
+            }
+
+            if (result.IsSuccess)
+            {
+                info.AddValue("Value", valueResult.Value);
+            }
+        }
+
+        internal static void GetObjectData<T, E>(Result<T, E> result, SerializationInfo info, IValue<T> valueResult)
+        {
+            GetObjectDataCommon(result, info);
+            if (result.IsFailure)
+            {
+                info.AddValue("Error", result.Error);
+            }
+
+            if (result.IsSuccess)
+            {
+                info.AddValue("Value", valueResult.Value);
+            }
+        }
+
+        internal static bool ErrorStateGuard<E>(bool isFailure, E error)
         {
             if (isFailure)
             {
@@ -24,34 +62,19 @@ namespace CSharpFunctionalExtensions.Internal
                     throw new ArgumentException(Result.Messages.ErrorObjectIsProvidedForSuccess, nameof(error));
             }
 
-            IsFailure = isFailure;
-            _error = error;
+            return isFailure;
         }
 
-        public void GetObjectData(SerializationInfo info)
-        {
-            info.AddValue("IsFailure", IsFailure);
-            info.AddValue("IsSuccess", IsSuccess);
-            if (IsFailure)
-            {
-                info.AddValue("Error", Error);
-            }
-        }
+        internal static E GetErrorWithSuccessGuard<E>(bool isFailure, E error) =>
+            isFailure ? error : throw new ResultSuccessException();
 
-        public void GetObjectData<T>(SerializationInfo info, IValue<T> valueResult)
-        {
-            GetObjectData(info);
-            if (IsSuccess)
-            {
-                info.AddValue("Value", valueResult.Value);
-            }
-        }
+        internal static SerializationValue<string> Deserialize(SerializationInfo info) => Deserialize<string>(info);
 
-        public static ResultCommonLogic<E> Deserialize(SerializationInfo info)
+        internal static SerializationValue<E> Deserialize<E>(SerializationInfo info)
         {
             bool isFailure = info.GetBoolean("IsFailure");
             E error = isFailure ? (E)info.GetValue("Error", typeof(E)) : default;
-            return new ResultCommonLogic<E>(isFailure, error);
+            return new SerializationValue<E>(isFailure, error);
         }
     }
 }
