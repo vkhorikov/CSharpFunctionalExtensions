@@ -61,7 +61,7 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.  
+        ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
         /// </summary>
         public static Result Ensure(this Result result, Func<bool> predicate, string errorMessage)
         {
