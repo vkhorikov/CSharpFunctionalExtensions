@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
 {
-    public static partial class AsyncResultExtensionsRightOperand
+    public static partial class AsyncResultExtensionsRightOperand 
     {
         /// <summary>
         ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
@@ -30,6 +30,36 @@ namespace CSharpFunctionalExtensions
 
             if (!await predicate(result.Value).DefaultAwait())
                 return Result.Failure<T, E>(error);
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
+        /// </summary>
+        public static async Task<Result<T, E>> Ensure<T, E>(this Result<T, E> result,
+            Func<T, Task<bool>> predicate, Func<T, E> errorPredicate)
+        {
+            if (result.IsFailure)
+                return result;
+
+            if (!await predicate(result.Value).DefaultAwait())
+                return Result.Failure<T, E>(errorPredicate(result.Value));
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
+        /// </summary>
+        public static async Task<Result<T, E>> Ensure<T, E>(this Result<T, E> result,
+            Func<T, Task<bool>> predicate, Func<T, Task<E>> errorPredicate)
+        {
+            if (result.IsFailure)
+                return result;
+
+            if (!await predicate(result.Value).DefaultAwait())
+                return Result.Failure<T, E>(await errorPredicate(result.Value));
 
             return result;
         }
