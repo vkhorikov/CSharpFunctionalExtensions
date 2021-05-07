@@ -1,6 +1,6 @@
-2.15.1
+2.15.2
 New features:
-* #277 add an overload to avoid nesting
+* #285 Add overload to Result<T,E>.Ensure() for an error predicate
 
 Fixed issues:
 * None
