@@ -5,7 +5,8 @@ namespace CSharpFunctionalExtensions
     [Serializable]
     public struct Maybe<T> : IEquatable<Maybe<T>>
     {
-        private readonly bool _valueSet;
+        private readonly bool _isValueSet;
+
         private readonly T _value;
         public T Value
         {
@@ -20,19 +21,19 @@ namespace CSharpFunctionalExtensions
 
         public static Maybe<T> None => new Maybe<T>();
 
-        public bool HasValue => _valueSet;
+        public bool HasValue => _isValueSet;
         public bool HasNoValue => !HasValue;
 
         private Maybe(T value)
         {
             if (value == null)
             {
-                _valueSet = false;
-                _value = default(T);
+                _isValueSet = false;
+                _value = default;
                 return;
             }
 
-            _valueSet = true;
+            _isValueSet = true;
             _value = value;
         }
 
@@ -84,9 +85,9 @@ namespace CSharpFunctionalExtensions
 
             if (obj.GetType() != typeof(Maybe<T>))
             {
-                if (obj is T)
+                if (obj is T objT)
                 {
-                    obj = new Maybe<T>((T)obj);
+                    obj = new Maybe<T>(objT);
                 }
 
                 if (!(obj is Maybe<T>))

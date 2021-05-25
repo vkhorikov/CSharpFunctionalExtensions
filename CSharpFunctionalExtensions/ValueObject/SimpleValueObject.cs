@@ -23,6 +23,9 @@ namespace CSharpFunctionalExtensions
             return Value?.ToString();
         }
 
-        public static implicit operator T(SimpleValueObject<T> valueObject) => valueObject.Value;
+        public static implicit operator T(SimpleValueObject<T> valueObject)
+        {
+            return valueObject == null ? default : valueObject.Value;
+        }
     }
 }
