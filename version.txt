@@ -1,6 +1,6 @@
-2.15.2
+2.15.3
 New features:
-* #285 Add overload to Result<T,E>.Ensure() for an error predicate
+* None
 
 Fixed issues:
-* None
+* #289 Null reference exception in SimpleValueObject implicit operator
