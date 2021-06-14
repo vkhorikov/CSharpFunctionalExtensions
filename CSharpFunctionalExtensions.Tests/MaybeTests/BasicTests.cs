@@ -115,6 +115,17 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Maybe<int>.None.Where(_ => false).HasValue.Should().BeFalse();
         }
 
+        [Fact]
+        public void Maybe_From_without_type_parameter_creates_new_maybe()
+        {
+            var withoutTypeParam = Maybe.From("test");
+            var withTypeParam = Maybe<string>.From("test");
+            var differentValueTypeParam = Maybe<string>.From("tests");
+            
+            withoutTypeParam.Should().Be(withTypeParam);
+            withoutTypeParam.Should().NotBe(differentValueTypeParam);
+        }
+
         private class MyClass
         {
             public override string ToString()

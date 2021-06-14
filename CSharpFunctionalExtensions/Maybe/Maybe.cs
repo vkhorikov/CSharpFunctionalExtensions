@@ -125,4 +125,18 @@ namespace CSharpFunctionalExtensions
             return Value.ToString();
         }
     }
+
+    /// <summary>
+    /// Non-generic entrypoint for <see cref="Maybe{T}" /> methods
+    /// </summary>
+    public static class Maybe
+    {
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> from the provided <paramref name="value"/>
+        /// </summary>
+        /// <param name="value"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Maybe<T> From<T>(T value) => Maybe<T>.From(value);
+    }
 }
