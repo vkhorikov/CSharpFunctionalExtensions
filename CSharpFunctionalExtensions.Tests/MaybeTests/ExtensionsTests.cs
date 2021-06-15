@@ -447,6 +447,30 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             myClasses[0].Should().Be(instance);
         }
 
+        [Fact]
+        public void Or_returns_source_if_source_has_value()
+        {
+            Maybe<string> maybe = "value";
+
+            var orMaybe = maybe.Or("other");
+            
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Value.Should().Be("value");
+            orMaybe.Should().Be(maybe);
+        }
+
+        [Fact]
+        public void Or_creates_a_new_instance_with_value_when_source_is_empty()
+        {
+            Maybe<string> maybe = Maybe<string>.None;
+
+            var orMaybe = maybe.Or("other");
+            
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Value.Should().Be("other");
+            orMaybe.Should().NotBe(maybe);
+        }
+
         private static Maybe<string> GetPropertyIfExists(MyClass myClass)
         {
             return myClass.Property;

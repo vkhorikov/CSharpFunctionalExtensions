@@ -79,5 +79,22 @@ namespace CSharpFunctionalExtensions
             Maybe<T> maybe = await maybeTask.DefaultAwait();
             return await maybe.Bind(selector).DefaultAwait();
         }
+
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybeTask" /> is empty, using the supplied <paramref name="value" />, otherwise it returns <paramref name="maybeTask" />
+        /// </summary>
+        /// <param name="maybeTask"></param>
+        /// <param name="value"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Task<Maybe<T>> maybeTask, T value)
+        {
+            Maybe<T> maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasNoValue)
+                return Maybe<T>.From(value);
+
+            return maybe;
+        }
     }
 }

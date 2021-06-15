@@ -37,7 +37,7 @@ namespace CSharpFunctionalExtensions
 
         public static List<T> ToList<T>(this Maybe<T> maybe)
         {
-            return maybe.Unwrap(value => new List<T> {value}, new List<T>());
+            return maybe.Unwrap(value => new List<T> { value }, new List<T>());
         }
 
         public static Maybe<T> Where<T>(this Maybe<T> maybe, Func<T, bool> predicate)
@@ -98,6 +98,21 @@ namespace CSharpFunctionalExtensions
                 return;
 
             action(maybe.Value);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybe" /> is empty, using the supplied <paramref name="value" />, otherwise it returns <paramref name="maybe" />
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="value"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Maybe<T> Or<T>(this Maybe<T> maybe, T value)
+        {
+            if (maybe.HasNoValue)
+                return Maybe<T>.From(value);
+
+            return maybe;
         }
 
         public static TE Match<TE, T>(this Maybe<T> maybe, Func<T, TE> Some, Func<TE> None)
