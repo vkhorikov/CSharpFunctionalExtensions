@@ -373,7 +373,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public async Task Async_Or_returns_source_if_source_has_value()
+        public async Task Async_Or_fallback_value_returns_source_if_source_has_value()
         {
             var instance = new MyClass { Property = "Some value" };
             Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
@@ -386,13 +386,169 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public async Task Async_Or_returns_a_new_instance_with_value_when_source_is_empty()
+        public async Task Async_Or_fallback_value_returns_a_new_instance_with_value_when_source_is_empty()
         {
             var instance = Maybe<MyClass>.None;
             Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
             var result = new MyClass { Property = "Different value" };
 
             Maybe<MyClass> maybe2 = await maybeTask.Or(result);
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(result);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_task_returns_source_if_source_has_value()
+        {
+            var instance = new MyClass { Property = "Some value" };
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(Task.FromResult(result));
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(instance);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_task_returns_a_new_instance_with_value_when_source_is_empty()
+        {
+            var instance = Maybe<MyClass>.None;
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(Task.FromResult(result));
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(result);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_operation_returns_source_if_source_has_value()
+        {
+            var instance = new MyClass { Property = "Some value" };
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(() => result);
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(instance);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_operation_returns_a_new_instance_with_value_when_source_is_empty()
+        {
+            var instance = Maybe<MyClass>.None;
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(() => result);
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(result);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_operation_async_returns_source_if_source_has_value()
+        {
+            var instance = new MyClass { Property = "Some value" };
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(() => Task.FromResult(result));
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(instance);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_operation_async_returns_a_new_instance_with_value_when_source_is_empty()
+        {
+            var instance = Maybe<MyClass>.None;
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(() => Task.FromResult(result));
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(result);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_maybe_returns_source_if_source_has_value()
+        {
+            var instance = new MyClass { Property = "Some value" };
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(Maybe.From(result));
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(instance);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_maybe_returns_a_new_instance_with_value_when_source_is_empty()
+        {
+            var instance = Maybe<MyClass>.None;
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(Maybe.From(result));
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(result);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_operation_maybe_returns_source_if_source_has_value()
+        {
+            var instance = new MyClass { Property = "Some value" };
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(() => Maybe.From(result));
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(instance);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_operation_maybe_returns_a_new_instance_with_value_when_source_is_empty()
+        {
+            var instance = Maybe<MyClass>.None;
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(() => Maybe.From(result));
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(result);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_operation_maybe_async_returns_source_if_source_has_value()
+        {
+            var instance = new MyClass { Property = "Some value" };
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(() => Task.FromResult(Maybe.From(result)));
+
+            maybe2.HasValue.Should().BeTrue();
+            maybe2.Should().Be(instance);
+        }
+
+        [Fact]
+        public async Task Async_Or_fallback_operation_maybe_async_returns_a_new_instance_with_value_when_source_is_empty()
+        {
+            var instance = Maybe<MyClass>.None;
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
+            var result = new MyClass { Property = "Different value" };
+
+            Maybe<MyClass> maybe2 = await maybeTask.Or(() => Task.FromResult(Maybe.From(result)));
 
             maybe2.HasValue.Should().BeTrue();
             maybe2.Should().Be(result);

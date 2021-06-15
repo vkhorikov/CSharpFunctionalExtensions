@@ -81,18 +81,127 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybeTask" /> is empty, using the supplied <paramref name="value" />, otherwise it returns <paramref name="maybeTask" />
+        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybeTask" /> is empty, using the supplied <paramref name="fallback" />, otherwise it returns <paramref name="maybeTask" />
         /// </summary>
         /// <param name="maybeTask"></param>
-        /// <param name="value"></param>
+        /// <param name="fallback"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static async Task<Maybe<T>> Or<T>(this Task<Maybe<T>> maybeTask, T value)
+        public static async Task<Maybe<T>> Or<T>(this Task<Maybe<T>> maybeTask, T fallback)
         {
             Maybe<T> maybe = await maybeTask.DefaultAwait();
 
             if (maybe.HasNoValue)
+                return Maybe<T>.From(fallback);
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybeTask" /> is empty, using the supplied <paramref name="fallback" />, otherwise it returns <paramref name="maybeTask" />
+        /// </summary>
+        /// <param name="maybeTask"></param>
+        /// <param name="fallback"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Task<Maybe<T>> maybeTask, Task<T> fallback)
+        {
+            Maybe<T> maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasNoValue)
+            {
+                var value = await fallback.DefaultAwait();
                 return Maybe<T>.From(value);
+            }
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybeTask" /> is empty, using the result of the supplied <paramref name="fallbackOperation" />, otherwise it returns <paramref name="maybeTask" />
+        /// </summary>
+        /// <param name="maybeTask"></param>
+        /// <param name="fallbackOperation"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Task<Maybe<T>> maybeTask, Func<T> fallbackOperation)
+        {
+            Maybe<T> maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasNoValue)
+                return Maybe<T>.From(fallbackOperation());
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybeTask" /> is empty, using the result of the supplied <paramref name="fallbackOperation" />, otherwise it returns <paramref name="maybeTask" />
+        /// </summary>
+        /// <param name="maybeTask"></param>
+        /// <param name="fallbackOperation"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Task<Maybe<T>> maybeTask, Func<Task<T>> fallbackOperation)
+        {
+            Maybe<T> maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasNoValue)
+            {
+                var value = await fallbackOperation().DefaultAwait();
+
+                return Maybe<T>.From(value);
+            }
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Returns <paramref name="fallback" /> if <paramref name="maybeTask" /> is empty, otherwise it returns <paramref name="maybeTask" />
+        /// </summary>
+        /// <param name="maybeTask"></param>
+        /// <param name="fallback"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Task<Maybe<T>> maybeTask, Maybe<T> fallback)
+        {
+            Maybe<T> maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasNoValue)
+                return fallback;
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Returns <paramref name="fallbackOperation" /> if <paramref name="maybeTask" /> is empty, otherwise it returns <paramref name="maybeTask" />
+        /// </summary>
+        /// <param name="maybeTask"></param>
+        /// <param name="fallbackOperation"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Task<Maybe<T>> maybeTask, Func<Maybe<T>> fallbackOperation)
+        {
+            Maybe<T> maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasNoValue)
+                return fallbackOperation();
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Returns <paramref name="fallbackOperation" /> if <paramref name="maybeTask" /> is empty, otherwise it returns <paramref name="maybeTask" />
+        /// </summary>
+        /// <param name="maybeTask"></param>
+        /// <param name="fallbackOperation"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Task<Maybe<T>> maybeTask, Func<Task<Maybe<T>>> fallbackOperation)
+        {
+            Maybe<T> maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasNoValue)
+                return await fallbackOperation().DefaultAwait();
 
             return maybe;
         }
