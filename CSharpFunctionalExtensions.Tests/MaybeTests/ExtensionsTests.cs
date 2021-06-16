@@ -447,6 +447,94 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             myClasses[0].Should().Be(instance);
         }
 
+        [Fact]
+        public void Or_fallback_value_returns_source_if_source_has_value()
+        {
+            Maybe<string> maybe = "value";
+
+            var orMaybe = maybe.Or("other");
+            
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().Be(maybe);
+        }
+
+        [Fact]
+        public void Or_fallback_value_creates_a_new_instance_with_fallback_when_source_is_empty()
+        {
+            Maybe<string> maybe = Maybe<string>.None;
+
+            var orMaybe = maybe.Or("other");
+            
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().NotBe(maybe);
+        }
+
+        [Fact]
+        public void Or_fallback_operation_returns_source_if_source_has_value()
+        {
+            Maybe<string> maybe = "value";
+
+            var orMaybe = maybe.Or(() => "other");
+            
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().Be(maybe);
+        }
+
+        [Fact]
+        public void Or_fallback_operation_creates_a_new_instance_with_fallback_operation_when_source_is_empty()
+        {
+            Maybe<string> maybe = Maybe<string>.None;
+
+            var orMaybe = maybe.Or(() => "other");
+            
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().NotBe(maybe);
+        }
+
+        [Fact]
+        public void Or_fallback_maybe_returns_source_if_source_has_value()
+        {
+            Maybe<string> maybe = "value";
+
+            var orMaybe = maybe.Or(Maybe.From("other"));
+            
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().Be(maybe);
+        }
+
+        [Fact]
+        public void Or_fallback_maybe_returns_fallback_when_source_is_empty()
+        {
+            Maybe<string> maybe = Maybe<string>.None;
+
+            var orMaybe = maybe.Or(Maybe.From("other"));
+            
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().NotBe(maybe);
+        }
+
+        [Fact]
+        public void Or_fallback_maybe_operation_returns_source_if_source_has_value()
+        {
+            Maybe<string> maybe = "value";
+
+            var orMaybe = maybe.Or(() => Maybe.From("other"));
+            
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().Be(maybe);
+        }
+
+        [Fact]
+        public void Or_fallback_maybe_operation_returns_fallback_when_source_is_empty()
+        {
+            Maybe<string> maybe = Maybe<string>.None;
+
+            var orMaybe = maybe.Or(() => Maybe.From("other"));
+            
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().NotBe(maybe);
+        }
+
         private static Maybe<string> GetPropertyIfExists(MyClass myClass)
         {
             return myClass.Property;

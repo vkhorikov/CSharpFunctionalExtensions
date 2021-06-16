@@ -37,7 +37,7 @@ namespace CSharpFunctionalExtensions
 
         public static List<T> ToList<T>(this Maybe<T> maybe)
         {
-            return maybe.Unwrap(value => new List<T> {value}, new List<T>());
+            return maybe.Unwrap(value => new List<T> { value }, new List<T>());
         }
 
         public static Maybe<T> Where<T>(this Maybe<T> maybe, Func<T, bool> predicate)
@@ -98,6 +98,66 @@ namespace CSharpFunctionalExtensions
                 return;
 
             action(maybe.Value);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybe" /> is empty, using the supplied <paramref name="fallback" />, otherwise it returns <paramref name="maybe" />
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="fallback"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Maybe<T> Or<T>(this Maybe<T> maybe, T fallback)
+        {
+            if (maybe.HasNoValue)
+                return Maybe<T>.From(fallback);
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybe" /> is empty, using the result of the supplied <paramref name="fallbackOperation" />, otherwise it returns <paramref name="maybe" />
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="fallbackOperation"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Maybe<T> Or<T>(this Maybe<T> maybe, Func<T> fallbackOperation)
+        {
+            if (maybe.HasNoValue)
+                return Maybe<T>.From(fallbackOperation());
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Returns <paramref name="fallback" /> if <paramref name="maybe" /> is empty, otherwise it returns <paramref name="maybe" />
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="fallback"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Maybe<T> Or<T>(this Maybe<T> maybe, Maybe<T> fallback)
+        {
+            if (maybe.HasNoValue)
+                return fallback;
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Returns the result of <paramref name="fallbackOperation" /> if <paramref name="maybe" /> is empty, otherwise it returns <paramref name="maybe" />
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="fallbackOperation"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Maybe<T> Or<T>(this Maybe<T> maybe, Func<Maybe<T>> fallbackOperation)
+        {
+            if (maybe.HasNoValue)
+                return fallbackOperation();
+
+            return maybe;
         }
 
         public static TE Match<TE, T>(this Maybe<T> maybe, Func<T, TE> Some, Func<TE> None)
