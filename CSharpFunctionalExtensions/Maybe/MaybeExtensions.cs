@@ -101,21 +101,6 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybe" /> is empty, using the supplied <paramref name="fallback" />, otherwise it returns <paramref name="maybe" />
-        /// </summary>
-        /// <param name="maybe"></param>
-        /// <param name="fallback"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static Maybe<T> Or<T>(this Maybe<T> maybe, T fallback)
-        {
-            if (maybe.HasNoValue)
-                return Maybe<T>.From(fallback);
-
-            return maybe;
-        }
-
-        /// <summary>
         /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybe" /> is empty, using the result of the supplied <paramref name="fallbackOperation" />, otherwise it returns <paramref name="maybe" />
         /// </summary>
         /// <param name="maybe"></param>

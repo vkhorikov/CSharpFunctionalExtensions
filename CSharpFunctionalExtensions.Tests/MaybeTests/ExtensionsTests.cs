@@ -448,6 +448,18 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
+        public void Or_fallback_value_returns_none_if_source_and_fallback_are_none()
+        {
+            string value = null;
+
+            Maybe<string> maybe = Maybe<string>.None;
+
+            var orMaybe = maybe.Or(value);
+            
+            orMaybe.HasValue.Should().BeFalse();
+        }
+
+        [Fact]
         public void Or_fallback_value_returns_source_if_source_has_value()
         {
             Maybe<string> maybe = "value";
