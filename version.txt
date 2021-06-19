@@ -1,6 +1,7 @@
-2.15.3
+2.16.0
 New features:
-* None
+* #292 Non-Generic Maybe.From Factory Method
+* #294 Maybe.Or
 
 Fixed issues:
-* #289 Null reference exception in SimpleValueObject implicit operator
+* None

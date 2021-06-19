@@ -89,6 +89,7 @@ return _customerRepository.GetById(id)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [Sean G. Wright](https://github.com/seangwright)
  * [Samuel Viesselman](https://github.com/SamuelViesselman)
  * [Stian Kroknes](https://github.com/stiankroknes)
  * [dataneo](https://github.com/dataneodev)

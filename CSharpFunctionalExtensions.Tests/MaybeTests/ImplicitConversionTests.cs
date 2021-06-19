@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             StringVO stringVo = default;
             
             // ReSharper disable once ExpressionIsAlwaysNull
-            string stringPrimitive= stringVo;
+            string stringPrimitive = stringVo;
 
             stringPrimitive.Should().BeNull();
         }
