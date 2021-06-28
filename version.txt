@@ -1,7 +1,6 @@
-2.16.0
+2.17.0
 New features:
-* #292 Non-Generic Maybe.From Factory Method
-* #294 Maybe.Or
+* #299 KeyValuePair-Deconstruction on Match
 
 Fixed issues:
 * None
