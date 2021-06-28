@@ -37,7 +37,7 @@ namespace CSharpFunctionalExtensions
 
         public static List<T> ToList<T>(this Maybe<T> maybe)
         {
-            return maybe.Unwrap(value => new List<T> { value }, new List<T>());
+            return maybe.Unwrap(value => new List<T> {value}, new List<T>());
         }
 
         public static Maybe<T> Where<T>(this Maybe<T> maybe, Func<T, bool> predicate)
@@ -164,6 +164,22 @@ namespace CSharpFunctionalExtensions
             }
         }
 
+        public static TE Match<TE, TKey, TValue>(this Maybe<KeyValuePair<TKey, TValue>> maybe, Func<TKey, TValue, TE> Some, Func<TE> None) =>
+            maybe.HasValue ? Some.Invoke(maybe.Value.Key, maybe.Value.Value) : None.Invoke();
+
+        public static void Match<TKey, TValue>(this Maybe<KeyValuePair<TKey, TValue>> maybe, Action<TKey, TValue> Some, Action None)
+        {
+            if (maybe.HasValue)
+            {
+                Some.Invoke(maybe.Value.Key, maybe.Value.Value);
+            }
+            else
+            {
+                None.Invoke();
+            }
+        }
+
+
         public static IEnumerable<U> Choose<T, U>(this IEnumerable<Maybe<T>> source, Func<T, U> selector)
         {
             using (var enumerator = source.GetEnumerator())
@@ -185,6 +201,7 @@ namespace CSharpFunctionalExtensions
             {
                 return Maybe<T>.From(source.First());
             }
+
             return Maybe<T>.None;
         }
 
@@ -195,6 +212,7 @@ namespace CSharpFunctionalExtensions
             {
                 return Maybe<T>.From(firstOrEmpty[0]);
             }
+
             return Maybe<T>.None;
         }
 
@@ -204,6 +222,7 @@ namespace CSharpFunctionalExtensions
             {
                 return Maybe<T>.From(source.Last());
             }
+
             return Maybe<T>.None;
         }
 
@@ -214,6 +233,7 @@ namespace CSharpFunctionalExtensions
             {
                 return Maybe<T>.From(last);
             }
+
             return Maybe<T>.None;
         }
 
@@ -224,6 +244,7 @@ namespace CSharpFunctionalExtensions
             {
                 return dict[key];
             }
+
             return Maybe<V>.None;
         }
 #else
