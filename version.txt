@@ -1,6 +1,6 @@
-2.17.0
+2.18.0
 New features:
-* #299 KeyValuePair-Deconstruction on Match
+* #307 CombineInOrder extension
 
 Fixed issues:
-* None
+* #310 NullReference exception on Entity class
