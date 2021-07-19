@@ -13,6 +13,8 @@
             Id = id;
         }
 
+        public bool IsTransient() => Id == null;
+
         public override bool Equals(object obj)
         {
             if (!(obj is Entity<TId> other))
@@ -20,6 +22,9 @@
 
             if (ReferenceEquals(this, other))
                 return true;
+
+            if (IsTransient() && other.IsTransient())
+                return false;
 
             if (ValueObject.GetUnproxiedType(this) != ValueObject.GetUnproxiedType(other))
                 return false;
