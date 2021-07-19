@@ -13,8 +13,6 @@
             Id = id;
         }
 
-        public bool IsTransient() => Id == null;
-
         public override bool Equals(object obj)
         {
             if (!(obj is Entity<TId> other))
@@ -22,17 +20,19 @@
 
             if (ReferenceEquals(this, other))
                 return true;
-
-            if (IsTransient() && other.IsTransient())
-                return false;
-
+            
             if (ValueObject.GetUnproxiedType(this) != ValueObject.GetUnproxiedType(other))
                 return false;
 
-            if (Id.Equals(default(TId)) || other.Id.Equals(default(TId)))
+            if (IsTransient() || other.IsTransient())
                 return false;
 
             return Id.Equals(other.Id);
+        }
+
+        private bool IsTransient()
+        {
+            return Id is null || Id.Equals(default(TId));
         }
 
         public static bool operator ==(Entity<TId> a, Entity<TId> b)

@@ -100,7 +100,7 @@ namespace CSharpFunctionalExtensions.Tests.EntityTests
         }
 
         [Fact]
-        public void Two_different_entities_with_nullable_id_are_not_equal()
+        public void Two_entities_with_nullable_id_are_not_equal()
         {
             MyEntityWithStringId entity1 = MyEntityWithStringId.Create();
             MyEntityWithStringId entity2 = MyEntityWithStringId.Create();
