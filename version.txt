@@ -1,5 +1,5 @@
 2.18.0
-New features: 
+New features:
 * #307 CombineInOrder extension
 
 Fixed issues:
