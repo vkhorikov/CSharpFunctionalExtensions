@@ -99,6 +99,23 @@ namespace CSharpFunctionalExtensions.Tests.EntityTests
             (entity2 == entity3).Should().BeTrue();
         }
 
+        [Fact]
+        public void Two_different_entities_with_nullable_id_are_not_equal()
+        {
+            MyEntityWithStringId entity1 = MyEntityWithStringId.Create();
+            MyEntityWithStringId entity2 = MyEntityWithStringId.Create();
+
+            (entity1 == entity2).Should().BeFalse();
+        }
+
+        public class MyEntityWithStringId : Entity<string>
+        {
+            public static MyEntityWithStringId Create()
+            {
+                return new MyEntityWithStringId();
+            }
+        }
+
         public class MyEntity : Entity
         {
             public MyEntity(long id)
