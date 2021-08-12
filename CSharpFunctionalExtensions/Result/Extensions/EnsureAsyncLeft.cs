@@ -44,7 +44,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return result;
 
-            return result.Ensure(predicate, errorPredicate(result.Value));
+            return result.Ensure(predicate, errorPredicate);
         }
 
         /// <summary>
@@ -57,7 +57,10 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return result;
 
-            return result.Ensure(predicate, await errorPredicate(result.Value));
+            if (predicate(result.Value))
+                return result;
+
+            return Result.Failure<T>(await errorPredicate(result.Value));
         }
 
         /// <summary>

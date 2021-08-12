@@ -72,6 +72,16 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public async Task Ensure_task_source_result_is_success_predicate_is_passed_error_predicate_is_not_invoked()
+        {
+            Task<Result<int?>> sut = Task.FromResult(Result.Success<int?>(null));
+
+            Result<int?> result = await sut.Ensure(value => !value.HasValue, value => Task.FromResult($"should be null but found {value.Value}"));
+
+            result.Should().Be(sut.Result);
+        }
+
+        [Fact]
         public async Task Ensure_task_source_result_is_failure_predicate_do_not_invoked_expect_is_result_failure()
         {
             Task<Result> sut = Task.FromResult(Result.Failure("some error"));

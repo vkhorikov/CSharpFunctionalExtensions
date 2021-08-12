@@ -43,6 +43,16 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
+        public async Task Ensure_with_errorPredicate_does_not_execute_error_predicate_when_predicate_passes()
+        {
+            var tResult = Task.FromResult(Result.Success<int?>(null));
+
+            Result<int?> result = await tResult.Ensure(value => !value.HasValue, value => $"should be null but found {value.Value}");
+
+            result.Should().Be(tResult.Result);
+        }
+
+        [Fact]
         public async Task Ensure_with_errorPredicate_using_errorPredicate()
         {
             var tResult = Task.FromResult(Result.Success(""));
