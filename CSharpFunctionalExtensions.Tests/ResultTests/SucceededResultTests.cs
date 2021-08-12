@@ -29,6 +29,24 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public void Can_create_a_unit_result()
+        {
+            UnitResult<MyErrorClass> result = Result.Success<MyErrorClass>();
+
+            result.IsFailure.Should().Be(false);
+            result.IsSuccess.Should().Be(true);
+        }
+
+        [Fact]
+        public void Can_create_a_unit_result_using_UnitResult_entry_point()
+        {
+            UnitResult<MyErrorClass> result = UnitResult.Success<MyErrorClass>();
+
+            result.IsFailure.Should().Be(false);
+            result.IsSuccess.Should().Be(true);
+        }
+
+        [Fact]
         public void Can_create_a_generic_version_with_a_generic_error()
         {
             Can_create_a_generic_version_with_a_generic_error_typed<MyErrorClass>();
@@ -74,6 +92,19 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         public void Cannot_access_Error_generic_error_version()
         {
             Result<MyClass, MyErrorClass> result = Result.Success<MyClass, MyErrorClass>(new MyClass());
+
+            Action action = () =>
+            {
+                MyErrorClass error = result.Error;
+            };
+
+            action.Should().Throw<ResultSuccessException>();
+        }
+
+        [Fact]
+        public void Cannot_access_Error_unit_result_version()
+        {
+            UnitResult<MyErrorClass> result = Result.Success<MyErrorClass>();
 
             Action action = () =>
             {

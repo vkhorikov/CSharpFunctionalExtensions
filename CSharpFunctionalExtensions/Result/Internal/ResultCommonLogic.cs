@@ -21,7 +21,7 @@ namespace CSharpFunctionalExtensions.Internal
             }
         }
 
-        internal static void GetObjectData<T>(Result<T> result, SerializationInfo info, IValue<T> valueResult)
+        internal static void GetObjectData<T>(Result<T> result, SerializationInfo info)
         {
             GetObjectDataCommon(result, info);
             if (result.IsFailure)
@@ -31,11 +31,11 @@ namespace CSharpFunctionalExtensions.Internal
 
             if (result.IsSuccess)
             {
-                info.AddValue("Value", valueResult.Value);
+                info.AddValue("Value", result.Value);
             }
         }
 
-        internal static void GetObjectData<T, E>(Result<T, E> result, SerializationInfo info, IValue<T> valueResult)
+        internal static void GetObjectData<T, E>(Result<T, E> result, SerializationInfo info)
         {
             GetObjectDataCommon(result, info);
             if (result.IsFailure)
@@ -45,7 +45,16 @@ namespace CSharpFunctionalExtensions.Internal
 
             if (result.IsSuccess)
             {
-                info.AddValue("Value", valueResult.Value);
+                info.AddValue("Value", result.Value);
+            }
+        }
+
+        internal static void GetObjectData<E>(UnitResult<E> result, SerializationInfo info)
+        {
+            GetObjectDataCommon(result, info);
+            if (result.IsFailure)
+            {
+                info.AddValue("Error", result.Error);
             }
         }
 

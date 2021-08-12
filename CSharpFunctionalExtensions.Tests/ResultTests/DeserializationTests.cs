@@ -70,6 +70,29 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.Error.Should().BeEquivalentTo(errorObject);
         }
 
+        [Fact]
+        public void Deserialization_of_unit_result_when_success()
+        {
+            UnitResult<DeserializationTestObject> failResult = UnitResult.Success<DeserializationTestObject>();
+            var serialized = Serialize(failResult);
+
+            UnitResult<DeserializationTestObject> result = Deserialize<UnitResult<DeserializationTestObject>>(serialized);
+
+            result.IsSuccess.Should().Be(true);
+        }
+
+        [Fact]
+        public void Deserialization_of_unit_result_when_failure()
+        {
+            DeserializationTestObject errorObject = new DeserializationTestObject { Number = 500, String = "Error message" };
+            UnitResult<DeserializationTestObject> failResult = UnitResult.Failure(errorObject);
+            var serialized = Serialize(failResult);
+
+            UnitResult<DeserializationTestObject> result = Deserialize<UnitResult<DeserializationTestObject>>(serialized);
+
+            result.Error.Should().BeEquivalentTo(errorObject);
+        }
+
         private static Stream Serialize(object source)
         {
             IFormatter formatter = new BinaryFormatter();

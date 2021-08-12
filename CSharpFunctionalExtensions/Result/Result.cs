@@ -21,12 +21,22 @@ namespace CSharpFunctionalExtensions
 
         private Result(SerializationInfo info, StreamingContext context)
         {
-            var values = ResultCommonLogic.Deserialize(info);
+            SerializationValue<string> values = ResultCommonLogic.Deserialize(info);
             IsFailure = values.IsFailure;
             _error = values.Error;
         }
 
-        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) =>
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+        {
             ResultCommonLogic.GetObjectData(this, info);
+        }
+
+        public static implicit operator UnitResult<string>(Result result)
+        {
+            if (result.IsSuccess)
+                return UnitResult.Success<string>();
+            else
+                return UnitResult.Failure(result.Error);
+        }
     }
 }

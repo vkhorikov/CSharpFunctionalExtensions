@@ -1,6 +1,6 @@
-2.18.0
+2.19.0
 New features:
-* #307 CombineInOrder extension
+* #200 Result<E> implementation: basic version with no extension methods
 
 Fixed issues:
-* #310 NullReference exception on Entity class
+* #315 Fix Result.Ensure

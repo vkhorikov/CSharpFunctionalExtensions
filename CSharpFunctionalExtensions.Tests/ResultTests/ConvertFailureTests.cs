@@ -6,8 +6,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 {
     public class ConvertFailureTests
     {
-        #region string as Error
-
         [Fact]
         public void Can_not_convert_okResult_without_value_to_okResult_with_value()
         {
@@ -71,10 +69,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             failedResultWithOtherValue.Error.Should().Be("Failed");
         }
 
-        #endregion
-
-        #region ErrorClass as Error
-
         [Fact]
         public void ErrorClass_Can_not_convert_okResult_with_value_to_okResult_with_value()
         {
@@ -98,8 +92,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 Prop = "Failed"
             });
         }
-
-        #endregion
     }
 
     class MyValueClass

@@ -28,24 +28,27 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public void Can_create_a_unit_version()
+        {
+            var error = new MyErrorClass();
+            
+            UnitResult<MyErrorClass> result = UnitResult.Failure(error);
+
+            result.Error.Should().Be(error);
+            result.IsFailure.Should().Be(true);
+            result.IsSuccess.Should().Be(false);
+        }
+        
+        [Fact]
         public void Cannot_access_Value_property()
         {
             Result<MyClass> result = Result.Failure<MyClass>("Error message");
 
             Action action = () => { MyClass myClass = result.Value; };
 
-            action.Should().Throw<ResultFailureException>();
-        }
-
-        [Fact]
-        public void Include_Error_in_Exception_message()
-        {
-            Result<MyClass> result = Result.Failure<MyClass>("Error message");
-
-            Action action = () => { MyClass myClass = result.Value; };
-
             action.Should().Throw<ResultFailureException>()
-                .WithMessage("You attempted to access the Value property for a failed result. A failed result has no Value. The error was: Error message");
+                .WithMessage("You attempted to access the Value property for a failed result. " +
+                    "A failed result has no Value. The error was: Error message");
         }
 
         [Fact]
@@ -65,11 +68,13 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             Action action2 = () => { Result.Failure(string.Empty); };
             Action action3 = () => { Result.Failure<MyClass>(null); };
             Action action4 = () => { Result.Failure<MyClass>(string.Empty); };
+            Action action5 = () => { UnitResult.Failure<MyClass>(null); };
 
             action1.Should().Throw<ArgumentNullException>();
             action2.Should().Throw<ArgumentNullException>();
             action3.Should().Throw<ArgumentNullException>();
             action4.Should().Throw<ArgumentNullException>();
+            action5.Should().Throw<ArgumentNullException>();
         }
 
 

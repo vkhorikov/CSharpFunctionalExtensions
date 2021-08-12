@@ -8,7 +8,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
     public class ResultTests
     {
         [Fact]
-        public void Ok_argument_is_null_Success_result_expected()
+        public void Success_argument_is_null_Success_result_expected()
         {
             Result result = Result.Success<string>(null);
 

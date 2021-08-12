@@ -134,9 +134,6 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         /// Creates a new <see cref="Maybe{T}" /> from the provided <paramref name="value"/>
         /// </summary>
-        /// <param name="value"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
         public static Maybe<T> From<T>(T value) => Maybe<T>.From(value);
     }
 }

@@ -23,4 +23,8 @@
     public interface IResult<out T> : IResult<T, string>
     {
     }
+
+    public interface IUnitResult<out E> : IResult, IError<E>
+    {
+    }
 }

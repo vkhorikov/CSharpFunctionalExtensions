@@ -25,14 +25,16 @@ namespace CSharpFunctionalExtensions
 
         private Result(SerializationInfo info, StreamingContext context)
         {
-            var values = ResultCommonLogic.Deserialize(info);
+            SerializationValue<string> values = ResultCommonLogic.Deserialize(info);
             IsFailure = values.IsFailure;
             _error = values.Error;
             _value = IsFailure ? default : (T)info.GetValue("Value", typeof(T));
         }
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
-            => ResultCommonLogic.GetObjectData(this, info, this);
+        {
+            ResultCommonLogic.GetObjectData(this, info);
+        }
 
         public static implicit operator Result<T>(T value)
         {
@@ -53,6 +55,14 @@ namespace CSharpFunctionalExtensions
                 return Result.Success();
             else
                 return Result.Failure(result.Error);
+        }
+
+        public static implicit operator UnitResult<string>(Result<T> result)
+        {
+            if (result.IsSuccess)
+                return UnitResult.Success<string>();
+            else
+                return UnitResult.Failure(result.Error);
         }
     }
 }

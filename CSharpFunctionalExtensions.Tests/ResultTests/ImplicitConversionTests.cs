@@ -50,6 +50,17 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
+        public void Implicit_conversion_E_is_converted_to_Failure_unit_result_of_E()
+        {
+            int error = 42;
+
+            UnitResult<int> result = error;
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be(42);
+        }
+
+        [Fact]
         public void Result_of_dynamic_can_be_cast_as_dynamic_result()
         {
             dynamic value = "Test";
@@ -71,6 +82,40 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
 
             string castValue = cast.Value;
             castValue.Should().Be(value);
+        }
+
+        [Fact]
+        public void Result_can_be_cast_to_UnitResult()
+        {
+            Result result = Result.Failure("Error");
+
+            UnitResult<string> unitResult = result;
+
+            unitResult.IsFailure.Should().BeTrue();
+            unitResult.Error.Should().Be("Error");
+        }
+
+        [Fact]
+        public void Result_T_can_be_cast_to_UnitResult()
+        {
+            Result<MyClass> result = Result.Failure<MyClass>("Error");
+
+            UnitResult<string> unitResult = result;
+
+            unitResult.IsFailure.Should().BeTrue();
+            unitResult.Error.Should().Be("Error");
+        }
+
+        [Fact]
+        public void Result_TE_can_be_cast_to_UnitResult()
+        {
+            var error = new MyError();
+            Result<MyClass, MyError> result = Result.Failure<MyClass, MyError>(error);
+
+            UnitResult<MyError> unitResult = result;
+
+            unitResult.IsFailure.Should().BeTrue();
+            unitResult.Error.Should().Be(error);
         }
 
         [Fact]
@@ -134,6 +179,10 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         private class MyError : IMyError
+        {
+        }
+
+        private class MyClass
         {
         }
     }
