@@ -89,6 +89,7 @@ return _customerRepository.GetById(id)
   
 ## Contributors
 A big thanks to the project contributors!
+ * [Andrei Andreev](https://github.com/Razenpok)
  * [YudApps](https://github.com/YudApps)
  * [dataphysix](https://github.com/dataphysix)
  * [Laszlo Lueck](https://github.com/LaszloLueck)
