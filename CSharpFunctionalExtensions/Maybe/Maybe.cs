@@ -47,6 +47,8 @@ namespace CSharpFunctionalExtensions
             return new Maybe<T>(value);
         }
 
+        public static implicit operator Maybe<T>(Maybe value) => None;
+
         public static Maybe<T> From(T obj)
         {
             return new Maybe<T>(obj);
@@ -127,10 +129,12 @@ namespace CSharpFunctionalExtensions
     }
 
     /// <summary>
-    /// Non-generic entrypoint for <see cref="Maybe{T}" /> methods
+    /// Non-generic entrypoint for <see cref="Maybe{T}" /> members
     /// </summary>
-    public static class Maybe
+    public struct Maybe
     {
+        public static Maybe None => new Maybe();
+
         /// <summary>
         /// Creates a new <see cref="Maybe{T}" /> from the provided <paramref name="value"/>
         /// </summary>
