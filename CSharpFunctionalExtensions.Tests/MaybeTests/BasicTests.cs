@@ -126,6 +126,15 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             withoutTypeParam.Should().NotBe(differentValueTypeParam);
         }
 
+        [Fact]
+        public void Can_cast_non_generic_maybe_none_to_maybe_none()
+        {
+            Maybe<int> maybe = Maybe.None;
+
+            maybe.HasValue.Should().BeFalse();
+            maybe.HasNoValue.Should().BeTrue();
+        }
+
         private class MyClass
         {
             public override string ToString()
