@@ -1,6 +1,6 @@
-2.19.0
+2.20.0
 New features:
-* #200 Result<E> implementation: basic version with no extension methods
+* #318 Add non-generic Maybe.None
 
 Fixed issues:
-* #315 Fix Result.Ensure
+* None
