@@ -106,6 +106,20 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             result2.Should().NotBe(0);
         }
 
+        [Fact]
+        public void Can_compare_value_objects_with_different_types()
+        {
+            var intValueObject = new VOIntType(1);
+            var stringValueObject = new VOStringType("2");
+
+            int result1 = intValueObject.CompareTo(stringValueObject);
+            int result2 = stringValueObject.CompareTo(intValueObject);
+
+            result1.Should().BeLessOrEqualTo(-1);
+            result2.Should().BeGreaterOrEqualTo(-1);
+            result1.Should().Be(-result2);
+        }
+
         private class VOWithCollection : ValueObject
         {
             readonly string[] _components;
@@ -166,6 +180,20 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         {
             public NameSuffix(int value)
                 : base(value)
+            {
+            }
+        }
+
+        private class VOIntType: SimpleValueObject<int>
+        {
+            public VOIntType(int value) : base(value)
+            {
+            }
+        }
+
+        private class VOStringType : SimpleValueObject<string>
+        {
+            public VOStringType(string value) : base(value)
             {
             }
         }
