@@ -10,14 +10,14 @@ namespace CSharpFunctionalExtensions
         {
             return result.IsFailure
                ? result
-               : await Result.Try(func, errorHandler);
+               : await Result.Try(func, errorHandler).DefaultAwait();
         }
 
         public static async Task OnSuccessTry<T>(this Result<T> result, Func<T, Task> func)
         {
             if (result.IsSuccess)
             {
-                await func(result.Value);
+                await func(result.Value).DefaultAwait();
             }
         }
 
@@ -25,7 +25,7 @@ namespace CSharpFunctionalExtensions
         {
             if (result.IsSuccess)
             {
-                await func(result.Value);
+                await func(result.Value).DefaultAwait();
             }
         }
 
@@ -34,7 +34,7 @@ namespace CSharpFunctionalExtensions
         {
             return result.IsFailure
                ? Result.Failure<T>(result.Error)
-               : await Result.Try(func, errorHandler);
+               : await Result.Try(func, errorHandler).DefaultAwait();
         }
 
         public static async Task<Result> OnSuccessTry<T>(this Result<T> result, Func<T, Task> func,
@@ -42,7 +42,7 @@ namespace CSharpFunctionalExtensions
         {
             return result.IsFailure
                ? Result.Failure(result.Error)
-               : await Result.Try(async () => await func(result.Value), errorHandler);
+               : await Result.Try(async () => await func(result.Value).DefaultAwait(), errorHandler).DefaultAwait();
         }
 
         public static async Task<Result<K>> OnSuccessTry<T, K>(this Result<T> result, Func<T, Task<K>> func,
@@ -50,7 +50,7 @@ namespace CSharpFunctionalExtensions
         {
             return result.IsFailure
                ? Result.Failure<K>(result.Error)
-               : await Result.Try(async () => await func(result.Value), errorHandler);
+               : await Result.Try(async () => await func(result.Value).DefaultAwait(), errorHandler).DefaultAwait();
         }
     }
 }
