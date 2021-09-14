@@ -1,6 +1,6 @@
-2.20.0
+2.20.1
 New features:
-* #318 Add non-generic Maybe.None
+* None
 
 Fixed issues:
-* None
+* #325 Add missing DefaultAwait calls
