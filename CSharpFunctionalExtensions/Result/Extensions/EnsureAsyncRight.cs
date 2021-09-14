@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
 {
-    public static partial class AsyncResultExtensionsRightOperand 
+    public static partial class AsyncResultExtensionsRightOperand
     {
         /// <summary>
         ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
@@ -59,7 +59,7 @@ namespace CSharpFunctionalExtensions
                 return result;
 
             if (!await predicate(result.Value).DefaultAwait())
-                return Result.Failure<T, E>(await errorPredicate(result.Value));
+                return Result.Failure<T, E>(await errorPredicate(result.Value).DefaultAwait());
 
             return result;
         }
@@ -87,7 +87,7 @@ namespace CSharpFunctionalExtensions
                 return result;
 
             if (!await predicate(result.Value).DefaultAwait())
-                return Result.Failure<T>(await errorPredicate(result.Value));
+                return Result.Failure<T>(await errorPredicate(result.Value).DefaultAwait());
 
             return result;
         }
