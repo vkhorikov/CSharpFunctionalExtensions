@@ -554,6 +554,70 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             maybe2.Should().Be(result);
         }
 
+        [Fact]
+        public async Task Async_Execute_does_not_execute_action_if_no_value()
+        {
+            var instance = Maybe<MyClass>.None;
+
+            var task = Task.FromResult(instance);
+
+            await task.Execute(value => 
+            {
+                value.Property = "Some Value";
+            });
+
+            instance.HasNoValue.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Async_Execute_executes_action_if_value()
+        {
+            var instance = Maybe.From(new MyClass{ Property = "Initial value" });
+
+            var task = Task.FromResult(instance);
+
+            await task.Execute(value => 
+            {
+                value.Property = "New Value";
+            });
+
+            instance.Value.Property.Should().Be("New Value");
+        }
+
+        [Fact]
+        public async Task Async_Execute_does_not_execute_async_action_if_no_value()
+        {
+            var instance = Maybe<MyClass>.None;
+
+            var task = Task.FromResult(instance);
+
+            await task.Execute(value => 
+            {
+                value.Property = "Some Value";
+
+                return Task.CompletedTask;
+            });
+
+            instance.HasNoValue.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Async_Execute_executes_async_action_if_value()
+        {
+            var instance = Maybe.From(new MyClass{ Property = "Initial value" });
+
+            var task = Task.FromResult(instance);
+
+            await task.Execute(value => 
+            {
+                value.Property = "Some Value";
+
+                return Task.CompletedTask;
+            });
+
+            instance.Value.Property.Should().Be("Some Value");
+        }
+
         private static Task<Maybe<MyClass>> GetMaybeTask(Maybe<MyClass> maybe) => maybe.AsTask();
 
         private static Func<MyClass, T> ExpectAndReturn<T>(MyClass expected, T result) => actual =>

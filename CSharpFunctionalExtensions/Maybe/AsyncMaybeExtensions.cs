@@ -205,5 +205,25 @@ namespace CSharpFunctionalExtensions
 
             return maybe;
         }
+
+        public static async Task Execute<T>(this Task<Maybe<T>> maybeTask, Action<T> action)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasNoValue)
+                return;
+
+            action(maybe.Value);
+        }
+
+        public static async Task Execute<T>(this Task<Maybe<T>> maybeTask, Func<T, Task> asyncAction)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasNoValue)
+                return;
+
+            await asyncAction(maybe.Value);
+        }
     }
 }
