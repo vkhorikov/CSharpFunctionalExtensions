@@ -1,6 +1,6 @@
-2.20.1
+2.20.2
 New features:
 * None
 
 Fixed issues:
-* #325 Add missing DefaultAwait calls
+* #325 Add missing Maybe.Execute
