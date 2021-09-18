@@ -333,6 +333,24 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
+        public void Chooose_values()
+        {
+            var source = new[]
+            {
+                Maybe<int>.None,
+                1,
+                Maybe<int>.None,
+                2,
+                3
+            };
+
+            var values = source.Choose();
+
+            var expected = new[] { 1, 2, 3 };
+            values.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
         public void TryFirst_source_has_elements()
         {
             var source = new[]
