@@ -106,8 +106,10 @@ Maybe<string> fruit = storeInventory > 0
 Use case: Easily creating a Maybe from a value
 
 ```csharp
+// Constructing a Maybe
 Maybe<string> apple = "apple"; // implicit conversion
 
+// Or as a method return value
 Maybe<string> GetFruit(string fruit)
 {
     if (string.IsNullOrWhiteSpace(fruit))
@@ -122,7 +124,7 @@ Maybe<string> GetFruit(string fruit)
 #### Equality
 
 Use case: Comparing Maybes or values without knowledge of the
-value of the Maybes
+inner value of the Maybes
 
 ```csharp
 Maybe<string> apple = "apple";
@@ -163,7 +165,7 @@ Console.WriteLine(noFruit.Value); // throws InvalidOperationException !!
 #### HasValue and HasNoValue
 
 Use case: Procedurally checking if the Maybe has a value,
-usually before accessing it directly
+usually before accessing the value directly
 
 ```csharp
 void Response(string fruit)
@@ -187,7 +189,7 @@ if (noFruit.HasNoValue)
 
 #### UnWrap
 
-Use case: Accessing the inner value without a check by providing a fallback
+Use case: Safely accessing the inner value, without checking if there is one, by providing a fallback
 if no value exists
 
 ```csharp
@@ -206,10 +208,31 @@ Response(appleValue); // It's a apple
 Response(unknownFruitValue); // It's a banana
 ```
 
+#### Where
+
+Use case: Converting a Maybe with a value to a `Maybe.None` if a condition isn't met
+
+**Note**: The predicate passed to `Where` (ex )
+
+```csharp
+bool IsMyFavorite(string fruit)
+{
+    return fruit == "papaya";
+}
+
+Maybe<string> apple = "apple";
+
+Maybe<string> favoriteFruit = apple.Where(IsMyFavorite);
+
+Console.WriteLine(favoriteFruit); // "No value"
+```
+
 #### Map
 
 Use case: Transforming the value in the Maybe, if there is one, without
 needing to check if the value is there
+
+**Note**: the delegate (ex `CreateMessage`) passed to `Maybe.Map()` is only executed if the Maybe has an inner value
 
 ```csharp
 string CreateMessage(string fruit)
@@ -224,10 +247,16 @@ Console.WriteLine(apple.Map(CreateMessage).UnWrap("No fruit")); // "The fruit is
 Console.WriteLine(noFruit.Map(CreateMessage).UnWrap("No fruit")); // "No fruit"
 ```
 
+#### Select
+
+**Alias**: `Maybe.Select()` is an alias of `Maybe.Map()`
+
 #### Bind
 
 Use case: Transforming from one Maybe into another Maybe
 (like `Maybe.Map` but it transforms the Maybe instead of the inner value)
+
+**Note**: the delegate (ex `MakeAppleSauce`) passed to `Maybe.Bind()` is only executed if the Maybe has an inner value
 
 ```csharp
 Maybe<string> MakeAppleSauce(Maybe<string> fruit)
@@ -242,15 +271,23 @@ Maybe<string> MakeAppleSauce(Maybe<string> fruit)
 
 Maybe<string> apple = "apple";
 Maybe<string> banana = "banana";
+Maybe<string> noFruit = Maybe<string>.None;
 
 Console.WriteLine(apple.Bind(MakeAppleSauce)); // "applesauce"
 Console.WriteLine(banana.Bind(MakeAppleSauce)); // "No value"
+Console.WriteLine(noFruit.Bind(MakeAppleSauce)); // "No value"
 ```
+
+#### SelectMany
+
+**Alias**: `Maybe.SelectMany()` is an alias of `Maybe.Bind()`
 
 #### Choose
 
 Use case: Filter a collection of Maybes to only the ones that have a value,
 and then return the value for each, or map that value to a new one
+
+**Note**: the delegate passed to `Maybe.Choose()` is only executed on the Maybes of the collection with an inner value
 
 ```csharp
 IEnumerable<Maybe<string>> unknownFruits = new[] { "apple", Maybe<string>.None, "banana" };
@@ -260,6 +297,126 @@ IEnumerable<string> fruitResponses = unknownFruits.Choose(fruit => $"Delicious {
 
 Console.WriteLine(string.Join(", ", fruits)) // "apple, banana"
 Console.WriteLine(string.Join(", ", fruitResponses)) // "Delicious apple, Delicious banana"
+```
+
+#### Execute
+
+Use case: Safely executing a void returning operation on the Maybe inner value
+without checking if there is one
+
+**Note**: the `Action` (ex `PrintFruit`) passed to `Maybe.Execute()` is only executed if the Maybe has an inner value
+
+```csharp
+void PrintFruit(string fruit)
+{
+    Console.WriteLine($"This is a {fruit}");
+}
+
+Maybe<string> apple = "apple";
+Maybe<string> noFruit = Maybe<string>.None;
+
+apple.Execute(PrintFruit); // "This is a apple"
+noFruit.Execute(PrintFruit); // no output to the console
+```
+
+#### Or
+
+Use case: Supplying a fallback value Maybe or value in the case that the Maybe has no inner value
+
+**Note**: The fallback `Func<T>` (ex `() => "banana"`) will only be executed
+if the Maybe has no inner value
+
+```csharp
+Maybe<string> apple = "apple";
+Maybe<string> banana = "banana";
+Maybe<string> noFruit = Maybe<string>.None;
+
+Console.WriteLine(apple.Or(banana)); // "apple"
+Console.WriteLine(noFruit.Or(() => banana))); // "banana"
+Console.WriteLine(noFruit.Or("banana")); // "banana"
+Console.WriteLine(noFruit.Or(() => "banana")); // "banana"
+```
+
+#### Match
+
+Use case: Defining two operations to perform on a Maybe.
+One to be executed if there is an inner value, and the other to executed if there is not
+
+```csharp
+Maybe<string> apple = "apple";
+Maybe<string> noFruit = Maybe<string>.None;
+
+// Void returning Match
+apple.Match(
+    fruit => Console.WriteLine($"It's a {fruit}"),
+    () => Console.WriteLine("There's no fruit"));
+
+// Mapping Match
+Maybe<string> fruitMessage = noFruit.Match(
+    fruit => $"It's a {fruit}",
+    () => "There's no fruit"));
+
+Console.WriteLine(fruitMessage); // "There's no fruit"
+```
+
+#### TryFirst and TryLast
+
+Use case: Replacing `.FirstOrDefault()` and `.LastOrDefault()` so that you can return a
+Maybe instead of a `null` or value type default value (like `0`, `false`) when working with collections
+
+```csharp
+IEnumerable<string> fruits = new[] { "apple", "coconut", "banana" };
+
+Maybe<string> firstFruit = fruits.TryFirst();
+Maybe<string> probablyABanana = fruits.TryFirst(fruit => fruit.StartsWith("ba"));
+Maybe<string> aPeachOrAPear = fruits.TryFirst(fruit => fruit.StartsWith("p"));
+
+Console.WriteLine(firstFruit); // "apple"
+Console.WriteLine(probablyABanana); // "banana"
+Console.WriteLine(aPeachOrAPear); // "No value"
+
+Maybe<string> lastFruit = fruits.TryLast();
+Maybe<string> anAppleOrApricot = fruits.TryLast(fruit => fruit.StartsWith("a"));
+
+Console.WriteLine(lastFruit); // "banana"
+Console.WriteLine(anAppleOrApricot); // "apple"
+```
+
+#### TryFind
+
+Use case: Safely getting a value out of a Dictionary
+
+```csharp
+Dictionary<string, int> fruitInventory = new()
+{
+    { "apple", 10 },
+    { "banana", 2 }
+};
+
+Maybe<int> appleCount = fruitInventory.TryFind("apple");
+Maybe<int> kiwiCount = fruitInventory.TryFind("kiwi");
+
+Console.WriteLine(appleCount); // "10"
+Console.WriteLine(kiwiCount); // "No value"
+```
+
+#### ToResult
+
+Use case: Representing the lack of an inner value in a Maybe as a failed operation
+
+**Note**: See `Result` section below
+
+```csharp
+Maybe<string> fruit = "banana";
+Maybe<string> noFruit = Maybe<string>.None;
+
+string errorMessage = "There was no fruit to give";
+
+Result<string> weGotAFruit = fruit.ToResult(errorMessage);
+Result<string> failedToGetAFruit = noFruit.ToResult(errorMessage);
+
+Console.WriteLine(weGotAFruit.Value); // "banana"
+Console.WriteLine(failedToGetAFruit.Error); // "There was no fruit to give"
 ```
 
 ### Result
