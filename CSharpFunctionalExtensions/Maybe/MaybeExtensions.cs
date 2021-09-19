@@ -195,6 +195,21 @@ namespace CSharpFunctionalExtensions
             }
         }
 
+        public static IEnumerable<T> Choose<T>(this IEnumerable<Maybe<T>> source)
+        {
+            using (var enumerator = source.GetEnumerator())
+            {
+                while (enumerator.MoveNext())
+                {
+                    var item = enumerator.Current;
+                    if (item.HasValue)
+                    {
+                        yield return item.Value;
+                    }
+                }
+            } 
+        }
+
         public static Maybe<T> TryFirst<T>(this IEnumerable<T> source)
         {
             if (source.Any())

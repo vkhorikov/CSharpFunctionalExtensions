@@ -1,0 +1,10 @@
+{
+    "line-length": {
+        "line_length": 120
+    },
+    "code-block-style": {
+        "style": "fenced"
+    },
+    "code": true,
+    "code-fence-style": true
+}
