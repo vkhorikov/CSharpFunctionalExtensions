@@ -352,7 +352,7 @@ apple.Match(
     () => Console.WriteLine("There's no fruit"));
 
 // Mapping Match
-Maybe<string> fruitMessage = noFruit.Match(
+string fruitMessage = noFruit.Match(
     fruit => $"It's a {fruit}",
     () => "There's no fruit"));
 
@@ -421,7 +421,104 @@ Console.WriteLine(failedToGetAFruit.Error); // "There was no fruit to give"
 
 ### Result
 
-// TODO
+#### Explicit Construction: Success and Failure
+
+Use case: Creating a new Result in a Success or Failure state
+
+```csharp
+record FruitInventory(string Name, int Count);
+
+Result<FruitInventory> appleInventory = Result.Success(new FruitInventory("apple", 4));
+Result<FruitInventory> failedOperation = Result.Failure<FruitInventory>("Could not find inventory");
+Result successInventoryUpdate = Result.Success();
+```
+
+#### Conditional Construction: SuccessIf and FailureIf
+
+Use case: Creating successful or failed Results based on expressions or delegates instead of if/else statements or ternary expressions
+
+```csharp
+bool onTropicalIsland = true;
+
+Result foundCoconut = Result.SuccessIf(onTropicalIsland, "These trees seem bare 🥥");
+Result foundGrapes = Result.FailureIf(() => onTropicalIsland, "No grapes 🍇 here");
+
+// or
+
+bool isNewShipmentDay = true;
+
+Result<FruitInventory> appleInventory = Result.SuccessIf(isNewShipmentDay, new FruitInventory("apple", 4), "No 🍎 today");
+Result<FruitInventory> bananaInventory = Result.SuccessIf(() => isNewShipmentDay, new FruitInventory("banana", 2), "All out of 🍌");
+
+// or
+
+bool afterBreakfast = true;
+
+Result<FruitInventory> orangeInventory = Result.FailureIf(afterBreakfast, new FruitInventory("orange", 10), "No 🍊 today");
+Result<FruitInventory> grapefruitInventory = Result.FailureIf(() => afterBreakfast, new FruitInventory("grapefruit", 5), "No grapefruit 😢");
+```
+
+#### Implicit Conversion
+
+Use case: Easily creating a successful result from a value
+
+```csharp
+Result<FruitInventory> appleInventory = new FruitInventory("apple", 4);
+Result failedInventoryUpdate = "Could not update inventory";
+```
+
+#### ToString
+
+Use case: Printing out the state of a Result and its inner value or error
+
+```csharp
+Result<FruitInventory> appleInventory = new FruitInventory("apple", 4);
+Result<FruitInventory> bananaInventory = Result.Failure<FruitInventory>("Could not find any bananas");
+Result failedInventoryUpdate = "Could not update inventory";
+Result successfulInventoryUpdate = Result.Success();
+
+Console.WriteLine(appleInventory.ToString()); // "Success(FruitInventory { Name = apple, Count = 4 })"
+Console.WriteLine(bananaInventory.ToString()); // "Failure(Could not find any bananas)"
+Console.WriteLine(failedInventoryUpdate.ToString()); // "Failure(Could not update inventory)"
+Console.WriteLine(successfulInventoryUpdate.ToString()); // "Success"
+```
+
+#### Map
+
+Use case: Transforming the inner value of a successful Result, without needing to check on
+the success/failure state of the Result
+
+**Note**: the delegate (ex `CreateMessage`) passed to `Result.Map()` is only executed if the Result was successful
+
+```csharp
+string CreateMessage(FruitInventory inventory)
+{
+    return $"There are {inventory.Count} {inventory.Name}(s)";
+}
+
+Result<FruitInventory> appleInventory = new FruitInventory("apple", 4);
+Result<FruitInventory> bananaInventory = Result.Failure<FruitInventory>("Could not find any bananas");
+
+Console.WriteLine(appleInventory.Map(CreateMessage)); // "Success(There are 4 apple(s))"
+Console.WriteLine(bananaInventory.Map(CreateMessage)); // "Failure(Could not find any bananas)"
+```
+
+#### MapError
+
+Use case: Transforming the inner error of a failed Result, without needing to check on
+the success/failure state of the Result
+
+**Note**: the delegate (ex `ErrorEnhancer`) passed to `Result.MapError()` is only executed if the Result failed
+
+```csharp
+string ErrorEnhancer(string errorMessage)
+{
+    return $"Failed operation: {errorMessage}";
+}
+
+Console.WriteLine(appleInventory.MapError(ErrorEnhancer)); // "Success(FruitInventory { Name = apple, Count = 4 })"
+Console.WriteLine(bananaInventory.MapError(ErrorEnhancer)); // "Failed operation: Could not find any bananas"
+```
 
 ## Testing
 
