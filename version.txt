@@ -1,6 +1,6 @@
-2.20.2
+2.20.3
 New features:
-* None
+* #325 New overload for Choose
 
 Fixed issues:
-* #325 Add missing Maybe.Execute
+* None
