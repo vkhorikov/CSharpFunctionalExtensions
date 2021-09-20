@@ -187,7 +187,7 @@ if (noFruit.HasNoValue)
 }
 ```
 
-#### UnWrap
+#### Unwrap
 
 Use case: Safely accessing the inner value, without checking if there is one, by providing a fallback
 if no value exists
@@ -201,8 +201,8 @@ void Response(string fruit)
 Maybe<string> apple = "apple";
 Maybe<string> unknownFruit = Maybe<string>.None;
 
-string appleValue = apple.UnWrap("banana");
-string unknownFruitValue = unknownFruit.UnWrap("banana");
+string appleValue = apple.Unwrap("banana");
+string unknownFruitValue = unknownFruit.Unwrap("banana");
 
 Response(appleValue); // It's a apple
 Response(unknownFruitValue); // It's a banana
@@ -243,8 +243,8 @@ string CreateMessage(string fruit)
 Maybe<string> apple = "apple";
 Maybe<string> noFruit = Maybe<string>.None;
 
-Console.WriteLine(apple.Map(CreateMessage).UnWrap("No fruit")); // "The fruit is a apple"
-Console.WriteLine(noFruit.Map(CreateMessage).UnWrap("No fruit")); // "No fruit"
+Console.WriteLine(apple.Map(CreateMessage).Unwrap("No fruit")); // "The fruit is a apple"
+Console.WriteLine(noFruit.Map(CreateMessage).Unwrap("No fruit")); // "No fruit"
 ```
 
 #### Select
