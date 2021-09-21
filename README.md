@@ -88,7 +88,7 @@ Maybe<string> apple = Maybe.From("apple"); // type inference
 var apple = Maybe.From("apple");
 ```
 
-#### No Value
+#### None/No Value
 
 Use case: Replacing `null` or the
 [Null Object Pattern](https://www.c-sharpcorner.com/article/null-object-design-pattern/) for representing 'missing' data.
@@ -99,6 +99,14 @@ int storeInventory = ...
 Maybe<string> fruit = storeInventory > 0
     ? Maybe<string>.From("apple")
     : Maybe<string>.None;
+
+// or where the generic type is a reference type
+
+Maybe<string> fruit = null;
+
+// or where the generic type is a value type
+
+Maybe<int> fruit = default;
 ```
 
 #### Implicit Conversion
@@ -224,7 +232,7 @@ Maybe<string> apple = "apple";
 
 Maybe<string> favoriteFruit = apple.Where(IsMyFavorite);
 
-Console.WriteLine(favoriteFruit); // "No value"
+Console.WriteLine(favoriteFruit.ToString()); // "No value"
 ```
 
 #### Map
@@ -273,9 +281,9 @@ Maybe<string> apple = "apple";
 Maybe<string> banana = "banana";
 Maybe<string> noFruit = Maybe<string>.None;
 
-Console.WriteLine(apple.Bind(MakeAppleSauce)); // "applesauce"
-Console.WriteLine(banana.Bind(MakeAppleSauce)); // "No value"
-Console.WriteLine(noFruit.Bind(MakeAppleSauce)); // "No value"
+Console.WriteLine(apple.Bind(MakeAppleSauce).ToString()); // "applesauce"
+Console.WriteLine(banana.Bind(MakeAppleSauce).ToString()); // "No value"
+Console.WriteLine(noFruit.Bind(MakeAppleSauce).ToString()); // "No value"
 ```
 
 #### SelectMany
@@ -301,7 +309,7 @@ Console.WriteLine(string.Join(", ", fruitResponses)) // "Delicious apple, Delici
 
 #### Execute
 
-Use case: Safely executing a void returning operation on the Maybe inner value
+Use case: Safely executing a `void` (or `Task`) returning operation on the Maybe inner value
 without checking if there is one
 
 **Note**: the `Action` (ex `PrintFruit`) passed to `Maybe.Execute()` is only executed if the Maybe has an inner value
@@ -315,8 +323,25 @@ void PrintFruit(string fruit)
 Maybe<string> apple = "apple";
 Maybe<string> noFruit = Maybe<string>.None;
 
-apple.Execute(PrintFruit); // "This is a apple"
-noFruit.Execute(PrintFruit); // no output to the console
+apple.Execute(PrintFruit.ToString()); // "This is a apple"
+noFruit.Execute(PrintFruit.ToString()); // no output to the console
+```
+
+#### ExecuteNoValue
+
+Use case: Executing a `void` (or `Task`) returning operation when the Maybe has no value
+
+```csharp
+void LogNoFruit(string fruit)
+{
+    Console.WriteLine($"There are no {fruit}");
+}
+
+Maybe<string> apple = "apple";
+Maybe<string> banana = Maybe<string>.None;
+
+apple.ExecuteNoValue(() => LogNoFruit("apple")); // no output to console
+banana.ExecuteNoValue(() => LogNoFruit("banana")); // "There are no banana"
 ```
 
 #### Or
@@ -331,10 +356,10 @@ Maybe<string> apple = "apple";
 Maybe<string> banana = "banana";
 Maybe<string> noFruit = Maybe<string>.None;
 
-Console.WriteLine(apple.Or(banana)); // "apple"
-Console.WriteLine(noFruit.Or(() => banana))); // "banana"
-Console.WriteLine(noFruit.Or("banana")); // "banana"
-Console.WriteLine(noFruit.Or(() => "banana")); // "banana"
+Console.WriteLine(apple.Or(banana).ToString()); // "apple"
+Console.WriteLine(noFruit.Or(() => banana)).ToString()); // "banana"
+Console.WriteLine(noFruit.Or("banana").ToString()); // "banana"
+Console.WriteLine(noFruit.Or(() => "banana").ToString()); // "banana"
 ```
 
 #### Match
@@ -371,15 +396,15 @@ Maybe<string> firstFruit = fruits.TryFirst();
 Maybe<string> probablyABanana = fruits.TryFirst(fruit => fruit.StartsWith("ba"));
 Maybe<string> aPeachOrAPear = fruits.TryFirst(fruit => fruit.StartsWith("p"));
 
-Console.WriteLine(firstFruit); // "apple"
-Console.WriteLine(probablyABanana); // "banana"
-Console.WriteLine(aPeachOrAPear); // "No value"
+Console.WriteLine(firstFruit.ToString()); // "apple"
+Console.WriteLine(probablyABanana.ToString()); // "banana"
+Console.WriteLine(aPeachOrAPear.ToString()); // "No value"
 
 Maybe<string> lastFruit = fruits.TryLast();
 Maybe<string> anAppleOrApricot = fruits.TryLast(fruit => fruit.StartsWith("a"));
 
-Console.WriteLine(lastFruit); // "banana"
-Console.WriteLine(anAppleOrApricot); // "apple"
+Console.WriteLine(lastFruit.ToString()); // "banana"
+Console.WriteLine(anAppleOrApricot.ToString()); // "apple"
 ```
 
 #### TryFind
@@ -396,8 +421,8 @@ Dictionary<string, int> fruitInventory = new()
 Maybe<int> appleCount = fruitInventory.TryFind("apple");
 Maybe<int> kiwiCount = fruitInventory.TryFind("kiwi");
 
-Console.WriteLine(appleCount); // "10"
-Console.WriteLine(kiwiCount); // "No value"
+Console.WriteLine(appleCount.ToString()); // "10"
+Console.WriteLine(kiwiCount.ToString()); // "No value"
 ```
 
 #### ToResult
@@ -499,8 +524,8 @@ string CreateMessage(FruitInventory inventory)
 Result<FruitInventory> appleInventory = new FruitInventory("apple", 4);
 Result<FruitInventory> bananaInventory = Result.Failure<FruitInventory>("Could not find any bananas");
 
-Console.WriteLine(appleInventory.Map(CreateMessage)); // "Success(There are 4 apple(s))"
-Console.WriteLine(bananaInventory.Map(CreateMessage)); // "Failure(Could not find any bananas)"
+Console.WriteLine(appleInventory.Map(CreateMessage).ToString()); // "Success(There are 4 apple(s))"
+Console.WriteLine(bananaInventory.Map(CreateMessage).ToString()); // "Failure(Could not find any bananas)"
 ```
 
 #### MapError
@@ -516,8 +541,8 @@ string ErrorEnhancer(string errorMessage)
     return $"Failed operation: {errorMessage}";
 }
 
-Console.WriteLine(appleInventory.MapError(ErrorEnhancer)); // "Success(FruitInventory { Name = apple, Count = 4 })"
-Console.WriteLine(bananaInventory.MapError(ErrorEnhancer)); // "Failed operation: Could not find any bananas"
+Console.WriteLine(appleInventory.MapError(ErrorEnhancer).ToString()); // "Success(FruitInventory { Name = apple, Count = 4 })"
+Console.WriteLine(bananaInventory.MapError(ErrorEnhancer).ToString()); // "Failed operation: Could not find any bananas"
 ```
 
 ## Testing
