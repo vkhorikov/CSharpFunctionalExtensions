@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
 {
@@ -92,12 +93,60 @@ namespace CSharpFunctionalExtensions
             return selector(maybe.Value);
         }
 
+        /// <summary>
+        /// Executes the given <paramref name="action" /> if the <paramref name="maybe" /> has a value
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="T"></typeparam>
         public static void Execute<T>(this Maybe<T> maybe, Action<T> action)
         {
             if (maybe.HasNoValue)
                 return;
 
             action(maybe.Value);
+        }
+
+        /// <summary>
+        /// Executes the given <paramref name="action" /> if the <paramref name="maybe" /> has no value
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void ExecuteNoValue<T>(this Maybe<T> maybe, Action action)
+        {
+            if (maybe.HasValue)
+                return;
+
+            action();
+        }
+        
+        /// <summary>
+        /// Executes the given async <paramref name="action" /> if the <paramref name="maybe" /> has a value
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="T"></typeparam>
+        public static async Task Execute<T>(this Maybe<T> maybe, Func<T, Task> action)
+        {
+            if (maybe.HasNoValue)
+                return;
+
+            await action(maybe.Value).DefaultAwait();
+        }
+
+        /// <summary>
+        /// Executes the given async <paramref name="action" /> if the <paramref name="maybe" /> has no value
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="T"></typeparam>
+        public static async Task ExecuteNoValue<T>(this Maybe<T> maybe, Func<Task> action)
+        {
+            if (maybe.HasValue)
+                return;
+
+            await action().DefaultAwait();
         }
 
         /// <summary>

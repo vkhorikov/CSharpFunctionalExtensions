@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 
@@ -207,12 +208,74 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public void Execute_executes_action()
+        public void Execute_executes_action_when_value()
         {
             string property = null;
             Maybe<MyClass> maybe = new MyClass { Property = "Some value" };
 
             maybe.Execute(x => property = x.Property);
+
+            property.Should().Be("Some value");
+        }
+
+        [Fact]
+        public void Execute_does_not_execute_action_when_no_value()
+        {
+            string property = null;
+            Maybe<MyClass> maybe = Maybe<MyClass>.None;
+
+            maybe.Execute(x => property = "Some value");
+
+            property.Should().NotBe("Some value");
+        }
+
+        [Fact]
+        public void ExecuteNoValue_executes_action_when_no_value()
+        {
+            string property = null;
+            Maybe<MyClass> maybe = Maybe<MyClass>.None;
+
+            maybe.ExecuteNoValue(() => property = "Some value");
+
+            property.Should().Be("Some value");
+        }
+
+        [Fact]
+        public void ExecuteNoValue_does_not_execute_action_when_value()
+        {
+            Maybe<MyClass> maybe = new MyClass{ Property = "test" };
+
+            maybe.ExecuteNoValue(() => maybe.Value.Property = "new value");
+
+            maybe.Value.Property.Should().NotBe("new value");
+        }
+
+        [Fact]
+        public async Task Execute_executes_async_action_when_value()
+        {
+            string property = null;
+            Maybe<MyClass> maybe = new MyClass { Property = "Some value" };
+
+            await maybe.Execute(x => 
+            {
+                property = x.Property;
+                return Task.CompletedTask;
+            });
+
+            property.Should().Be("Some value");
+        }
+
+        [Fact]
+        public async Task ExecuteNoValue_executes_async_action_when_no_value()
+        {
+            string property = null;
+            Maybe<MyClass> maybe = Maybe<MyClass>.None;
+
+            await maybe.ExecuteNoValue(() => 
+            {
+                property = "Some value";
+                return Task.CompletedTask;
+            });
 
             property.Should().Be("Some value");
         }
