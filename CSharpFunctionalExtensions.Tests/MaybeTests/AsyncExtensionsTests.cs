@@ -555,6 +555,33 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
+        public async Task Async_ExecuteNoValue_executes_action_when_no_value()
+        {
+            string property = null;
+            
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(Maybe<MyClass>.None);
+
+            await maybeTask.ExecuteNoValue(() => property = "Some value");
+
+            property.Should().Be("Some value");
+        }
+
+        [Fact]
+        public async Task Async_ExecuteNoValue_executes_async_action_when_no_value()
+        {
+            string property = null;
+            
+            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(Maybe<MyClass>.None);
+
+            await maybeTask.ExecuteNoValue(() => 
+            {
+                property = "Some value";
+                return Task.CompletedTask;
+            });
+
+            property.Should().Be("Some value");
+        }
+
         public async Task Async_Execute_does_not_execute_action_if_no_value()
         {
             var instance = Maybe<MyClass>.None;

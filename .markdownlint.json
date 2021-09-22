@@ -1,10 +1,13 @@
 {
     "line-length": {
-        "line_length": 120
+        "line_length": 140
     },
     "code-block-style": {
         "style": "fenced"
     },
     "code": true,
-    "code-fence-style": true
+    "code-fence-style": true,
+    "no-duplicate-header": {
+        "siblings_only": true
+    }
 }

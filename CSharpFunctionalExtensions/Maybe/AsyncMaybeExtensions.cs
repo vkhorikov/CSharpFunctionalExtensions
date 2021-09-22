@@ -224,6 +224,22 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
+        /// Executes the given <paramref name="action" /> if the <paramref name="maybeTask" /> produces no value
+        /// </summary>
+        /// <param name="maybeTask"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="T"></typeparam>
+        public static async Task ExecuteNoValue<T>(this Task<Maybe<T>> maybeTask, Action action)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasValue)
+                return;
+
+            action();
+        }
+
+        /// <summary>
         /// Executes the given <paramref name="asyncAction" /> if the <paramref name="maybeTask" /> produces a value
         /// </summary>
         /// <param name="maybeTask"></param>
@@ -238,6 +254,22 @@ namespace CSharpFunctionalExtensions
                 return;
 
             await asyncAction(maybe.Value).DefaultAwait();
+        }
+
+        /// <summary>
+        /// Executes the given <paramref name="asyncAction" /> if the <paramref name="maybeTask" /> produces no value
+        /// </summary>
+        /// <param name="maybeTask"></param>
+        /// <param name="asyncAction"></param>
+        /// <typeparam name="T"></typeparam>
+        public static async Task ExecuteNoValue<T>(this Task<Maybe<T>> maybeTask, Func<Task> asyncAction)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+
+            if (maybe.HasValue)
+                return;
+
+            await asyncAction().DefaultAwait();
         }
     }
 }
