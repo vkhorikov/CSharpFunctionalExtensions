@@ -555,18 +555,6 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public async Task Async_Execute_executes_action_when_value()
-        {
-            string property = null;
-            var instance = new MyClass { Property = "Some value" };
-            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
-
-            await maybeTask.Execute(x => property = x.Property);
-
-            property.Should().Be("Some value");
-        }
-
-        [Fact]
         public async Task Async_ExecuteNoValue_executes_action_when_no_value()
         {
             string property = null;
@@ -574,22 +562,6 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Task<Maybe<MyClass>> maybeTask = GetMaybeTask(Maybe<MyClass>.None);
 
             await maybeTask.ExecuteNoValue(() => property = "Some value");
-
-            property.Should().Be("Some value");
-        }
-
-        [Fact]
-        public async Task Async_Execute_executes_async_action_when_value()
-        {
-            string property = null;
-            var instance = new MyClass { Property = "Some value" };
-            Task<Maybe<MyClass>> maybeTask = GetMaybeTask(instance);
-
-            await maybeTask.Execute(x => 
-            {
-                property = x.Property;
-                return Task.CompletedTask;
-            });
 
             property.Should().Be("Some value");
         }
@@ -608,6 +580,69 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             });
 
             property.Should().Be("Some value");
+        }
+
+        public async Task Async_Execute_does_not_execute_action_if_no_value()
+        {
+            var instance = Maybe<MyClass>.None;
+
+            var task = Task.FromResult(instance);
+
+            await task.Execute(value => 
+            {
+                value.Property = "Some Value";
+            });
+
+            instance.HasNoValue.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Async_Execute_executes_action_if_value()
+        {
+            var instance = Maybe.From(new MyClass{ Property = "Initial value" });
+
+            var task = Task.FromResult(instance);
+
+            await task.Execute(value => 
+            {
+                value.Property = "New Value";
+            });
+
+            instance.Value.Property.Should().Be("New Value");
+        }
+
+        [Fact]
+        public async Task Async_Execute_does_not_execute_async_action_if_no_value()
+        {
+            var instance = Maybe<MyClass>.None;
+
+            var task = Task.FromResult(instance);
+
+            await task.Execute(value => 
+            {
+                value.Property = "Some Value";
+
+                return Task.CompletedTask;
+            });
+
+            instance.HasNoValue.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Async_Execute_executes_async_action_if_value()
+        {
+            var instance = Maybe.From(new MyClass{ Property = "Initial value" });
+
+            var task = Task.FromResult(instance);
+
+            await task.Execute(value => 
+            {
+                value.Property = "Some Value";
+
+                return Task.CompletedTask;
+            });
+
+            instance.Value.Property.Should().Be("Some Value");
         }
 
         private static Task<Maybe<MyClass>> GetMaybeTask(Maybe<MyClass> maybe) => maybe.AsTask();

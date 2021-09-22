@@ -212,6 +212,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="maybeTask"></param>
         /// <param name="action"></param>
         /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static async Task Execute<T>(this Task<Maybe<T>> maybeTask, Action<T> action)
         {
             var maybe = await maybeTask.DefaultAwait();
@@ -239,35 +240,36 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        /// Executes the given async <paramref name="action" /> if the <paramref name="maybeTask" /> produces a value
+        /// Executes the given <paramref name="asyncAction" /> if the <paramref name="maybeTask" /> produces a value
         /// </summary>
         /// <param name="maybeTask"></param>
-        /// <param name="action"></param>
+        /// <param name="asyncAction"></param>
         /// <typeparam name="T"></typeparam>
-        public static async Task Execute<T>(this Task<Maybe<T>> maybeTask, Func<T, Task> action)
+        /// <returns></returns>
+        public static async Task Execute<T>(this Task<Maybe<T>> maybeTask, Func<T, Task> asyncAction)
         {
             var maybe = await maybeTask.DefaultAwait();
 
             if (maybe.HasNoValue)
                 return;
 
-            await action(maybe.Value).DefaultAwait();
+            await asyncAction(maybe.Value).DefaultAwait();
         }
 
         /// <summary>
-        /// Executes the given async <paramref name="action" /> if the <paramref name="maybeTask" /> produces no value
+        /// Executes the given <paramref name="asyncAction" /> if the <paramref name="maybeTask" /> produces no value
         /// </summary>
         /// <param name="maybeTask"></param>
-        /// <param name="action"></param>
+        /// <param name="asyncAction"></param>
         /// <typeparam name="T"></typeparam>
-        public static async Task ExecuteNoValue<T>(this Task<Maybe<T>> maybeTask, Func<Task> action)
+        public static async Task ExecuteNoValue<T>(this Task<Maybe<T>> maybeTask, Func<Task> asyncAction)
         {
             var maybe = await maybeTask.DefaultAwait();
 
             if (maybe.HasValue)
                 return;
 
-            await action().DefaultAwait();
+            await asyncAction().DefaultAwait();
         }
     }
 }
