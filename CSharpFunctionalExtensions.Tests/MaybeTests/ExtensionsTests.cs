@@ -10,42 +10,42 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
     public class ExtensionsTests
     {
         [Fact]
-        public void Unwrap_extracts_value_if_not_null()
+        public void GetValueOrDefault_extracts_value_if_not_null()
         {
             var instance = new MyClass();
             Maybe<MyClass> maybe = instance;
 
-            MyClass myClass = maybe.Unwrap();
+            MyClass myClass = maybe.GetValueOrDefault();
 
             myClass.Should().Be(instance);
         }
 
         [Fact]
-        public void Unwrap_extracts_null_if_no_value()
+        public void GetValueOrDefault_extracts_null_if_no_value()
         {
             Maybe<MyClass> maybe = null;
 
-            MyClass myClass = maybe.Unwrap();
+            MyClass myClass = maybe.GetValueOrDefault();
 
             myClass.Should().BeNull();
         }
 
         [Fact]
-        public void Can_use_selector_in_Unwrap()
+        public void Can_use_selector_in_GetValueOrDefault()
         {
             Maybe<MyClass> maybe = new MyClass { Property = "Some value" };
 
-            string value = maybe.Unwrap(x => x.Property);
+            string value = maybe.GetValueOrDefault(x => x.Property);
 
             value.Should().Be("Some value");
         }
 
         [Fact]
-        public void Can_use_default_value_in_Unwrap()
+        public void Can_use_default_value_in_GetValueOrDefault()
         {
             Maybe<string> maybe = null;
 
-            string value = maybe.Unwrap("");
+            string value = maybe.GetValueOrDefault("");
 
             value.Should().Be("");
         }
@@ -281,21 +281,21 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public void Unwrap_supports_NET_value_types()
+        public void GetValueOrDefault_supports_NET_value_types()
         {
             Maybe<MyClass> maybe = new MyClass { IntProperty = 42 };
 
-            int integer = maybe.Select(x => x.IntProperty).Unwrap();
+            int integer = maybe.Select(x => x.IntProperty).GetValueOrDefault();
 
             integer.Should().Be(42);
         }
 
         [Fact]
-        public void Unwrap_returns_default_for_NET_value_types()
+        public void GetValueOrDefault_returns_default_for_NET_value_types()
         {
             Maybe<MyClass> maybe = null;
 
-            int integer = maybe.Select(x => x.IntProperty).Unwrap();
+            int integer = maybe.Select(x => x.IntProperty).GetValueOrDefault();
 
             integer.Should().Be(0);
         }
