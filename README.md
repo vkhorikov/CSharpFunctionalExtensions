@@ -575,6 +575,7 @@ result.Should().BeSuccess();
 
 A big thanks to the project contributors!
 
+- [Logan Kahler](https://github.com/lqkahler)
 - [Ali Khalili](https://github.com/AliKhalili)
 - [Andrei Andreev](https://github.com/Razenpok)
 - [YudApps](https://github.com/YudApps)

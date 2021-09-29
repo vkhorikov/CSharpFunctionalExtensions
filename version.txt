@@ -1,7 +1,6 @@
-2.21.0
+2.21.1
 New features:
-* #330 Overload for Option.Unwrap that takes a function
-* #312 GetValueOrDefault
+* #332 Bind between ResultTE and UnitResult
 
 Fixed issues:
 * None
