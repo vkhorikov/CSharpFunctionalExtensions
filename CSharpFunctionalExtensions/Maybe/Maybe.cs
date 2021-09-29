@@ -8,16 +8,25 @@ namespace CSharpFunctionalExtensions
         private readonly bool _isValueSet;
 
         private readonly T _value;
-        public T Value
-        {
-            get
-            {
-                if (HasNoValue)
-                    throw new InvalidOperationException();
 
-                return _value;
-            }
+        public T GetValueOrThrow()
+        {
+            if (HasNoValue)
+                throw new InvalidOperationException();
+
+            return _value;
         }
+
+        public T GetValueOrDefault(T defaultValue = default)
+        {
+            if (HasNoValue)
+                return defaultValue;
+
+            return _value;
+        }
+
+        [Obsolete("Use GetValueOrThrow() instead.")]
+        public T Value => GetValueOrThrow();
 
         public static Maybe<T> None => new Maybe<T>();
 
@@ -62,7 +71,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return value is null;
 
-            return maybe.Value.Equals(value);
+            return maybe._value.Equals(value);
         }
 
         public static bool operator !=(Maybe<T> maybe, T value)
@@ -124,7 +133,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue)
                 return "No value";
 
-            return Value.ToString();
+            return _value.ToString();
         }
     }
 

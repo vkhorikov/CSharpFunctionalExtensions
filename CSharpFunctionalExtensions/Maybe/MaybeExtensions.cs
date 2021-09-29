@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Result.Failure<T>(errorMessage);
 
-            return Result.Success(maybe.Value);
+            return Result.Success(maybe.GetValueOrThrow());
         }
 
         public static Result<T, E> ToResult<T, E>(this Maybe<T> maybe, E error)
@@ -20,25 +20,48 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Result.Failure<T, E>(error);
 
-            return Result.Success<T, E>(maybe.Value);
+            return Result.Success<T, E>(maybe.GetValueOrThrow());
         }
 
-        public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = default(T))
+        public static T GetValueOrDefault<T>(this Maybe<T> maybe, Func<T> defaultValue)
         {
-            return maybe.Unwrap(x => x, defaultValue);
+            if (maybe.HasNoValue)
+                return defaultValue();
+
+            return maybe.GetValueOrThrow();
         }
 
+        public static K GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, K> selector, K defaultValue = default)
+        {
+            if (maybe.HasNoValue)
+                return defaultValue;
+
+            return selector(maybe.GetValueOrThrow());
+        }
+
+        public static K GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, K> selector, Func<K> defaultValue)
+        {
+            if (maybe.HasNoValue)
+                return defaultValue();
+
+            return selector(maybe.GetValueOrThrow());
+        }
+
+        [Obsolete("Use GetValueOrDefault() instead.")]
+        public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = default)
+        {
+            return maybe.GetValueOrDefault(defaultValue);
+        }
+
+        [Obsolete("Use GetValueOrDefault() instead.")]
         public static K Unwrap<T, K>(this Maybe<T> maybe, Func<T, K> selector, K defaultValue = default(K))
         {
-            if (maybe.HasValue)
-                return selector(maybe.Value);
-
-            return defaultValue;
+            return maybe.GetValueOrDefault(selector, defaultValue);
         }
 
         public static List<T> ToList<T>(this Maybe<T> maybe)
         {
-            return maybe.Unwrap(value => new List<T> {value}, new List<T>());
+            return maybe.GetValueOrDefault(value => new List<T> {value}, new List<T>());
         }
 
         public static Maybe<T> Where<T>(this Maybe<T> maybe, Func<T, bool> predicate)
@@ -46,7 +69,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Maybe<T>.None;
 
-            if (predicate(maybe.Value))
+            if (predicate(maybe.GetValueOrThrow()))
                 return maybe;
 
             return Maybe<T>.None;
@@ -72,8 +95,8 @@ namespace CSharpFunctionalExtensions
             Func<T, Maybe<U>> selector,
             Func<T, U, V> project)
         {
-            return maybe.Unwrap(
-                x => selector(x).Unwrap(u => project(x, u), Maybe<V>.None),
+            return maybe.GetValueOrDefault(
+                x => selector(x).GetValueOrDefault(u => project(x, u), Maybe<V>.None),
                 Maybe<V>.None);
         }
 
@@ -82,7 +105,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Maybe<K>.None;
 
-            return selector(maybe.Value);
+            return selector(maybe.GetValueOrThrow());
         }
 
         public static Maybe<K> Bind<T, K>(this Maybe<T> maybe, Func<T, Maybe<K>> selector)
@@ -90,7 +113,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Maybe<K>.None;
 
-            return selector(maybe.Value);
+            return selector(maybe.GetValueOrThrow());
         }
 
         /// <summary>
@@ -104,7 +127,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return;
 
-            action(maybe.Value);
+            action(maybe.GetValueOrThrow());
         }
 
         /// <summary>
@@ -132,7 +155,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return;
 
-            await action(maybe.Value).DefaultAwait();
+            await action(maybe.GetValueOrThrow()).DefaultAwait();
         }
 
         /// <summary>
@@ -197,7 +220,7 @@ namespace CSharpFunctionalExtensions
         public static TE Match<TE, T>(this Maybe<T> maybe, Func<T, TE> Some, Func<TE> None)
         {
             return maybe.HasValue
-                ? Some(maybe.Value)
+                ? Some(maybe.GetValueOrThrow())
                 : None();
         }
 
@@ -205,7 +228,7 @@ namespace CSharpFunctionalExtensions
         {
             if (maybe.HasValue)
             {
-                Some(maybe.Value);
+                Some(maybe.GetValueOrThrow());
             }
             else
             {
@@ -214,13 +237,13 @@ namespace CSharpFunctionalExtensions
         }
 
         public static TE Match<TE, TKey, TValue>(this Maybe<KeyValuePair<TKey, TValue>> maybe, Func<TKey, TValue, TE> Some, Func<TE> None) =>
-            maybe.HasValue ? Some.Invoke(maybe.Value.Key, maybe.Value.Value) : None.Invoke();
+            maybe.HasValue ? Some.Invoke(maybe.GetValueOrThrow().Key, maybe.GetValueOrThrow().Value) : None.Invoke();
 
         public static void Match<TKey, TValue>(this Maybe<KeyValuePair<TKey, TValue>> maybe, Action<TKey, TValue> Some, Action None)
         {
             if (maybe.HasValue)
             {
-                Some.Invoke(maybe.Value.Key, maybe.Value.Value);
+                Some.Invoke(maybe.GetValueOrThrow().Key, maybe.GetValueOrThrow().Value);
             }
             else
             {
@@ -238,7 +261,7 @@ namespace CSharpFunctionalExtensions
                     var item = enumerator.Current;
                     if (item.HasValue)
                     {
-                        yield return selector(item.Value);
+                        yield return selector(item.GetValueOrThrow());
                     }
                 }
             }
@@ -253,7 +276,7 @@ namespace CSharpFunctionalExtensions
                     var item = enumerator.Current;
                     if (item.HasValue)
                     {
-                        yield return item.Value;
+                        yield return item.GetValueOrThrow();
                     }
                 }
             } 

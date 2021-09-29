@@ -17,6 +17,68 @@ namespace CSharpFunctionalExtensions
             return maybe.ToResult(error);
         }
 
+        public static async Task<T> GetValueOrThrow<T>(this Task<Maybe<T>> maybeTask)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+            return maybe.GetValueOrThrow();
+        }
+
+        public static async Task<T> GetValueOrDefault<T>(this Maybe<T> maybe, Func<Task<T>> defaultValue)
+        {
+            if (maybe.HasNoValue)
+                return await defaultValue().DefaultAwait();
+
+            return maybe.GetValueOrThrow();
+        }
+
+        public static async Task<K> GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, K> selector, Func<Task<K>> defaultValue)
+        {
+            if (maybe.HasNoValue)
+                return await defaultValue().DefaultAwait();
+
+            return selector(maybe.GetValueOrThrow());
+        }
+
+        public static async Task<K> GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, Task<K>> selector, K defaultValue = default)
+        {
+            if (maybe.HasNoValue)
+                return defaultValue;
+
+            return await selector(maybe.GetValueOrThrow()).DefaultAwait();
+        }
+
+        public static async Task<K> GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, Task<K>> selector, Func<Task<K>> defaultValue)
+        {
+            if (maybe.HasNoValue)
+                return await defaultValue().DefaultAwait();
+
+            return await selector(maybe.GetValueOrThrow()).DefaultAwait();
+        }
+
+        public static async Task<T> GetValueOrDefault<T>(this Task<Maybe<T>> maybeTask, Func<Task<T>> defaultValue)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+            return await maybe.GetValueOrDefault(defaultValue).DefaultAwait();
+        }
+
+        public static async Task<K> GetValueOrDefault<T, K>(this Task<Maybe<T>> maybeTask, Func<T, K> selector, Func<Task<K>> defaultValue)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+            return await maybe.GetValueOrDefault(selector, defaultValue).DefaultAwait();
+        }
+
+        public static async Task<K> GetValueOrDefault<T, K>(this Task<Maybe<T>> maybeTask, Func<T, Task<K>> selector, K defaultValue = default)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+            return await maybe.GetValueOrDefault(selector, defaultValue).DefaultAwait();
+        }
+
+        public static async Task<K> GetValueOrDefault<T, K>(this Task<Maybe<T>> maybeTask, Func<T, Task<K>> selector, Func<Task<K>> defaultValue)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+            return await maybe.GetValueOrDefault(selector, defaultValue).DefaultAwait();
+        }
+
         public static async Task<Maybe<T>> Where<T>(this Task<Maybe<T>> maybeTask, Func<T, bool> predicate)
         {
             Maybe<T> maybe = await maybeTask.DefaultAwait();
@@ -28,7 +90,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Maybe<T>.None;
 
-            if (await predicate(maybe.Value).DefaultAwait())
+            if (await predicate(maybe.GetValueOrThrow()).DefaultAwait())
                 return maybe;
 
             return Maybe<T>.None;
@@ -51,7 +113,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Maybe<K>.None;
 
-            return await selector(maybe.Value).DefaultAwait();
+            return await selector(maybe.GetValueOrThrow()).DefaultAwait();
         }
 
         public static async Task<Maybe<K>> Map<T, K>(this Task<Maybe<T>> maybeTask, Func<T, Task<K>> selector)
@@ -71,7 +133,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Maybe<K>.None.AsCompletedTask();
 
-            return selector(maybe.Value);
+            return selector(maybe.GetValueOrThrow());
         }
 
         public static async Task<Maybe<K>> Bind<T, K>(this Task<Maybe<T>> maybeTask, Func<T, Task<Maybe<K>>> selector)
@@ -220,7 +282,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return;
 
-            action(maybe.Value);
+            action(maybe.GetValueOrThrow());
         }
 
         /// <summary>
@@ -253,7 +315,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return;
 
-            await asyncAction(maybe.Value).DefaultAwait();
+            await asyncAction(maybe.GetValueOrThrow()).DefaultAwait();
         }
 
         /// <summary>
