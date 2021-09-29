@@ -107,5 +107,46 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             funcParam.Should().Be(T.Value);
             AssertSuccess(output);
         }
+
+        [Fact]
+        public void Bind_T_E_selects_new_unit_result()
+        {
+            Result<T, E> input = Result.Success<T, E>(T.Value);
+
+            UnitResult<E> output = input.Bind(GetUnitResult_E_WithParam_Task).Result;
+
+            funcParam.Should().Be(T.Value);
+            AssertSuccess(output);
+        }
+
+        [Fact]
+        public void Bind_T_E_returns_failure_and_does_not_execute_func()
+        {
+            Result<T, E> input = Result.Failure<T, E>(E.Value);
+
+            UnitResult<E> output = input.Bind(GetUnitResult_E_WithParam_Task).Result;
+
+            AssertFailure(output);
+        }
+
+        [Fact]
+        public void Bind_E_selects_new_result()
+        {
+            UnitResult<E> input = UnitResult.Success<E>();
+
+            UnitResult<E> output = input.Bind(GetResult_T_E_Task).Result;
+
+            AssertSuccess(output);
+        }
+
+        [Fact]
+        public void Bind_E_returns_failure_and_does_not_execute_func()
+        {
+            UnitResult<E> input = UnitResult.Failure<E>(E.Value);
+
+            UnitResult<E> output = input.Bind(GetResult_T_E_Task).Result;
+
+            AssertFailure(output);
+        }
     }
 }
