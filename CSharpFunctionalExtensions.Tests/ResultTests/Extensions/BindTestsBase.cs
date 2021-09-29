@@ -62,6 +62,25 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         protected Task<Result<K, E>> GetResult_K_E_WithParam_Task(T value)
             => GetResult_K_E_WithParam(value).AsTask();
 
+        protected Result<T, E> GetResult_T_E()
+        {
+            funcExecuted = true;
+            return Result.Success<T, E>(T.Value);
+        }
+
+        protected Task<Result<T, E>> GetResult_T_E_Task()
+            => GetResult_T_E().AsTask();
+
+        protected UnitResult<E> GetUnitResult_E_WithParam(T value)
+        {
+            funcExecuted = true;
+            funcParam = value;
+            return UnitResult.Success<E>();
+        }
+
+        protected Task<UnitResult<E>> GetUnitResult_E_WithParam_Task(T value)
+            => GetUnitResult_E_WithParam(value).AsTask();
+
         protected void AssertFailure(Result output)
         {
             funcExecuted.Should().BeFalse();
@@ -77,6 +96,13 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         protected void AssertFailure(Result<K, E> output)
+        {
+            funcExecuted.Should().BeFalse();
+            output.IsFailure.Should().BeTrue();
+            output.Error.Should().Be(E.Value);
+        }
+
+        protected void AssertFailure(UnitResult<E> output)
         {
             funcExecuted.Should().BeFalse();
             output.IsFailure.Should().BeTrue();
@@ -101,6 +127,12 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             funcExecuted.Should().BeTrue();
             output.IsSuccess.Should().BeTrue();
             output.Value.Should().Be(K.Value);
+        }
+
+        protected void AssertSuccess(UnitResult<E> output)
+        {
+            funcExecuted.Should().BeTrue();
+            output.IsSuccess.Should().BeTrue();
         }
     }
 }
