@@ -1,6 +1,7 @@
-2.20.4
+2.21.0
 New features:
-* #328 Feature: Maybe.Execute() when there is no value
+* #330 Overload for Option.Unwrap that takes a function
+* #312 GetValueOrDefault
 
 Fixed issues:
 * None
