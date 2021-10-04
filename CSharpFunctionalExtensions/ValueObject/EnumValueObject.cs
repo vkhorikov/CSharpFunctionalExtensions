@@ -66,7 +66,12 @@ namespace CSharpFunctionalExtensions
                 : null;
         }
 
+
+#if NET40
+        public static ICollection<TEnumeration> All = EnumerationsById.Values.OfType<TEnumeration>().ToList();
+#else
         public static IReadOnlyCollection<TEnumeration> All = EnumerationsById.Values.OfType<TEnumeration>().ToList();
+#endif
 
         public static bool Is(string possibleName) => All.Select(e => e.Name).Contains(possibleName);
 
@@ -106,7 +111,11 @@ namespace CSharpFunctionalExtensions
             Id = id;
         }
 
+#if NET40
+        public static ICollection<TEnumeration> All = Enumerations.Values.OfType<TEnumeration>().ToList();
+#else
         public static IReadOnlyCollection<TEnumeration> All = Enumerations.Values.OfType<TEnumeration>().ToList();
+#endif
 
         public virtual string Id { get; protected set; }
         
