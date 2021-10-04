@@ -82,10 +82,10 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         [InlineData("Four", false)]
         [InlineData(nameof(TestEnumValueObject.Two), true)]
         [InlineData(nameof(TestEnumValueObject.One), true)]
-        public void GivenPossibleKey_WhenCheckingIfKeyIsEnumValueObject_ThenShouldReturnTrueIfKeyRecognized(string possibleKey, bool isIn)
+        public void GivenPossibleKey_WhenCheckingIfKeyIsEnumValueObject_ThenShouldReturnTrueIfKeyRecognized(string possibleId, bool isIn)
         {
             // Act
-            var isEnumValueObject = TestEnumValueObject.Is(possibleKey);
+            var isEnumValueObject = TestEnumValueObject.Is(possibleId);
 
             // Assert
             isEnumValueObject.Should().Be(isIn);
