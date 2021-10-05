@@ -1,6 +1,7 @@
-2.21.1
+2.22.0
 New features:
-* #332 Bind between ResultTE and UnitResult
+* #335 MapError UnitResult Additions
+* #334 Align EnumValueObject implementations
 
 Fixed issues:
 * None
