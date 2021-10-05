@@ -645,6 +645,23 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             instance.Value.Property.Should().Be("Some Value");
         }
 
+        [Fact]
+        public async Task Async_GetValueOrThrow_throws_requested_exception_if_none()
+        {
+            const string exceptionMessage = "Maybe is none";
+            var exception = new MyException(exceptionMessage);
+
+            Func<Task<int>> getMaybeValue = () =>
+            {
+                var maybe = Maybe<int>.None;
+                var maybeTask = Task.FromResult(maybe);
+                
+                return maybeTask.GetValueOrThrow(exception);
+            };
+
+            await getMaybeValue.Should().ThrowExactlyAsync<MyException>().WithMessage(exceptionMessage);
+        }
+
         private static Task<Maybe<MyClass>> GetMaybeTask(Maybe<MyClass> maybe) => maybe.AsTask();
 
         private static Func<MyClass, T> ExpectAndReturn<T>(MyClass expected, T result) => actual =>
@@ -679,6 +696,13 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
         private class MyErrorClass
         {
+        }
+
+        private class MyException : Exception
+        {
+            public MyException(string message) : base(message)
+            {
+            }
         }
     }
 }

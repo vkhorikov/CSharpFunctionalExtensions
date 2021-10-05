@@ -79,6 +79,13 @@ namespace CSharpFunctionalExtensions
             return await maybe.GetValueOrDefault(selector, defaultValue).DefaultAwait();
         }
 
+        public static async Task<T> GetValueOrThrow<T>(this Task<Maybe<T>> maybeTask, Exception exception)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+
+            return maybe.GetValueOrThrow(exception);
+        }
+
         public static async Task<Maybe<T>> Where<T>(this Task<Maybe<T>> maybeTask, Func<T, bool> predicate)
         {
             Maybe<T> maybe = await maybeTask.DefaultAwait();

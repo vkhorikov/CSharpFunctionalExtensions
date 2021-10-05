@@ -683,6 +683,21 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             orMaybe.Should().NotBe(maybe);
         }
 
+        [Fact]
+        public void GetValueOrThrow_throws_requested_exception_if_none()
+        {
+            const string exceptionMessage = "Maybe is none";
+            var exception = new MyException(exceptionMessage);
+
+            Action assignMaybeValue = () =>
+            {
+                var maybe = Maybe<int>.None;
+                int _ = maybe.GetValueOrThrow(exception);
+            };
+
+            assignMaybeValue.Should().ThrowExactly<MyException>().WithMessage(exceptionMessage);
+        }
+
         private static Maybe<string> GetPropertyIfExists(MyClass myClass)
         {
             return myClass.Property;
@@ -697,6 +712,13 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
         private class MyErrorClass
         {
+        }
+
+        private class MyException : Exception
+        {
+            public MyException(string message) : base(message)
+            {
+            }
         }
     }
 }

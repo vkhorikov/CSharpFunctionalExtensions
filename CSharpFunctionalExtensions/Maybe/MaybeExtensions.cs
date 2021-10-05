@@ -59,6 +59,13 @@ namespace CSharpFunctionalExtensions
             return maybe.GetValueOrDefault(selector, defaultValue);
         }
 
+        public static T GetValueOrThrow<T>(this Maybe<T> maybe, Exception exception)
+        {
+            return maybe.HasValue
+                ? maybe.GetValueOrThrow()
+                : throw exception;
+        }
+
         public static List<T> ToList<T>(this Maybe<T> maybe)
         {
             return maybe.GetValueOrDefault(value => new List<T> {value}, new List<T>());
