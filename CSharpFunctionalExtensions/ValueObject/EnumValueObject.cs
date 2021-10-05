@@ -65,7 +65,20 @@ namespace CSharpFunctionalExtensions
                 ? EnumerationsByName[name]
                 : null;
         }
-        
+
+
+#if NET40
+        public static ICollection<TEnumeration> All = EnumerationsById.Values.OfType<TEnumeration>().ToList();
+#else
+        public static IReadOnlyCollection<TEnumeration> All = EnumerationsById.Values.OfType<TEnumeration>().ToList();
+#endif
+
+        public static bool Is(string possibleName) => All.Select(e => e.Name).Contains(possibleName);
+
+        public static bool Is(TId possibleId) => All.Select(e => e.Id).Contains(possibleId);
+
+        public override string ToString() => Name;
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Id;
@@ -98,7 +111,11 @@ namespace CSharpFunctionalExtensions
             Id = id;
         }
 
-        public static IEnumerable<TEnumeration> All = Enumerations.Values;
+#if NET40
+        public static ICollection<TEnumeration> All = Enumerations.Values.OfType<TEnumeration>().ToList();
+#else
+        public static IReadOnlyCollection<TEnumeration> All = Enumerations.Values.OfType<TEnumeration>().ToList();
+#endif
 
         public virtual string Id { get; protected set; }
         
@@ -139,7 +156,7 @@ namespace CSharpFunctionalExtensions
                 : null;
         }
 
-        public static bool Is(string possibleKey) => All.Select(e => e.Id).Contains(possibleKey);
+        public static bool Is(string possibleId) => All.Select(e => e.Id).Contains(possibleId);
 
         public override string ToString() => Id;
 
