@@ -39,6 +39,39 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
+        public void MapError_returns_unit_result_succcess()
+        {
+            Result result = Result.Success();
+            var invocations = 0;
+
+            UnitResult<E> actual = result.MapError(error =>
+            {
+                invocations++;
+                return E.Value;
+            });
+
+            actual.IsSuccess.Should().BeTrue();
+            invocations.Should().Be(0);
+        }
+
+        [Fact]
+        public void MapError_returns_new_unit_result_failure()
+        {
+            Result result = Result.Failure(ErrorMessage);
+            var invocations = 0;
+
+            UnitResult<E> actual = result.MapError(error =>
+            {
+                invocations++;
+                return E.Value;
+            });
+
+            actual.IsSuccess.Should().BeFalse();
+            actual.Error.Should().Be(E.Value);
+            invocations.Should().Be(1);
+        }
+
+        [Fact]
         public void MapError_T_returns_success()
         {
             Result<T> result = Result.Success(T.Value);
@@ -69,6 +102,41 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             actual.IsSuccess.Should().BeFalse();
             actual.Error.Should().Be($"{ErrorMessage} {ErrorMessage}");
+            invocations.Should().Be(1);
+        }
+
+        [Fact]
+        public void MapError_unit_result_returns_success()
+        {
+            UnitResult<E> result = UnitResult.Success<E>();
+            var invocations = 0;
+
+            Result actual = result.MapError(error =>
+            {
+                invocations++;
+                return $"{error} {error}";
+            });
+
+            actual.IsSuccess.Should().BeTrue();
+            invocations.Should().Be(0);
+        }
+
+        [Fact]
+        public void MapError_unit_result_returns_new_failure()
+        {
+            UnitResult<E> result = UnitResult.Failure(E.Value);
+            var invocations = 0;
+
+            Result actual = result.MapError(error =>
+            {
+                error.Should().Be(E.Value);
+
+                invocations++;
+                return "error";
+            });
+
+            actual.IsSuccess.Should().BeFalse();
+            actual.Error.Should().Be("error");
             invocations.Should().Be(1);
         }
 
