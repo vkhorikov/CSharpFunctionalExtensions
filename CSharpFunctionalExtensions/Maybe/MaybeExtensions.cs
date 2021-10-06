@@ -59,6 +59,10 @@ namespace CSharpFunctionalExtensions
             return maybe.GetValueOrDefault(selector, defaultValue);
         }
 
+        /// <summary>
+        /// Returns <paramref name="maybe"/>'s inner value if it has one, otherwise throws an InvalidOperationException with <paramref name="errorMessage"/>
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Maybe has no value.</exception>
         public static T GetValueOrThrow<T>(this Maybe<T> maybe, string errorMessage)
         {
             return maybe.HasValue
