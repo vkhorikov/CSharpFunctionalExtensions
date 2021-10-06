@@ -646,20 +646,32 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public async Task Async_GetValueOrThrow_throws_requested_exception_if_none()
+        public async Task Async_GetValueOrThrow_throws_with_message_if_source_is_empty()
         {
-            const string exceptionMessage = "Maybe is none";
-            var exception = new MyException(exceptionMessage);
+            const string errorMessage = "Maybe is none";
 
-            Func<Task<int>> getMaybeValue = () =>
+            Func<Task<int>> func = () =>
             {
                 var maybe = Maybe<int>.None;
                 var maybeTask = Task.FromResult(maybe);
                 
-                return maybeTask.GetValueOrThrow(exception);
+                return maybeTask.GetValueOrThrow(errorMessage);
             };
 
-            await getMaybeValue.Should().ThrowExactlyAsync<MyException>().WithMessage(exceptionMessage);
+            await func.Should().ThrowAsync<InvalidOperationException>().WithMessage(errorMessage);
+        }
+
+        [Fact]
+        public async Task Async_GetValueOrThrow_returns_value_if_source_has_value()
+        {
+            const int value = 1;
+            var maybe = Maybe.From(value);
+            var maybeTask = Task.FromResult(maybe);
+
+            const string errorMessage = "Maybe is none";
+            var result = await maybeTask.GetValueOrThrow(errorMessage);
+
+            result.Should().Be(value);
         }
 
         private static Task<Maybe<MyClass>> GetMaybeTask(Maybe<MyClass> maybe) => maybe.AsTask();
@@ -696,13 +708,6 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
         private class MyErrorClass
         {
-        }
-
-        private class MyException : Exception
-        {
-            public MyException(string message) : base(message)
-            {
-            }
         }
     }
 }

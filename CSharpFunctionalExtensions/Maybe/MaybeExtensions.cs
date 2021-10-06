@@ -59,11 +59,11 @@ namespace CSharpFunctionalExtensions
             return maybe.GetValueOrDefault(selector, defaultValue);
         }
 
-        public static T GetValueOrThrow<T>(this Maybe<T> maybe, Exception exception)
+        public static T GetValueOrThrow<T>(this Maybe<T> maybe, string errorMessage)
         {
             return maybe.HasValue
                 ? maybe.GetValueOrThrow()
-                : throw exception;
+                : throw new InvalidOperationException(errorMessage);
         }
 
         public static List<T> ToList<T>(this Maybe<T> maybe)
