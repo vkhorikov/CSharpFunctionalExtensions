@@ -24,9 +24,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             funcExecuted = true; 
             return K.Value;
         }
-#pragma warning disable 1998
+
         protected Task<K> Task_Func_K() => Func_K().AsTask();
         protected Task<K> Task_Func_T_K(T value) => Func_T_K(value).AsTask();
-#pragma warning restore 1998
     }
 }
