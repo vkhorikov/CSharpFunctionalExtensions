@@ -344,5 +344,11 @@ namespace CSharpFunctionalExtensions
             return Maybe<V>.None;
         }
 #endif
+
+        public static void Deconstruct<T>(this Maybe<T> result, out bool hasValue, out T value)
+        {
+            hasValue = result.HasValue;
+            value = result.GetValueOrDefault();
+        }
     }
 }
