@@ -36,6 +36,10 @@
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
     <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168" />
   </ItemGroup>
+	
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR $(TargetFramework)=='netstandard2.0'">
+    <PackageReference Include="System.ValueTuple" Version="4.*" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
