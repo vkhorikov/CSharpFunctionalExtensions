@@ -19,6 +19,12 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
         /// </summary>
+        public static K Finally<K, E>(this UnitResult<E> result, Func<UnitResult<E>, K> func)
+            => func(result);
+
+        /// <summary>
+        ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
+        /// </summary>
         public static K Finally<T, K, E>(this Result<T, E> result, Func<Result<T, E>, K> func)
             => func(result);
     }
