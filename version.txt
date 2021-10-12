@@ -1,7 +1,8 @@
-2.22.0
+2.23.0
 New features:
-* #335 MapError UnitResult Additions
-* #334 Align EnumValueObject implementations
+* #338 Add Map Extensions Methods For UnitResult
+* #339 Add Finally Extension methods for UnitResult
+* #340 Add Maybe.Deconstruct extension
 
 Fixed issues:
 * None
