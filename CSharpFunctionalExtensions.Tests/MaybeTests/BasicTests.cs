@@ -135,6 +135,19 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             maybe.HasNoValue.Should().BeTrue();
         }
 
+        [Fact]
+        public void Maybe_None_doesnt_throw_on_Deconstruct()
+        {
+            Maybe<int> maybe = Maybe.None;
+
+            Action act = () =>
+            {
+                var (hasValue, value) = maybe;
+            };
+            
+            act.Should().NotThrow();
+        }
+
         private class MyClass
         {
             public override string ToString()
