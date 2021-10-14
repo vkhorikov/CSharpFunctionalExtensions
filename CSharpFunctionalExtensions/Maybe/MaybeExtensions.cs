@@ -182,7 +182,22 @@ namespace CSharpFunctionalExtensions
         public static Maybe<T> Or<T>(this Maybe<T> maybe, Func<T> fallbackOperation)
         {
             if (maybe.HasNoValue)
-                return Maybe<T>.From(fallbackOperation());
+                return fallbackOperation();
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybe" /> is empty, using the result of the supplied <paramref name="fallbackOperation" />, otherwise it returns <paramref name="maybe" />
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="fallbackOperation"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Maybe<T> maybe, Func<Task<T>> fallbackOperation)
+        {
+            if (maybe.HasNoValue)
+                return await fallbackOperation().DefaultAwait();
 
             return maybe;
         }

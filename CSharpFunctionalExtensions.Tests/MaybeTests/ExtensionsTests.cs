@@ -651,6 +651,17 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
+        public async Task Or_async_fallback_operation_creates_a_new_instance_with_fallback_operation_when_source_is_empty()
+        {
+            Maybe<string> maybe = Maybe<string>.None;
+
+            var orMaybe = await maybe.Or(() => Task.FromResult("other"));
+
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().NotBe(maybe);
+        }
+
+        [Fact]
         public void Or_fallback_maybe_returns_source_if_source_has_value()
         {
             Maybe<string> maybe = "value";
