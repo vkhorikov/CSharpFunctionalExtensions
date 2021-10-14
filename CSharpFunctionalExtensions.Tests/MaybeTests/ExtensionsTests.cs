@@ -243,7 +243,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         [Fact]
         public void ExecuteNoValue_does_not_execute_action_when_value()
         {
-            Maybe<MyClass> maybe = new MyClass{ Property = "test" };
+            Maybe<MyClass> maybe = new MyClass { Property = "test" };
 
             maybe.ExecuteNoValue(() => maybe.Value.Property = "new value");
 
@@ -256,7 +256,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             string property = null;
             Maybe<MyClass> maybe = new MyClass { Property = "Some value" };
 
-            await maybe.Execute(x => 
+            await maybe.Execute(x =>
             {
                 property = x.Property;
                 return Task.CompletedTask;
@@ -271,7 +271,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             string property = null;
             Maybe<MyClass> maybe = Maybe<MyClass>.None;
 
-            await maybe.ExecuteNoValue(() => 
+            await maybe.ExecuteNoValue(() =>
             {
                 property = "Some value";
                 return Task.CompletedTask;
@@ -344,10 +344,10 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             maybe.Match(
                 Some: (intValue, stringValue) => throw new FieldAccessException("Accessed Some path while maybe has no value"),
-                None: () => Assert.True(true) 
+                None: () => Assert.True(true)
             );
         }
-        
+
         [Fact]
         public void Match_for_deconstruct_kv_follows_some_branch_where_is_a_return_value()
         {
@@ -360,7 +360,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             42.Should().Be(returnValue);
         }
-        
+
         [Fact]
         public void Match_for_deconstruct_kv_follows_none_branch_where_is_a_return_value()
         {
@@ -368,14 +368,14 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             var returnValue = maybe.Match(
                 Some: (intValue, stringValue) => throw new FieldAccessException("Accessed Some path while maybe has no value"),
-                None: () => -1 
+                None: () => -1
             );
 
             (-1).Should().Be(returnValue);
 
         }
-        
-        
+
+
 
         [Fact]
         public void Choose_double_values()
@@ -469,7 +469,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             maybe.HasValue.Should().BeFalse();
         }
-        
+
         [Fact]
         public void TryFirst_source_predicate_not_contains_default_is_not_null()
         {
@@ -591,7 +591,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Maybe<string> maybe = Maybe<string>.None;
 
             var orMaybe = maybe.Or(value);
-            
+
             orMaybe.HasValue.Should().BeFalse();
         }
 
@@ -601,7 +601,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Maybe<string> maybe = "value";
 
             var orMaybe = maybe.Or("other");
-            
+
             orMaybe.HasValue.Should().BeTrue();
             orMaybe.Should().Be(maybe);
         }
@@ -612,7 +612,18 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Maybe<string> maybe = Maybe<string>.None;
 
             var orMaybe = maybe.Or("other");
-            
+
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().NotBe(maybe);
+        }
+
+        [Fact]
+        public async Task Or_async_fallback_value_creates_a_new_instance_with_fallback_when_source_is_empty()
+        {
+            Maybe<string> maybe = Maybe<string>.None;
+
+            var orMaybe = await maybe.Or(Task.FromResult(Maybe.From("other")));
+
             orMaybe.HasValue.Should().BeTrue();
             orMaybe.Should().NotBe(maybe);
         }
@@ -623,7 +634,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Maybe<string> maybe = "value";
 
             var orMaybe = maybe.Or(() => "other");
-            
+
             orMaybe.HasValue.Should().BeTrue();
             orMaybe.Should().Be(maybe);
         }
@@ -634,7 +645,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Maybe<string> maybe = Maybe<string>.None;
 
             var orMaybe = maybe.Or(() => "other");
-            
+
             orMaybe.HasValue.Should().BeTrue();
             orMaybe.Should().NotBe(maybe);
         }
@@ -645,7 +656,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Maybe<string> maybe = "value";
 
             var orMaybe = maybe.Or(Maybe.From("other"));
-            
+
             orMaybe.HasValue.Should().BeTrue();
             orMaybe.Should().Be(maybe);
         }
@@ -656,7 +667,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Maybe<string> maybe = Maybe<string>.None;
 
             var orMaybe = maybe.Or(Maybe.From("other"));
-            
+
             orMaybe.HasValue.Should().BeTrue();
             orMaybe.Should().NotBe(maybe);
         }
@@ -667,7 +678,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Maybe<string> maybe = "value";
 
             var orMaybe = maybe.Or(() => Maybe.From("other"));
-            
+
             orMaybe.HasValue.Should().BeTrue();
             orMaybe.Should().Be(maybe);
         }
@@ -678,7 +689,18 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             Maybe<string> maybe = Maybe<string>.None;
 
             var orMaybe = maybe.Or(() => Maybe.From("other"));
-            
+
+            orMaybe.HasValue.Should().BeTrue();
+            orMaybe.Should().NotBe(maybe);
+        }
+
+        [Fact]
+        public async Task Or_async_fallback_maybe_returns_fallback_when_source_is_empty()
+        {
+            Maybe<string> maybe = Maybe<string>.None;
+
+            var orMaybe = await maybe.Or(() => Task.FromResult(Maybe.From("other")));
+
             orMaybe.HasValue.Should().BeTrue();
             orMaybe.Should().NotBe(maybe);
         }
