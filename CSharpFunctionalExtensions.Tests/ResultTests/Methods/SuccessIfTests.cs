@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Methods
         [Fact]
         public void Create_value_is_null_Success_result_expected()
         {
-            Result result = Result.SuccessIf<string>(true, null, null);
+            Result result = Result.SuccessIf(true, 7, null);
 
             result.IsSuccess.Should().BeTrue();
         }
@@ -18,10 +18,10 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Methods
         [Fact]
         public void Create_error_is_null_Exception_expected()
         {
-            var exception = Record.Exception(() =>
-                Result.SuccessIf<string, string>(false, null, null));
+            Action resultAction = () =>
+                Result.SuccessIf<int, string>(false, 7, null);
 
-            Assert.IsType<ArgumentNullException>(exception);
+            FluentActions.Invoking(resultAction).Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
