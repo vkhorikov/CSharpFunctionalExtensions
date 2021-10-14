@@ -52,7 +52,7 @@ namespace CSharpFunctionalExtensions
     /// <summary>
     /// Alternative entrypoint for <see cref="UnitResult{E}" /> to avoid ambiguous calls
     /// </summary>
-    public static class UnitResult
+    public static partial class UnitResult
     {
         /// <summary>
         ///     Creates a failure result with the given error.

@@ -86,4 +86,37 @@ namespace CSharpFunctionalExtensions
             return SuccessIf(isSuccess, value, error);
         }
     }
+
+    /// <summary>
+    /// Alternative entrypoint for <see cref="UnitResult{E}" /> to avoid ambiguous calls
+    /// </summary>
+    public static partial class UnitResult
+    {
+        /// <summary>
+        ///     Creates a result whose success/failure reflects the supplied condition. Opposite of FailureIf().
+        /// </summary>
+        public static UnitResult<E> SuccessIf<E>(bool isSuccess, E error)
+        {
+            return isSuccess
+                ? Success<E>()
+                : Failure(error);
+        }
+
+        /// <summary>
+        ///     Creates a result whose success/failure depends on the supplied predicate. Opposite of FailureIf().
+        /// </summary>
+        public static UnitResult<E> SuccessIf<E>(Func<bool> predicate, E error)
+        {
+            return SuccessIf(predicate(), error);
+        }
+
+        /// <summary>
+        ///     Creates a result whose success/failure depends on the supplied predicate. Opposite of FailureIf().
+        /// </summary>
+        public static async Task<UnitResult<E>> SuccessIf<E>(Func<Task<bool>> predicate, E error)
+        {
+            bool isSuccess = await predicate().DefaultAwait();
+            return SuccessIf(isSuccess, error);
+        }
+    }
 }
