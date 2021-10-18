@@ -135,6 +135,32 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             maybe.HasNoValue.Should().BeTrue();
         }
 
+        [Fact]
+        public void GetValueOrThrow_throws_with_message_if_source_is_empty()
+        {
+            const string errorMessage = "Maybe is none";
+
+            Action action = () =>
+            {
+                var maybe = Maybe<int>.None;
+                int _ = maybe.GetValueOrThrow(errorMessage);
+            };
+
+            action.Should().Throw<InvalidOperationException>().WithMessage(errorMessage);
+        }
+
+        [Fact]
+        public void GetValueOrThrow_returns_value_if_source_has_value()
+        {
+            const int value = 5;
+            var maybe = Maybe.From(value);
+
+            const string errorMessage = "Maybe is none";
+            var result = maybe.GetValueOrThrow(errorMessage);
+
+            result.Should().Be(value);
+        }
+
         private class MyClass
         {
             public override string ToString()

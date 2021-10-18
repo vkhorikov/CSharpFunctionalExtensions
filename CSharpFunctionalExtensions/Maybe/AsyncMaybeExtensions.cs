@@ -86,7 +86,6 @@ namespace CSharpFunctionalExtensions
         public static async Task<T> GetValueOrThrow<T>(this Task<Maybe<T>> maybeTask, string errorMessage)
         {
             var maybe = await maybeTask.DefaultAwait();
-
             return maybe.GetValueOrThrow(errorMessage);
         }
 
