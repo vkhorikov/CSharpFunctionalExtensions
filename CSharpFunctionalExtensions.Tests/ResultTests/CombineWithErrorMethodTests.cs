@@ -34,6 +34,139 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             }
         }
 
+        private Error ComposeErrors(IEnumerable<Error> errors) =>
+            new Error(errors.SelectMany(e => e.Errors).ToList());
+
+        [Fact]
+        public void Combine_all_unit_results_errors_together()
+        {
+            IEnumerable<UnitResult<Error>> results = new UnitResult<Error>[]
+            {
+                UnitResult.Success<Error>(),
+                UnitResult.Failure<Error>(new Error("Failure 1")),
+                UnitResult.Failure<Error>(new Error("Failure 2")),
+            };
+            
+            UnitResult<Error> result = Result.Combine(results, ComposeErrors);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Errors.Should().BeEquivalentTo(new[] { "Failure 1", "Failure 2" });
+        }
+
+        [Fact]
+        public void Combine_unit_results_returns_Ok_if_no_failures() {
+            IEnumerable<UnitResult<Error>> results = new UnitResult<Error>[]
+            {
+                UnitResult.Success<Error>(),
+                UnitResult.Success<Error>(),
+                UnitResult.Success<Error>(),
+            };
+
+            UnitResult<Error> result = Result.Combine(results, ComposeErrors);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Combine_array_unit_results_compose_method_error_together()
+        {
+            UnitResult<Error> result1 = UnitResult.Success<Error>();
+            UnitResult<Error> result2 = UnitResult.Failure<Error>(new Error("Failure 1"));
+            UnitResult<Error> result3 = UnitResult.Failure<Error>(new Error("Failure 2"));
+
+            UnitResult<Error> result = Result.Combine(ComposeErrors, result1, result2, result3);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Errors.Should().BeEquivalentTo(new[] { "Failure 1", "Failure 2" });
+        }
+
+        [Fact]
+        public void Combine_array_unit_results_compose_method_returns_Ok_if_no_failures()
+        {
+            UnitResult<Error> result1 = UnitResult.Success<Error>();
+            UnitResult<Error> result2 = UnitResult.Success<Error>();
+            UnitResult<Error> result3 = UnitResult.Success<Error>();
+
+            UnitResult<Error> result = Result.Combine(ComposeErrors, result1, result2, result3);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Combine_array_unit_results_compose_method_error_generic_results_together()
+        {
+            Result<int, Error> result1 = Result.Success<int, Error>(7);
+            Result<string, Error> result2 = Result.Failure<string, Error>(new Error("Failure 1"));
+            Result<double, Error> result3 = Result.Failure<double, Error>(new Error("Failure 2"));
+
+            UnitResult<Error> result = Result.Combine<Error>(ComposeErrors, result1, result2, result3);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Errors.Should().BeEquivalentTo(new[] { "Failure 1", "Failure 2" });
+        }
+
+        [Fact]
+        public void Combine_array_unit_results_compose_method_success_generic_results_together()
+        {
+            Result<int, Error> result1 = Result.Success<int, Error>(7);
+            Result<string, Error> result2 = Result.Success<string, Error>("msg");
+            Result<double, Error> result3 = Result.Success<double, Error>(60.54);
+
+            UnitResult<Error> result = Result.Combine<Error>(ComposeErrors, result1, result2, result3);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Combine_array_unit_results_error_together()
+        {
+            UnitResult<Error> result1 = UnitResult.Success<Error>();
+            UnitResult<Error> result2 = UnitResult.Failure<Error>(new Error("Failure 1"));
+            UnitResult<Error> result3 = UnitResult.Failure<Error>(new Error("Failure 2"));
+
+            UnitResult<Error> result = Result.Combine(result1, result2, result3);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Errors.Should().BeEquivalentTo(new[] { "Failure 1", "Failure 2" });
+        }
+
+        [Fact]
+        public void Combine_array_unit_results_returns_Ok_if_no_failures()
+        {
+            UnitResult<Error> result1 = UnitResult.Success<Error>();
+            UnitResult<Error> result2 = UnitResult.Success<Error>();
+            UnitResult<Error> result3 = UnitResult.Success<Error>();
+
+            UnitResult<Error> result = Result.Combine(result1, result2, result3);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Combine_array_unit_results_error_generic_results_together()
+        {
+            Result<int, Error> result1 = Result.Success<int, Error>(7);
+            Result<string, Error> result2 = Result.Failure<string, Error>(new Error("Failure 1"));
+            Result<double, Error> result3 = Result.Failure<double, Error>(new Error("Failure 2"));
+
+            UnitResult<Error> result = Result.Combine<Error>(result1, result2, result3);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Errors.Should().BeEquivalentTo(new[] { "Failure 1", "Failure 2" });
+        }
+
+        [Fact]
+        public void Combine_array_unit_results_success_generic_results_together()
+        {
+            Result<int, Error> result1 = Result.Success<int, Error>(7);
+            Result<string, Error> result2 = Result.Success<string, Error>("msg");
+            Result<double, Error> result3 = Result.Success<double, Error>(60.54);
+
+            UnitResult<Error> result = Result.Combine<Error>(result1, result2, result3);
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
         [Fact]
         public void Combine_combines_all_errors_together()
         {
