@@ -156,18 +156,18 @@ Console.WriteLine(apple.ToString()); // "apple"
 Console.WriteLine(noFruit.ToString()); // "No value"
 ```
 
-#### Value
+#### GetValueOrThrow
 
 Use case: Procedurally accessing the inner value of the Maybe
 
-**Note**: Accessing this property will throw a `InvalidOperationException` if there is no value
+**Note**: Call this will throw a `InvalidOperationException` if there is no value
 
 ```csharp
 Maybe<string> apple = "apple";
 Maybe<string> noFruit = Maybe<string>.None;
 
-Console.WriteLine(apple.Value); // "apple";
-Console.WriteLine(noFruit.Value); // throws InvalidOperationException !!
+Console.WriteLine(apple.GetValueOrThrow()); // "apple";
+Console.WriteLine(noFruit.GetValueOrThrow()); // throws InvalidOperationException !!
 ```
 
 #### HasValue and HasNoValue
@@ -195,7 +195,7 @@ if (noFruit.HasNoValue)
 }
 ```
 
-#### Unwrap
+#### GetValueOrDefault
 
 Use case: Safely accessing the inner value, without checking if there is one, by providing a fallback
 if no value exists
@@ -209,8 +209,8 @@ void Response(string fruit)
 Maybe<string> apple = "apple";
 Maybe<string> unknownFruit = Maybe<string>.None;
 
-string appleValue = apple.Unwrap("banana");
-string unknownFruitValue = unknownFruit.Unwrap("banana");
+string appleValue = apple.GetValueOrDefault("banana");
+string unknownFruitValue = unknownFruit.GetValueOrDefault("banana");
 
 Response(appleValue); // It's a apple
 Response(unknownFruitValue); // It's a banana

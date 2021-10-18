@@ -9,10 +9,14 @@ namespace CSharpFunctionalExtensions
 
         private readonly T _value;
 
-        public T GetValueOrThrow()
+        /// <summary>
+        /// Returns the inner value if there's one, otherwise throws an InvalidOperationException with <paramref name="errorMessage"/>
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Maybe has no value.</exception>
+        public T GetValueOrThrow(string errorMessage = null)
         {
             if (HasNoValue)
-                throw new InvalidOperationException();
+                throw new InvalidOperationException(errorMessage ?? Result.DefaultNoValueExceptionMessage);
 
             return _value;
         }

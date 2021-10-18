@@ -40,6 +40,17 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Executes the given action if the calling result is a success. Returns the calling result.
         /// </summary>
+        public static UnitResult<E> Tap<E>(this UnitResult<E> result, Action action)
+        {
+            if (result.IsSuccess)
+                action();
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a success. Returns the calling result.
+        /// </summary>
         public static Result<T, E> Tap<T, E>(this Result<T, E> result, Action action)
         {
             if (result.IsSuccess)

@@ -61,7 +61,7 @@ namespace CSharpFunctionalExtensions
 
         public static List<T> ToList<T>(this Maybe<T> maybe)
         {
-            return maybe.GetValueOrDefault(value => new List<T> {value}, new List<T>());
+            return maybe.GetValueOrDefault(value => new List<T> { value }, new List<T>());
         }
 
         public static Maybe<T> Where<T>(this Maybe<T> maybe, Func<T, bool> predicate)
@@ -143,7 +143,7 @@ namespace CSharpFunctionalExtensions
 
             action();
         }
-        
+
         /// <summary>
         /// Executes the given async <paramref name="action" /> if the <paramref name="maybe" /> has a value
         /// </summary>
@@ -182,7 +182,22 @@ namespace CSharpFunctionalExtensions
         public static Maybe<T> Or<T>(this Maybe<T> maybe, Func<T> fallbackOperation)
         {
             if (maybe.HasNoValue)
-                return Maybe<T>.From(fallbackOperation());
+                return fallbackOperation();
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> if <paramref name="maybe" /> is empty, using the result of the supplied <paramref name="fallbackOperation" />, otherwise it returns <paramref name="maybe" />
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="fallbackOperation"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Maybe<T> maybe, Func<Task<T>> fallbackOperation)
+        {
+            if (maybe.HasNoValue)
+                return await fallbackOperation().DefaultAwait();
 
             return maybe;
         }
@@ -203,6 +218,21 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
+        /// Returns <paramref name="fallback" /> if <paramref name="maybe" /> is empty, otherwise it returns <paramref name="maybe" />
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="fallback"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Maybe<T> maybe, Task<Maybe<T>> fallback)
+        {
+            if (maybe.HasNoValue)
+                return await fallback.DefaultAwait();
+
+            return maybe;
+        }
+
+        /// <summary>
         /// Returns the result of <paramref name="fallbackOperation" /> if <paramref name="maybe" /> is empty, otherwise it returns <paramref name="maybe" />
         /// </summary>
         /// <param name="maybe"></param>
@@ -213,6 +243,21 @@ namespace CSharpFunctionalExtensions
         {
             if (maybe.HasNoValue)
                 return fallbackOperation();
+
+            return maybe;
+        }
+
+        /// <summary>
+        /// Returns the result of <paramref name="fallbackOperation" /> if <paramref name="maybe" /> is empty, otherwise it returns <paramref name="maybe" />
+        /// </summary>
+        /// <param name="maybe"></param>
+        /// <param name="fallbackOperation"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<Maybe<T>> Or<T>(this Maybe<T> maybe, Func<Task<Maybe<T>>> fallbackOperation)
+        {
+            if (maybe.HasNoValue)
+                return await fallbackOperation().DefaultAwait();
 
             return maybe;
         }
@@ -279,7 +324,7 @@ namespace CSharpFunctionalExtensions
                         yield return item.GetValueOrThrow();
                     }
                 }
-            } 
+            }
         }
 
         public static Maybe<T> TryFirst<T>(this IEnumerable<T> source)
