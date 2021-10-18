@@ -25,7 +25,9 @@ namespace CSharpFunctionalExtensions
             return _value;
         }
 
-        [Obsolete("Use GetValueOrThrow() instead.")]
+        /// <summary>
+        /// Try to use GetValueOrThrow() or GetValueOrDefault() instead for more explicitness.
+        /// </summary>
         public T Value => GetValueOrThrow();
 
         public static Maybe<T> None => new Maybe<T>();
