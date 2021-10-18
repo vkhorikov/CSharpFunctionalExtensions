@@ -44,6 +44,28 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             result.Should().Be(returned);
         }
 
+        [Fact]
+        public void Tap_unit_result_E_executes_action_on_success_and_returns_self()
+        {
+            UnitResult<E> result = UnitResult.Success<E>();
+
+            var returned = result.Tap(Task_Action).Result;
+
+            actionExecuted.Should().Be(true);
+            result.Should().Be(returned);
+        }
+
+        [Fact]
+        public void Tap_unit_result_E_executes_action_on_failure_and_returns_self()
+        {
+            UnitResult<E> result = UnitResult.Failure(E.Value);
+
+            var returned = result.Tap(Task_Action).Result;
+
+            actionExecuted.Should().Be(false);
+            result.Should().Be(returned);
+        }
+
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
