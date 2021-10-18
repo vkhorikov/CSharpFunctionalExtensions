@@ -136,7 +136,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public void GetValueOrThrow_throws_with_message_if_source_is_empty()
+        public void GetValueOrThrww_throws_with_message_if_source_is_empty()
         {
             const string errorMessage = "Maybe is none";
 
@@ -159,6 +159,18 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             var result = maybe.GetValueOrThrow(errorMessage);
 
             result.Should().Be(value);
+        }
+      
+        public void Maybe_None_doesnt_throw_on_Deconstruct()
+        {
+            Maybe<int> maybe = Maybe.None;
+
+            Action act = () =>
+            {
+                var (hasValue, value) = maybe;
+            };
+            
+            act.Should().NotThrow();
         }
 
         private class MyClass
