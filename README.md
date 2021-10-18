@@ -91,7 +91,7 @@ var apple = Maybe.From("apple");
 #### None/No Value
 
 Use case: Replacing `null` or the
-[Null Object Pattern](https://www.c-sharpcorner.com/article/null-object-design-pattern/) for representing 'missing' data.
+[Null Object Pattern](https://enterprisecraftsmanship.com/2015/03/13/functional-c-non-nullable-reference-types/) for representing 'missing' data.
 
 ```csharp
 int storeInventory = ...
@@ -566,9 +566,9 @@ result.Should().BeSuccess();
 
 ## Read or Watch more about these ideas
 
-- [Functional C#: Primitive obsession](http://enterprisecraftsmanship.com/2015/03/07/functional-c-primitive-obsession/)
-- [Functional C#: Non-nullable reference types](http://enterprisecraftsmanship.com/2015/03/13/functional-c-non-nullable-reference-types/)
-- [Functional C#: Handling failures, input errors](http://enterprisecraftsmanship.com/2015/03/20/functional-c-handling-failures-input-errors/)
+- [Functional C#: Primitive obsession](https://enterprisecraftsmanship.com/2015/03/07/functional-c-primitive-obsession/)
+- [Functional C#: Non-nullable reference types](https://enterprisecraftsmanship.com/2015/03/13/functional-c-non-nullable-reference-types/)
+- [Functional C#: Handling failures, input errors](https://enterprisecraftsmanship.com/2015/03/20/functional-c-handling-failures-input-errors/)
 - [Applying Functional Principles in C# Pluralsight course](https://enterprisecraftsmanship.com/ps-func)
 
 ## Contributors
