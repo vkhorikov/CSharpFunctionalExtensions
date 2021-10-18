@@ -645,6 +645,35 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             instance.Value.Property.Should().Be("Some Value");
         }
 
+        [Fact]
+        public async Task Async_GetValueOrThrow_throws_with_message_if_source_is_empty()
+        {
+            const string errorMessage = "Maybe is none";
+
+            Func<Task<int>> func = () =>
+            {
+                var maybe = Maybe<int>.None;
+                var maybeTask = Task.FromResult(maybe);
+                
+                return maybeTask.GetValueOrThrow(errorMessage);
+            };
+
+            await func.Should().ThrowAsync<InvalidOperationException>().WithMessage(errorMessage);
+        }
+
+        [Fact]
+        public async Task Async_GetValueOrThrow_returns_value_if_source_has_value()
+        {
+            const int value = 1;
+            var maybe = Maybe.From(value);
+            var maybeTask = Task.FromResult(maybe);
+
+            const string errorMessage = "Maybe is none";
+            var result = await maybeTask.GetValueOrThrow(errorMessage);
+
+            result.Should().Be(value);
+        }
+
         private static Task<Maybe<MyClass>> GetMaybeTask(Maybe<MyClass> maybe) => maybe.AsTask();
 
         private static Func<MyClass, T> ExpectAndReturn<T>(MyClass expected, T result) => actual =>
