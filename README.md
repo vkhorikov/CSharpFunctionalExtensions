@@ -571,6 +571,10 @@ result.Should().BeSuccess();
 - [Functional C#: Handling failures, input errors](https://enterprisecraftsmanship.com/2015/03/20/functional-c-handling-failures-input-errors/)
 - [Applying Functional Principles in C# Pluralsight course](https://enterprisecraftsmanship.com/ps-func)
 
+## Related Projects
+
+- [Typescript Functional Extensions](https://github.com/seangwright/typescript-functional-extensions)
+
 ## Contributors
 
 A big thanks to the project contributors!
