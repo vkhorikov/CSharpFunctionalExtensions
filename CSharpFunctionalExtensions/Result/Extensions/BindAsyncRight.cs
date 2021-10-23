@@ -63,6 +63,17 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
         /// </summary>
+        public static Task<UnitResult<E>> Bind<E>(this UnitResult<E> result, Func<Task<UnitResult<E>>> func)
+        {
+            if (result.IsFailure)
+                return UnitResult.Failure(result.Error).AsCompletedTask();
+
+            return func();
+        }
+
+        /// <summary>
+        ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
+        /// </summary>
         public static Task<Result<T, E>> Bind<T, E>(this UnitResult<E> result, Func<Task<Result<T, E>>> func)
         {
             if (result.IsFailure)
