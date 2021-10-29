@@ -1,11 +1,6 @@
-2.24.0
+2.24.1
 New features:
-* #336 Accept custom error message for GetValueOrThrow on Maybes
-* #347 Add Tap Extension Methods for UnitResult
-* #348 Add Combine methods for UnitResult
-* #346 Add SuccessIf methods for UnitResult
-* #349 Feature: add async fallback for synchronous Maybe.Or()
-* Removed Obsolete mark from Value property
+* #353 Add extension methods to bind a unit result to a unit result
 
 Fixed issues:
 * None
