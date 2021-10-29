@@ -71,6 +71,15 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         protected Task<Result<T, E>> GetResult_T_E_Task()
             => GetResult_T_E().AsTask();
 
+        protected UnitResult<E> GetUnitResult_E()
+        {
+            funcExecuted = true;
+            return UnitResult.Success<E>();
+        }
+
+        protected Task<UnitResult<E>> GetUnitResult_E_Task()
+            => GetUnitResult_E().AsTask();
+        
         protected UnitResult<E> GetUnitResult_E_WithParam(T value)
         {
             funcExecuted = true;

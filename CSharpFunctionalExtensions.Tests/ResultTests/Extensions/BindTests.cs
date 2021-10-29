@@ -148,5 +148,25 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             AssertFailure(output);
         }
+
+        [Fact]
+        public void Bind_E_selects_new_unit_result()
+        {
+            UnitResult<E> input = UnitResult.Success<E>();
+
+            UnitResult<E> output = input.Bind(GetUnitResult_E);
+
+            AssertSuccess(output);
+        }
+
+        [Fact]
+        public void Bind_E_returns_unit_result_failure_and_does_not_execute_func()
+        {
+            UnitResult<E> input = UnitResult.Failure(E.Value);
+
+            UnitResult<E> output = input.Bind(GetUnitResult_E);
+
+            AssertFailure(output);
+        }
     }
 }

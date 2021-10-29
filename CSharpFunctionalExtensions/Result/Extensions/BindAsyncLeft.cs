@@ -53,6 +53,15 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
         /// </summary>
+        public static async Task<UnitResult<E>> Bind<E>(this Task<UnitResult<E>> resultTask, Func<UnitResult<E>> func)
+        {
+            UnitResult<E> result = await resultTask.DefaultAwait();
+            return result.Bind(func);
+        }
+
+        /// <summary>
+        ///     Selects result from the return value of a given function. If the calling Result is a failure, a new failure result is returned instead.
+        /// </summary>
         public static async Task<Result<T, E>> Bind<T, E>(this Task<UnitResult<E>> resultTask, Func<Result<T, E>> func)
         {
             UnitResult<E> result = await resultTask.DefaultAwait();
