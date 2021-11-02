@@ -1,6 +1,6 @@
-2.24.1
+2.24.2
 New features:
-* #353 Add extension methods to bind a unit result to a unit result
+* #355 Unit result convert failure
 
 Fixed issues:
 * None
