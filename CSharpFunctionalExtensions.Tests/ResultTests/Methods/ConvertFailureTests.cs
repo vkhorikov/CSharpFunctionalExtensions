@@ -4,14 +4,14 @@ using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests
 {
-    public class ConvertFailureTests
+    public class ConvertFailureTests : TestBase
     {
         [Fact]
         public void Can_not_convert_okResult_without_value_to_okResult_with_value()
         {
             var okResultWithoutValue = Result.Success();
 
-            Action action = () => okResultWithoutValue.ConvertFailure<MyValueClass>();
+            Action action = () => okResultWithoutValue.ConvertFailure<T>();
 
             action.Should().Throw<InvalidOperationException>();
         }
@@ -21,7 +21,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         {
             var failedResultWithoutValue = Result.Failure("Failed");
 
-            Result<MyValueClass> failedResultWithValue = failedResultWithoutValue.ConvertFailure<MyValueClass>();
+            Result<T> failedResultWithValue = failedResultWithoutValue.ConvertFailure<T>();
 
             failedResultWithValue.IsFailure.Should().BeTrue();
             failedResultWithValue.Error.Should().Be("Failed");
@@ -30,7 +30,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_not_convert_okResult_with_value_to_okResult_without_value()
         {
-            var okResultWithValue = Result.Success(new MyValueClass());
+            var okResultWithValue = Result.Success(T.Value);
 
             Action action = () => okResultWithValue.ConvertFailure();
 
@@ -40,20 +40,20 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_convert_failedResult_with_value_to_failedResult_without_value()
         {
-            var failedResultWithValue = Result.Failure<MyValueClass>("Failed");
+            var failedResultWithValue = Result.Failure<T>(ErrorMessage);
 
             Result failedResultWithoutValue = failedResultWithValue;
 
             failedResultWithoutValue.IsFailure.Should().BeTrue();
-            failedResultWithoutValue.Error.Should().Be("Failed");
+            failedResultWithoutValue.Error.Should().Be(ErrorMessage);
         }
 
         [Fact]
         public void Can_not_convert_okResult_with_value_to_okResult_with_otherValue()
         {
-            var okResultWithValue = Result.Success(new MyValueClass());
+            var okResultWithValue = Result.Success(T.Value);
 
-            Action action = () => okResultWithValue.ConvertFailure<MyValueClass2>();
+            Action action = () => okResultWithValue.ConvertFailure<K>();
 
             action.Should().Throw<InvalidOperationException>();
         }
@@ -61,20 +61,20 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void Can_convert_failedResult_with_value_to_failedResult_with_other_value()
         {
-            var failedResultWithValue = Result.Failure<MyValueClass>("Failed");
+            var failedResultWithValue = Result.Failure<T>(ErrorMessage);
 
-            Result<MyValueClass2> failedResultWithOtherValue = failedResultWithValue.ConvertFailure<MyValueClass2>();
+            Result<K> failedResultWithOtherValue = failedResultWithValue.ConvertFailure<K>();
 
             failedResultWithOtherValue.IsFailure.Should().BeTrue();
-            failedResultWithOtherValue.Error.Should().Be("Failed");
+            failedResultWithOtherValue.Error.Should().Be(ErrorMessage);
         }
 
         [Fact]
         public void ErrorClass_Can_not_convert_okResult_with_value_to_okResult_with_value()
         {
-            var okResultWithValue = Result.Success<MyValueClass, MyErrorClass>(new MyValueClass());
+            var okResultWithValue = Result.Success<T, E>(T.Value);
 
-            Action action = () => okResultWithValue.ConvertFailure<MyValueClass2>();
+            Action action = () => okResultWithValue.ConvertFailure<K>();
 
             action.Should().Throw<InvalidOperationException>();
         }
@@ -82,30 +82,33 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void ErrorClass_Can_convert_failedResult_with_value_to_failedResult_without_value()
         {
-            var failedResultWithValue = Result.Failure<MyValueClass, MyErrorClass>(new MyErrorClass { Prop = "Failed" });
+            var failedResultWithValue = Result.Failure<T, E>(E.Value);
 
-            Result<MyValueClass2, MyErrorClass> failedResultWithoutValue = failedResultWithValue.ConvertFailure<MyValueClass2>();
+            Result<K, E> failedResultWithoutValue = failedResultWithValue.ConvertFailure<K>();
 
             failedResultWithoutValue.IsFailure.Should().BeTrue();
-            failedResultWithoutValue.Error.Should().BeEquivalentTo(new MyErrorClass
-            {
-                Prop = "Failed"
-            });
+            failedResultWithoutValue.Error.Should().BeEquivalentTo(E.Value);
         }
-    }
 
-    class MyValueClass
-    {
-        public int Prop { get; set; }
-    }
+        [Fact]
+        public void UnitResult_can_not_convert_okResult_with_value_to_okResult_with_value()
+        {
+            var okResultWithValue = UnitResult.Success<E>();
 
-    class MyValueClass2
-    {
-        public int Prop { get; set; }
-    }
+            Action action = () => okResultWithValue.ConvertFailure<K>();
 
-    public class MyErrorClass
-    {
-        public string Prop { get; set; }
+            action.Should().Throw<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void UnitResult_can_convert_failedResult_with_value_to_failedResult_without_value()
+        {
+            var failedResultWithValue = UnitResult.Failure(E.Value);
+
+            Result<K, E> failedResultWithoutValue = failedResultWithValue.ConvertFailure<K>();
+
+            failedResultWithoutValue.IsFailure.Should().BeTrue();
+            failedResultWithoutValue.Error.Should().BeEquivalentTo(E.Value);
+        }
     }
 }
