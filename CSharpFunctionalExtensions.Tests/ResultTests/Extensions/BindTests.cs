@@ -8,9 +8,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_returns_failure_and_does_not_execute_func()
         {
-            Result input = Result.Failure(ErrorMessage);
-
-            Result output = input.Bind(GetResult);
+            Result output = Failure().Bind(Success);
 
             AssertFailure(output);
         }
@@ -18,9 +16,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_selects_new_result()
         {
-            Result input = Result.Success();
-
-            Result output = input.Bind(GetResult);
+            Result output = Success().Bind(Success);
 
             AssertSuccess(output);
         }
@@ -28,9 +24,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_T_returns_failure_and_does_not_execute_func()
         {
-            Result<T> input = Result.Failure<T>(ErrorMessage);
-
-            Result output = input.Bind(GetResult_WithParam);
+            Result output = Failure_T().Bind(Success_T);
 
             AssertFailure(output);
         }
@@ -38,20 +32,16 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_T_selects_new_result()
         {
-            Result<T> input = Result.Success(T.Value);
+            Result output = Success_T(T.Value).Bind(Success_T);
 
-            Result output = input.Bind(GetResult_WithParam);
-
-            funcParam.Should().Be(T.Value);
+            FuncParam.Should().Be(T.Value);
             AssertSuccess(output);
         }
 
         [Fact]
         public void Bind_K_returns_failure_and_does_not_execute_func()
         {
-            Result input = Result.Failure(ErrorMessage);
-
-            Result<K> output = input.Bind(GetResult_K);
+            Result<K> output = Failure().Bind(Success_K);
 
             AssertFailure(output);
         }
@@ -59,9 +49,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_K_selects_new_result()
         {
-            Result input = Result.Success();
-
-            Result<K> output = input.Bind(GetResult_K);
+            Result<K> output = Success().Bind(Success_K);
 
             AssertSuccess(output);
         }
@@ -69,9 +57,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_T_K_returns_failure_and_does_not_execute_func()
         {
-            Result<T> input = Result.Failure<T>(ErrorMessage);
-
-            Result<K> output = input.Bind(GetResult_K_WithParam);
+            Result<K> output = Failure_T().Bind(Success_T_Func_K);
 
             AssertFailure(output);
         }
@@ -79,20 +65,16 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_T_K_selects_new_result()
         {
-            Result<T> input = Result.Success(T.Value);
+            Result<K> output = Success_T(T.Value).Bind(Success_T_Func_K);
 
-            Result<K> output = input.Bind(GetResult_K_WithParam);
-
-            funcParam.Should().Be(T.Value);
+            FuncParam.Should().Be(T.Value);
             AssertSuccess(output);
         }
         
         [Fact]
         public void Bind_T_K_E_returns_failure_and_does_not_execute_func()
         {
-            Result<T, E> input = Result.Failure<T, E>(E.Value);
-
-            Result<K, E> output = input.Bind(GetResult_K_E_WithParam);
+            Result<K, E> output = Failure_T_E().Bind(Success_T_E_Func_K);
 
             AssertFailure(output);
         }
@@ -100,31 +82,25 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_T_K_E_selects_new_result()
         {
-            Result<T, E> input = Result.Success<T, E>(T.Value);
+            Result<K, E> output = Success_T_E().Bind(Success_T_E_Func_K);
 
-            Result<K, E> output = input.Bind(GetResult_K_E_WithParam);
-
-            funcParam.Should().Be(T.Value);
+            FuncParam.Should().Be(T.Value);
             AssertSuccess(output);
         }
 
         [Fact]
-        public void Bind_T_E_selects_new_unit_result()
+        public void Bind_T_E_selects_new_UnitResult()
         {
-            Result<T, E> input = Result.Success<T, E>(T.Value);
+            UnitResult<E> output = Success_T_E().Bind(UnitResult_E_T);
 
-            UnitResult<E> output = input.Bind(GetUnitResult_E_WithParam);
-
-            funcParam.Should().Be(T.Value);
+            FuncParam.Should().Be(T.Value);
             AssertSuccess(output);
         }
 
         [Fact]
         public void Bind_T_E_returns_failure_and_does_not_execute_func()
         {
-            Result<T, E> input = Result.Failure<T, E>(E.Value);
-
-            UnitResult<E> output = input.Bind(GetUnitResult_E_WithParam);
+            UnitResult<E> output = Failure_T_E().Bind(UnitResult_E_T);
 
             AssertFailure(output);
         }
@@ -132,9 +108,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_E_selects_new_result()
         {
-            UnitResult<E> input = UnitResult.Success<E>();
-
-            UnitResult<E> output = input.Bind(GetResult_T_E);
+            UnitResult<E> output = UnitResult_Success_E().Bind(Success_T_E);
 
             AssertSuccess(output);
         }
@@ -142,29 +116,23 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public void Bind_E_returns_failure_and_does_not_execute_func()
         {
-            UnitResult<E> input = UnitResult.Failure<E>(E.Value);
-
-            UnitResult<E> output = input.Bind(GetResult_T_E);
+            UnitResult<E> output = UnitResult_Failure_E().Bind(Success_T_E);
 
             AssertFailure(output);
         }
 
         [Fact]
-        public void Bind_E_selects_new_unit_result()
+        public void Bind_E_selects_new_UnitResult()
         {
-            UnitResult<E> input = UnitResult.Success<E>();
-
-            UnitResult<E> output = input.Bind(GetUnitResult_E);
+            UnitResult<E> output = UnitResult_Success_E().Bind(UnitResult_Success_E);
 
             AssertSuccess(output);
         }
 
         [Fact]
-        public void Bind_E_returns_unit_result_failure_and_does_not_execute_func()
+        public void Bind_E_returns_UnitResult_failure_and_does_not_execute_func()
         {
-            UnitResult<E> input = UnitResult.Failure(E.Value);
-
-            UnitResult<E> output = input.Bind(GetUnitResult_E);
+            UnitResult<E> output = UnitResult_Failure_E().Bind(UnitResult_Success_E);
 
             AssertFailure(output);
         }

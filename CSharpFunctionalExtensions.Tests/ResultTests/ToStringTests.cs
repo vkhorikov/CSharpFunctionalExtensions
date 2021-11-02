@@ -27,7 +27,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void ToString_returns_failure_with_generic_error_when_unit_result_failure()
+        public void ToString_returns_failure_with_generic_error_when_UnitResult_failure()
         {
             UnitResult<ErrorType> subject = UnitResult.Failure(ErrorType.Error1);
             Assert.Equal("Failure(Error1)", subject.ToString());
@@ -41,7 +41,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void ToString_returns_success_for_unit_result()
+        public void ToString_returns_success_for_UnitResult()
         {
             UnitResult<ErrorType> result = Result.Success<ErrorType>();
             Assert.Equal("Success", result.ToString());

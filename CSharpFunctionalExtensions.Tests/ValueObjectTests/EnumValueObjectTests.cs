@@ -109,26 +109,4 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             maybeEnum.Value.Should().Be(AnotherTestEnumValueObject.One);
         }
     }
-    
-    public sealed class TestEnumValueObject : EnumValueObject<TestEnumValueObject>
-    {
-        public static readonly TestEnumValueObject One = new TestEnumValueObject(nameof(One));
-
-        public static readonly TestEnumValueObject Two = new TestEnumValueObject(nameof(Two));
-
-        public TestEnumValueObject(string key) : base(key)
-        {
-        }
-    }
-
-    public sealed class AnotherTestEnumValueObject : EnumValueObject<AnotherTestEnumValueObject, long>
-    {
-        public static readonly AnotherTestEnumValueObject One = new AnotherTestEnumValueObject(1, "name");
-
-        public static readonly AnotherTestEnumValueObject Two = new AnotherTestEnumValueObject(2, "test");
-        
-        private AnotherTestEnumValueObject(long id, string name) : base(id, name)
-        {
-        }
-    }
 }

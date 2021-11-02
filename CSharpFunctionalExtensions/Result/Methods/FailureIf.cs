@@ -16,16 +16,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static Result FailureIf(Func<bool> failurePredicate, string error)
             => SuccessIf(!failurePredicate(), error);
-
-        /// <summary>
-        ///     Creates a result whose success/failure depends on the supplied predicate. Opposite of SuccessIf().
-        /// </summary>
-        public static async Task<Result> FailureIf(Func<Task<bool>> failurePredicate, string error)
-        {
-            bool isFailure = await failurePredicate().DefaultAwait();
-            return SuccessIf(!isFailure, error);
-        }
-
+        
         /// <summary>
         ///     Creates a result whose success/failure reflects the supplied condition. Opposite of SuccessIf().
         /// </summary>
@@ -37,16 +28,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static Result<T> FailureIf<T>(Func<bool> failurePredicate, in T value, string error)
             => SuccessIf(!failurePredicate(), value, error);
-
-        /// <summary>
-        ///     Creates a result whose success/failure depends on the supplied predicate. Opposite of SuccessIf().
-        /// </summary>
-        public static async Task<Result<T>> FailureIf<T>(Func<Task<bool>> failurePredicate, T value, string error)
-        {
-            bool isFailure = await failurePredicate().DefaultAwait();
-            return SuccessIf(!isFailure, value, error);
-        }
-
+        
         /// <summary>
         ///     Creates a result whose success/failure reflects the supplied condition. Opposite of SuccessIf().
         /// </summary>
@@ -58,15 +40,6 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static Result<T, E> FailureIf<T, E>(Func<bool> failurePredicate, in T value, in E error)
             => SuccessIf(!failurePredicate(), value, error);
-
-        /// <summary>
-        ///     Creates a result whose success/failure depends on the supplied predicate. Opposite of SuccessIf().
-        /// </summary>
-        public static async Task<Result<T, E>> FailureIf<T, E>(Func<Task<bool>> failurePredicate, T value, E error)
-        {
-            bool isFailure = await failurePredicate().DefaultAwait();
-            return SuccessIf(!isFailure, value, error);
-        }
     }
 
     public static partial class UnitResult

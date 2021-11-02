@@ -50,7 +50,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void Implicit_conversion_E_is_converted_to_Failure_unit_result_of_E()
+        public void Implicit_conversion_E_is_converted_to_Failure_UnitResult_of_E()
         {
             int error = 42;
 

@@ -13,7 +13,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             actual.IsSuccess.Should().BeTrue();
             actual.Value.Should().Be(K.Value);
-            funcExecuted.Should().BeTrue();
+            FuncExecuted.Should().BeTrue();
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             Result<K> actual = result.Map(Func_K);
 
             actual.IsSuccess.Should().BeFalse();
-            funcExecuted.Should().BeFalse();
+            FuncExecuted.Should().BeFalse();
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             actual.IsSuccess.Should().BeTrue();
             actual.Value.Should().Be(K.Value);
-            funcExecuted.Should().BeTrue();
+            FuncExecuted.Should().BeTrue();
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             actual.IsSuccess.Should().BeFalse();
             actual.Error.Should().Be(ErrorMessage);
-            funcExecuted.Should().BeFalse();
+            FuncExecuted.Should().BeFalse();
         }
 
         [Fact]
@@ -56,7 +56,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             actual.IsSuccess.Should().BeTrue();
             actual.Value.Should().Be(K.Value);
-            funcExecuted.Should().BeTrue();
+            FuncExecuted.Should().BeTrue();
         }
 
         [Fact]
@@ -67,29 +67,29 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             actual.IsSuccess.Should().BeFalse();
             actual.Error.Should().Be(E.Value);
-            funcExecuted.Should().BeFalse();
+            FuncExecuted.Should().BeFalse();
         }
 
         [Fact]
-        public void Map_unit_result_E_executes_on_success_returns_success()
+        public void Map_UnitResult_E_executes_on_success_returns_success()
         {
             UnitResult<E> result = UnitResult.Success<E>();
             Result<K, E> actual = result.Map(Func_K);
 
             actual.IsSuccess.Should().BeTrue();
             actual.Value.Should().Be(K.Value);
-            funcExecuted.Should().BeTrue();
+            FuncExecuted.Should().BeTrue();
         }
 
         [Fact]
-        public void Map_unit_result_E_executes_on_failure_returns_new_failure()
+        public void Map_UnitResult_E_executes_on_failure_returns_new_failure()
         {
             UnitResult<E> result = UnitResult.Failure(E.Value);
             Result<K, E> actual = result.Map(Func_K);
 
             actual.IsSuccess.Should().BeFalse();
             actual.Error.Should().Be(E.Value);
-            funcExecuted.Should().BeFalse();
+            FuncExecuted.Should().BeFalse();
         }
     }
 }

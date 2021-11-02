@@ -71,7 +71,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void Deserialization_of_unit_result_when_success()
+        public void Deserialization_of_UnitResult_when_success()
         {
             UnitResult<DeserializationTestObject> failResult = UnitResult.Success<DeserializationTestObject>();
             var serialized = Serialize(failResult);
@@ -82,7 +82,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void Deserialization_of_unit_result_when_failure()
+        public void Deserialization_of_UnitResult_when_failure()
         {
             DeserializationTestObject errorObject = new DeserializationTestObject { Number = 500, String = "Error message" };
             UnitResult<DeserializationTestObject> failResult = UnitResult.Failure(errorObject);

@@ -66,7 +66,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [InlineData(true, true)]
         [InlineData(true, false)]
         [InlineData(false, false)]
-        public void Check_T_func_unitresult_E(bool resultSuccess, bool funcSuccess)
+        public void Check_T_func_UnitResult_E(bool resultSuccess, bool funcSuccess)
         {
             UnitResult<E> result = UnitResult.SuccessIf(resultSuccess, E.Value);
 
