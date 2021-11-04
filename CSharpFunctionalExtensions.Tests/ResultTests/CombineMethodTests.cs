@@ -4,11 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
-using static CSharpFunctionalExtensions.Tests.ResultTests.CombineWithErrorMethodTests;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests
 {
-    public class CombineMethodTests
+    public class CombineMethodTests : TestBase
     {
         [Fact]
         public void Combine_combines_all_errors_together()

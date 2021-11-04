@@ -3,7 +3,7 @@ using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 {
-    public class TapIfAsyncRight : TapIfTestsBase
+    public class TapIfAsyncRightTests : TapIfTestsBase
     {
         [Theory]
         [InlineData(true, true)]
