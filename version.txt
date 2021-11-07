@@ -1,6 +1,6 @@
-2.24.2
+2.24.3
 New features:
-* #355 Unit result convert failure
+* #357 OnSuccessTry E overloads
 
 Fixed issues:
 * None
