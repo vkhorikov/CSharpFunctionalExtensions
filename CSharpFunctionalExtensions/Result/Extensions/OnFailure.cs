@@ -46,6 +46,19 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Executes the given action if the calling result is a failure. Returns the calling result.
         /// </summary>
+        public static UnitResult<E> OnFailure<E>(this UnitResult<E> result, Action<E> action)
+        {
+            if (result.IsFailure)
+            {
+                action(result.Error);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a failure. Returns the calling result.
+        /// </summary>
         public static Result<T, E> OnFailure<T, E>(this Result<T, E> result, Action<E> action)
         {
             if (result.IsFailure)
