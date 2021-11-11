@@ -1,6 +1,6 @@
-2.24.3
+2.24.4
 New features:
-* #357 OnSuccessTry E overloads
+* #359 Add OnFailure extension method for UnitResult
 
 Fixed issues:
 * None

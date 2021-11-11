@@ -30,7 +30,7 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        /// Try to use GetValueOrThrow() or GetValueOrDefault() instead for more explicitness.
+        /// Try to use GetValueOrThrow() or GetValueOrDefault() instead for better explicitness.
         /// </summary>
         public T Value => GetValueOrThrow();
 
