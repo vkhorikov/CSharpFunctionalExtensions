@@ -1,6 +1,9 @@
-2.24.4
+2.25.0
 New features:
-* #359 Add OnFailure extension method for UnitResult
+* #360 Add all missing OnFailure extensions and tests
+* #361 Add all missing MapError extensions and tests
+* #363 And Compensate extensions and tests for them
+* #362 And BindIf extensions and tests for them
 
 Fixed issues:
 * None
