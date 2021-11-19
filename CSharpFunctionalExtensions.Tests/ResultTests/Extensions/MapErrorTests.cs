@@ -39,7 +39,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
-        public void MapError_returns_unit_result_succcess()
+        public void MapError_returns_unit_result_success()
         {
             Result result = Result.Success();
             var invocations = 0;
@@ -137,6 +137,41 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             actual.IsSuccess.Should().BeFalse();
             actual.Error.Should().Be("error");
+            invocations.Should().Be(1);
+        }
+
+        [Fact]
+        public void MapError_E_unit_result_returns_success()
+        {
+            UnitResult<E> result = UnitResult.Success<E>();
+            var invocations = 0;
+
+            UnitResult<E2> actual = result.MapError(error =>
+            {
+                invocations++;
+                return E2.Value;
+            });
+
+            actual.IsSuccess.Should().BeTrue();
+            invocations.Should().Be(0);
+        }
+
+        [Fact]
+        public void MapError_E_unit_result_returns_new_failure()
+        {
+            UnitResult<E> result = UnitResult.Failure(E.Value);
+            var invocations = 0;
+
+            UnitResult<E2> actual = result.MapError(error =>
+            {
+                error.Should().Be(E.Value);
+
+                invocations++;
+                return E2.Value;
+            });
+
+            actual.IsSuccess.Should().BeFalse();
+            actual.Error.Should().Be(E2.Value);
             invocations.Should().Be(1);
         }
 
