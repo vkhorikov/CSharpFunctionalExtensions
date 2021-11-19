@@ -7,9 +7,13 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
     {
         protected const string ErrorMessage = "Error Message";
 
+        protected const string ErrorMessage2 = "Error Message2";
+
         protected class T
         {
             public static readonly T Value = new T();
+
+            public static readonly T Value2 = new T();
         }
 
         protected class K
@@ -20,6 +24,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         protected class E : Error
         {
             public static readonly E Value = new E();
+
+            public static readonly E Value2 = new E();
         }
 
         protected class E2 : Error
