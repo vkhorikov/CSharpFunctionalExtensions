@@ -53,6 +53,21 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Executes the given action if the calling result is a failure. Returns the calling result.
         /// </summary>
+        public static async Task<Result> OnFailure(this Task<Result> resultTask, Func<string, Task> func)
+        {
+            Result result = await resultTask.DefaultAwait();
+
+            if (result.IsFailure)
+            {
+                await func(result.Error).DefaultAwait();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a failure. Returns the calling result.
+        /// </summary>
         public static async Task<UnitResult<E>> OnFailure<E>(this Task<UnitResult<E>> resultTask, Func<E, Task> func)
         {
             UnitResult<E> result = await resultTask.DefaultAwait();
@@ -60,6 +75,21 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
             {
                 await func(result.Error).DefaultAwait();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Executes the given action if the calling result is a failure. Returns the calling result.
+        /// </summary>
+        public static async Task<UnitResult<E>> OnFailure<E>(this Task<UnitResult<E>> resultTask, Func<Task> func)
+        {
+            UnitResult<E> result = await resultTask.DefaultAwait();
+
+            if (result.IsFailure)
+            {
+                await func().DefaultAwait();
             }
 
             return result;
