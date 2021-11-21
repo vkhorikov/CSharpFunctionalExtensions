@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;net461;net472;netstandard2.0;net5.0</TargetFrameworks>
+    <TargetFrameworks>net40;net45;net461;net472;netstandard2.0;net5.0;net6.0</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
     <Authors>Vladimir Khorikov</Authors>
     <Description>CSharpFunctionalExtensions - functional extensions for C#</Description>
@@ -31,6 +31,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='net5.0'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET 5.0</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <AssemblyTitle>CSharpFunctionalExtensions .NET 6.0</AssemblyTitle>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
