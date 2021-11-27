@@ -34,7 +34,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET 6.0</AssemblyTitle>
-    <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
