@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;net461;net472;netstandard2.0;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>net461;net472;netstandard2.0;net5.0;net6.0</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
     <Authors>Vladimir Khorikov</Authors>
     <Description>CSharpFunctionalExtensions - functional extensions for C#</Description>
@@ -20,9 +20,6 @@
     <NoWarn>1591;1701;1702</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
-    <AssemblyTitle>CSharpFunctionalExtensions .NET 4.5</AssemblyTitle>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET 4.6.1</AssemblyTitle>
   </PropertyGroup>
@@ -35,10 +32,6 @@
   <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET 6.0</AssemblyTitle>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net40'">
-    <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
