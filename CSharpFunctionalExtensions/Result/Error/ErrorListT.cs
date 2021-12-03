@@ -14,8 +14,8 @@
 
         ICombine ICombine.Combine(ICombine value)
         {
-            var errorList = new ErrorList<T>((ErrorList<T>)value);
-            errorList.AddRange(this);
+            var errorList = new ErrorList<T>(this);
+            errorList.AddRange((ErrorList<T>)value);
             return new ErrorList<T>(errorList);
         }
 

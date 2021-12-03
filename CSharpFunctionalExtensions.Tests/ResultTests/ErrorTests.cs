@@ -1,49 +1,45 @@
 ﻿namespace CSharpFunctionalExtensions.Tests.ResultTests
 {
     using FluentAssertions;
+    using System.Collections.Generic;
     using Xunit;
     using static CSharpFunctionalExtensions.Tests.ValueObjectTests.BasicTests;
 
     public class ErrorTests
     {
-        [Fact]
-        public void Combine_ErrorList_where_T_is_different()
+        class MyError : ValueObject
         {
-            // Arrange
-            var emailResultSuccess = Result.Success<EmailAddress, ErrorList>(new EmailAddress("xavier@somewhere.com"));
-            var stringResultSuccess = Result.Success<string, ErrorList>("one");
-            var emailResultFailure = Result.Failure<EmailAddress, ErrorList>(Errors.General.ValueIsRequired("email"));
-            var stringResultFailure = Result.Failure<string, ErrorList>(Errors.General.ValueIsRequired("firstName"));
+            public string Message;
 
-            // Act
-            var result = Result.Combine<ErrorList>(emailResultSuccess, stringResultSuccess, emailResultFailure, stringResultFailure);
+            public MyError(string message)
+            {
+                Message = message;
+            }
 
-            // Assert
-            result.IsFailure.Should().BeTrue();
-            result.Error.HasErrors.Should().BeTrue();
-            result.Error.Should().HaveCount(2);
-            result.Error[0].Should().Be(Errors.General.ValueIsRequired("email"));
-            result.Error[1].Should().Be(Errors.General.ValueIsRequired("firstName"));
+            protected override IEnumerable<object> GetEqualityComponents()
+            {
+                yield return Message;
+            }
         }
 
         [Fact]
         public void Combine_ErrorListT_where_T_is_different()
         {
             // Arrange
-            var emailResultSuccess = Result.Success<EmailAddress, ErrorList<Error>>(new EmailAddress("xavier@somewhere.com"));
-            var stringResultSuccess = Result.Success<string, ErrorList<Error>>("one");
-            var emailResultFailure = Result.Failure<EmailAddress, ErrorList<Error>>(Errors.General.ValueIsRequired("email"));
-            var stringResultFailure = Result.Failure<string, ErrorList<Error>>(Errors.General.ValueIsRequired("firstName"));
+            var emailResultSuccess = Result.Success<EmailAddress, ErrorList<MyError>>(new EmailAddress("xavier@somewhere.com"));
+            var stringResultSuccess = Result.Success<string, ErrorList<MyError>>("one");
+            var emailResultFailure = Result.Failure<EmailAddress, ErrorList<MyError>>(new MyError("Bad email address"));
+            var stringResultFailure = Result.Failure<string, ErrorList<MyError>>(new MyError("firstName is required"));
 
             // Act
-            var result = Result.Combine<ErrorList<Error>>(emailResultSuccess, stringResultSuccess, emailResultFailure, stringResultFailure);
+            var result = Result.Combine<ErrorList<MyError>>(emailResultSuccess, stringResultSuccess, emailResultFailure, stringResultFailure);
 
             // Assert
             result.IsFailure.Should().BeTrue();
             result.Error.HasErrors.Should().BeTrue();
             result.Error.Should().HaveCount(2);
-            result.Error[0].Should().Be(Errors.General.ValueIsRequired("email"));
-            result.Error[1].Should().Be(Errors.General.ValueIsRequired("firstName"));
+            result.Error[0].Should().Be(new MyError("Bad email address"));
+            result.Error[1].Should().Be(new MyError("firstName is required"));
         }
     }
 }
