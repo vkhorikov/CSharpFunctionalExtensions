@@ -25,5 +25,25 @@
             result.Error[0].Should().Be(Errors.General.ValueIsRequired("email"));
             result.Error[1].Should().Be(Errors.General.ValueIsRequired("firstName"));
         }
+
+        [Fact]
+        public void Combine_ErrorListT_where_T_is_different()
+        {
+            // Arrange
+            var emailResultSuccess = Result.Success<EmailAddress, ErrorList<Error>>(new EmailAddress("xavier@somewhere.com"));
+            var stringResultSuccess = Result.Success<string, ErrorList<Error>>("one");
+            var emailResultFailure = Result.Failure<EmailAddress, ErrorList<Error>>(Errors.General.ValueIsRequired("email"));
+            var stringResultFailure = Result.Failure<string, ErrorList<Error>>(Errors.General.ValueIsRequired("firstName"));
+
+            // Act
+            var result = Result.Combine<ErrorList<Error>>(emailResultSuccess, stringResultSuccess, emailResultFailure, stringResultFailure);
+
+            // Assert
+            result.IsFailure.Should().BeTrue();
+            result.Error.HasErrors.Should().BeTrue();
+            result.Error.Should().HaveCount(2);
+            result.Error[0].Should().Be(Errors.General.ValueIsRequired("email"));
+            result.Error[1].Should().Be(Errors.General.ValueIsRequired("firstName"));
+        }
     }
 }
