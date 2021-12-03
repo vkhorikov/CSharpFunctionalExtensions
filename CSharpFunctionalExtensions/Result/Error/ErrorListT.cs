@@ -16,7 +16,7 @@
         {
             var errorList = new ErrorList<T>(this);
             errorList.AddRange((ErrorList<T>)value);
-            return new ErrorList<T>(errorList);
+            return errorList;
         }
 
         public static implicit operator ErrorList<T>(T e) => new(new List<T>() { e });
