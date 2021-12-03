@@ -6,6 +6,7 @@
     {
         public ErrorList() { }
         public ErrorList(IEnumerable<T> errors) : base(errors) { }
+        public ErrorList(params T[] errors) : base(errors) { }
 
         public bool HasErrors => Count > 0;
 
