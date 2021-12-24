@@ -71,5 +71,59 @@ namespace CSharpFunctionalExtensions
             Result result = await resultTask.DefaultAwait();
             return result.Ensure(predicate, errorMessage);
         }
+        
+        /// <summary>
+        ///     Returns a new failure result if the predicate is a failure result. Otherwise returns the starting result.
+        /// </summary>
+        public static async Task<Result> Ensure(this Task<Result> resultTask, Func<Result> predicate)
+        {
+          Result result = await resultTask.DefaultAwait();
+          return result.Ensure(predicate);
+        }
+        
+        /// <summary>
+        ///     Returns a new failure result if the predicate is a failure result. Otherwise returns the starting result.
+        /// </summary>
+        public static async Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<Result> predicate)
+        {
+          Result<T> result = await resultTask.DefaultAwait();
+          return result.Ensure(predicate);
+        }
+        
+        /// <summary>
+        ///     Returns a new failure result if the predicate is a failure result. Otherwise returns the starting result.
+        /// </summary>
+        public static async Task<Result> Ensure<T>(this Task<Result> resultTask, Func<Result<T>> predicate)
+        {
+          Result result = await resultTask.DefaultAwait();
+          return result.Ensure(predicate);
+        }
+        
+        /// <summary>
+        ///     Returns a new failure result if the predicate is a failure result. Otherwise returns the starting result.
+        /// </summary>
+        public static async Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<Result<T>> predicate)
+        {
+          Result<T> result = await resultTask.DefaultAwait();
+          return result.Ensure(predicate);
+        }
+        
+        /// <summary>
+        ///     Returns a new failure result if the predicate is a failure result. Otherwise returns the starting result.
+        /// </summary>
+        public static async Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<T,Result> predicate)
+        {
+          Result<T> result = await resultTask.DefaultAwait();
+          return result.Ensure(predicate);
+        }
+        
+        /// <summary>
+        ///     Returns a new failure result if the predicate is a failure result. Otherwise returns the starting result.
+        /// </summary>
+        public static async Task<Result<T>> Ensure<T>(this Task<Result<T>> resultTask, Func<T,Result<T>> predicate)
+        {
+          Result<T> result = await resultTask.DefaultAwait();
+          return result.Ensure(predicate);
+        }
     }
 }
