@@ -1,6 +1,6 @@
-2.26.1
+2.27.0
 New features:
-* #368 Revert adding IsTrimmable true
+* #337 Add type Result as predicate for .Ensure()
 
 Fixed issues:
 * None
