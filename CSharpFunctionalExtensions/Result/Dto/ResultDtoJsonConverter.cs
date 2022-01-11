@@ -20,7 +20,7 @@ namespace CSharpFunctionalExtensions
         private static Result ToResult(ResultDto? apiResult)
         => apiResult is not null
             ? apiResult.IsSuccess ? Result.Success() : Result.Failure(apiResult.ErrorMessage)
-            : Result.Failure("ApiResult is null");
+            : Result.Failure("ResultDto is null");
 
         private static ResultDto ToApiResult(Result result)
         => result.IsSuccess ? ResultDto.Success() : ResultDto.Failure(result.Error);

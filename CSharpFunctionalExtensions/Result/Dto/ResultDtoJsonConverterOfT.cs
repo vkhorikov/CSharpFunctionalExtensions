@@ -42,25 +42,24 @@ namespace CSharpFunctionalExtensions
             if (apiResult is not null)
             {
                 if (apiResult.IsSuccess)
-                    return Result.Success<T>(apiResult.Result!);
-                else
                 {
-                    if (apiResult.ErrorMessage is not null)
-                        return Result.Failure<T>(apiResult.ErrorMessage);
-                    else
-                        return Result.Failure<T>("ApiResult was not successful and ErrorMessage is null");
+                    return Result.Success<T>(apiResult.Result!);
                 }
+
+                if (apiResult.ErrorMessage is not null)
+                {
+                    return Result.Failure<T>(apiResult.ErrorMessage);
+                }
+
+                return Result.Failure<T>("ResultDto was not successful and ErrorMessage is null");
             }
-            else
-                return Result.Failure<T>("ApiResult is null");
+
+            return Result.Failure<T>("ResultDto is null");
         }
 
         private static ResultDto<T> ToApiResult(Result<T> result)
-        {
-            if (result.IsSuccess)
-                return ResultDto.Success<T>(result.Value);
-            else
-                return ResultDto.Failure<T>(result.Error);
-        }
+        => result.IsSuccess
+           ? ResultDto.Success<T>(result.Value)
+           : ResultDto.Failure<T>(result.Error);
     }
 }
