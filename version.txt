@@ -1,6 +1,6 @@
-2.27.0
+2.27.1
 New features:
-* #337 Add type Result as predicate for .Ensure()
+* #384 Bind-/Map-/WithTransactionScope() fixed for .NET 5 and later
 
 Fixed issues:
 * None
