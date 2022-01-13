@@ -15,25 +15,25 @@ namespace System.Net.Http.Json
                 return Result.Failure("HttpResponseMessage is null");
             }
 
-            var responseContent = await response.Content.ReadAsStringAsync();
+            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
             {
                 return Result.Failure(responseContent);
             }
 
-            return JsonSerializer.Deserialize<Result>(responseContent, CommonJsonSerializerOptions.Options);
+            return JsonSerializer.Deserialize<Result>(responseContent, CSharpFunctionalExtensionsJsonSerializerOptions.Options);
         }
 
         public static async Task<Result<T>> ReadResult<T>(this HttpResponseMessage? response)
         {
             if (response is null) return Result.Failure<T>("HttpResponseMessage is null");
 
-            var responseContent = await response.Content.ReadAsStringAsync();
+            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode) return Result.Failure<T>(responseContent);
 
-            return JsonSerializer.Deserialize<Result<T>>(responseContent, CommonJsonSerializerOptions.Options);
+            return JsonSerializer.Deserialize<Result<T>>(responseContent, CSharpFunctionalExtensionsJsonSerializerOptions.Options);
         }
     }
 }

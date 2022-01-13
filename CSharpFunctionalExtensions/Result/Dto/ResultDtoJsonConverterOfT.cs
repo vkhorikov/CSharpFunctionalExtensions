@@ -35,20 +35,20 @@ namespace CSharpFunctionalExtensions
         public override void Write(Utf8JsonWriter writer,
                                    Result<T> value,
                                    JsonSerializerOptions options)
-        => JsonSerializer.Serialize(writer, ToApiResult(value), options);
+        => JsonSerializer.Serialize(writer, ToResultDto(value), options);
 
-        private static Result<T> ToResult(ResultDto<T>? apiResult)
+        private static Result<T> ToResult(ResultDto<T>? resultDto)
         {
-            if (apiResult is not null)
+            if (resultDto is not null)
             {
-                if (apiResult.IsSuccess)
+                if (resultDto.IsSuccess)
                 {
-                    return Result.Success<T>(apiResult.Result!);
+                    return Result.Success<T>(resultDto.Result!);
                 }
 
-                if (apiResult.ErrorMessage is not null)
+                if (resultDto.ErrorMessage is not null)
                 {
-                    return Result.Failure<T>(apiResult.ErrorMessage);
+                    return Result.Failure<T>(resultDto.ErrorMessage);
                 }
 
                 return Result.Failure<T>("ResultDto was not successful and ErrorMessage is null");
@@ -57,7 +57,7 @@ namespace CSharpFunctionalExtensions
             return Result.Failure<T>("ResultDto is null");
         }
 
-        private static ResultDto<T> ToApiResult(Result<T> result)
+        private static ResultDto<T> ToResultDto(Result<T> result)
         => result.IsSuccess
            ? ResultDto.Success<T>(result.Value)
            : ResultDto.Failure<T>(result.Error);

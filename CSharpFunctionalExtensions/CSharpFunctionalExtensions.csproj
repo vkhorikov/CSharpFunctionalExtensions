@@ -47,7 +47,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'!='net5.0' AND '$(TargetFramework)'!='net6.0'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net40' OR '$(TargetFramework)'=='net45' OR '$(TargetFramework)'=='net461' OR '$(TargetFramework)'=='net472' OR '$(TargetFramework)'=='netstandard2.0'">
     <Compile Remove="Result\Dto\**" />
     <EmbeddedResource Remove="Result\Dto\**" />
     <None Remove="Result\Dto\**" />

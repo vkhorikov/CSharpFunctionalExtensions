@@ -15,14 +15,14 @@ namespace CSharpFunctionalExtensions
         public override void Write(Utf8JsonWriter writer,
                                    Result value,
                                    JsonSerializerOptions options)
-        => JsonSerializer.Serialize(writer, ToApiResult(value), options);
+        => JsonSerializer.Serialize(writer, ToResultDto(value), options);
 
-        private static Result ToResult(ResultDto? apiResult)
-        => apiResult is not null
-            ? apiResult.IsSuccess ? Result.Success() : Result.Failure(apiResult.ErrorMessage)
+        private static Result ToResult(ResultDto? resultDto)
+        => resultDto is not null
+            ? resultDto.IsSuccess ? Result.Success() : Result.Failure(resultDto.Error)
             : Result.Failure("ResultDto is null");
 
-        private static ResultDto ToApiResult(Result result)
+        private static ResultDto ToResultDto(Result result)
         => result.IsSuccess ? ResultDto.Success() : ResultDto.Failure(result.Error);
     }
 }

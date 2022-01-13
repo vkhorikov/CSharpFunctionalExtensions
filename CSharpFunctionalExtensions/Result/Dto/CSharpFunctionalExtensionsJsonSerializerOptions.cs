@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace CSharpFunctionalExtensions
 {
-    public static class CommonJsonSerializerOptions
+    internal static class CSharpFunctionalExtensionsJsonSerializerOptions
     {
         private static readonly Lazy<JsonSerializerOptions> LazyOptions = new(() =>
         {

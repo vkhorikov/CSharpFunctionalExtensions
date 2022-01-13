@@ -3,13 +3,13 @@ using System.Text.Json.Serialization;
 
 namespace CSharpFunctionalExtensions
 {
-    public record ResultDto
+    internal record ResultDto
     {
         public ResultDto() { }
-        public ResultDto(string errorMessage) => (ErrorMessage) = (errorMessage);
+        public ResultDto(string error) => (Error) = (error);
 
-        public string? ErrorMessage { get; init; }
-        public bool IsSuccess => ErrorMessage is null;
+        public string? Error { get; init; }
+        public bool IsSuccess => Error is null;
 
         public static ResultDto Success() => new();
         public static ResultDto Failure(string errorMessage) => new(errorMessage);
@@ -18,7 +18,7 @@ namespace CSharpFunctionalExtensions
         public static ResultDto<TResult> Failure<TResult>(string errorMessage) => new(default!, errorMessage);
     }
 
-    public record ResultDto<TResult>(TResult Result, string? ErrorMessage)
+    internal record ResultDto<TResult>(TResult Result, string? ErrorMessage)
     {
         [JsonIgnore]
         public bool IsSuccess => ErrorMessage is null;
