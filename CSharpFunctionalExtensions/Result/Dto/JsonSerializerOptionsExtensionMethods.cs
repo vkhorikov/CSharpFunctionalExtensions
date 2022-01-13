@@ -4,7 +4,7 @@ namespace CSharpFunctionalExtensions
 {
     public static class JsonSerializerOptionsExtensionMethods
     {
-        public static JsonSerializerOptions AddResultCoverters(this JsonSerializerOptions options)
+        public static JsonSerializerOptions AddCSharpFunctionalExtensionsConverters(this JsonSerializerOptions options)
         {
             options.Converters.Add(new ResultDtoJsonConverter());
             options.Converters.Add(new ResultDtoJsonConverterFactory());

@@ -8,7 +8,7 @@ namespace CSharpFunctionalExtensions
         private static readonly Lazy<JsonSerializerOptions> LazyOptions = new(() =>
         {
             var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
-            options.AddResultCoverters();
+            options.AddCSharpFunctionalExtensionsConverters();
             return options;
         });
 
