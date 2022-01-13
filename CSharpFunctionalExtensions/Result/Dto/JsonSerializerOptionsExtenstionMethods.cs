@@ -1,8 +1,8 @@
-﻿using CSharpFunctionalExtensions;
+﻿using System.Text.Json;
 
-namespace System.Text.Json
+namespace CSharpFunctionalExtensions
 {
-    public static class JsonSerializerOptionsExtenstionMethods
+    public static class JsonSerializerOptionsExtensionMethods
     {
         public static JsonSerializerOptions AddResultCoverters(this JsonSerializerOptions options)
         {
