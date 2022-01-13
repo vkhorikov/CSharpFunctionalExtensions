@@ -14,11 +14,11 @@ namespace CSharpFunctionalExtensions
         public static ResultDto Success() => new();
         public static ResultDto Failure(string errorMessage) => new(errorMessage);
 
-        public static ResultDto<TResult> Success<TResult>(TResult result) => new(result, null);
-        public static ResultDto<TResult> Failure<TResult>(string errorMessage) => new(default!, errorMessage);
+        public static ResultDto<TValue> Success<TValue>(TValue result) => new(result, null);
+        public static ResultDto<TValue> Failure<TValue>(string errorMessage) => new(default!, errorMessage);
     }
 
-    internal record ResultDto<TResult>(TResult Result, string? ErrorMessage)
+    internal record ResultDto<TValue>(TValue Result, string? ErrorMessage)
     {
         [JsonIgnore]
         public bool IsSuccess => ErrorMessage is null;
