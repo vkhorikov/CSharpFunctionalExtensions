@@ -15,7 +15,7 @@ namespace System.Net.Http.Json
                 return Result.Failure("HttpResponseMessage is null");
             }
 
-            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var responseContent = await response.Content.ReadAsStringAsync().DefaultAwait();
 
             if (!response.IsSuccessStatusCode)
             {
@@ -29,7 +29,7 @@ namespace System.Net.Http.Json
         {
             if (response is null) return Result.Failure<T>("HttpResponseMessage is null");
 
-            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var responseContent = await response.Content.ReadAsStringAsync().DefaultAwait();
 
             if (!response.IsSuccessStatusCode) return Result.Failure<T>(responseContent);
 
