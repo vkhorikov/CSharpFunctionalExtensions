@@ -1,39 +1,35 @@
 ﻿#nullable enable
-using System.Text.Json;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
-using CSharpFunctionalExtensions;
-
-namespace System.Net.Http.Json
+namespace CSharpFunctionalExtensions
 {
     public static class HttpResponseMessageJsonExtensions
     {
-        public static async Task<Result> ReadResult(this HttpResponseMessage? response)
+        public static Task<Result> ReadResultAsync(this HttpResponseMessage response, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (response is null)
             {
-                return Result.Failure("HttpResponseMessage is null");
+                return Task.FromResult(Result.Failure(DtoMessages.HttpResponseMessageIsNull));
             }
 
-            var responseContent = await response.Content.ReadAsStringAsync().DefaultAwait();
-
-            if (!response.IsSuccessStatusCode)
-            {
-                return Result.Failure(responseContent);
-            }
-
-            return JsonSerializer.Deserialize<Result>(responseContent, CSharpFunctionalExtensionsJsonSerializerOptions.Options);
+            return 
+            Result.Try(() => response.Content.ReadFromJsonAsync<Result>(CSharpFunctionalExtensionsJsonSerializerOptions.Options, cancellationToken), ex => DtoMessages.ContentJsonNotResult)
+                  .Bind(result => result);
         }
 
-        public static async Task<Result<T>> ReadResult<T>(this HttpResponseMessage? response)
+        public static Task<Result<T>> ReadResultAsync<T>(this HttpResponseMessage response, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (response is null) return Result.Failure<T>("HttpResponseMessage is null");
+            if (response is null)
+            {
+                return Task.FromResult(Result.Failure<T>(DtoMessages.HttpResponseMessageIsNull));
+            }
 
-            var responseContent = await response.Content.ReadAsStringAsync().DefaultAwait();
-
-            if (!response.IsSuccessStatusCode) return Result.Failure<T>(responseContent);
-
-            return JsonSerializer.Deserialize<Result<T>>(responseContent, CSharpFunctionalExtensionsJsonSerializerOptions.Options);
+            return
+            Result.Try(() => response.Content.ReadFromJsonAsync<Result<T>>(CSharpFunctionalExtensionsJsonSerializerOptions.Options, cancellationToken), ex => DtoMessages.ContentJsonNotResult)
+                  .Bind(result => result);
         }
     }
 }

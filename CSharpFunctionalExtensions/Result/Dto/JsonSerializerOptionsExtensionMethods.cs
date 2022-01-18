@@ -11,5 +11,4 @@ namespace CSharpFunctionalExtensions
             return options;
         }
     }
-
 }

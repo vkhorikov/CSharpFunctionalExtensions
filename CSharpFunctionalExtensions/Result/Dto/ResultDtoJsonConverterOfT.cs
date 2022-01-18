@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace CSharpFunctionalExtensions
 {
-    public class ResultDtoJsonConverterFactory : JsonConverterFactory
+    internal class ResultDtoJsonConverterFactory : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
         {
@@ -25,16 +25,21 @@ namespace CSharpFunctionalExtensions
         }
     }
 
-    public class ResultDtoJsonConverterOfT<T> : JsonConverter<Result<T>>
+    internal class ResultDtoJsonConverterOfT<T> : JsonConverter<Result<T>>
     {
-        public override Result<T> Read(ref Utf8JsonReader reader,
-                                      Type typeToConvert,
-                                      JsonSerializerOptions options)
-        => ToResult(JsonSerializer.Deserialize<ResultDto<T>>(ref reader, options));
+        public override Result<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            try
+            {
+                return ToResult(JsonSerializer.Deserialize<ResultDto<T>>(ref reader, options));
+            }
+            catch (JsonException)
+            {
+                return Result.Failure<T>(DtoMessages.ContentJsonNotResult);
+            }
+        }
 
-        public override void Write(Utf8JsonWriter writer,
-                                   Result<T> value,
-                                   JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, Result<T> value, JsonSerializerOptions options)
         => JsonSerializer.Serialize(writer, ToResultDto(value), options);
 
         private static Result<T> ToResult(ResultDto<T>? resultDto)
@@ -46,15 +51,15 @@ namespace CSharpFunctionalExtensions
                     return Result.Success<T>(resultDto.Result!);
                 }
 
-                if (resultDto.ErrorMessage is not null)
+                if (resultDto.Error is not null)
                 {
-                    return Result.Failure<T>(resultDto.ErrorMessage);
+                    return Result.Failure<T>(resultDto.Error);
                 }
 
                 return Result.Failure<T>("ResultDto was not successful and ErrorMessage is null");
             }
 
-            return Result.Failure<T>("ResultDto is null");
+            return Result.Failure<T>(DtoMessages.ContentJsonNotResult);
         }
 
         private static ResultDto<T> ToResultDto(Result<T> result)

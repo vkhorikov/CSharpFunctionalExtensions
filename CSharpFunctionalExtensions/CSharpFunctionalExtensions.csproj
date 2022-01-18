@@ -36,6 +36,12 @@
     <AssemblyTitle>CSharpFunctionalExtensions .NET 6.0</AssemblyTitle>
   </PropertyGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+    <_Parameter1>CSharpFunctionalExtensions.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
     <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168" />
   </ItemGroup>
@@ -52,4 +58,5 @@
     <EmbeddedResource Remove="Result\Dto\**" />
     <None Remove="Result\Dto\**" />
   </ItemGroup>
+
 </Project>
