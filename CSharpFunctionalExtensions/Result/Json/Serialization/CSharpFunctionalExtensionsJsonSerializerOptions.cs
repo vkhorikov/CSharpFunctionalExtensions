@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.Json.Serialization
 {
     internal static class CSharpFunctionalExtensionsJsonSerializerOptions
     {

@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CSharpFunctionalExtensions.Json.Serialization;
+
+using FluentAssertions;
+
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Threading.Tasks;
-using FluentAssertions;
-using Xunit;
-using static CSharpFunctionalExtensions.Tests.ResultTests.CombineWithErrorMethodTests;
 
-namespace CSharpFunctionalExtensions.Tests.ResultTests
+using Xunit;
+
+namespace CSharpFunctionalExtensions.Tests.ResultTests.Json.Serialization
 {
     public class HttpResponseMessageJsonExtensionsTests
     {

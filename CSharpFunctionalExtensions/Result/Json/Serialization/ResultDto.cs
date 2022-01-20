@@ -1,7 +1,7 @@
 ﻿#nullable enable
 using System.Text.Json.Serialization;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.Json.Serialization
 {
     internal record ResultDto(string? Error)
     {

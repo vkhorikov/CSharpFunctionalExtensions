@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.Json.Serialization
 {
     public static class JsonSerializerOptionsExtensionMethods
     {

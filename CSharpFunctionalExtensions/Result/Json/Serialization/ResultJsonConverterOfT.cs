@@ -3,7 +3,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.Json.Serialization
 {
     internal class ResultJsonConverterFactory : JsonConverterFactory
     {

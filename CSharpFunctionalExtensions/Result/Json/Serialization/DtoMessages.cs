@@ -1,4 +1,4 @@
-﻿namespace CSharpFunctionalExtensions
+﻿namespace CSharpFunctionalExtensions.Json.Serialization
 {
     internal static class DtoMessages
     {

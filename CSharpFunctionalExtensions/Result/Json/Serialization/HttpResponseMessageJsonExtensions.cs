@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.Json.Serialization
 {
     public static class HttpResponseMessageJsonExtensions
     {
