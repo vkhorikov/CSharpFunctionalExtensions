@@ -33,6 +33,18 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.Error.Should().Be(ErrorHandlerMessage);
         }
 
+        [Fact]
+        public async Task ResultTry_Async_execute_action_failed_with_configured_default_error_handler_failed_result_expected()
+        {
+            var defaultTryErrorHandler = Result.DefaultTryErrorHandler;
+            Result.DefaultTryErrorHandler = ErrorHandler;
+            var result = await Result.Try(Throwing_Func_Task);
+            Result.DefaultTryErrorHandler = defaultTryErrorHandler;
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be(ErrorHandlerMessage);
+        }
+
         [Fact] 
         public async Task ResultTry_Async_T_execute_function_success_without_error_handler_function_result_expected()
         {

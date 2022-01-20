@@ -5,8 +5,6 @@ namespace CSharpFunctionalExtensions
 {
     public partial struct Result
     {
-        private static readonly Func<Exception, string> DefaultTryErrorHandler = exc => exc.Message;
-
         /// <summary>
         ///     Attempts to execute the supplied action. Returns a Result indicating whether the action executed successfully.
         /// </summary>
