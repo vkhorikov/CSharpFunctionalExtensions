@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace CSharpFunctionalExtensions
 {
-    internal class ResultDtoJsonConverter : JsonConverter<Result>
+    internal class ResultJsonConverter : JsonConverter<Result>
     {
         public override Result Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
