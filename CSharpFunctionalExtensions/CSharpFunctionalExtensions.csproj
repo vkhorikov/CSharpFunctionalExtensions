@@ -54,9 +54,9 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net40' OR '$(TargetFramework)'=='net45' OR '$(TargetFramework)'=='net461' OR '$(TargetFramework)'=='net472' OR '$(TargetFramework)'=='netstandard2.0'">
-    <Compile Remove="Result\Dto\**" />
-    <EmbeddedResource Remove="Result\Dto\**" />
-    <None Remove="Result\Dto\**" />
+    <Compile Remove="Result\Json\Serialization\**" />
+    <EmbeddedResource Remove="Result\Json\Serialization\**" />
+    <None Remove="Result\Json\Serialization\**" />
   </ItemGroup>
 
 </Project>

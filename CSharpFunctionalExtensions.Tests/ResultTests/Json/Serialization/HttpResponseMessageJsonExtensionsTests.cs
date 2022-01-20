@@ -271,7 +271,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             // Assign
             const string value = "Great Success";
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
-            httpResponseMessage.Content = new StringContent("{ \"Error\": null }");
+            httpResponseMessage.Content = new StringContent($"{{ \"Error\": null, \"Value\": \"{value}\"}}");
 
             // Act
             var result = await httpResponseMessage.ReadResultAsync<string>();

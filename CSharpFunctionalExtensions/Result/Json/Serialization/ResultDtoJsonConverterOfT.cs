@@ -48,7 +48,7 @@ namespace CSharpFunctionalExtensions
             {
                 if (resultDto.IsSuccess)
                 {
-                    return Result.Success<T>(resultDto.Result!);
+                    return Result.Success<T>(resultDto.Value!);
                 }
 
                 if (resultDto.Error is not null)
