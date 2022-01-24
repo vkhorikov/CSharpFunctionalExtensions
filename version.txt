@@ -1,6 +1,6 @@
-2.27.1
+2.27.2
 New features:
-* #384 Bind-/Map-/WithTransactionScope() fixed for .NET 5 and later
+* #386 Make Result.DefaultTryErrorHandler Configurable
 
 Fixed issues:
-* None
+* #385 WithTransactionScope: change isolation level
