@@ -1,6 +1,6 @@
-2.27.2
+2.28.0
 New features:
-* #386 Make Result.DefaultTryErrorHandler Configurable
+* #383 Net 5/6 System.Text.Json Json serialization support for Result
 
 Fixed issues:
-* #385 WithTransactionScope: change isolation level
+* None
