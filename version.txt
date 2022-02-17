@@ -1,6 +1,6 @@
-2.27.0
+2.28.0
 New features:
-* #337 Add type Result as predicate for .Ensure()
+* #383 Net 5/6 System.Text.Json Json serialization support for Result
 
 Fixed issues:
 * None
