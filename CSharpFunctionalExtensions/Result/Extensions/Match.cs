@@ -48,6 +48,17 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Invokes the given <paramref name="onSuccess"/> action if the calling Result is a success. Otherwise, it invokes the given <paramref name="onFailure"/> action.
         /// </summary>
+        public static void Match<E>(this UnitResult<E> result, Action onSuccess, Action<E> onFailure)
+        {
+            if (result.IsSuccess)
+                onSuccess();
+            else
+                onFailure(result.Error);
+        }
+
+        /// <summary>
+        ///     Invokes the given <paramref name="onSuccess"/> action if the calling Result is a success. Otherwise, it invokes the given <paramref name="onFailure"/> action.
+        /// </summary>
         public static void Match<T>(this Result<T> result, Action<T> onSuccess, Action<string> onFailure)
         {
             if (result.IsSuccess)
