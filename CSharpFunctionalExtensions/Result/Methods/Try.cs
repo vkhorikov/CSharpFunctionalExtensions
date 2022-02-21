@@ -100,6 +100,23 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
+        ///     Attempts to execute the supplied action. Returns a UnitResult indicating whether the action executed successfully.
+        /// </summary>
+        public static UnitResult<E> Try<E>(Action action, Func<Exception, E> errorHandler)
+        {
+          try
+          {
+            action();
+            return UnitResult.Success<E>();
+          }
+          catch (Exception exc)
+          {
+            E error = errorHandler(exc);
+            return UnitResult.Failure(error);
+          }
+        }
+
+        /// <summary>
         ///     Attempts to execute the supplied function. Returns a Result indicating whether the function executed successfully.
         ///     If the function executed successfully, the result contains its return value.
         /// </summary>
@@ -115,6 +132,23 @@ namespace CSharpFunctionalExtensions
                 E error = errorHandler(exc);
                 return Failure<T, E>(error);
             }
+        }
+
+        /// <summary>
+        ///     Attempts to execute the supplied action. Returns a UnitResult indicating whether the action executed successfully.
+        /// </summary>
+        public static async Task<UnitResult<E>> Try<E>(Func<Task> action, Func<Exception, E> errorHandler)
+        {
+          try
+          {
+              await action().DefaultAwait();
+              return UnitResult.Success<E>();
+          }
+          catch (Exception exc)
+          {
+              E error = errorHandler(exc);
+              return UnitResult.Failure(error);
+          }
         }
     }
 }
