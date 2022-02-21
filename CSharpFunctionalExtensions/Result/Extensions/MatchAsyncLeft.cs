@@ -40,6 +40,14 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Invokes the given <paramref name="onSuccess"/> action if the calling Result is a success. Otherwise, it invokes the given <paramref name="onFailure"/> action.
         /// </summary>
+        public static async Task Match<E>(this Task<UnitResult<E>> resultTask, Action onSuccess, Action<E> onFailure)
+        {
+            (await resultTask.DefaultAwait()).Match(onSuccess, onFailure);
+        }
+
+        /// <summary>
+        ///     Invokes the given <paramref name="onSuccess"/> action if the calling Result is a success. Otherwise, it invokes the given <paramref name="onFailure"/> action.
+        /// </summary>
         public static async Task Match<T>(this Task<Result<T>> resultTask, Action<T> onSuccess, Action<string> onFailure)
         {
             (await resultTask.DefaultAwait()).Match(onSuccess, onFailure);
