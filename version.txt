@@ -1,8 +1,6 @@
-2.28.1
+2.28.2
 New features:
-* #396 Match(): Missing UnitResult overloads added
-* #395 TapIf(): Missing UnitResult overloads added
-* #392 Result.Try() supports UnitResult
+* None
 
 Fixed issues:
-* None
+* #400 Finally(): superfluous async/await removed
