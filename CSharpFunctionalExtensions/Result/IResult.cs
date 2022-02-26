@@ -16,7 +16,7 @@
         E Error { get; }
     }
 
-    public interface IResult<out T, out E> : IResult, IValue<T>, IError<E>
+    public interface IResult<out T, out E> : IValue<T>, IUnitResult<E>
     {
     }
 
