@@ -323,8 +323,8 @@ void PrintFruit(string fruit)
 Maybe<string> apple = "apple";
 Maybe<string> noFruit = Maybe<string>.None;
 
-apple.Execute(PrintFruit.ToString()); // "This is a apple"
-noFruit.Execute(PrintFruit.ToString()); // no output to the console
+apple.Execute(PrintFruit); // "This is a apple"
+noFruit.Execute(PrintFruit); // no output to the console
 ```
 
 #### ExecuteNoValue
