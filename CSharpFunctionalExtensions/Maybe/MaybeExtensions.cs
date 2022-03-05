@@ -74,7 +74,16 @@ namespace CSharpFunctionalExtensions
 
             return Maybe<T>.None;
         }
+        public static Result<K> Select<T, K>(this Result<T> maybe, Func<T, K> selector)
+        {
+            return maybe.Map(selector);
+        }
 
+        [Obsolete("Use Bind instead of this method")]
+        public static Result<K> Select<T, K>(this Result<T> maybe, Func<T, Result<K>> selector)
+        {
+            return maybe.Bind(selector);
+        }
         public static Maybe<K> Select<T, K>(this Maybe<T> maybe, Func<T, K> selector)
         {
             return maybe.Map(selector);

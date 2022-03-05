@@ -1,4 +1,5 @@
 using FluentAssertions;
+
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
@@ -49,7 +50,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
-        
+
         [Theory]
         [InlineData(true, true)]
         [InlineData(true, false)]
@@ -79,7 +80,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             actionExecuted.Should().Be(isSuccess && condition);
             result.Should().Be(returned);
         }
-        
+
         [Theory]
         [InlineData(true, true)]
         [InlineData(true, false)]
