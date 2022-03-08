@@ -173,7 +173,7 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
         /// </summary>
-        public static IUnitResult<E> Ensure<E>(this IUnitResult<E> result, Func<bool> predicate, Func<E> errorPredicate)
+        public static UnitResult<E> Ensure<E>(this UnitResult<E> result, Func<bool> predicate, Func<E> errorPredicate)
         {
             if (result.IsFailure)
                 return result;
@@ -187,7 +187,7 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Returns a new failure result if the predicate is false. Otherwise returns the starting result.
         /// </summary>
-        public static IUnitResult<E> Ensure<E>(this IUnitResult<E> result, Func<bool> predicate, E error)
+        public static UnitResult<E> Ensure<E>(this UnitResult<E> result, Func<bool> predicate, E error)
         {
             if (result.IsFailure)
                 return result;
@@ -201,7 +201,7 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Returns a new failure result if the predicate is a failure result. Otherwise returns the starting result.
         /// </summary>
-        public static IUnitResult<E> Ensure<E>(this IUnitResult<E> result, Func<UnitResult<E>> predicate)
+        public static UnitResult<E> Ensure<E>(this UnitResult<E> result, Func<UnitResult<E>> predicate)
         {
             if (result.IsFailure)
                 return result;
