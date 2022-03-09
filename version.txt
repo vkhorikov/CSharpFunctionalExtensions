@@ -1,6 +1,6 @@
-2.28.2
+2.28.3
 New features:
-* None
+* #403 adding UnitResult.Ensure()
 
 Fixed issues:
-* #400 Finally(): superfluous async/await removed
+* None
