@@ -405,6 +405,50 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
             result.Should().Be(sut);
         }
 
+
+        [Fact(DisplayName = "Given failed UnitResult, when predicate is true, Ensure() yields original UnitResult")]
+        public void Given_failed_UnitResult__when_predicate_is_true__Ensure_yields_original_UnitResult()
+        {
+            var sut = UnitResult.Failure<Error>(new Error());
+
+            var result = sut.Ensure(() => true, new Error());
+
+            result.Should().Be(sut);
+        }
+
+        [Fact(DisplayName = "Given failed UnitResult, when predicate is false, Ensure() yields original UnitResult")]
+        public void Given_failed_UnitResult__when_predicate_is_false__Ensure_yields_original_UnitResult()
+        {
+            var sut = UnitResult.Failure<Error>(new Error());
+
+            var result = sut.Ensure(() => false, new Error());
+
+            result.Should().Be(sut);
+        }
+
+        [Fact(DisplayName = "Given successful UnitResult, when predicate is false, Ensure() yields original successful UnitResult")]
+        public void Given_successful_UnitResult__when_predicate_is_false__Ensure_yields_original_UnitResult()
+        {
+            var sut = UnitResult.Success<Error>();
+            var error = new Error();
+
+            var result = sut.Ensure(() => false, error);
+
+            result.Should().NotBe(sut);
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be(error);
+        }
+
+        [Fact(DisplayName = "Given successful UnitResult, when predicate is false, Ensure() yields failed UnitResult")]
+        public void Given_successfu_UnitResult__when_predicate_is_false__Ensure_yields_failed_UnitResult()
+        {
+            var sut = UnitResult.Success<Error>();
+
+            var result = sut.Ensure(() => true, new Error());
+
+            result.Should().Be(sut);
+        }
+
         private class Error
         {
         }
