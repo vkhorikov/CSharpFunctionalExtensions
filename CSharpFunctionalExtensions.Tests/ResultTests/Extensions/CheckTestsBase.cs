@@ -44,7 +44,37 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
                     return FailedResultKE;
                 };
         }
-        
+
+        protected Func<T, UnitResult<E>> Func_Result_TE(bool isSuccess)
+        {
+            return isSuccess
+                ? new Func<T, UnitResult<E>>(t =>
+                {
+                    actionExecuted = true;
+                    return UnitResult.Success<E>();
+                })
+                : t =>
+                {
+                    actionExecuted = true;
+                    return FailedUnitResultE;
+                };
+        }
+
+        protected Func<UnitResult<E>> Func_UnitResult_E(bool isSuccess)
+        {
+            return isSuccess
+                ? new Func<UnitResult<E>>(() =>
+                {
+                    actionExecuted = true;
+                    return UnitResult.Success<E>();
+                })
+                : () =>
+                {
+                    actionExecuted = true;
+                    return FailedUnitResultE;
+                };
+        }
+
         protected Func<T, Task<Result<K>>> Func_Task_Result_K(bool isSuccess)
         {
             return isSuccess
@@ -74,10 +104,41 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
                     return FailedResultKE.AsTask();
                 };
         }
-        
+
+        protected Func<T, Task<UnitResult<E>>> Func_Task_Result_TE(bool isSuccess)
+        {
+            return isSuccess
+                ? new Func<T, Task<UnitResult<E>>>(t =>
+                {
+                    actionExecuted = true;
+                    return UnitResult.Success<E>().AsTask();
+                })
+                : t =>
+                {
+                    actionExecuted = true;
+                    return FailedUnitResultE.AsTask();
+                };
+        }
+
+        protected Func<Task<UnitResult<E>>> Func_Task_UnitResult_E(bool isSuccess)
+        {
+            return isSuccess
+                ? new Func<Task<UnitResult<E>>>(() =>
+                {
+                    actionExecuted = true;
+                    return UnitResult.Success<E>().AsTask();
+                })
+                : () =>
+                {
+                    actionExecuted = true;
+                    return FailedUnitResultE.AsTask();
+                };
+        }
+
         protected Result<T> FailedResultT => Result.Failure<T>(ErrorMessage);
         protected Result<K> FailedResultK => Result.Failure<K>(ErrorMessage);
         protected Result<K, E> FailedResultKE => Result.Failure<K, E>(E.Value);
+        protected UnitResult<E> FailedUnitResultE => UnitResult.Failure(E.Value);
         protected Result FailedResult => Result.Failure(ErrorMessage);
     }
 }

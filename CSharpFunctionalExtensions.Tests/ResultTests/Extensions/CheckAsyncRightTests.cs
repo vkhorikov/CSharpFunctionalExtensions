@@ -46,5 +46,33 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             actionExecuted.Should().Be(resultSuccess);
             returned.Should().Be(funcSuccess ? result : FailedResultT);
         }
+
+        [Theory]
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, false)]
+        public void Check_T_AsyncRight_func_result_TE(bool resultSuccess, bool funcSuccess)
+        {
+            Result<T, E> result = Result.SuccessIf(resultSuccess, T.Value, E.Value);
+
+            var returned = result.Check(Func_Task_Result_TE(funcSuccess)).Result;
+
+            actionExecuted.Should().Be(resultSuccess);
+            returned.Should().Be(funcSuccess ? result : returned);
+        }
+
+        [Theory]
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, false)]
+        public void Check_T_AsyncRight_func_unitresult_E(bool resultSuccess, bool funcSuccess)
+        {
+            UnitResult<E> result = Result.SuccessIf(resultSuccess, T.Value, E.Value);
+
+            var returned = result.Check(Func_Task_UnitResult_E(funcSuccess)).Result;
+
+            actionExecuted.Should().Be(resultSuccess);
+            returned.Should().Be(funcSuccess ? result : returned);
+        }
     }
 }

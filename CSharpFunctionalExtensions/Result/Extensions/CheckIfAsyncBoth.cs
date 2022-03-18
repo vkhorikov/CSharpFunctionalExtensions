@@ -29,6 +29,21 @@ namespace CSharpFunctionalExtensions
                 return resultTask;
         }
 
+        public static Task<Result<T, E>> CheckIf<T, E>(this Task<Result<T, E>> resultTask, bool condition, Func<T, Task<UnitResult<E>>> func)
+        {
+            if (condition)
+                return resultTask.Check(func);
+            else
+                return resultTask;
+        }
+
+        public static Task<UnitResult<E>> CheckIf<E>(this Task<UnitResult<E>> resultTask, bool condition, Func<Task<UnitResult<E>>> func)
+        {
+            if (condition)
+                return resultTask.Check(func);
+            else
+                return resultTask;
+        }
         
         public static async Task<Result<T>> CheckIf<T>(this Task<Result<T>> resultTask, Func<T, bool> predicate, Func<T, Task<Result>> func)
         {
@@ -55,6 +70,26 @@ namespace CSharpFunctionalExtensions
             Result<T, E> result = await resultTask.DefaultAwait();
 
             if (result.IsSuccess && predicate(result.Value))
+                return await result.Check(func).DefaultAwait();
+            else
+                return result;
+        }
+
+        public static async Task<Result<T, E>> CheckIf<T, E>(this Task<Result<T, E>> resultTask, Func<T, bool> predicate, Func<T, Task<UnitResult<E>>> func)
+        {
+            Result<T, E> result = await resultTask.DefaultAwait();
+
+            if (result.IsSuccess && predicate(result.Value))
+                return await result.Check(func).DefaultAwait();
+            else
+                return result;
+        }
+
+        public static async Task<UnitResult<E>> CheckIf<E>(this Task<UnitResult<E>> resultTask, Func<bool> predicate, Func<Task<UnitResult<E>>> func)
+        {
+            UnitResult<E> result = await resultTask.DefaultAwait();
+
+            if (result.IsSuccess && predicate())
                 return await result.Check(func).DefaultAwait();
             else
                 return result;

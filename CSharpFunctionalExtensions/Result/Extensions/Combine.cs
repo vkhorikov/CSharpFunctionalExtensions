@@ -9,6 +9,10 @@ namespace CSharpFunctionalExtensions
         public static Result Combine(this IEnumerable<Result> results, string errorMessageSeparator = null)
             => Result.Combine(results, errorMessageSeparator);
 
+        public static UnitResult<E> Combine<E>(this IEnumerable<UnitResult<E>> results)
+            where E : ICombine
+            => Result.Combine(results);
+
         public static Result<IEnumerable<T>, E> Combine<T, E>(this IEnumerable<Result<T, E>> results)
             where E : ICombine
         {
