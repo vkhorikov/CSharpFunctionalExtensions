@@ -87,6 +87,18 @@ namespace CSharpFunctionalExtensions
             where E : ICombine
             => Combine(results, CombineErrors);
 
+        /// <summary>
+        ///     Combines several results (and any errors) into a single result.
+        ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.
+        /// </summary>
+        /// <param name="results">
+        ///     The Results to be combined.</param>
+        /// <returns>
+        ///     A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
+        public static UnitResult<E> Combine<E>(IEnumerable<UnitResult<E>> results)
+            where E : ICombine
+            => Combine(results, CombineErrors);
+
         // TODO: Ideally, we would be using BaseResult<E> or equivalent instead of Result<bool, E>.
         /// <summary>
         ///     Combines several results (and any errors) into a single result.
