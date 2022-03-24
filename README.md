@@ -579,6 +579,7 @@ result.Should().BeSuccess();
 
 A big thanks to the project contributors!
 
+- [ruud](https://github.com/ruudhe)
 - [Tomasz Malinowski](https://github.com/Yaevh)
 - [Staffan Wingren](https://github.com/staffanwingren)
 - [Tim Schneider](https://github.com/DerStimmler)
