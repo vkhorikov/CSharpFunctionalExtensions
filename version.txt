@@ -1,6 +1,6 @@
-2.29.0
+2.29.1
 New features:
-* #406 UnitResult overloads for Check, CheckIf, Combine and FailureIf
+* #409 IMaybe interface
 
 Fixed issues:
 * None

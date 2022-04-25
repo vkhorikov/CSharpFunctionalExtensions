@@ -3,7 +3,7 @@
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public struct Maybe<T> : IEquatable<Maybe<T>>
+    public struct Maybe<T> : IEquatable<Maybe<T>>, IMaybe<T>
     {
         private readonly bool _isValueSet;
 
@@ -154,5 +154,15 @@ namespace CSharpFunctionalExtensions
         /// Creates a new <see cref="Maybe{T}" /> from the provided <paramref name="value"/>
         /// </summary>
         public static Maybe<T> From<T>(T value) => Maybe<T>.From(value);
+    }
+
+    /// <summary>
+    /// Useful in scenarios where you need to determine if a value is Maybe or not
+    /// </summary>
+    public interface IMaybe<T>
+    {
+        T Value { get; }
+        bool HasValue { get; }
+        bool HasNoValue { get; }
     }
 }
