@@ -1,6 +1,6 @@
-2.29.1
+2.29.2
 New features:
-* #409 IMaybe interface
+* #414 Add UnitResult support to CSharpFunctionalExtensions.Json.Serialization
 
 Fixed issues:
 * None
