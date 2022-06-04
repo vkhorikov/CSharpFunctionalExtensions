@@ -8,6 +8,7 @@ namespace CSharpFunctionalExtensions.Json.Serialization
         {
             options.Converters.Add(new ResultJsonConverter());
             options.Converters.Add(new ResultJsonConverterFactory());
+            options.Converters.Add(new UnitResultJsonConverterFactory());
             return options;
         }
     }
