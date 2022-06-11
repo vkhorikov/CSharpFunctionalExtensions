@@ -1,6 +1,6 @@
-2.29.2
+2.29.3
 New features:
-* #414 Add UnitResult support to CSharpFunctionalExtensions.Json.Serialization
+* None
 
 Fixed issues:
-* None
+* #413 Double enumeration in TryFirst
