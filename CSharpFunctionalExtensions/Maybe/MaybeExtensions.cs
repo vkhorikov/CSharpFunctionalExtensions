@@ -47,12 +47,14 @@ namespace CSharpFunctionalExtensions
             return selector(maybe.GetValueOrThrow());
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Use GetValueOrDefault() instead.")]
         public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = default)
         {
             return maybe.GetValueOrDefault(defaultValue);
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Use GetValueOrDefault() instead.")]
         public static K Unwrap<T, K>(this Maybe<T> maybe, Func<T, K> selector, K defaultValue = default(K))
         {
@@ -80,6 +82,7 @@ namespace CSharpFunctionalExtensions
             return maybe.Map(selector);
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Use Bind instead of this method")]
         public static Maybe<K> Select<T, K>(this Maybe<T> maybe, Func<T, Maybe<K>> selector)
         {
@@ -330,7 +333,7 @@ namespace CSharpFunctionalExtensions
         public static Maybe<T> TryFirst<T>(this IEnumerable<T> source)
         {
             source = source as ICollection<T> ?? source.ToList();
-            
+
             if (source.Any())
             {
                 return Maybe<T>.From(source.First());
@@ -353,7 +356,7 @@ namespace CSharpFunctionalExtensions
         public static Maybe<T> TryLast<T>(this IEnumerable<T> source)
         {
             source = source as ICollection<T> ?? source.ToList();
-            
+
             if (source.Any())
             {
                 return Maybe<T>.From(source.Last());
