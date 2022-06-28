@@ -377,7 +377,7 @@ namespace CSharpFunctionalExtensions
             return Maybe<T>.None;
         }
 
-#if NET40
+#if !NETCORE || !NET45_OR_GREATER || !NETSTANDARD
         public static Maybe<V> TryFind<K, V>(this IDictionary<K, V> dict, K key)
         {
             if (dict.ContainsKey(key))
