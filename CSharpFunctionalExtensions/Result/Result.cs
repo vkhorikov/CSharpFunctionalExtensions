@@ -31,7 +31,7 @@ namespace CSharpFunctionalExtensions
             ResultCommonLogic.GetObjectData(this, info);
         }
 
-        public static implicit operator UnitResult<string>(in Result result)
+        public static implicit operator UnitResult<string>(Result result)
         {
             if (result.IsSuccess)
                 return UnitResult.Success<string>();
