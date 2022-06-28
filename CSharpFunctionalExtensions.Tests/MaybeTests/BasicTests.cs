@@ -161,6 +161,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             result.Should().Be(value);
         }
       
+        [Fact]
         public void Maybe_None_doesnt_throw_on_Deconstruct()
         {
             Maybe<int> maybe = Maybe.None;
@@ -173,6 +174,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             act.Should().NotThrow();
         }
         
+        [Fact]
         public void TryGetValue_returns_false_if_source_is_empty()
         {
             var maybe = Maybe<int>.None;
@@ -183,6 +185,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             value.Should().Be(default);
         }
         
+        [Fact]
         public void TryGetValue_returns_true_if_source_has_value()
         {
             var maybe = Maybe.From(5);
@@ -193,6 +196,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             value.Should().Be(5);
         }
         
+        [Fact]
         public void TryGetValue_returns_false_if_source_is_empty_and_out_parameter_is_null()
         {
             var maybe = Maybe<int?>.None;
@@ -203,6 +207,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             value.Should().BeNull();
         }
         
+        [Fact]
         public void TryGetValue_returns_true_if_source_has_value_and_out_parameter_is_null()
         {
             var maybe = Maybe<int?>.From(5);
