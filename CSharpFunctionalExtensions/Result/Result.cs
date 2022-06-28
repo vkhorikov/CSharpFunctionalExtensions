@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public partial struct Result : IResult, ISerializable
+    public readonly partial struct Result : IResult, ISerializable
     {
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
@@ -31,7 +31,7 @@ namespace CSharpFunctionalExtensions
             ResultCommonLogic.GetObjectData(this, info);
         }
 
-        public static implicit operator UnitResult<string>(Result result)
+        public static implicit operator UnitResult<string>(in Result result)
         {
             if (result.IsSuccess)
                 return UnitResult.Success<string>();

@@ -143,7 +143,7 @@ namespace CSharpFunctionalExtensions
     /// <summary>
     /// Non-generic entrypoint for <see cref="Maybe{T}" /> members
     /// </summary>
-    public struct Maybe
+    public readonly struct Maybe
     {
         public static Maybe None => new Maybe();
 

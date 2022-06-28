@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public partial struct Result<T, E> : IResult<T, E>, ISerializable
+    public readonly partial struct Result<T, E> : IResult<T, E>, ISerializable
     {
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
@@ -36,7 +36,7 @@ namespace CSharpFunctionalExtensions
             ResultCommonLogic.GetObjectData(this, info);
         }
 
-        public static implicit operator Result<T, E>(T value)
+        public static implicit operator Result<T, E>(in T value)
         {
             if (value is IResult<T, E> result)
             {
@@ -49,7 +49,7 @@ namespace CSharpFunctionalExtensions
             return Result.Success<T, E>(value);
         }
 
-        public static implicit operator Result<T, E>(E error)
+        public static implicit operator Result<T, E>(in E error)
         {
             if (error is IResult<T, E> result)
             {
@@ -62,7 +62,7 @@ namespace CSharpFunctionalExtensions
             return Result.Failure<T, E>(error);
         }
 
-        public static implicit operator UnitResult<E>(Result<T, E> result)
+        public static implicit operator UnitResult<E>(in Result<T, E> result)
         {
             if (result.IsSuccess)
                 return UnitResult.Success<E>();

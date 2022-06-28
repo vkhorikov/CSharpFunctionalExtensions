@@ -8,7 +8,7 @@ namespace CSharpFunctionalExtensions
 {
     public static class MaybeExtensions
     {
-        public static Result<T> ToResult<T>(this Maybe<T> maybe, string errorMessage)
+        public static Result<T> ToResult<T>(in this Maybe<T> maybe, string errorMessage)
         {
             if (maybe.HasNoValue)
                 return Result.Failure<T>(errorMessage);
@@ -16,7 +16,7 @@ namespace CSharpFunctionalExtensions
             return Result.Success(maybe.GetValueOrThrow());
         }
 
-        public static Result<T, E> ToResult<T, E>(this Maybe<T> maybe, E error)
+        public static Result<T, E> ToResult<T, E>(in this Maybe<T> maybe, E error)
         {
             if (maybe.HasNoValue)
                 return Result.Failure<T, E>(error);
@@ -24,7 +24,7 @@ namespace CSharpFunctionalExtensions
             return Result.Success<T, E>(maybe.GetValueOrThrow());
         }
 
-        public static T GetValueOrDefault<T>(this Maybe<T> maybe, Func<T> defaultValue)
+        public static T GetValueOrDefault<T>(in this Maybe<T> maybe, Func<T> defaultValue)
         {
             if (maybe.HasNoValue)
                 return defaultValue();
@@ -32,7 +32,7 @@ namespace CSharpFunctionalExtensions
             return maybe.GetValueOrThrow();
         }
 
-        public static K GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, K> selector, K defaultValue = default)
+        public static K GetValueOrDefault<T, K>(in this Maybe<T> maybe, Func<T, K> selector, K defaultValue = default)
         {
             if (maybe.HasNoValue)
                 return defaultValue;
@@ -40,7 +40,7 @@ namespace CSharpFunctionalExtensions
             return selector(maybe.GetValueOrThrow());
         }
 
-        public static K GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, K> selector, Func<K> defaultValue)
+        public static K GetValueOrDefault<T, K>(in this Maybe<T> maybe, Func<T, K> selector, Func<K> defaultValue)
         {
             if (maybe.HasNoValue)
                 return defaultValue();
@@ -50,24 +50,24 @@ namespace CSharpFunctionalExtensions
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Use GetValueOrDefault() instead.")]
-        public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = default)
+        public static T Unwrap<T>(in this Maybe<T> maybe, T defaultValue = default)
         {
             return maybe.GetValueOrDefault(defaultValue);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Use GetValueOrDefault() instead.")]
-        public static K Unwrap<T, K>(this Maybe<T> maybe, Func<T, K> selector, K defaultValue = default(K))
+        public static K Unwrap<T, K>(in this Maybe<T> maybe, Func<T, K> selector, K defaultValue = default(K))
         {
             return maybe.GetValueOrDefault(selector, defaultValue);
         }
 
-        public static List<T> ToList<T>(this Maybe<T> maybe)
+        public static List<T> ToList<T>(in this Maybe<T> maybe)
         {
             return maybe.GetValueOrDefault(value => new List<T> { value }, new List<T>());
         }
 
-        public static Maybe<T> Where<T>(this Maybe<T> maybe, Func<T, bool> predicate)
+        public static Maybe<T> Where<T>(in this Maybe<T> maybe, Func<T, bool> predicate)
         {
             if (maybe.HasNoValue)
                 return Maybe<T>.None;
@@ -78,24 +78,24 @@ namespace CSharpFunctionalExtensions
             return Maybe<T>.None;
         }
 
-        public static Maybe<K> Select<T, K>(this Maybe<T> maybe, Func<T, K> selector)
+        public static Maybe<K> Select<T, K>(in this Maybe<T> maybe, Func<T, K> selector)
         {
             return maybe.Map(selector);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Use Bind instead of this method")]
-        public static Maybe<K> Select<T, K>(this Maybe<T> maybe, Func<T, Maybe<K>> selector)
+        public static Maybe<K> Select<T, K>(in this Maybe<T> maybe, Func<T, Maybe<K>> selector)
         {
             return maybe.Bind(selector);
         }
 
-        public static Maybe<K> SelectMany<T, K>(this Maybe<T> maybe, Func<T, Maybe<K>> selector)
+        public static Maybe<K> SelectMany<T, K>(in this Maybe<T> maybe, Func<T, Maybe<K>> selector)
         {
             return maybe.Bind(selector);
         }
 
-        public static Maybe<V> SelectMany<T, U, V>(this Maybe<T> maybe,
+        public static Maybe<V> SelectMany<T, U, V>(in this Maybe<T> maybe,
             Func<T, Maybe<U>> selector,
             Func<T, U, V> project)
         {
@@ -104,7 +104,7 @@ namespace CSharpFunctionalExtensions
                 Maybe<V>.None);
         }
 
-        public static Maybe<K> Map<T, K>(this Maybe<T> maybe, Func<T, K> selector)
+        public static Maybe<K> Map<T, K>(in this Maybe<T> maybe, Func<T, K> selector)
         {
             if (maybe.HasNoValue)
                 return Maybe<K>.None;
@@ -112,7 +112,7 @@ namespace CSharpFunctionalExtensions
             return selector(maybe.GetValueOrThrow());
         }
 
-        public static Maybe<K> Bind<T, K>(this Maybe<T> maybe, Func<T, Maybe<K>> selector)
+        public static Maybe<K> Bind<T, K>(in this Maybe<T> maybe, Func<T, Maybe<K>> selector)
         {
             if (maybe.HasNoValue)
                 return Maybe<K>.None;
@@ -126,7 +126,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="maybe"></param>
         /// <param name="action"></param>
         /// <typeparam name="T"></typeparam>
-        public static void Execute<T>(this Maybe<T> maybe, Action<T> action)
+        public static void Execute<T>(in this Maybe<T> maybe, Action<T> action)
         {
             if (maybe.HasNoValue)
                 return;
@@ -140,7 +140,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="maybe"></param>
         /// <param name="action"></param>
         /// <typeparam name="T"></typeparam>
-        public static void ExecuteNoValue<T>(this Maybe<T> maybe, Action action)
+        public static void ExecuteNoValue<T>(in this Maybe<T> maybe, Action action)
         {
             if (maybe.HasValue)
                 return;
@@ -183,7 +183,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="fallbackOperation"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static Maybe<T> Or<T>(this Maybe<T> maybe, Func<T> fallbackOperation)
+        public static Maybe<T> Or<T>(in this Maybe<T> maybe, Func<T> fallbackOperation)
         {
             if (maybe.HasNoValue)
                 return fallbackOperation();
@@ -213,7 +213,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="fallback"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static Maybe<T> Or<T>(this Maybe<T> maybe, Maybe<T> fallback)
+        public static Maybe<T> Or<T>(in this Maybe<T> maybe, Maybe<T> fallback)
         {
             if (maybe.HasNoValue)
                 return fallback;
@@ -243,7 +243,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="fallbackOperation"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static Maybe<T> Or<T>(this Maybe<T> maybe, Func<Maybe<T>> fallbackOperation)
+        public static Maybe<T> Or<T>(in this Maybe<T> maybe, Func<Maybe<T>> fallbackOperation)
         {
             if (maybe.HasNoValue)
                 return fallbackOperation();
@@ -266,14 +266,14 @@ namespace CSharpFunctionalExtensions
             return maybe;
         }
 
-        public static TE Match<TE, T>(this Maybe<T> maybe, Func<T, TE> Some, Func<TE> None)
+        public static TE Match<TE, T>(in this Maybe<T> maybe, Func<T, TE> Some, Func<TE> None)
         {
             return maybe.HasValue
                 ? Some(maybe.GetValueOrThrow())
                 : None();
         }
 
-        public static void Match<T>(this Maybe<T> maybe, Action<T> Some, Action None)
+        public static void Match<T>(in this Maybe<T> maybe, Action<T> Some, Action None)
         {
             if (maybe.HasValue)
             {
@@ -285,10 +285,10 @@ namespace CSharpFunctionalExtensions
             }
         }
 
-        public static TE Match<TE, TKey, TValue>(this Maybe<KeyValuePair<TKey, TValue>> maybe, Func<TKey, TValue, TE> Some, Func<TE> None) =>
+        public static TE Match<TE, TKey, TValue>(in this Maybe<KeyValuePair<TKey, TValue>> maybe, Func<TKey, TValue, TE> Some, Func<TE> None) =>
             maybe.HasValue ? Some.Invoke(maybe.GetValueOrThrow().Key, maybe.GetValueOrThrow().Value) : None.Invoke();
 
-        public static void Match<TKey, TValue>(this Maybe<KeyValuePair<TKey, TValue>> maybe, Action<TKey, TValue> Some, Action None)
+        public static void Match<TKey, TValue>(in this Maybe<KeyValuePair<TKey, TValue>> maybe, Action<TKey, TValue> Some, Action None)
         {
             if (maybe.HasValue)
             {
@@ -398,7 +398,7 @@ namespace CSharpFunctionalExtensions
         }
 #endif
 
-        public static void Deconstruct<T>(this Maybe<T> result, out bool hasValue, out T value)
+        public static void Deconstruct<T>(in this Maybe<T> result, out bool hasValue, out T value)
         {
             hasValue = result.HasValue;
             value = result.GetValueOrDefault();
