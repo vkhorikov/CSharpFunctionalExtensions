@@ -51,18 +51,13 @@ namespace CSharpFunctionalExtensions
             _isValueSet = true;
             _value = value;
         }
-
-        public static implicit operator Maybe<T>(T value)
+        
+        public static implicit operator Maybe<T>(in T value)
         {
-            if (value?.GetType() == typeof(Maybe<T>))
-            {
-                return (Maybe<T>)(object)value;
-            }
-
-            return new Maybe<T>(value);
+            return EqualityComparer<T>.Default.Equals(default, value) ? default : new Maybe<T>(value);
         }
 
-        public static implicit operator Maybe<T>(Maybe value) => None;
+        public static implicit operator Maybe<T>(in Maybe value) => None;
 
         public static Maybe<T> From(T obj)
         {
