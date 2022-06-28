@@ -1,4 +1,10 @@
 ﻿using System;
+#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+using System.Runtime.CompilerServices;
+#endif
+#if NET_5_0_OR_GREATER
+using System.Diagnostics.CodeAnalysis;
+#endif
 
 namespace CSharpFunctionalExtensions
 {
@@ -27,6 +33,23 @@ namespace CSharpFunctionalExtensions
                 return defaultValue;
 
             return _value;
+        }
+        
+        /// <summary>
+        ///  Indicates whether the inner value is present and returns the value if it is. 
+        /// </summary>
+        /// <param name="value">The inner value, if present; otherwise `default`</param>
+#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif 
+        public bool TryGetValue(
+#if NET_5_0_OR_GREATER
+            [NotNullWhen(true), MaybeNullWhen(false)]
+#endif
+            out T value)
+        {
+            value = _value;
+            return _isValueSet;
         }
 
         /// <summary>
@@ -159,7 +182,7 @@ namespace CSharpFunctionalExtensions
     /// <summary>
     /// Useful in scenarios where you need to determine if a value is Maybe or not
     /// </summary>
-    public interface IMaybe<T>
+    public interface IMaybe<out T>
     {
         T Value { get; }
         bool HasValue { get; }
