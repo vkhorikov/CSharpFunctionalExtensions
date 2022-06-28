@@ -172,6 +172,30 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             
             act.Should().NotThrow();
         }
+        
+        public void Maybe_struct_default_is_none()
+        {
+            Maybe<int> maybe = default;
+
+            maybe.HasValue.Should().BeFalse();
+            maybe.HasNoValue.Should().BeTrue();
+        }
+        
+        public void Maybe_struct_value_is_some()
+        {
+            Maybe<int> maybe = 5;
+
+            maybe.HasValue.Should().BeTrue();
+            maybe.HasNoValue.Should().BeFalse();
+        }
+        
+        public void Maybe_class_null_is_none()
+        {
+            Maybe<MyClass> maybe = null;
+
+            maybe.HasValue.Should().BeFalse();
+            maybe.HasNoValue.Should().BeTrue();
+        }
 
         private class MyClass
         {
