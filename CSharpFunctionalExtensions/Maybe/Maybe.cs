@@ -55,6 +55,10 @@ namespace CSharpFunctionalExtensions
         
         public static implicit operator Maybe<T>(T value)
         {
+            if (value is Maybe<T> m)
+            {
+                return m;
+            }
             return EqualityComparer<T>.Default.Equals(default, value) ? default : new Maybe<T>(value);
         }
 
