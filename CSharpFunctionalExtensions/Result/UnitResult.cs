@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
     ///     The error type returned by a failed operation.
     /// </typeparam>
     [Serializable]
-    public partial struct UnitResult<E> : IUnitResult<E>, ISerializable
+    public readonly partial struct UnitResult<E> : IUnitResult<E>, ISerializable
     {
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
@@ -19,7 +19,7 @@ namespace CSharpFunctionalExtensions
         private readonly E _error;
         public E Error => ResultCommonLogic.GetErrorWithSuccessGuard(IsFailure, _error);
 
-        internal UnitResult(bool isFailure, E error)
+        internal UnitResult(bool isFailure, in E error)
         {
             IsFailure = ResultCommonLogic.ErrorStateGuard(isFailure, error);
             _error = error;
@@ -57,7 +57,7 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Creates a failure result with the given error.
         /// </summary>
-        public static UnitResult<E> Failure<E>(E error)
+        public static UnitResult<E> Failure<E>(in E error)
         {
             return new UnitResult<E>(true, error);
         }
