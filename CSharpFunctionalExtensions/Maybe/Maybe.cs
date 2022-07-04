@@ -55,7 +55,12 @@ namespace CSharpFunctionalExtensions
         
         public static implicit operator Maybe<T>(T value)
         {
-            return EqualityComparer<T>.Default.Equals(default, value) ? default : new Maybe<T>(value);
+            if (value?.GetType() == typeof(Maybe<T>))
+            {
+                return (Maybe<T>)(object)value;
+            }
+
+            return new Maybe<T>(value);
         }
 
         public static implicit operator Maybe<T>(Maybe value) => None;
