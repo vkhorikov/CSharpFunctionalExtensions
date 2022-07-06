@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
 using System.Runtime.CompilerServices;
 #endif
@@ -9,7 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public struct Maybe<T> : IEquatable<Maybe<T>>, IMaybe<T>
+    public readonly struct Maybe<T> : IEquatable<Maybe<T>>, IEquatable<object>, IMaybe<T>
     {
         private readonly bool _isValueSet;
 
@@ -74,7 +75,7 @@ namespace CSharpFunctionalExtensions
             _isValueSet = true;
             _value = value;
         }
-
+        
         public static implicit operator Maybe<T>(T value)
         {
             if (value?.GetType() == typeof(Maybe<T>))
@@ -108,6 +109,16 @@ namespace CSharpFunctionalExtensions
             return !(maybe == value);
         }
 
+        public static bool operator ==(Maybe<T> maybe, object other)
+        {
+            return maybe.Equals(other);
+        }
+        
+        public static bool operator !=(Maybe<T> maybe, object other)
+        {
+            return !(maybe == other);
+        }
+
         public static bool operator ==(Maybe<T> first, Maybe<T> second)
         {
             return first.Equals(second);
@@ -120,22 +131,13 @@ namespace CSharpFunctionalExtensions
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
+            if (obj is null)
                 return false;
-
-            if (obj.GetType() != typeof(Maybe<T>))
-            {
-                if (obj is T objT)
-                {
-                    obj = new Maybe<T>(objT);
-                }
-
-                if (!(obj is Maybe<T>))
-                    return false;
-            }
-
-            var other = (Maybe<T>)obj;
-            return Equals(other);
+            if (obj is Maybe<T> other)
+                return Equals(other);
+            if (obj is T value)
+                return Equals(value);
+            return false;
         }
 
         public bool Equals(Maybe<T> other)
@@ -146,7 +148,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue || other.HasNoValue)
                 return false;
 
-            return _value.Equals(other._value);
+            return EqualityComparer<T>.Default.Equals(_value, other._value);
         }
 
         public override int GetHashCode()
@@ -169,7 +171,7 @@ namespace CSharpFunctionalExtensions
     /// <summary>
     /// Non-generic entrypoint for <see cref="Maybe{T}" /> members
     /// </summary>
-    public struct Maybe
+    public readonly struct Maybe
     {
         public static Maybe None => new Maybe();
 
