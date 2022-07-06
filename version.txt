@@ -1,6 +1,6 @@
-2.29.4
+2.30.0
 New features:
-* None
+* #422 Fix unessesary shadowing
 
 Fixed issues:
-* #417 Remove obsolete methods
+* None

@@ -52,7 +52,7 @@ namespace CSharpFunctionalExtensions
             _isValueSet = true;
             _value = value;
         }
-        
+
         public static implicit operator Maybe<T>(T value)
         {
             if (value is Maybe<T> m)
@@ -89,7 +89,7 @@ namespace CSharpFunctionalExtensions
         {
             return maybe.Equals(other);
         }
-        
+
         public static bool operator !=(Maybe<T> maybe, object other)
         {
             return !(maybe == other);
