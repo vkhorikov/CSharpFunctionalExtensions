@@ -11,8 +11,8 @@ namespace CSharpFunctionalExtensions
     {
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif 
-        public bool TryGetFailure(
+#endif
+        public bool TryGetError(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
@@ -27,8 +27,8 @@ namespace CSharpFunctionalExtensions
     {
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif 
-        public bool TryGetSuccess(
+#endif
+        public bool TryGetValue(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
@@ -37,11 +37,11 @@ namespace CSharpFunctionalExtensions
             value = _value;
             return IsSuccess;
         }
-        
+
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif 
-        public bool TryGetFailure(
+#endif
+        public bool TryGetError(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
@@ -50,11 +50,11 @@ namespace CSharpFunctionalExtensions
             error = _error;
             return IsFailure;
         }
-        
+
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-        public bool TryGetSuccess(
+        public bool TryGetValue(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
@@ -73,7 +73,7 @@ namespace CSharpFunctionalExtensions
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-        public bool TryGetFailure(
+        public bool TryGetError(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
@@ -89,14 +89,14 @@ namespace CSharpFunctionalExtensions
             return IsFailure;
         }
     }
-    
+
     partial struct Result<T, E>
     {
-        
+
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif 
-        public bool TryGetSuccess(
+#endif
+        public bool TryGetValue(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
@@ -105,11 +105,11 @@ namespace CSharpFunctionalExtensions
             value = _value;
             return IsSuccess;
         }
-        
+
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif 
-        public bool TryGetFailure(
+#endif
+        public bool TryGetError(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
@@ -122,7 +122,7 @@ namespace CSharpFunctionalExtensions
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-        public bool TryGetSuccess(
+        public bool TryGetValue(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
@@ -141,7 +141,7 @@ namespace CSharpFunctionalExtensions
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-        public bool TryGetFailure(
+        public bool TryGetError(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
@@ -162,8 +162,8 @@ namespace CSharpFunctionalExtensions
     {
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif 
-        public bool TryGetFailure(
+#endif
+        public bool TryGetError(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
