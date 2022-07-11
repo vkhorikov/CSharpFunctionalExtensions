@@ -52,15 +52,14 @@ namespace CSharpFunctionalExtensions
             _isValueSet = true;
             _value = value;
         }
-        
+
         public static implicit operator Maybe<T>(T value)
         {
-            if (value?.GetType() == typeof(Maybe<T>))
+            if (value is Maybe<T> m)
             {
-                return (Maybe<T>)(object)value;
+                return m;
             }
-
-            return new Maybe<T>(value);
+            return EqualityComparer<T>.Default.Equals(default, value) ? default : new Maybe<T>(value);
         }
 
         public static implicit operator Maybe<T>(Maybe value) => None;
@@ -90,7 +89,7 @@ namespace CSharpFunctionalExtensions
         {
             return maybe.Equals(other);
         }
-        
+
         public static bool operator !=(Maybe<T> maybe, object other)
         {
             return !(maybe == other);
