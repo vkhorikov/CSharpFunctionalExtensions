@@ -175,6 +175,50 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
         
         [Fact]
+        public void TryGetValue_returns_false_if_source_is_empty()
+        {
+            var maybe = Maybe<int>.None;
+
+            bool result = maybe.TryGetValue(out int value);
+            
+            result.Should().BeFalse();
+            value.Should().Be(default);
+        }
+        
+        [Fact]
+        public void TryGetValue_returns_true_if_source_has_value()
+        {
+            var maybe = Maybe.From(5);
+
+            bool result = maybe.TryGetValue(out int value);
+
+            result.Should().BeTrue();
+            value.Should().Be(5);
+        }
+        
+        [Fact]
+        public void TryGetValue_returns_false_if_source_is_empty_and_out_parameter_is_null()
+        {
+            var maybe = Maybe<int?>.None;
+
+            bool result = maybe.TryGetValue(out int? value);
+            
+            result.Should().BeFalse();
+            value.Should().BeNull();
+        }
+        
+        [Fact]
+        public void TryGetValue_returns_true_if_source_has_value_and_out_parameter_is_null()
+        {
+            var maybe = Maybe<int?>.From(5);
+
+            bool result = maybe.TryGetValue(out int? value);
+
+            result.Should().BeTrue();
+            value.Should().Be(5);
+        }
+        
+        [Fact]
         public void Maybe_struct_default_is_none()
         {
             Maybe<int> maybe = default;

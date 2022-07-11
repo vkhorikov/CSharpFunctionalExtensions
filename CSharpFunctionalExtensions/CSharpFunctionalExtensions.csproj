@@ -45,7 +45,7 @@
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
     <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -53,7 +53,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net40' OR '$(TargetFramework)'=='net45' OR '$(TargetFramework)'=='net461' OR '$(TargetFramework)'=='net472' OR '$(TargetFramework)'=='netstandard2.0'">
+  <ItemGroup Condition="!$(DefineConstants.Contains('NET5_0_OR_GREATER')) and !$(DefineConstants.Contains('NETCORE'))">
     <Compile Remove="Result\Json\Serialization\**" />
     <EmbeddedResource Remove="Result\Json\Serialization\**" />
     <None Remove="Result\Json\Serialization\**" />
