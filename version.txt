@@ -1,6 +1,6 @@
-2.30.0
+2.31.0
 New features:
-* #422 Fix unessesary shadowing
+* #421 Inline payload retrieval
 
 Fixed issues:
-* None
+* #423 Rework: Fix unessesary shadowing
