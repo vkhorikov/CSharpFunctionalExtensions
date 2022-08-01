@@ -245,6 +245,15 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             maybe.HasNoValue.Should().BeTrue();
         }
 
+        [Fact]
+        public void Maybe_implicit_operator_converts_false_to_some_false()
+        {
+            Maybe<bool> m = false;
+
+            m.HasValue.Should().BeTrue();
+            m.Value.Should().BeFalse();
+        }
+
         private class MyClass
         {
             public override string ToString()
