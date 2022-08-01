@@ -1,6 +1,6 @@
-2.31.0
+2.31.1
 New features:
-* #421 Inline payload retrieval
+* None
 
 Fixed issues:
-* #423 Rework: Fix unessesary shadowing
+* #431 Fix Breaking Change in Maybe<T> implicit operator
