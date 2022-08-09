@@ -10,8 +10,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public readonly struct Maybe<T> : IEquatable<Maybe<T>>, IEquatable<object>, IMaybe<T>
+    public readonly partial struct Maybe<T> : IEquatable<Maybe<T>>, IEquatable<object>, IMaybe<T>
     {
+        
         private readonly bool _isValueSet;
 
         private readonly T _value;
@@ -23,7 +24,7 @@ namespace CSharpFunctionalExtensions
         public T GetValueOrThrow(string errorMessage = null)
         {
             if (HasNoValue)
-                throw new InvalidOperationException(errorMessage ?? Result.DefaultNoValueExceptionMessage);
+                throw new InvalidOperationException(errorMessage ?? Configuration.NoValueException);
 
             return _value;
         }

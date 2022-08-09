@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static Result Try(Action action, Func<Exception, string> errorHandler = null)
         {
-            errorHandler ??= DefaultTryErrorHandler;
+            errorHandler ??= Configuration.DefaultTryErrorHandler;
 
             try
             {
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result> Try(Func<Task> action, Func<Exception, string> errorHandler = null)
         {
-            errorHandler ??= DefaultTryErrorHandler;
+            errorHandler ??= Configuration.DefaultTryErrorHandler;
 
             try
             {
@@ -49,7 +49,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static Result<T> Try<T>(Func<T> func, Func<Exception, string> errorHandler = null)
         {
-            errorHandler ??= DefaultTryErrorHandler;
+            errorHandler ??= Configuration.DefaultTryErrorHandler;
 
             try
             {
@@ -68,7 +68,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async Task<Result<T>> Try<T>(Func<Task<T>> func, Func<Exception, string> errorHandler = null)
         {
-            errorHandler ??= DefaultTryErrorHandler;
+            errorHandler ??= Configuration.DefaultTryErrorHandler;
 
             try
             {
