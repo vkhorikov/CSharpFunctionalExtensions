@@ -403,7 +403,7 @@ namespace CSharpFunctionalExtensions
             hasValue = result.HasValue;
             value = result.GetValueOrDefault();
         }
-        
+
         /// <summary>
         /// Flattens nested <see cref="Maybe{T}"/>s into a single <see cref="Maybe{T}"/>.
         /// </summary>
@@ -411,6 +411,49 @@ namespace CSharpFunctionalExtensions
         public static Maybe<T> Flatten<T>(in this Maybe<Maybe<T>> maybe)
         {
             return maybe.GetValueOrDefault();
+        }
+
+        /// <summary>
+        /// Converts the <see cref="Nullable{T}"/> struct to a <see cref="Maybe{T}"/>.
+        /// </summary>
+        /// <returns>Returns the <see cref="Maybe{T}"/> equivalent to the <see cref="Nullable{T}"/>.</returns>
+        public static Maybe<T> ToMaybe<T>(in this Nullable<T> value)
+            where T : struct
+        {
+            if (value.HasValue)
+            {
+                return value.Value;
+            }
+            return default;
+        }
+
+        /// <summary>
+        /// Converts the <see cref="Maybe{T}"/> to a <see cref="Nullable{T}"/> struct.
+        /// </summary>
+        /// <returns>Returns the <see cref="Nullable{T}"/> equivalent to the <see cref="Maybe{T}"/>.</returns>
+        public static Nullable<T> ToMaybe<T>(in this Maybe<T> value)
+            where T : struct
+        {
+            if (value.TryGetValue(out var result))
+            {
+                return result;
+            }
+            return default;
+        }
+
+        /// <summary>
+        /// Wraps the class instance in a <see cref="Maybe{T}"/>.
+        /// </summary>
+        /// <returns>Returns <see cref="Maybe.None"/> if the class instance is null, otherwise returns <see cref="Maybe.From(T)"/>.</returns>
+        public static Maybe<T> ToMaybe<T>(this T? value)
+            where T : class
+        {
+            if (value is not null)
+            {
+                return value!;
+            }
+
+            return default;
         }
     }
 }
