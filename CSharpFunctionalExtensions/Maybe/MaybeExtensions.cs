@@ -413,11 +413,19 @@ namespace CSharpFunctionalExtensions
             return maybe.GetValueOrDefault();
         }
 
+        // ReSharper disable ConvertNullableToShortForm
         /// <summary>
         /// Converts the <see cref="Nullable{T}"/> struct to a <see cref="Maybe{T}"/>.
         /// </summary>
         /// <returns>Returns the <see cref="Maybe{T}"/> equivalent to the <see cref="Nullable{T}"/>.</returns>
-        public static Maybe<T> ToMaybe<T>(in this Nullable<T> value)
+#if NET5_0_OR_GREATER
+        public static Maybe<T> AsMaybe<T>(ref this Nullable<T> value)
+            where T : struct
+        {
+            return System.Runtime.CompilerServices.Unsafe.As<Nullable<T>, Maybe<T>>(ref value);
+        }
+#else
+        public static Maybe<T> AsMaybe<T>(in this Nullable<T> value)
             where T : struct
         {
             if (value.HasValue)
@@ -426,26 +434,38 @@ namespace CSharpFunctionalExtensions
             }
             return default;
         }
+#endif
 
         /// <summary>
         /// Converts the <see cref="Maybe{T}"/> to a <see cref="Nullable{T}"/> struct.
         /// </summary>
         /// <returns>Returns the <see cref="Nullable{T}"/> equivalent to the <see cref="Maybe{T}"/>.</returns>
-        public static Nullable<T> ToMaybe<T>(in this Maybe<T> value)
+#if NET5_0_OR_GREATER
+        public static Nullable<T> AsNullable<T>(ref this Maybe<T> value)
             where T : struct
         {
+            return System.Runtime.CompilerServices.Unsafe.As<Maybe<T>, Nullable<T>>(ref value);
+        }
+#else
+        public static Nullable<T> AsNullable<T>(in this Maybe<T> value)
+            where T : struct
+        {
+            // Should use `return Unsafe.AsRef<(ref value);`
             if (value.TryGetValue(out var result))
             {
                 return result;
             }
             return default;
         }
+#endif
+        // ReSharper restore ConvertNullableToShortForm
 
+#nullable enable
         /// <summary>
         /// Wraps the class instance in a <see cref="Maybe{T}"/>.
         /// </summary>
         /// <returns>Returns <see cref="Maybe.None"/> if the class instance is null, otherwise returns <see cref="Maybe.From(T)"/>.</returns>
-        public static Maybe<T> ToMaybe<T>(this T? value)
+        public static Maybe<T> AsMaybe<T>(this T? value)
             where T : class
         {
             if (value is not null)
@@ -455,5 +475,6 @@ namespace CSharpFunctionalExtensions
 
             return default;
         }
+#nullable restore
     }
 }
