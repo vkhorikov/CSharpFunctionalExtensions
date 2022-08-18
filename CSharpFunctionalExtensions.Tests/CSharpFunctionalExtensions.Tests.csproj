@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>8.0</LangVersion>
     <NoWarn>0618</NoWarn>
   </PropertyGroup>
 

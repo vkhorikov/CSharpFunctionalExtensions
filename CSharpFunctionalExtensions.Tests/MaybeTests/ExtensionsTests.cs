@@ -716,11 +716,61 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             orMaybe.Should().NotBe(maybe);
         }
 
+        [Fact]
+        public void Struct_nullable_conversion_equality_none()
+        {
+            Maybe<double> none = default;
+            double? noneNullable = none.AsNullable();
+            noneNullable.HasValue.Should().Be(none.HasValue);
+        }
+
+        [Fact]
+        public void Struct_nullable_conversion_equality_some()
+        {
+            Maybe<double> some = 123;
+            double? someNullable = some.AsNullable();
+            someNullable.HasValue.Should().Be(some.HasValue);
+            someNullable.Should().Be(some.Value);
+        }
+
+        [Fact]
+        public void Struct_maybe_conversion_equality_none()
+        {
+            double? none = default;
+            Maybe<double> maybeNone = none.AsMaybe();
+            maybeNone.HasValue.Should().Be(none.HasValue);
+        }
+
+        [Fact]
+        public void Struct_maybe_conversion_equality_some()
+        {
+            double? some = 123;
+            Maybe<double> someMaybe = some.AsMaybe();
+            someMaybe.HasValue.Should().Be(some.HasValue);
+            someMaybe.Value.Should().Be(some);
+        }
+
+        [Fact]
+        public void Class_maybe_conversion_none()
+        {
+            MyClass v = null;
+            Maybe<MyClass> maybeV = v.AsMaybe();
+            maybeV.HasValue.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Class_maybe_conversion_some()
+        {
+            MyClass v = new MyClass();
+            Maybe<MyClass> maybeV = v.AsMaybe();
+            maybeV.HasValue.Should().BeTrue();
+            maybeV.Value.Should().Be(v);
+        }
+
         private static Maybe<string> GetPropertyIfExists(MyClass myClass)
         {
             return myClass.Property;
         }
-
 
         private class MyClass
         {
