@@ -51,24 +51,24 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         [Fact]
         public void ErrorMessagesSeparator_Combine_combines_all_errors_with_configured_ErrorMessagesSeparator_together()
         {
-            var previousErrorMessagesSeparator = Result.ErrorMessagesSeparator;
+            var previousErrorMessagesSeparator = Result.Configuration.ErrorMessagesSeparator;
 
             Result result1 = Result.Failure("E1");
             Result result2 = Result.Failure("E2");
 
-            Result.ErrorMessagesSeparator = "{Separator}";
+            Result.Configuration.ErrorMessagesSeparator = "{Separator}";
             Result result = Result.Combine(result1, result2);
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("E1{Separator}E2");
 
-            Result.ErrorMessagesSeparator = previousErrorMessagesSeparator;
+            Result.Configuration.ErrorMessagesSeparator = previousErrorMessagesSeparator;
         }
 
         [Fact]
         public void ErrorMessagesSeparator_Combine_combines_all_collection_errors_with_configured_ErrorMessagesSeparator_together()
         {
-            var previousErrorMessagesSeparator = Result.ErrorMessagesSeparator;
+            var previousErrorMessagesSeparator = Result.Configuration.ErrorMessagesSeparator;
 
             IEnumerable<Result> results = new Result[]
             {
@@ -76,13 +76,13 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
                 Result.Failure("E2")
             };
 
-            Result.ErrorMessagesSeparator = "{Separator}";
+            Result.Configuration.ErrorMessagesSeparator = "{Separator}";
             Result result = results.Combine();
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("E1{Separator}E2");
 
-            Result.ErrorMessagesSeparator = previousErrorMessagesSeparator;
+            Result.Configuration.ErrorMessagesSeparator = previousErrorMessagesSeparator;
         }
 
         [Fact]

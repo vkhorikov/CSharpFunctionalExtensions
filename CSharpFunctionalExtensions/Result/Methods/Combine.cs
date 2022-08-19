@@ -22,7 +22,7 @@ namespace CSharpFunctionalExtensions
             if (failedResults.Count == 0)
                 return Success();
 
-            string errorMessage = string.Join(errorMessagesSeparator ?? ErrorMessagesSeparator, AggregateMessages(failedResults.Select(x => x.Error)));
+            string errorMessage = string.Join(errorMessagesSeparator ?? Configuration.ErrorMessagesSeparator, AggregateMessages(failedResults.Select(x => x.Error)));
             return Failure(errorMessage);
         }
 
@@ -141,7 +141,7 @@ namespace CSharpFunctionalExtensions
         /// <returns>
         ///     A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
         public static Result Combine(params Result[] results)
-            => Combine(results, ErrorMessagesSeparator);
+            => Combine(results, Configuration.ErrorMessagesSeparator);
 
         /// <summary>
         ///     Combines several results (and any error messages) into a single result.
@@ -152,7 +152,7 @@ namespace CSharpFunctionalExtensions
         /// <returns>
         ///     A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
         public static Result Combine<T>(params Result<T>[] results)
-            => Combine(results, ErrorMessagesSeparator);
+            => Combine(results, Configuration.ErrorMessagesSeparator);
 
         // TODO: Ideally, we would be using BaseResult<E> or equivalent instead of Result<bool, E>.
         /// <summary>
