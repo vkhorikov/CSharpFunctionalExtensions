@@ -18,7 +18,7 @@ namespace CSharpFunctionalExtensions.Json.Serialization
 
             if (ensureSuccessStatusCode && !response.IsSuccessStatusCode)
             {
-                return Result.Failure(DtoMessages.NotSuccsessStatusCodeFormat(response.StatusCode, await response.Content.ReadAsStringAsync()));
+                return Result.Failure(DtoMessages.NotSuccessStatusCodeFormat(response.StatusCode, await response.Content.ReadAsStringAsync()));
             }
 
             return await
@@ -35,7 +35,7 @@ namespace CSharpFunctionalExtensions.Json.Serialization
 
             if (ensureSuccessStatusCode && !response.IsSuccessStatusCode)
             {
-                return Result.Failure<T>(DtoMessages.NotSuccsessStatusCodeFormat(response.StatusCode, await response.Content.ReadAsStringAsync()));
+                return Result.Failure<T>(DtoMessages.NotSuccessStatusCodeFormat(response.StatusCode, await response.Content.ReadAsStringAsync()));
             }
 
             return await

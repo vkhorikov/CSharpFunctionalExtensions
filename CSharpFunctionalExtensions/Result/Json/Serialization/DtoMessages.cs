@@ -8,6 +8,6 @@ namespace CSharpFunctionalExtensions.Json.Serialization
 
         public static readonly string ContentJsonNotResult = "The response content in not a Result";
 
-        public static string NotSuccsessStatusCodeFormat(HttpStatusCode statusCode, string content) => $"HttpStatus code is {statusCode}, Content {content}";
+        public static string NotSuccessStatusCodeFormat(HttpStatusCode statusCode, string content) => $"HttpStatus code is {statusCode}, Content {content}";
     }
 }
