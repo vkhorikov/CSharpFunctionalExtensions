@@ -10,6 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct Maybe<T> : IEquatable<Maybe<T>>, IEquatable<object>, IMaybe<T>
     {
         
@@ -36,14 +37,14 @@ namespace CSharpFunctionalExtensions
 
             return _value;
         }
-        
+
         /// <summary>
-        ///  Indicates whether the inner value is present and returns the value if it is. 
+        ///  Indicates whether the inner value is present and returns the value if it is.
         /// </summary>
         /// <param name="value">The inner value, if present; otherwise `default`</param>
 #if NETCORE || NETSTANDARD || NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif 
+#endif
         public bool TryGetValue(
 #if NET_5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
