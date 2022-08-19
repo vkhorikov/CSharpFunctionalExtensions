@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions
 
             try
             {
-                await action().DefaultAwait();
+                await action();
                 return Success();
             }
             catch (Exception exc)
@@ -35,7 +35,7 @@ namespace CSharpFunctionalExtensions
 
             try
             {
-                var result = await func().DefaultAwait();
+                var result = await func();
                 return Success(result);
             }
             catch (Exception exc)
@@ -53,7 +53,7 @@ namespace CSharpFunctionalExtensions
         {
             try
             {
-                var result = await func().DefaultAwait();
+                var result = await func();
                 return Success<T, E>(result);
             }
             catch (Exception exc)

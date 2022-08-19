@@ -66,7 +66,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             return actual =>
             {
                 actual.Should().Be(expected);
-                return ValueTask.FromResult(result);
+                return result.AsCompletedValueTask();
             };
         }
 
@@ -75,7 +75,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             return actual =>
             {
                 actual.Should().Be(expected);
-                return ValueTask.FromResult(Maybe<R>.From(result));
+                return Maybe<R>.From(result).AsCompletedValueTask();
             };
         }
 
@@ -84,7 +84,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             return actual =>
             {
                 actual.Should().Be(expected);
-                return ValueTask.FromResult(Maybe<T>.From(result));
+                return Maybe<T>.From(result).AsCompletedValueTask();
             };
         }
     }

@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasNoValue)
                 return Maybe<T>.None;
 
-            if (await predicate(maybe.GetValueOrThrow()).DefaultAwait())
+            if (await predicate(maybe.GetValueOrThrow()))
                 return maybe;
 
             return Maybe<T>.None;

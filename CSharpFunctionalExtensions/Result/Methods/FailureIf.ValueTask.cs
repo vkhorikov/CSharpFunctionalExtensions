@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result> FailureIf(Func<ValueTask<bool>> failurePredicate, string error)
         {
-            bool isFailure = await failurePredicate().DefaultAwait();
+            bool isFailure = await failurePredicate();
             return SuccessIf(!isFailure, error);
         }
         
@@ -20,7 +20,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T>> FailureIf<T>(Func<ValueTask<bool>> failurePredicate, T value, string error)
         {
-            bool isFailure = await failurePredicate().DefaultAwait();
+            bool isFailure = await failurePredicate();
             return SuccessIf(!isFailure, value, error);
         }
         
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T, E>> FailureIf<T, E>(Func<ValueTask<bool>> failurePredicate, T value, E error)
         {
-            bool isFailure = await failurePredicate().DefaultAwait();
+            bool isFailure = await failurePredicate();
             return SuccessIf(!isFailure, value, error);
         }
     }

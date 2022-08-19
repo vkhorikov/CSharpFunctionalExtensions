@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K, E>> Bind<T, K, E>(this ValueTask<Result<T, E>> resultTask, Func<T, Result<K, E>> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
             return result.Bind(func);
         }
 
@@ -20,7 +20,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K>> Bind<T, K>(this ValueTask<Result<T>> resultTask, Func<T, Result<K>> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
             return result.Bind(func);
         }
 
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K>> Bind<K>(this ValueTask<Result> resultTask, Func<Result<K>> func)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
             return result.Bind(func);
         }
 
@@ -38,7 +38,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result> Bind<T>(this ValueTask<Result<T>> resultTask, Func<T, Result> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
             return result.Bind(func);
         }
 
@@ -47,7 +47,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result> Bind(this ValueTask<Result> resultTask, Func<Result> func)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
             return result.Bind(func);
         }
 
@@ -56,7 +56,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T, E>> Bind<T, E>(this ValueTask<UnitResult<E>> resultTask, Func<Result<T, E>> func)
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
             return result.Bind(func);
         }
 
@@ -65,7 +65,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<UnitResult<E>> Bind<T, E>(this ValueTask<Result<T, E>> resultTask, Func<T, UnitResult<E>> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
             return result.Bind(func);
         }
         
@@ -74,7 +74,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<UnitResult<E>> Bind<E>(this ValueTask<UnitResult<E>> resultTask, Func<UnitResult<E>> func)
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
             return result.Bind(func);
         }
     }

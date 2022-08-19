@@ -47,7 +47,7 @@ namespace CSharpFunctionalExtensions
         {
             using (var trans = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var result = await f().DefaultAwait();
+                var result = await f();
                 if (result.IsSuccess)
                 {
                     trans.Complete();

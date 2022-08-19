@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             Result actual = await result.MapError(error =>
             {
                 invocations++;
-                return ValueTask.FromResult($"{error} {error}");
+                return $"{error} {error}".AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeTrue();
@@ -31,7 +31,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             Result actual = await result.MapError(error =>
             {
                 invocations++;
-                return ValueTask.FromResult($"{error} {error}");
+                return $"{error} {error}".AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeFalse();
@@ -48,7 +48,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             UnitResult<E> actual = await result.MapError(error =>
             {
                 invocations++;
-                return ValueTask.FromResult(E.Value);
+                return E.Value.AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeTrue();
@@ -64,7 +64,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             UnitResult<E> actual = await result.MapError(error =>
             {
                 invocations++;
-                return ValueTask.FromResult(E.Value);
+                return E.Value.AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeFalse();
@@ -81,7 +81,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             Result<T> actual = await result.MapError(error =>
             {
                 invocations++;
-                return ValueTask.FromResult($"{error} {error}");
+                return $"{error} {error}".AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeTrue();
@@ -98,7 +98,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             Result<T> actual = await result.MapError(error =>
             {
                 invocations++;
-                return ValueTask.FromResult($"{error} {error}");
+                return $"{error} {error}".AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeFalse();
@@ -115,7 +115,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             Result actual = await result.MapError(error =>
             {
                 invocations++;
-                return ValueTask.FromResult($"{error} {error}");
+                return $"{error} {error}".AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeTrue();
@@ -133,7 +133,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
                 error.Should().Be(E.Value);
 
                 invocations++;
-                return ValueTask.FromResult("error");
+                return "error".AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeFalse();
@@ -150,7 +150,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             UnitResult<E2> actual = await result.MapError(error =>
             {
                 invocations++;
-                return ValueTask.FromResult(E2.Value);
+                return E2.Value.AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeTrue();
@@ -168,7 +168,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
                 error.Should().Be(E.Value);
 
                 invocations++;
-                return ValueTask.FromResult(E2.Value);
+                return E2.Value.AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeFalse();
@@ -185,7 +185,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             Result<T, E> actual = await result.MapError(_ =>
             {
                 invocations++;
-                return ValueTask.FromResult(E.Value);
+                return E.Value.AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeTrue();
@@ -204,7 +204,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
                 error.Should().Be(ErrorMessage);
 
                 invocations++;
-                return ValueTask.FromResult(E.Value);
+                return E.Value.AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeFalse();
@@ -221,7 +221,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             Result<T> actual = await result.MapError(_ =>
             {
                 invocations++;
-                return ValueTask.FromResult("error");
+                return "error".AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeTrue();
@@ -238,7 +238,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             Result<T, E2> actual = await result.MapError(_ =>
             {
                 invocations++;
-                return ValueTask.FromResult(E2.Value);
+                return E2.Value.AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeTrue();
@@ -257,7 +257,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
                 error.Should().Be(E.Value);
 
                 invocations++;
-                return ValueTask.FromResult("string");
+                return "string".AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeFalse();
@@ -276,7 +276,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
                 error.Should().Be(E.Value);
 
                 invocations++;
-                return ValueTask.FromResult(E2.Value);
+                return E2.Value.AsCompletedValueTask();
             });
 
             actual.IsSuccess.Should().BeFalse();

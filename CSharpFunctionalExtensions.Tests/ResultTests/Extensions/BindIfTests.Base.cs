@@ -39,10 +39,10 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         {
             if (!isSuccess)
             {
-                return () => ValueTask.FromResult(FailureAction());
+                return () => FailureAction().AsCompletedValueTask();
             }
 
-            return () => ValueTask.FromResult(SuccessAction());
+            return () => SuccessAction().AsCompletedValueTask();
         }
         
         protected Func<T, Result<T>> GetValueAction(bool isSuccess)
@@ -69,10 +69,10 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         {
             if (!isSuccess)
             {
-                return t => ValueTask.FromResult(FailureValueAction(t));
+                return t => FailureValueAction(t).AsCompletedValueTask();
             }
 
-            return t => ValueTask.FromResult(SuccessValueAction(t));
+            return t => SuccessValueAction(t).AsCompletedValueTask();
         }
 
         protected Func<UnitResult<E>> GetErrorAction(bool isSuccess)
@@ -99,10 +99,10 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         {
             if (!isSuccess)
             {
-                return () => ValueTask.FromResult(FailureErrorAction());
+                return () => FailureErrorAction().AsCompletedValueTask();
             }
 
-            return () => ValueTask.FromResult(SuccessErrorAction());
+            return () => SuccessErrorAction().AsCompletedValueTask();
         }
 
         protected Func<T, Result<T, E>> GetValueErrorAction(bool isSuccess)
@@ -129,10 +129,10 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         {
             if (!isSuccess)
             {
-                return t => ValueTask.FromResult(FailureValueErrorAction(t));
+                return t => FailureValueErrorAction(t).AsCompletedValueTask();
             }
 
-            return t => ValueTask.FromResult(SuccessValueErrorAction(t));
+            return t => SuccessValueErrorAction(t).AsCompletedValueTask();
         }
 
         

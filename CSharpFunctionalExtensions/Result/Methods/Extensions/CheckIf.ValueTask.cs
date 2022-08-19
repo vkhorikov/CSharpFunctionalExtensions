@@ -54,10 +54,10 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T>> CheckIf<T>(this ValueTask<Result<T>> resultTask,
             Func<T, bool> predicate, Func<T, ValueTask<Result>> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
 
             if (result.IsSuccess && predicate(result.Value))
-                return await result.Check(func).DefaultAwait();
+                return await result.Check(func);
             else
                 return result;
         }
@@ -65,10 +65,10 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T>> CheckIf<T, K>(this ValueTask<Result<T>> resultTask,
             Func<T, bool> predicate, Func<T, ValueTask<Result<K>>> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
 
             if (result.IsSuccess && predicate(result.Value))
-                return await result.Check(func).DefaultAwait();
+                return await result.Check(func);
             else
                 return result;
         }
@@ -76,10 +76,10 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T, E>> CheckIf<T, K, E>(this ValueTask<Result<T, E>> resultTask,
             Func<T, bool> predicate, Func<T, ValueTask<Result<K, E>>> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
 
             if (result.IsSuccess && predicate(result.Value))
-                return await result.Check(func).DefaultAwait();
+                return await result.Check(func);
             else
                 return result;
         }
@@ -87,10 +87,10 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T, E>> CheckIf<T, E>(this ValueTask<Result<T, E>> resultTask,
             Func<T, bool> predicate, Func<T, ValueTask<UnitResult<E>>> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
 
             if (result.IsSuccess && predicate(result.Value))
-                return await result.Check(func).DefaultAwait();
+                return await result.Check(func);
             else
                 return result;
         }
@@ -98,10 +98,10 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<UnitResult<E>> CheckIf<E>(this ValueTask<UnitResult<E>> resultTask,
             Func<bool> predicate, Func<ValueTask<UnitResult<E>>> func)
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
 
             if (result.IsSuccess && predicate())
-                return await result.Check(func).DefaultAwait();
+                return await result.Check(func);
             else
                 return result;
         }

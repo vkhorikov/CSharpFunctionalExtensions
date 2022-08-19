@@ -10,7 +10,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_errorPredicate_does_not_throw_when_given_result_failure()
         {
-            var result = ValueTask.FromResult(Result.Failure<string>("initial error message"));
+            var result = Result.Failure<string>("initial error message").AsCompletedValueTask();
             Func<Task> ensure = async () => await result.Ensure(
                 x => x != "",
                 x => "new error message: string should not be empty");
@@ -21,7 +21,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_errorPredicate_initial_result_has_failure_state()
         {
-            var tResult = ValueTask.FromResult(Result.Failure<string>("initial error message"));
+            var tResult = Result.Failure<string>("initial error message").AsCompletedValueTask();
 
             var result = await tResult.Ensure(x => x != "", 
                 x => "new error message: string should not be empty");
@@ -33,7 +33,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_errorPredicate_predicate_passes()
         {
-            var tResult = ValueTask.FromResult(Result.Success("initial ok"));
+            var tResult = Result.Success("initial ok").AsCompletedValueTask();
 
             var result = await tResult.Ensure(x => x != "", 
                 x => "new error message: string should not be empty");
@@ -45,7 +45,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_errorPredicate_does_not_execute_error_predicate_when_predicate_passes()
         {
-            var tResult = ValueTask.FromResult(Result.Success<int?>(null));
+            var tResult = Result.Success<int?>(null).AsCompletedValueTask();
 
             Result<int?> result = await tResult.Ensure(value => !value.HasValue, value => $"should be null but found {value.Value}");
 
@@ -55,7 +55,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_errorPredicate_using_errorPredicate()
         {
-            var tResult = ValueTask.FromResult(Result.Success(""));
+            var tResult = Result.Success("").AsCompletedValueTask();
 
             var result = await tResult.Ensure(x => x != "", 
                 x => "new error message: string should not be empty");
@@ -67,7 +67,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_successInput_and_successPredicate()
         {
-          var initialResult = ValueTask.FromResult(Result.Success("Initial message"));
+          var initialResult = Result.Success("Initial message").AsCompletedValueTask();
 
           var result = await initialResult.Ensure(() => Result.Success("Success message"));
 
@@ -78,7 +78,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_successInput_and_failurePredicate()
         {
-          var initialResult = ValueTask.FromResult(Result.Success("Initial Result"));
+          var initialResult = Result.Success("Initial Result").AsCompletedValueTask();
 
           var result = await initialResult.Ensure(() => Result.Failure("Error message"));
 
@@ -89,7 +89,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_failureInput_and_successPredicate()
         {
-          var initialResult = ValueTask.FromResult(Result.Failure("Initial Error message"));
+          var initialResult = Result.Failure("Initial Error message").AsCompletedValueTask();
 
           var result = await initialResult.Ensure(() => Result.Success("Success message"));
 
@@ -100,7 +100,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_failureInput_and_failurePredicate()
         {
-          var initialResult = ValueTask.FromResult(Result.Failure("Initial Error message"));
+          var initialResult = Result.Failure("Initial Error message").AsCompletedValueTask();
 
           var result = await initialResult.Ensure(() => Result.Failure("Error message"));
 
@@ -111,7 +111,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_successInput_and_parameterisedFailurePredicate()
         {
-          var initialResult = ValueTask.FromResult(Result.Success("Initial Success message"));
+          var initialResult = Result.Success("Initial Success message").AsCompletedValueTask();
 
           var result = await initialResult.Ensure(_ => Result.Failure("Error Message"));
 
@@ -122,7 +122,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_successInput_and_parameterisedSuccessPredicate()
         {
-          var initialResult = ValueTask.FromResult(Result.Success("Initial Success message"));
+          var initialResult = Result.Success("Initial Success message").AsCompletedValueTask();
 
           var result = await initialResult.Ensure(_ => Result.Success("Success Message"));
 
@@ -133,7 +133,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_failureInput_and_parameterisedSuccessPredicate()
         {
-          var initialResult = ValueTask.FromResult(Result.Failure<string>("Initial Error message"));
+          var initialResult = Result.Failure<string>("Initial Error message").AsCompletedValueTask();
 
           var result = await initialResult.Ensure(_ => Result.Success("Success Message"));
 
@@ -144,7 +144,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Fact]
         public async Task Ensure_ValueTask_Left_with_failureInput_and_parameterisedFailurePredicate()
         {
-          var initialResult = ValueTask.FromResult(Result.Failure<string>("Initial Error message"));
+          var initialResult = Result.Failure<string>("Initial Error message").AsCompletedValueTask();
 
           var result = await initialResult.Ensure(_ => Result.Failure("Success Message"));
 

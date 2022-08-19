@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result> Tap(this ValueTask<Result> resultTask, Action action)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
             return result.Tap(action);
         }
 
@@ -20,7 +20,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T>> Tap<T>(this ValueTask<Result<T>> resultTask, Action action)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
             return result.Tap(action);
         }
 
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T>> Tap<T>(this ValueTask<Result<T>> resultTask, Action<T> action)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
             return result.Tap(action);
         }
 
@@ -38,7 +38,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<UnitResult<E>> Tap<E>(this ValueTask<UnitResult<E>> resultTask, Action action)
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
             return result.Tap(action);
         }
 
@@ -47,7 +47,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T, E>> Tap<T, E>(this ValueTask<Result<T, E>> resultTask, Action action)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
             return result.Tap(action);
         }
 
@@ -56,7 +56,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T, E>> Tap<T, E>(this ValueTask<Result<T, E>> resultTask, Action<T> action)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
             return result.Tap(action);
         }
     }

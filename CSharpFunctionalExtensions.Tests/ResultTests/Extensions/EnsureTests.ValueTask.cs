@@ -9,9 +9,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
     [Fact]
     public async Task Ensure_ValueTask_with_successInput_and_successPredicate()
     {
-      var initialResult = ValueTask.FromResult(Result.Success("Initial message"));
+      var initialResult = Result.Success("Initial message").AsCompletedValueTask();
 
-      var result = await initialResult.Ensure(() => ValueTask.FromResult(Result.Success("Success message")));
+      var result = await initialResult.Ensure(() => Result.Success("Success message").AsCompletedValueTask());
 
       result.IsSuccess.Should().BeTrue("Initial result and predicate succeeded");
       result.Value.Should().Be("Initial message");
@@ -20,9 +20,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
     [Fact]
     public async Task Ensure_ValueTask_with_successInput_and_failurePredicate()
     {
-      var initialResult = ValueTask.FromResult(Result.Success("Initial Result"));
+      var initialResult = Result.Success("Initial Result").AsCompletedValueTask();
 
-      var result = await initialResult.Ensure(() => ValueTask.FromResult(Result.Failure("Error message")));
+      var result = await initialResult.Ensure(() => Result.Failure("Error message").AsCompletedValueTask());
 
       result.IsSuccess.Should().BeFalse("Predicate is failure result");
       result.Error.Should().Be("Error message");
@@ -31,9 +31,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
     [Fact]
     public async Task Ensure_ValueTask_with_failureInput_and_successPredicate()
     {
-      var initialResult = ValueTask.FromResult(Result.Failure("Initial Error message"));
+      var initialResult = Result.Failure("Initial Error message").AsCompletedValueTask();
 
-      var result = await initialResult.Ensure(() => ValueTask.FromResult(Result.Success("Success message")));
+      var result = await initialResult.Ensure(() => Result.Success("Success message").AsCompletedValueTask());
 
       result.IsSuccess.Should().BeFalse("Initial result is failure result");
       result.Error.Should().Be("Initial Error message");
@@ -42,9 +42,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
     [Fact]
     public async Task Ensure_ValueTask_with_failureInput_and_failurePredicate()
     {
-      var initialResult = ValueTask.FromResult(Result.Failure("Initial Error message"));
+      var initialResult = Result.Failure("Initial Error message").AsCompletedValueTask();
 
-      var result = await initialResult.Ensure(() => ValueTask.FromResult(Result.Failure("Error message")));
+      var result = await initialResult.Ensure(() => Result.Failure("Error message").AsCompletedValueTask());
 
       result.IsSuccess.Should().BeFalse("Initial result is failure result");
       result.Error.Should().Be("Initial Error message");
@@ -53,9 +53,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
     [Fact]
     public async Task Ensure_ValueTask_with_successInput_and_parameterisedFailurePredicate()
     {
-      var initialResult = ValueTask.FromResult(Result.Success("Initial Success message"));
+      var initialResult = Result.Success("Initial Success message").AsCompletedValueTask();
 
-      var result = await initialResult.Ensure(_ => ValueTask.FromResult(Result.Failure("Error Message")));
+      var result = await initialResult.Ensure(_ => Result.Failure("Error Message").AsCompletedValueTask());
 
       result.IsSuccess.Should().BeFalse("Predicate is failure result");
       result.Error.Should().Be("Error Message");
@@ -64,9 +64,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
     [Fact]
     public async Task Ensure_ValueTask_with_successInput_and_parameterisedSuccessPredicate()
     {
-      var initialResult = ValueTask.FromResult(Result.Success("Initial Success message"));
+      var initialResult = Result.Success("Initial Success message").AsCompletedValueTask();
 
-      var result = await initialResult.Ensure(_ => ValueTask.FromResult(Result.Success("Success Message")));
+      var result = await initialResult.Ensure(_ => Result.Success("Success Message").AsCompletedValueTask());
 
       result.IsSuccess.Should().BeTrue("Initial result and predicate succeeded");;
       result.Value.Should().Be("Initial Success message");
@@ -75,9 +75,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
     [Fact]
     public async Task Ensure_ValueTask_with_failureInput_and_parameterisedSuccessPredicate()
     {
-      var initialResult = ValueTask.FromResult(Result.Failure<string>("Initial Error message"));
+      var initialResult = Result.Failure<string>("Initial Error message").AsCompletedValueTask();
 
-      var result = await initialResult.Ensure(_ => ValueTask.FromResult(Result.Success("Success Message")));
+      var result = await initialResult.Ensure(_ => Result.Success("Success Message").AsCompletedValueTask());
 
       result.IsSuccess.Should().BeFalse("Initial result is failure result");;
       result.Error.Should().Be("Initial Error message");
@@ -86,9 +86,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
     [Fact]
     public async Task Ensure_ValueTask_with_failureInput_and_parameterisedFailurePredicate()
     {
-      var initialResult = ValueTask.FromResult(Result.Failure<string>("Initial Error message"));
+      var initialResult = Result.Failure<string>("Initial Error message").AsCompletedValueTask();
 
-      var result = await initialResult.Ensure(_ => ValueTask.FromResult(Result.Failure("Success Message")));
+      var result = await initialResult.Ensure(_ => Result.Failure("Success Message").AsCompletedValueTask());
 
       result.IsSuccess.Should().BeFalse("Initial result and predicate is failure result");;
       result.Error.Should().Be("Initial Error message");

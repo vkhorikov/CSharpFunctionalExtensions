@@ -14,7 +14,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return Result.Failure<K, E>(result.Error);
 
-            K value = await func(result.Value).DefaultAwait();
+            K value = await func(result.Value);
 
             return Result.Success<K, E>(value);
         }
@@ -27,7 +27,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return Result.Failure<K, E>(result.Error);
 
-            K value = await func().DefaultAwait();
+            K value = await func();
 
             return Result.Success<K, E>(value);
         }
@@ -40,7 +40,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return Result.Failure<K>(result.Error);
 
-            K value = await func(result.Value).DefaultAwait();
+            K value = await func(result.Value);
 
             return Result.Success(value);
         }
@@ -53,7 +53,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return Result.Failure<K>(result.Error);
 
-            Result<K> value = await func(result.Value).DefaultAwait();
+            Result<K> value = await func(result.Value);
             return value;
         }
 
@@ -65,7 +65,7 @@ namespace CSharpFunctionalExtensions
             if (result.IsFailure)
                 return Result.Failure<K>(result.Error);
 
-            K value = await func().DefaultAwait();
+            K value = await func();
 
             return Result.Success(value);
         }

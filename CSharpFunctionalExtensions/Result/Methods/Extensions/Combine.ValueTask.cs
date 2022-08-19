@@ -35,52 +35,52 @@ namespace CSharpFunctionalExtensions
 
         public static async ValueTask<Result> Combine(this ValueTask<IEnumerable<Result>> task, string errorMessageSeparator = null)
         {
-            IEnumerable<Result> results = await task.DefaultAwait();
+            IEnumerable<Result> results = await task;
             return results.Combine(errorMessageSeparator);
         }
 
         public static async ValueTask<Result<IEnumerable<T>, E>> Combine<T, E>(this ValueTask<IEnumerable<Result<T, E>>> task, Func<IEnumerable<E>, E> composerError)
         {
-            IEnumerable<Result<T, E>> results = await task.DefaultAwait();
+            IEnumerable<Result<T, E>> results = await task;
             return results.Combine(composerError);
         }
 
         public static async ValueTask<Result<IEnumerable<T>, E>> Combine<T, E>(this ValueTask<IEnumerable<Result<T, E>>> task)
             where E : ICombine
         {
-            IEnumerable<Result<T, E>> results = await task.DefaultAwait();
+            IEnumerable<Result<T, E>> results = await task;
             return results.Combine();
         }
 
         public static async ValueTask<Result<IEnumerable<T>>> Combine<T>(this ValueTask<IEnumerable<Result<T>>> task, string errorMessageSeparator = null)
         {
-            IEnumerable<Result<T>> results = await task.DefaultAwait();
+            IEnumerable<Result<T>> results = await task;
             return results.Combine(errorMessageSeparator);
         }
 
         public static async ValueTask<Result> Combine(this ValueTask<IEnumerable<ValueTask<Result>>> task, string errorMessageSeparator = null)
         {
-            IEnumerable<ValueTask<Result>> tasks = await task.DefaultAwait();
-            return await tasks.Combine(errorMessageSeparator).DefaultAwait();
+            IEnumerable<ValueTask<Result>> tasks = await task;
+            return await tasks.Combine(errorMessageSeparator);
         }
 
         public static async ValueTask<Result<IEnumerable<T>, E>> Combine<T, E>(this ValueTask<IEnumerable<ValueTask<Result<T, E>>>> task, Func<IEnumerable<E>, E> composerError)
         {
-            IEnumerable<ValueTask<Result<T, E>>> tasks = await task.DefaultAwait();
-            return await tasks.Combine(composerError).DefaultAwait();
+            IEnumerable<ValueTask<Result<T, E>>> tasks = await task;
+            return await tasks.Combine(composerError);
         }
 
         public static async ValueTask<Result<IEnumerable<T>, E>> Combine<T, E>(this ValueTask<IEnumerable<ValueTask<Result<T, E>>>> task)
             where E : ICombine
         {
-            IEnumerable<ValueTask<Result<T, E>>> tasks = await task.DefaultAwait();
-            return await tasks.Combine().DefaultAwait();
+            IEnumerable<ValueTask<Result<T, E>>> tasks = await task;
+            return await tasks.Combine();
         }
 
         public static async ValueTask<Result<IEnumerable<T>>> Combine<T>(this ValueTask<IEnumerable<ValueTask<Result<T>>>> task, string errorMessageSeparator = null)
         {
-            IEnumerable<ValueTask<Result<T>>> tasks = await task.DefaultAwait();
-            return await tasks.Combine(errorMessageSeparator).DefaultAwait();
+            IEnumerable<ValueTask<Result<T>>> tasks = await task;
+            return await tasks.Combine(errorMessageSeparator);
         }
 
         public static async ValueTask<Result<K, E>> Combine<T, K, E>(this IEnumerable<ValueTask<Result<T, E>>> tasks, Func<IEnumerable<T>, K> composer, Func<IEnumerable<E>, E> composerError)
@@ -104,21 +104,21 @@ namespace CSharpFunctionalExtensions
 
         public static async ValueTask<Result<K, E>> Combine<T, K, E>(this ValueTask<IEnumerable<ValueTask<Result<T, E>>>> task, Func<IEnumerable<T>, K> composer, Func<IEnumerable<E>, E> composerError)
         {
-            IEnumerable<ValueTask<Result<T, E>>> tasks = await task.DefaultAwait();
-            return await tasks.Combine(composer, composerError).DefaultAwait();
+            IEnumerable<ValueTask<Result<T, E>>> tasks = await task;
+            return await tasks.Combine(composer, composerError);
         }
 
         public static async ValueTask<Result<K, E>> Combine<T, K, E>(this ValueTask<IEnumerable<ValueTask<Result<T, E>>>> task, Func<IEnumerable<T>, K> composer)
             where E : ICombine
         {
-            IEnumerable<ValueTask<Result<T, E>>> tasks = await task.DefaultAwait();
-            return await tasks.Combine(composer).DefaultAwait();
+            IEnumerable<ValueTask<Result<T, E>>> tasks = await task;
+            return await tasks.Combine(composer);
         }
 
         public static async ValueTask<Result<K>> Combine<T, K>(this ValueTask<IEnumerable<ValueTask<Result<T>>>> task, Func<IEnumerable<T>, K> composer, string errorMessageSeparator = null)
         {
-            IEnumerable<ValueTask<Result<T>>> tasks = await task.DefaultAwait();
-            return await tasks.Combine(composer, errorMessageSeparator).DefaultAwait();
+            IEnumerable<ValueTask<Result<T>>> tasks = await task;
+            return await tasks.Combine(composer, errorMessageSeparator);
         }
     }
 }

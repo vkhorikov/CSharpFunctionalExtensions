@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T>> OnFailure<T>(this ValueTask<Result<T>> resultTask, Action action)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
             return result.OnFailure(action);
         }
 
@@ -20,7 +20,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result> OnFailure(this ValueTask<Result> resultTask, Action action)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
             return result.OnFailure(action);
         }
 
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T, E>> OnFailure<T, E>(this ValueTask<Result<T, E>> resultTask, Action action)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
             return result.OnFailure(action);
         }
 
@@ -38,7 +38,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<UnitResult<E>> OnFailure<E>(this ValueTask<UnitResult<E>> resultTask, Action action)
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
             return result.OnFailure(action);
         }
 
@@ -47,7 +47,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<UnitResult<E>> OnFailure<E>(this ValueTask<UnitResult<E>> resultTask, Action<E> action)
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
             return result.OnFailure(action);
         }
 
@@ -56,7 +56,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T>> OnFailure<T>(this ValueTask<Result<T>> resultTask, Action<string> action)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
             return result.OnFailure(action);
         }
 
@@ -65,7 +65,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T, E>> OnFailure<T, E>(this ValueTask<Result<T, E>> resultTask, Action<E> action)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
             return result.OnFailure(action);
         }
 
@@ -74,7 +74,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result> OnFailure(this ValueTask<Result> resultTask, Action<string> action)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
             return result.OnFailure(action);
         }
     }

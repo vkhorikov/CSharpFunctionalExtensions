@@ -15,12 +15,12 @@ namespace CSharpFunctionalExtensions
         /// <returns></returns>
         public static async Task Execute<T>(this ValueTask<Maybe<T>> maybeTask, Func<T, ValueTask> asyncAction)
         {
-            var maybe = await maybeTask.DefaultAwait();
+            var maybe = await maybeTask;
 
             if (maybe.HasNoValue)
                 return;
 
-            await asyncAction(maybe.GetValueOrThrow()).DefaultAwait();
+            await asyncAction(maybe.GetValueOrThrow());
         }
     }
 }

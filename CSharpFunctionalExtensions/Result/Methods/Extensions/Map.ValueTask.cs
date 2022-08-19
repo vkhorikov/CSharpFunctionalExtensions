@@ -11,12 +11,12 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K, E>> Map<T, K, E>(this ValueTask<Result<T, E>> resultTask, Func<T, ValueTask<K>> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
 
             if (result.IsFailure)
                 return Result.Failure<K, E>(result.Error);
 
-            K value = await func(result.Value).DefaultAwait();
+            K value = await func(result.Value);
 
             return Result.Success<K, E>(value);
         }
@@ -26,12 +26,12 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K, E>> Map<K, E>(this ValueTask<UnitResult<E>> resultTask, Func<ValueTask<K>> func) 
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
 
             if (result.IsFailure)
                 return Result.Failure<K, E>(result.Error);
 
-            K value = await func().DefaultAwait();
+            K value = await func();
 
             return Result.Success<K, E>(value);
         }
@@ -41,12 +41,12 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K>> Map<T, K>(this ValueTask<Result<T>> resultTask, Func<T, ValueTask<K>> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
 
             if (result.IsFailure)
                 return Result.Failure<K>(result.Error);
 
-            K value = await func(result.Value).DefaultAwait();
+            K value = await func(result.Value);
 
             return Result.Success(value);
         }
@@ -56,12 +56,12 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K>> Map<K>(this ValueTask<Result> resultTask, Func<ValueTask<K>> func)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
 
             if (result.IsFailure)
                 return Result.Failure<K>(result.Error);
 
-            K value = await func().DefaultAwait();
+            K value = await func();
 
             return Result.Success(value);
         }

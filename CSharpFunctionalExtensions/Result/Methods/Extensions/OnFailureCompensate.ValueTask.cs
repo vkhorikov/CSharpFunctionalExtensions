@@ -9,30 +9,30 @@ namespace CSharpFunctionalExtensions
        public static async ValueTask<Result<T, E>> OnFailureCompensate<T, E>(this ValueTask<Result<T, E>> resultTask,
             Func<ValueTask<Result<T, E>>> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
 
             if (result.IsFailure)
-                return await func().DefaultAwait();
+                return await func();
 
             return result;
         }
 
         public static async ValueTask<Result<T>> OnFailureCompensate<T>(this ValueTask<Result<T>> resultTask, Func<ValueTask<Result<T>>> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
 
             if (result.IsFailure)
-                return await func().DefaultAwait();
+                return await func();
 
             return result;
         }
 
         public static async ValueTask<Result> OnFailureCompensate(this ValueTask<Result> resultTask, Func<ValueTask<Result>> func)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
 
             if (result.IsFailure)
-                return await func().DefaultAwait();
+                return await func();
 
             return result;
         }
@@ -40,10 +40,10 @@ namespace CSharpFunctionalExtensions
         
         public static async ValueTask<Result<T>> OnFailureCompensate<T>(this ValueTask<Result<T>> resultTask, Func<string, ValueTask<Result<T>>> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
 
             if (result.IsFailure)
-                return await func(result.Error).DefaultAwait();
+                return await func(result.Error);
 
             return result;
         }
@@ -51,20 +51,20 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T, E>> OnFailureCompensate<T, E>(this ValueTask<Result<T, E>> resultTask,
             Func<E, ValueTask<Result<T, E>>> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
 
             if (result.IsFailure)
-                return await func(result.Error).DefaultAwait();
+                return await func(result.Error);
 
             return result;
         }
 
         public static async ValueTask<Result> OnFailureCompensate(this ValueTask<Result> resultTask, Func<string, ValueTask<Result>> func)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
             
             if (result.IsFailure)
-                return await func(result.Error).DefaultAwait();
+                return await func(result.Error);
 
             return result;
         }

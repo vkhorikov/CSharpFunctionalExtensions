@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result> Tap(this Result result, Func<ValueTask> func)
         {
             if (result.IsSuccess)
-                await func().DefaultAwait();
+                await func();
 
             return result;
         }
@@ -23,7 +23,7 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T>> Tap<T>(this Result<T> result, Func<ValueTask> func)
         {
             if (result.IsSuccess)
-                await func().DefaultAwait();
+                await func();
 
             return result;
         }
@@ -34,7 +34,7 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T>> Tap<T>(this Result<T> result, Func<T, ValueTask> func)
         {
             if (result.IsSuccess)
-                await func(result.Value).DefaultAwait();
+                await func(result.Value);
 
             return result;
         }
@@ -45,7 +45,7 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<UnitResult<E>> Tap<E>(this UnitResult<E> result, Func<ValueTask> func)
         {
             if (result.IsSuccess)
-                await func().DefaultAwait();
+                await func();
 
             return result;
         }
@@ -56,7 +56,7 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T, E>> Tap<T, E>(this Result<T, E> result, Func<ValueTask> func)
         {
             if (result.IsSuccess)
-                await func().DefaultAwait();
+                await func();
 
             return result;
         }
@@ -67,7 +67,7 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T, E>> Tap<T, E>(this Result<T, E> result, Func<T, ValueTask> func)
         {
             if (result.IsSuccess)
-                await func(result.Value).DefaultAwait();
+                await func(result.Value);
 
             return result;
         }

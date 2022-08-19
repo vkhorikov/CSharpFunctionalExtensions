@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K, E>> Map<T, K, E>(this ValueTask<Result<T, E>> resultTask, Func<T, K> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
             return result.Map(func);
         }
 
@@ -20,7 +20,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K, E>> Map<K, E>(this ValueTask<UnitResult<E>> resultTask, Func<K> func) 
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
             return result.Map(func);
         }
 
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K>> Map<T, K>(this ValueTask<Result<T>> resultTask, Func<T, K> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
             return result.Map(func);
         }
 
@@ -38,7 +38,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<K>> Map<K>(this ValueTask<Result> resultTask, Func<K> func)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
             return result.Map(func);
         }
     }

@@ -8,8 +8,8 @@ namespace CSharpFunctionalExtensions
     {
         public static async ValueTask<Maybe<K>> Bind<T, K>(this ValueTask<Maybe<T>> maybeTask, Func<T, ValueTask<Maybe<K>>> selector)
         {
-            Maybe<T> maybe = await maybeTask.DefaultAwait();
-            return await maybe.Bind(selector).DefaultAwait();
+            Maybe<T> maybe = await maybeTask;
+            return await maybe.Bind(selector);
         }
     }
 }

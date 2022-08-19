@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<T> Finally<T>(this Result result, Func<Result, ValueTask<T>> func)
         {
-            return await func(result).DefaultAwait();
+            return await func(result);
         }
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<K> Finally<T, K>(this Result<T> result, Func<Result<T>, ValueTask<K>> func)
         {
-            return await func(result).DefaultAwait();
+            return await func(result);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<K> Finally<K, E>(this UnitResult<E> result, Func<UnitResult<E>, ValueTask<K>> func)
         {
-            return await func(result).DefaultAwait();
+            return await func(result);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<K> Finally<T, K, E>(this Result<T, E> result, Func<Result<T, E>, ValueTask<K>> func)
         {
-            return await func(result).DefaultAwait();
+            return await func(result);
         }
     }
 }

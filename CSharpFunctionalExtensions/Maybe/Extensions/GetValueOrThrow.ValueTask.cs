@@ -8,7 +8,7 @@ namespace CSharpFunctionalExtensions
     {
         public static async ValueTask<T> GetValueOrThrow<T>(this ValueTask<Maybe<T>> maybeTask)
         {
-            var maybe = await maybeTask.DefaultAwait();
+            var maybe = await maybeTask;
             return maybe.GetValueOrThrow();
         }
 
@@ -19,7 +19,7 @@ namespace CSharpFunctionalExtensions
         /// <exception cref="InvalidOperationException">Maybe has no value.</exception>
         public static async ValueTask<T> GetValueOrThrow<T>(this ValueTask<Maybe<T>> maybeTask, string errorMessage)
         {
-            var maybe = await maybeTask.DefaultAwait();
+            var maybe = await maybeTask;
             return maybe.GetValueOrThrow(errorMessage);
         }
     }

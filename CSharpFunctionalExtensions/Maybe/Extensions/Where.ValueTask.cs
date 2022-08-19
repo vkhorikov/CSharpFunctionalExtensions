@@ -8,8 +8,8 @@ namespace CSharpFunctionalExtensions
     {
         public static async ValueTask<Maybe<T>> Where<T>(this ValueTask<Maybe<T>> maybeTask, Func<T, ValueTask<bool>> predicate)
         {
-            Maybe<T> maybe = await maybeTask.DefaultAwait();
-            return await maybe.Where(predicate).DefaultAwait();
+            Maybe<T> maybe = await maybeTask;
+            return await maybe.Where(predicate);
         }
     }
 }

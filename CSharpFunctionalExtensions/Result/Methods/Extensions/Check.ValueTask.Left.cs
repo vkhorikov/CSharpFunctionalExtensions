@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T>> Check<T>(this ValueTask<Result<T>> resultTask, Func<T, Result> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
             return result.Check(func);
         }
 
@@ -21,7 +21,7 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T>> Check<T, K>(this ValueTask<Result<T>> resultTask,
             Func<T, Result<K>> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
             return result.Check(func);
         }
 
@@ -31,7 +31,7 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T, E>> Check<T, K, E>(this ValueTask<Result<T, E>> resultTask,
             Func<T, Result<K, E>> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
             return result.Check(func);
         }
 
@@ -41,7 +41,7 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<Result<T, E>> Check<T, E>(this ValueTask<Result<T, E>> resultTask,
             Func<T, UnitResult<E>> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
             return result.Check(func);
         }
 
@@ -51,7 +51,7 @@ namespace CSharpFunctionalExtensions
         public static async ValueTask<UnitResult<E>> Check<E>(this ValueTask<UnitResult<E>> resultTask,
             Func<UnitResult<E>> func)
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
             return result.Check(func);
         }
     }

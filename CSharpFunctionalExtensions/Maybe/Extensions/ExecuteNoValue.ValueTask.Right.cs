@@ -17,7 +17,7 @@ namespace CSharpFunctionalExtensions
             if (maybe.HasValue)
                 return;
 
-            await action().DefaultAwait();
+            await action();
         }
     }
 }

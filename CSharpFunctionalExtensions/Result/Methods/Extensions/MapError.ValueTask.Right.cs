@@ -16,7 +16,7 @@ namespace CSharpFunctionalExtensions
                 return Result.Success();
             }
 
-            var error = await errorFactory(result.Error).DefaultAwait();
+            var error = await errorFactory(result.Error);
             return Result.Failure(error);
         }
 
@@ -30,7 +30,7 @@ namespace CSharpFunctionalExtensions
                 return UnitResult.Success<E>();
             }
 
-            var error = await errorFactory(result.Error).DefaultAwait();
+            var error = await errorFactory(result.Error);
             return UnitResult.Failure(error);
         }
 
@@ -44,7 +44,7 @@ namespace CSharpFunctionalExtensions
                 return Result.Success(result.Value);
             }
 
-            var error = await errorFactory(result.Error).DefaultAwait();
+            var error = await errorFactory(result.Error);
             return Result.Failure<T>(error);
         }
 
@@ -58,7 +58,7 @@ namespace CSharpFunctionalExtensions
                 return Result.Success<T, E>(result.Value);
             }
 
-            var error = await errorFactory(result.Error).DefaultAwait();
+            var error = await errorFactory(result.Error);
             return Result.Failure<T, E>(error);
         }
 
@@ -72,7 +72,7 @@ namespace CSharpFunctionalExtensions
                 return Result.Success();
             }
 
-            var error = await errorFactory(result.Error).DefaultAwait();
+            var error = await errorFactory(result.Error);
             return Result.Failure(error);
         }
 
@@ -86,7 +86,7 @@ namespace CSharpFunctionalExtensions
                 return UnitResult.Success<E2>();
             }
 
-            var error = await errorFactory(result.Error).DefaultAwait();
+            var error = await errorFactory(result.Error);
             return UnitResult.Failure(error);
         }
 
@@ -100,7 +100,7 @@ namespace CSharpFunctionalExtensions
                 return Result.Success(result.Value);
             }
 
-            var error = await errorFactory(result.Error).DefaultAwait();
+            var error = await errorFactory(result.Error);
             return Result.Failure<T>(error);
         }
 
@@ -114,7 +114,7 @@ namespace CSharpFunctionalExtensions
                 return Result.Success<T, E2>(result.Value);
             }
 
-            var error = await errorFactory(result.Error).DefaultAwait();
+            var error = await errorFactory(result.Error);
             return Result.Failure<T, E2>(error);
         }
     }

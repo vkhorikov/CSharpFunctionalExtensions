@@ -11,11 +11,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T, E>> OnFailure<T, E>(this ValueTask<Result<T, E>> resultTask, Func<ValueTask> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
 
             if (result.IsFailure)
             {
-                await func().DefaultAwait();
+                await func();
             }
 
             return result;
@@ -26,11 +26,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T>> OnFailure<T>(this ValueTask<Result<T>> resultTask, Func<ValueTask> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
 
             if (result.IsFailure)
             {
-                await func().DefaultAwait();
+                await func();
             }
 
             return result;
@@ -41,11 +41,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result> OnFailure(this ValueTask<Result> resultTask, Func<ValueTask> func)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
 
             if (result.IsFailure)
             {
-                await func().DefaultAwait();
+                await func();
             }
 
             return result;
@@ -56,11 +56,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result> OnFailure(this ValueTask<Result> resultTask, Func<string, ValueTask> func)
         {
-            Result result = await resultTask.DefaultAwait();
+            Result result = await resultTask;
 
             if (result.IsFailure)
             {
-                await func(result.Error).DefaultAwait();
+                await func(result.Error);
             }
 
             return result;
@@ -71,11 +71,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<UnitResult<E>> OnFailure<E>(this ValueTask<UnitResult<E>> resultTask, Func<E, ValueTask> func)
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
 
             if (result.IsFailure)
             {
-                await func(result.Error).DefaultAwait();
+                await func(result.Error);
             }
 
             return result;
@@ -86,11 +86,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<UnitResult<E>> OnFailure<E>(this ValueTask<UnitResult<E>> resultTask, Func<ValueTask> func)
         {
-            UnitResult<E> result = await resultTask.DefaultAwait();
+            UnitResult<E> result = await resultTask;
 
             if (result.IsFailure)
             {
-                await func().DefaultAwait();
+                await func();
             }
 
             return result;
@@ -101,11 +101,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T>> OnFailure<T>(this ValueTask<Result<T>> resultTask, Func<string, ValueTask> func)
         {
-            Result<T> result = await resultTask.DefaultAwait();
+            Result<T> result = await resultTask;
 
             if (result.IsFailure)
             {
-                await func(result.Error).DefaultAwait();
+                await func(result.Error);
             }
 
             return result;
@@ -116,11 +116,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<T, E>> OnFailure<T, E>(this ValueTask<Result<T, E>> resultTask, Func<E, ValueTask> func)
         {
-            Result<T, E> result = await resultTask.DefaultAwait();
+            Result<T, E> result = await resultTask;
 
             if (result.IsFailure)
             {
-                await func(result.Error).DefaultAwait();
+                await func(result.Error);
             }
 
             return result;

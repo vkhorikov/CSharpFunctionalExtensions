@@ -8,7 +8,7 @@ namespace CSharpFunctionalExtensions
     {
         public static async ValueTask<Maybe<K>> Map<T, K>(this ValueTask<Maybe<T>> maybeTask, Func<T, K> selector)
         {
-            Maybe<T> maybe = await maybeTask.DefaultAwait();
+            Maybe<T> maybe = await maybeTask;
             return maybe.Map(selector);
         }
     }

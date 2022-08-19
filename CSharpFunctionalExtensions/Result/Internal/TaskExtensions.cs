@@ -20,10 +20,6 @@ namespace CSharpFunctionalExtensions
         
         #if NET5_0_OR_GREATER
         public static ValueTask<T> AsCompletedValueTask<T>(this T obj) => ValueTask.FromResult(obj);
-
-        public static ConfiguredValueTaskAwaitable DefaultAwait(this ValueTask task) => task.ConfigureAwait(Result.Configuration.DefaultConfigureAwait);
-
-        public static ConfiguredValueTaskAwaitable<T> DefaultAwait<T>(this ValueTask<T> task) => task.ConfigureAwait(Result.Configuration.DefaultConfigureAwait);
         #endif
     }
 }
