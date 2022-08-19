@@ -1,6 +1,6 @@
-2.31.1
+2.32.0
 New features:
-* None
+* #434 Add extension methods explicitly converting System.Nullable
 
 Fixed issues:
-* #431 Fix Breaking Change in Maybe<T> implicit operator
+* #432 Fixed some typos and did a little grooming
