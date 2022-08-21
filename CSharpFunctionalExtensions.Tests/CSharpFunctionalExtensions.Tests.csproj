@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="FluentAssertions.CSharpFunctionalExtensions" Version="1.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -23,5 +24,433 @@
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="ResultTests\Extensions\MapTests.Task.cs">
+      <DependentUpon>MapTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapTests.Task.Left.cs">
+      <DependentUpon>MapTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapTests.Task.Right.cs">
+      <DependentUpon>MapTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapErrorTests.Task.Left.cs">
+      <DependentUpon>MapErrorTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapErrorTests.Task.cs">
+      <DependentUpon>MapErrorTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapErrorTests.Task.Right.cs">
+      <DependentUpon>MapErrorTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindIfTests.Task.Right.cs">
+      <DependentUpon>BindIfTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindIfTests.Task.Left.cs">
+      <DependentUpon>BindIfTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindIfTests.Base.cs">
+      <DependentUpon>BindIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindIfTests.Task.cs">
+      <DependentUpon>BindIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckIfTests.Task.Right.cs">
+      <DependentUpon>CheckIfTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckIfTests.Task.Left.cs">
+      <DependentUpon>CheckIfTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckIfTests.Task.cs">
+      <DependentUpon>CheckIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckIfTests.Base.cs">
+      <DependentUpon>CheckIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CompensateTests.Task.Right.cs">
+      <DependentUpon>CompensateTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CompensateTests.Task.Left.cs">
+      <DependentUpon>CompensateTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CompensateTests.Base.cs">
+      <DependentUpon>CompensateTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CompensateTests.Task.cs">
+      <DependentUpon>CompensateTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureTests.Task.Right.cs">
+      <DependentUpon>EnsureTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureTests.Task.Left.cs">
+      <DependentUpon>EnsureTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureTests.Task.cs">
+      <DependentUpon>EnsureTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\FinallyTests.Task.Right.cs">
+      <DependentUpon>FinallyTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\FinallyTests.Task.Left.cs">
+      <DependentUpon>FinallyTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\FinallyTests.Task.cs">
+      <DependentUpon>FinallyTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\FinallyTests.Base.cs">
+      <DependentUpon>FinallyTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureTests.Task.Left.cs">
+      <DependentUpon>OnFailureTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureTests.Task.Right.cs">
+      <DependentUpon>OnFailureTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureTests.Task.cs">
+      <DependentUpon>OnFailureTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureTests.Base.cs">
+      <DependentUpon>OnFailureTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnSuccessTryTests.Task.Left.cs">
+      <DependentUpon>OnSuccessTryTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnSuccessTryTests.Task.Right.cs">
+      <DependentUpon>OnSuccessTryTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnSuccessTryTests.Task.cs">
+      <DependentUpon>OnSuccessTryTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapTests.Task.Right.cs">
+      <DependentUpon>TapTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapTests.Task.Left.cs">
+      <DependentUpon>TapTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapTests.Task.cs">
+      <DependentUpon>TapTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapTests.Base.cs">
+      <DependentUpon>TapTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Methods\TryTests.ValueTask.cs">
+      <DependentUpon>TryTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Methods\TryTests.Task.cs">
+      <DependentUpon>TryTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindsTests.ValueTask.Right.cs">
+      <DependentUpon>BindTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindsTests.ValueTask.Left.cs">
+      <DependentUpon>BindTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindsTests.Task.Right.cs">
+      <DependentUpon>BindTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindsTests.Task.Left.cs">
+      <DependentUpon>BindTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindTests.ValueTask.cs">
+      <DependentUpon>BindTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindTests.Task.cs">
+      <DependentUpon>BindTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindTests.Base.cs">
+      <DependentUpon>BindTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckTests.Task.Left.cs">
+      <DependentUpon>CheckTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckTests.Task.Right.cs">
+      <DependentUpon>CheckTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckTests.Task.cs">
+      <DependentUpon>CheckTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckTests.Base.cs">
+      <DependentUpon>CheckTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckIfTests.ValueTask.Left.cs">
+      <DependentUpon>CheckIfTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckIfTests.ValueTask.Right.cs">
+      <DependentUpon>CheckIfTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckIfTests.ValueTask.cs">
+      <DependentUpon>CheckIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindIfTests.ValueTask.Right.cs">
+      <DependentUpon>BindIfTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindIfTests.ValueTask.Left.cs">
+      <DependentUpon>BindIfTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\BindIfTests.ValueTask.cs">
+      <DependentUpon>BindIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapTests.Base.cs">
+      <DependentUpon>MapTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapTests.ValueTask.Left.cs">
+      <DependentUpon>MapTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapTests.ValueTask.Right.cs">
+      <DependentUpon>MapTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapTests.ValueTask.cs">
+      <DependentUpon>MapTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureCompensateTests.Task.Left.cs">
+      <DependentUpon>OnFailureCompensateTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureCompensateTests.Task.Right.cs">
+      <DependentUpon>OnFailureCompensateTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureCompensateTests.ValueTask.Left.cs">
+      <DependentUpon>OnFailureCompensateTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureCompensateTests.ValueTask.Right.cs">
+      <DependentUpon>OnFailureCompensateTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureCompensateTests.ValueTask.cs">
+      <DependentUpon>OnFailureCompensateTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureCompensateTests.Task.cs">
+      <DependentUpon>OnFailureCompensateTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureCompensateTests.Base.cs">
+      <DependentUpon>OnFailureCompensateTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CompensateTests.ValueTask.Left.cs">
+      <DependentUpon>CompensateTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CompensateTests.ValueTask.Right.cs">
+      <DependentUpon>CompensateTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CompensateTests.ValueTask.cs">
+      <DependentUpon>CompensateTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureCompensateTests.Task.Right.cs">
+      <DependentUpon>OnFailureCompensate.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureCompensateTests.Task.Left.cs">
+      <DependentUpon>OnFailureCompensate.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureCompensateTests.Task.cs">
+      <DependentUpon>OnFailureCompensate.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapErrorTests.ValueTask.Right.cs">
+      <DependentUpon>MapErrorTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapErrorTests.ValueTask.Left.cs">
+      <DependentUpon>MapErrorTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\FinallyTests.ValueTask.Right.cs">
+      <DependentUpon>FinallyTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\FinallyTests.ValueTask.Left.cs">
+      <DependentUpon>FinallyTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapErrorTests.ValueTask.cs">
+      <DependentUpon>MapErrorTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\FinallyTests.ValueTask.cs">
+      <DependentUpon>FinallyTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureTests.ValueTask.Right.cs">
+      <DependentUpon>EnsureTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureTests.ValueTask.Left.cs">
+      <DependentUpon>EnsureTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckTests.ValueTask.Right.cs">
+      <DependentUpon>CheckTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckTests.ValueTask.Left.cs">
+      <DependentUpon>CheckTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\CheckTests.ValueTask.cs">
+      <DependentUpon>CheckTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureTests.ValueTask.Left.cs">
+      <DependentUpon>OnFailureTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureTests.ValueTask.Right.cs">
+      <DependentUpon>OnFailureTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnFailureTests.ValueTask.cs">
+      <DependentUpon>OnFailureTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnSuccessTryTests.ValueTask.Right.cs">
+      <DependentUpon>OnSuccessTryTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnSuccessTryTests.ValueTask.Left.cs">
+      <DependentUpon>OnSuccessTryTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\OnSuccessTryTests.ValueTask.cs">
+      <DependentUpon>OnSuccessTryTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapTests.ValueTask.Right.cs">
+      <DependentUpon>TapTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapTests.ValueTask.Left.cs">
+      <DependentUpon>TapTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapTests.ValueTask.cs">
+      <DependentUpon>TapTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureTests.ValueTask.cs">
+      <DependentUpon>EnsureTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MatchTests.Task.Right.cs">
+      <DependentUpon>MatchTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MatchTests.Task.Left.cs">
+      <DependentUpon>MatchTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MatchTests.Task.cs">
+      <DependentUpon>MatchTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MatchTests.Base.cs">
+      <DependentUpon>MatchTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MatchTests.ValueTask.Left.cs">
+      <DependentUpon>MatchTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MatchTests.ValueTask.Right.cs">
+      <DependentUpon>MatchTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MatchTests.ValueTask.cs">
+      <DependentUpon>MatchTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\BindTests.Task.Right.cs">
+      <DependentUpon>BindTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\BindTests.Task.Left.cs">
+      <DependentUpon>BindTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\BindTests.Task.cs">
+      <DependentUpon>BindTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteNoValueTests.Task.Right.cs">
+      <DependentUpon>ExecuteNoValueTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteNoValueTests.Task.Left.cs">
+      <DependentUpon>ExecuteNoValueTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteNoValueTests.Task.cs">
+      <DependentUpon>ExecuteNoValueTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteTests.Task.Right.cs">
+      <DependentUpon>ExecuteTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteTests.Task.Left.cs">
+      <DependentUpon>ExecuteTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteTests.Task.cs">
+      <DependentUpon>ExecuteTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\GetValueOrThrowTests.ValueTask.cs">
+      <DependentUpon>GetValueOrThrowTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\GetValueOrThrowTests.Task.cs">
+      <DependentUpon>GetValueOrThrowTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\MapTests.Task.Right.cs">
+      <DependentUpon>MapTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\MapTests.Task.Left.cs">
+      <DependentUpon>MapTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\MapTests.Task.cs">
+      <DependentUpon>MapTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\OrTests.ValueTask.Right.cs">
+      <DependentUpon>OrTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\OrTests.ValueTask.Left.cs">
+      <DependentUpon>OrTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\OrTests.Task.Right.cs">
+      <DependentUpon>OrTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\OrTests.Task.Left.cs">
+      <DependentUpon>OrTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\OrTests.ValueTask.cs">
+      <DependentUpon>OrTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\OrTests.Task.cs">
+      <DependentUpon>OrTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ToResultTests.ValueTask.Left.cs">
+      <DependentUpon>ToResultTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ToResultTests.Task.Left.cs">
+      <DependentUpon>ToResultTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ToResultTests.ValueTask.cs">
+      <DependentUpon>ToResultTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ToResultTests.Task.cs">
+      <DependentUpon>ToResultTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\WhereTests.ValueTask.Right.cs">
+      <DependentUpon>WhereTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\WhereTests.ValueTask.Left.cs">
+      <DependentUpon>WhereTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\WhereTests.Task.Right.cs">
+      <DependentUpon>WhereTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\WhereTests.Task.Left.cs">
+      <DependentUpon>WhereTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\WhereTests.Task.cs">
+      <DependentUpon>WhereTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\WhereTests.ValueTask.cs">
+      <DependentUpon>WhereTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteTests.ValueTask.Left.cs">
+      <DependentUpon>ExecuteTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteTests.ValueTask.Right.cs">
+      <DependentUpon>ExecuteTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteTests.ValueTask.cs">
+      <DependentUpon>ExecuteTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteNoValueTests.ValueTask.Right.cs">
+      <DependentUpon>ExecuteNoValueTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteNoValueTests.ValueTask.Left.cs">
+      <DependentUpon>ExecuteNoValueTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ExecuteNoValueTests.ValueTask.cs">
+      <DependentUpon>ExecuteNoValueTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\BindTests.ValueTask.Left.cs">
+      <DependentUpon>BindTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\BindTests.ValueTask.Right.cs">
+      <DependentUpon>BindTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\BindTests.ValueTask.cs">
+      <DependentUpon>BindTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\MapTests.ValueTask.Right.cs">
+      <DependentUpon>MapTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\MapTests.ValueTask.Left.cs">
+      <DependentUpon>MapTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\MapTests.ValueTask.cs">
+      <DependentUpon>MapTests.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
 </Project>

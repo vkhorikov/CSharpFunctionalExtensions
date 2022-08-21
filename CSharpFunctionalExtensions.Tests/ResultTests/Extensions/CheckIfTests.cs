@@ -70,7 +70,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [InlineData(true, false)]
         [InlineData(false, true)]
         [InlineData(false, false)]
-        public void CheckIf_E_executes_func_unitresult_E_conditionally_and_returns_self(bool isSuccess, bool condition)
+        public void CheckIf_E_executes_func_UnitResult_E_conditionally_and_returns_self(bool isSuccess, bool condition)
         {
             UnitResult<E> result = UnitResult.SuccessIf(isSuccess, E.Value);
 
@@ -145,7 +145,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [InlineData(true, false)]
         [InlineData(false, true)]
         [InlineData(false, false)]
-        public void CheckIf_E_executes_func_unitresult_E_per_predicate_and_returns_self(bool isSuccess, bool condition)
+        public void CheckIf_E_executes_func_UnitResult_E_per_predicate_and_returns_self(bool isSuccess, bool condition)
         {
             UnitResult<E> result = UnitResult.SuccessIf(isSuccess, E.Value);
 

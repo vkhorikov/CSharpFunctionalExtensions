@@ -39,7 +39,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
-        public void MapError_returns_unit_result_success()
+        public void MapError_returns_UnitResult_success()
         {
             Result result = Result.Success();
             var invocations = 0;
@@ -55,7 +55,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
-        public void MapError_returns_new_unit_result_failure()
+        public void MapError_returns_new_UnitResult_failure()
         {
             Result result = Result.Failure(ErrorMessage);
             var invocations = 0;
@@ -106,7 +106,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
-        public void MapError_unit_result_returns_success()
+        public void MapError_UnitResult_returns_success()
         {
             UnitResult<E> result = UnitResult.Success<E>();
             var invocations = 0;
@@ -122,7 +122,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
-        public void MapError_unit_result_returns_new_failure()
+        public void MapError_UnitResult_returns_new_failure()
         {
             UnitResult<E> result = UnitResult.Failure(E.Value);
             var invocations = 0;
@@ -141,7 +141,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
-        public void MapError_E_unit_result_returns_success()
+        public void MapError_E_UnitResult_returns_success()
         {
             UnitResult<E> result = UnitResult.Success<E>();
             var invocations = 0;
@@ -157,7 +157,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
-        public void MapError_E_unit_result_returns_new_failure()
+        public void MapError_E_UnitResult_returns_new_failure()
         {
             UnitResult<E> result = UnitResult.Failure(E.Value);
             var invocations = 0;

@@ -153,7 +153,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Methods
         }
 
         [Fact]
-        public void Create_error_generic_argument_is_true_Success_unit_result_expected()
+        public void Create_error_generic_argument_is_true_Success_UnitResult_expected()
         {
             UnitResult<Error> result = UnitResult.SuccessIf(true, new Error());
 
@@ -161,7 +161,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Methods
         }
 
         [Fact]
-        public void Create_error_generic_argument_is_false_Failure_unit_result_expected()
+        public void Create_error_generic_argument_is_false_Failure_UnitResult_expected()
         {
             var error = new Error();
 
@@ -172,7 +172,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Methods
         }
 
         [Fact]
-        public void Create_error_generic_predicate_is_true_Success_unit_result_expected()
+        public void Create_error_generic_predicate_is_true_Success_UnitResult_expected()
         {
             UnitResult<Error> result = UnitResult.SuccessIf(() => true, new Error());
 
@@ -180,7 +180,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Methods
         }
 
         [Fact]
-        public void Create_error_generic_predicate_is_false_Failure_unit_result_expected()
+        public void Create_error_generic_predicate_is_false_Failure_UnitResult_expected()
         {
             var error = new Error();
 
@@ -191,7 +191,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Methods
         }
 
         [Fact]
-        public async Task Create_error_generic_async_predicate_is_true_Success_unit_result_expected()
+        public async Task Create_error_generic_async_predicate_is_true_Success_UnitResult_expected()
         {
             UnitResult<Error> result = await UnitResult.SuccessIf(() => Task.FromResult(true), new Error());
 
@@ -199,7 +199,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Methods
         }
 
         [Fact]
-        public async Task Create_error_generic_async_predicate_is_false_Failure_unit_result_expected()
+        public async Task Create_error_generic_async_predicate_is_false_Failure_UnitResult_expected()
         {
             var error = new Error();
 

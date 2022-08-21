@@ -9,6 +9,8 @@ namespace CSharpFunctionalExtensions
         where TEnumeration : EnumValueObject<TEnumeration, TId>
         where TId : struct
     {
+        private int? _cachedHashCode;
+        
         private static readonly Dictionary<TId, TEnumeration> EnumerationsById = GetEnumerations().ToDictionary(e => e.Id);
         private static readonly Dictionary<string, TEnumeration> EnumerationsByName = GetEnumerations().ToDictionary(e => e.Name);
         
@@ -52,6 +54,36 @@ namespace CSharpFunctionalExtensions
             return !(b == a);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            if (GetUnproxiedType(this) != GetUnproxiedType(obj))
+                return false;
+
+            var enumValueObject = (EnumValueObject<TEnumeration, TId>)obj;
+
+            return GetEqualityComponents().SequenceEqual(enumValueObject.GetEqualityComponents());
+        }
+        
+        public override int GetHashCode()
+        {
+            if (!_cachedHashCode.HasValue)
+            {
+                _cachedHashCode = GetEqualityComponents()
+                    .Aggregate(1, (current, obj) =>
+                    {
+                        unchecked
+                        {
+                            return current * 23 + (obj?.GetHashCode() ?? 0);
+                        }
+                    });
+            }
+
+            return _cachedHashCode.Value;
+        }
+        
         public static Maybe<TEnumeration> FromId(TId id)
         {
             return EnumerationsById.ContainsKey(id)
@@ -99,6 +131,8 @@ namespace CSharpFunctionalExtensions
     public abstract class EnumValueObject<TEnumeration> : ValueObject
         where TEnumeration : EnumValueObject<TEnumeration>
     {
+        private int? _cachedHashCode;
+        
         private static readonly Dictionary<string, TEnumeration> Enumerations = GetEnumerations().ToDictionary(e => e.Id);
         
         protected EnumValueObject(string id)
@@ -147,6 +181,36 @@ namespace CSharpFunctionalExtensions
         public static bool operator !=(string a, EnumValueObject<TEnumeration> b)
         {
             return !(b == a);
+        }
+        
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            if (GetUnproxiedType(this) != GetUnproxiedType(obj))
+                return false;
+
+            var enumValueObject = (EnumValueObject<TEnumeration>)obj;
+
+            return GetEqualityComponents().SequenceEqual(enumValueObject.GetEqualityComponents());
+        }
+        
+        public override int GetHashCode()
+        {
+            if (!_cachedHashCode.HasValue)
+            {
+                _cachedHashCode = GetEqualityComponents()
+                    .Aggregate(1, (current, obj) =>
+                    {
+                        unchecked
+                        {
+                            return current * 23 + (obj?.GetHashCode() ?? 0);
+                        }
+                    });
+            }
+
+            return _cachedHashCode.Value;
         }
         
         public static Maybe<TEnumeration> FromId(string id)

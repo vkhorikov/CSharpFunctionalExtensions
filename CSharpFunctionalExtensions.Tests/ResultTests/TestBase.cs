@@ -19,6 +19,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         protected class K
         {
             public static readonly K Value = new K();
+            
+            public static readonly K Value2 = new K();
         }
 
         protected class E : Error

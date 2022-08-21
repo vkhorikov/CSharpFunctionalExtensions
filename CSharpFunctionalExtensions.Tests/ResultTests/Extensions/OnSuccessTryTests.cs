@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using CSharpFunctionalExtensions.Tests.ResultTests.Methods.Try;
+using FluentAssertions;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
@@ -131,7 +132,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void OnSuccessTry_T_E_execute_function_success_without_error_handler_function_result_expected()
         {
             var success = Result.Success<T, E>(T.Value);
-            var result = success.OnSuccessTry(Func_T, ErrorHandlerE);
+            var result = success.OnSuccessTry(Func_T, ErrorHandler_E);
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(T.Value);
@@ -142,7 +143,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void OnSuccessTry_T_E_execute_function_failed_without_error_handler_failed_result_expected()
         {
             var success =  Result.Success<T, E>(T.Value);
-            var result = success.OnSuccessTry(Throwing_Func_T, ErrorHandlerE);
+            var result = success.OnSuccessTry(Throwing_Func_T, ErrorHandler_E);
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(E.Value);
@@ -152,7 +153,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void OnSuccessTry_T_E_execute_function_failed_with_error_handler_failed_result_expected()
         {
             var success =  Result.Success<T, E>(T.Value);
-            var result = success.OnSuccessTry(Throwing_Func_T, ErrorHandlerE);
+            var result = success.OnSuccessTry(Throwing_Func_T, ErrorHandler_E);
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(E.Value);
@@ -162,7 +163,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void OnSuccessTry_T_K_E_execute_function_success_without_error_handler_function_result_expected()
         {
             var success = Result.Success<T, E>(T.Value);
-            var result = success.OnSuccessTry(Func_T_K, ErrorHandlerE);
+            var result = success.OnSuccessTry(Func_T_K, ErrorHandler_E);
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(K.Value);
@@ -173,7 +174,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void OnSuccessTry_T_K_E_execute_function_failed_without_error_handler_failed_result_expected()
         {
             var success = Result.Success<T, E>(T.Value);
-            var result = success.OnSuccessTry(Throwing_Func_T_K, ErrorHandlerE);
+            var result = success.OnSuccessTry(Throwing_Func_T_K, ErrorHandler_E);
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(E.Value);
@@ -183,7 +184,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void OnSuccessTry_T_K_E_execute_function_failed_with_error_handler_failed_result_expected()
         {
             var success = Result.Success<T, E>(T.Value);
-            var result = success.OnSuccessTry(Throwing_Func_T_K, ErrorHandlerE);
+            var result = success.OnSuccessTry(Throwing_Func_T_K, ErrorHandler_E);
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(E.Value);

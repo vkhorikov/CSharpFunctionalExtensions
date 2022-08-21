@@ -45,7 +45,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
-        public void Tap_unit_result_E_executes_action_on_success_and_returns_self()
+        public void Tap_UnitResult_E_executes_action_on_success_and_returns_self()
         {
             UnitResult<E> result = UnitResult.Success<E>();
 
@@ -56,7 +56,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact]
-        public void Tap_unit_result_E_executes_action_on_failure_and_returns_self()
+        public void Tap_UnitResult_E_executes_action_on_failure_and_returns_self()
         {
             UnitResult<E> result = UnitResult.Failure(E.Value);
 

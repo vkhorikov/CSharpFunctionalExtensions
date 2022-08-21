@@ -60,7 +60,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void OnFailure_unit_result_E_executes_action_on_failure_and_returns_self(bool isSuccess)
+        public void OnFailure_UnitResult_E_executes_action_on_failure_and_returns_self(bool isSuccess)
         {
             UnitResult<E> result = UnitResult.SuccessIf(isSuccess, E.Value);
 
@@ -73,7 +73,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void OnFailure_unit_result_E_executes_E_action_on_failure_and_returns_self(bool isSuccess)
+        public void OnFailure_UnitResult_E_executes_E_action_on_failure_and_returns_self(bool isSuccess)
         {
             UnitResult<E> result = UnitResult.SuccessIf(isSuccess, E.Value);
 

@@ -76,7 +76,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void GetObjectData_of_successful_unit_result()
+        public void GetObjectData_of_successful_UnitResult()
         {
             UnitResult<TestObject> result = UnitResult.Success<TestObject>();
             ISerializable serializableObject = result;
@@ -89,7 +89,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests
         }
 
         [Fact]
-        public void GetObjectData_of_failed_unit_result()
+        public void GetObjectData_of_failed_UnitResult()
         {
             TestObject errorObject = new TestObject { Number = 500, String = "Error message" };
             UnitResult<TestObject> result = UnitResult.Failure(errorObject);
