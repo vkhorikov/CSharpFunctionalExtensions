@@ -1,6 +1,6 @@
-2.32.0
+2.33.0
 New features:
-* #434 Add extension methods explicitly converting System.Nullable
+* #433 Add ValueTask support
 
 Fixed issues:
-* #432 Fixed some typos and did a little grooming
+* None
