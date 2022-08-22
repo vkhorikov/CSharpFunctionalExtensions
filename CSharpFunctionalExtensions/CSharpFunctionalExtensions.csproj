@@ -237,6 +237,18 @@
     <Compile Update="Maybe\Extensions\GetValueOrDefault.ValueTask.cs">
       <DependentUpon>GetValueOrDefault.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\TapIf.Task.Right.cs">
+      <DependentUpon>TapIf.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapIf.Task.Left.cs">
+      <DependentUpon>TapIf.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapIf.Task.cs">
+      <DependentUpon>TapIf.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\Map.ValueTask.Right.cs">
+      <DependentUpon>Map.ValueTask.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
