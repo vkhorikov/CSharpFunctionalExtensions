@@ -451,6 +451,27 @@
     <Compile Update="MaybeTests\Extensions\MapTests.ValueTask.cs">
       <DependentUpon>MapTests.cs</DependentUpon>
     </Compile>
+    <Compile Update="ResultTests\Extensions\TapIfTests.Task.Left.cs">
+      <DependentUpon>TapIfTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapIfTests.Task.Right.cs">
+      <DependentUpon>TapIfTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapIfTests.Value.Task.Right.cs">
+      <DependentUpon>TapIfTests.Value.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapIfTests.Value.Task.Left.cs">
+      <DependentUpon>TapIfTests.Value.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapIfTests.Value.Task.cs">
+      <DependentUpon>TapIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapIfTests.Task.cs">
+      <DependentUpon>TapIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapIfTests.Base.cs">
+      <DependentUpon>TapIfTests.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
