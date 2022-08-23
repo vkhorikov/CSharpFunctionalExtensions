@@ -1,6 +1,6 @@
-2.33.1
+2.33.2
 New features:
 * None
 
 Fixed issues:
-* #433 Returned back deleted TapIf methods
+* #437 Added missing TapIf ValueTask
