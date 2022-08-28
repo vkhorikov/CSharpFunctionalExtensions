@@ -15,6 +15,8 @@ namespace CSharpFunctionalExtensions.Tests
             FuncParam = null;
         }
 
+        protected bool FuncExecuted => _funcExecuted;
+
         protected Result Success()
         {
             _funcExecuted = true;
@@ -50,6 +52,11 @@ namespace CSharpFunctionalExtensions.Tests
         {
             _funcExecuted = true;
             return Result.Success(K.Value);
+        }
+        protected Result<K> Failure_K()
+        {
+            _funcExecuted = false;
+            return Result.Failure<K>(ErrorMessage);
         }
 
         protected Result<K> Success_T_Func_K(T value)
