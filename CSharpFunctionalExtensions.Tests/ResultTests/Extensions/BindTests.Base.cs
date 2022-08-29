@@ -73,6 +73,13 @@ namespace CSharpFunctionalExtensions.Tests
             return Result.Success<K, E>(K.Value);
         }
 
+        protected Result<K, E> Failure_T_E_Func_K(T value)
+        {
+            _funcExecuted = false;
+            FuncParam = value;
+            return Result.Failure<K, E>(E.Value);
+        }
+
         protected Result<T, E> Success_T_E()
         {
             _funcExecuted = true;
@@ -128,6 +135,11 @@ namespace CSharpFunctionalExtensions.Tests
             return Success_K().AsTask();
         }
 
+        protected Task<Result<K>> Task_Failure_K()
+        {
+            return Failure_K().AsTask();
+        }
+
         protected Task<Result<K>> Func_T_Task_Success_K(T value)
         {
             return Success_T_Func_K(value).AsTask();
@@ -138,8 +150,13 @@ namespace CSharpFunctionalExtensions.Tests
             return Success_T_E_Func_K(value).AsTask();
         }
 
-        protected Task<Result<T, E>> Task_Success_T_E()
+        protected Task<Result<K, E>> Task_Failure_K_E(T value)
         {
+            return Failure_T_E_Func_K(value).AsTask();            
+        }
+
+        protected Task<Result<T, E>> Task_Success_T_E()
+        {            
             return Success_T_E().AsTask();
         }
 
