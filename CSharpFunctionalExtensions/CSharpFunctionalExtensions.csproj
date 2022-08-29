@@ -523,5 +523,25 @@
       <DependentUpon>Try.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup Label="BindTry">
+	<Compile Update="Result\Methods\Extensions\BindTry.Task.cs">
+	  <DependentUpon>BindTry.cs</DependentUpon>
+	</Compile>
+	<Compile Update="Result\Methods\Extensions\BindTry.ValueTask.cs">
+	  <DependentUpon>BindTry.cs</DependentUpon>
+	</Compile>
+	<Compile Update="Result\Methods\Extensions\BindTry.Task.Left.cs">
+	  <DependentUpon>BindTry.Task.cs</DependentUpon>
+	</Compile>
+	<Compile Update="Result\Methods\Extensions\BindTry.Task.Right.cs">
+	  <DependentUpon>BindTry.Task.cs</DependentUpon>
+	</Compile>
+	<Compile Update="Result\Methods\Extensions\BindTry.ValueTask.Left.cs">
+	  <DependentUpon>BindTry.ValueTask.cs</DependentUpon>
+	</Compile>
+	<Compile Update="Result\Methods\Extensions\BindTry.ValueTask.Right.cs">
+	  <DependentUpon>BindTry.ValueTask.cs</DependentUpon>
+	</Compile>
+  </ItemGroup>
   
 </Project>
