@@ -39,9 +39,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void BindTry_execute_throwing_func_on_success_returns_failure_with_exception_message()
         {
             Result sut = Result.Success();
-            System.Func<Result> func = Result () => Throwing();
 
-            Result result = sut.BindTry(func);
+            Result result = sut.BindTry(Throwing);
 
             AssertFailure(result);
         }
@@ -51,9 +50,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void BindTry_execute_throwing_func_on_success_with_custom_error_handler_returns_failure_with_custom_message()
         {
             Result sut = Result.Success();
-            System.Func<Result> func = Result () => Throwing();
 
-            Result result = sut.BindTry(func, e => ErrorMessage2);
+            Result result = sut.BindTry(Throwing, e => ErrorMessage2);
 
             AssertFailure(result, ErrorMessage2);
         }
