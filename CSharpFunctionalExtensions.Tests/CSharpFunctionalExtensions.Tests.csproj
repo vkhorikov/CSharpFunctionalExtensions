@@ -460,28 +460,26 @@
     <Compile Update="ResultTests\Extensions\TapIfTests.Base.cs">
       <DependentUpon>TapIfTests.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup Label="BindTryTests">
-	  <Compile Update="ResultTests\Extensions\BindTryTests.Task.cs">
+	<Compile Update="ResultTests\Extensions\BindTryTests.Task.cs">
 		<DependentUpon>BindTryTests.cs</DependentUpon>
-	  </Compile>
-	  <Compile Update="ResultTests\Extensions\BindTryTests.ValueTask.cs">
-		  <DependentUpon>BindTryTests.cs</DependentUpon>
-	  </Compile>
-	  <Compile Update="ResultTests\Extensions\BindTryTests.Base.cs">
-		  <DependentUpon>BindTryTests.cs</DependentUpon>
-	  </Compile>
-	  <Compile Update="ResultTests\Extensions\BindTryTests.Task.Left.cs">
-		  <DependentUpon>BindTryTests.Task.cs</DependentUpon>
-	  </Compile>
-	  <Compile Update="ResultTests\Extensions\BindTryTests.Task.Right.cs">
-		  <DependentUpon>BindTryTests.Task.cs</DependentUpon>
-	  </Compile>
-	  <Compile Update="ResultTests\Extensions\BindTryTests.ValueTask.Left.cs">
-		  <DependentUpon>BindTryTests.ValueTask.cs</DependentUpon>
-	  </Compile>
-	  <Compile Update="ResultTests\Extensions\BindTryTests.ValueTask.Right.cs">
-		  <DependentUpon>BindTryTests.ValueTask.cs</DependentUpon>
-	  </Compile>
-  </ItemGroup>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\BindTryTests.ValueTask.cs">
+		<DependentUpon>BindTryTests.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\BindTryTests.Base.cs">
+		<DependentUpon>BindTryTests.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\BindTryTests.Task.Left.cs">
+		<DependentUpon>BindTryTests.Task.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\BindTryTests.Task.Right.cs">
+		<DependentUpon>BindTryTests.Task.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\BindTryTests.ValueTask.Left.cs">
+		<DependentUpon>BindTryTests.ValueTask.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\BindTryTests.ValueTask.Right.cs">
+		<DependentUpon>BindTryTests.ValueTask.cs</DependentUpon>
+	</Compile>
+  </ItemGroup>  
 </Project>
