@@ -194,6 +194,10 @@ namespace CSharpFunctionalExtensions.Tests
         {
             return Failure_T().AsValueTask();
         }
+        protected ValueTask<Result<T, E>> ValueTask_Success_T_E()
+        {
+            return Success_T_E().AsValueTask();
+        }
 
         protected ValueTask<Result<T, E>> ValueTask_Failure_T_E()
         {
@@ -204,6 +208,10 @@ namespace CSharpFunctionalExtensions.Tests
         {
             return Success_K().AsValueTask();
         }
+        protected ValueTask<Result<K>> ValueTask_Failure_K()
+        {
+            return Failure_K().AsValueTask();
+        }
 
         protected ValueTask<Result<K>> Func_T_ValueTask_Success_K(T value)
         {
@@ -213,6 +221,11 @@ namespace CSharpFunctionalExtensions.Tests
         protected ValueTask<Result<K, E>> ValueTask_Success_K_E(T value)
         {
             return Success_T_E_Func_K(value).AsValueTask();
+        }
+
+        protected ValueTask<Result<K, E>> ValueTask_Failure_K_E(T value)
+        {
+            return Failure_T_E_Func_K(value).AsValueTask();
         }
 
         protected ValueTask<Result<T, E>> Func_ValueTask_Success_T_E()

@@ -22,6 +22,14 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         protected static Task<Result<T, K>> Task_Throwing_T_K() => throw new Exception(ErrorMessage);
         protected static Task<Result<K, E>> Task_Throwing_K_E() => throw new Exception(ErrorMessage);
 
+        protected static ValueTask<Result> ValueTask_Throwing() => throw new Exception(ErrorMessage);
+        protected static ValueTask<Result<T>> ValueTask_Throwing_T() => throw new Exception(ErrorMessage);
+        protected static ValueTask<UnitResult<E>> ValueTask_Throwing_E() => throw new Exception(ErrorMessage);
+        protected static ValueTask<Result<T, E>> ValueTask_Throwing_T_E() => throw new Exception(ErrorMessage);
+        protected static ValueTask<Result<K>> ValueTask_Throwing_K() => throw new Exception(ErrorMessage);
+        protected static ValueTask<Result<T, K>> ValueTask_Throwing_T_K() => throw new Exception(ErrorMessage);
+        protected static ValueTask<Result<K, E>> ValueTask_Throwing_K_E() => throw new Exception(ErrorMessage);
+
 
         protected void AssertFailure(Result result, string message)
         {
