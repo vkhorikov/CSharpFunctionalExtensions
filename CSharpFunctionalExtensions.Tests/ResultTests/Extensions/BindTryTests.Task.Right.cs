@@ -295,6 +295,15 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             AssertFailure(result, E.Value2);
         }
+        [Fact]
+        public async Task BindTry_execute_async_lambda_success_K_E_on_success_T_E_expected_success()
+        {
+            Result<T, E> sut = Result.Success<T, E>(new());
+
+            Result<K, E> result = await sut.BindTry(async _ => await Task_Success_K_E(T.Value), e => E.Value2);
+
+            AssertSuccess(result);
+        }
         #endregion
 
         #region BindTry for UnitResult<E> with function returning Task<Result<T,E>>
@@ -379,6 +388,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             AssertFailure(result, E.Value2);
         }
-        #endregion
+        #endregion        
     }
 }
