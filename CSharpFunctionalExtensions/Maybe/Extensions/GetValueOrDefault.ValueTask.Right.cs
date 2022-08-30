@@ -2,43 +2,43 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.ValueTasks
 {
     public static partial class MaybeExtensions
     {
-        public static async ValueTask<T> GetValueOrDefault<T>(this Maybe<T> maybe, Func<ValueTask<T>> defaultValue)
+        public static async ValueTask<T> GetValueOrDefault<T>(this Maybe<T> maybe, Func<ValueTask<T>> valueTask)
         {
             if (maybe.HasNoValue)
-                return await defaultValue();
+                return await valueTask();
 
             return maybe.GetValueOrThrow();
         }
 
         public static async ValueTask<K> GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, K> selector,
-            Func<ValueTask<K>> defaultValue)
+            Func<ValueTask<K>> valueTask)
         {
             if (maybe.HasNoValue)
-                return await defaultValue();
+                return await valueTask();
 
             return selector(maybe.GetValueOrThrow());
         }
 
-        public static async ValueTask<K> GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, ValueTask<K>> selector,
+        public static async ValueTask<K> GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, ValueTask<K>> valueTask,
             K defaultValue = default)
         {
             if (maybe.HasNoValue)
                 return defaultValue;
 
-            return await selector(maybe.GetValueOrThrow());
+            return await valueTask(maybe.GetValueOrThrow());
         }
 
-        public static async ValueTask<K> GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, ValueTask<K>> selector,
+        public static async ValueTask<K> GetValueOrDefault<T, K>(this Maybe<T> maybe, Func<T, ValueTask<K>> valueTask,
             Func<ValueTask<K>> defaultValue)
         {
             if (maybe.HasNoValue)
                 return await defaultValue();
 
-            return await selector(maybe.GetValueOrThrow());
+            return await valueTask(maybe.GetValueOrThrow());
         }
     }
 }

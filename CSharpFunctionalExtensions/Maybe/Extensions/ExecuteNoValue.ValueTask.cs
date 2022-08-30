@@ -2,24 +2,24 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.ValueTasks
 {
     public static partial class MaybeExtensions
     {
         /// <summary>
-        /// Executes the given <paramref name="asyncAction" /> if the <paramref name="maybeTask" /> produces no value
+        /// Executes the given <paramref name="valueTask" /> if the <paramref name="maybeTask" /> produces no value
         /// </summary>
         /// <param name="maybeTask"></param>
-        /// <param name="asyncAction"></param>
+        /// <param name="valueTask"></param>
         /// <typeparam name="T"></typeparam>
-        public static async Task ExecuteNoValue<T>(this ValueTask<Maybe<T>> maybeTask, Func<ValueTask> asyncAction)
+        public static async Task ExecuteNoValue<T>(this ValueTask<Maybe<T>> maybeTask, Func<ValueTask> valueTask)
         {
             var maybe = await maybeTask;
 
             if (maybe.HasValue)
                 return;
 
-            await asyncAction();
+            await valueTask();
         }
 
     }

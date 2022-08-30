@@ -2,25 +2,25 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.ValueTasks
 {
     public static partial class MaybeExtensions
     {
         /// <summary>
-        /// Executes the given <paramref name="asyncAction" /> if the <paramref name="maybeTask" /> produces a value
+        /// Executes the given <paramref name="valueTask" /> if the <paramref name="maybeTask" /> produces a value
         /// </summary>
         /// <param name="maybeTask"></param>
-        /// <param name="asyncAction"></param>
+        /// <param name="valueTask"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static async Task Execute<T>(this ValueTask<Maybe<T>> maybeTask, Func<T, ValueTask> asyncAction)
+        public static async Task Execute<T>(this ValueTask<Maybe<T>> maybeTask, Func<T, ValueTask> valueTask)
         {
             var maybe = await maybeTask;
 
             if (maybe.HasNoValue)
                 return;
 
-            await asyncAction(maybe.GetValueOrThrow());
+            await valueTask(maybe.GetValueOrThrow());
         }
     }
 }

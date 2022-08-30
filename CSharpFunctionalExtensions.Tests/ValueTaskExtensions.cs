@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CSharpFunctionalExtensions.ValueTasks;
 
 namespace CSharpFunctionalExtensions.Tests
 {

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.ValueTasks
 {
     public static partial class ResultExtensions
     {
@@ -11,11 +11,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<TR>> SelectMany<T, TK, TR>(
             this ValueTask<Result<T>> resultTask,
-            Func<T, ValueTask<Result<TK>>> func,
+            Func<T, ValueTask<Result<TK>>> valueTask,
             Func<T, TK, TR> project)
         {
             Result<T> result = await resultTask;
-            return await result.SelectMany(func, project);
+            return await result.SelectMany(valueTask, project);
         }
 
         /// <summary>
@@ -23,11 +23,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static async ValueTask<Result<TR, TE>> SelectMany<T, TK, TE, TR>(
             this ValueTask<Result<T, TE>> resultTask,
-            Func<T, ValueTask<Result<TK, TE>>> func,
+            Func<T, ValueTask<Result<TK, TE>>> valueTask,
             Func<T, TK, TR> project)
         {
             Result<T, TE> result = await resultTask;
-            return await result.SelectMany(func, project);
+            return await result.SelectMany(valueTask, project);
         }
     }
 }

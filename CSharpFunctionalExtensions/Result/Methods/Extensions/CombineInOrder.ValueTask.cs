@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.ValueTasks
 {
     public static partial class AsyncResultExtensionsLeftOperand
     {

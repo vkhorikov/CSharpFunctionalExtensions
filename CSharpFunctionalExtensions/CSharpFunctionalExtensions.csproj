@@ -249,6 +249,15 @@
     <Compile Update="Result\Methods\Extensions\Map.ValueTask.Right.cs">
       <DependentUpon>Map.ValueTask.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\TapIf.ValueTask.Right.cs">
+      <DependentUpon>TapIf.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapIf.ValueTask.Left.cs">
+      <DependentUpon>TapIf.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapIf.ValueTask.cs">
+      <DependentUpon>TapIf.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -518,12 +527,6 @@
     </Compile>
     <Compile Update="Result\Methods\FailureIf.Task.cs">
       <DependentUpon>FailureIf.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\SuccessIf.ValueTask.cs">
-      <DependentUpon>SuccessIf.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\SuccessIf.Task.cs">
-      <DependentUpon>SuccessIf.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Try.ValueTask.cs">
       <DependentUpon>Try.cs</DependentUpon>

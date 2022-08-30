@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FluentAssertions;
+using CSharpFunctionalExtensions.ValueTasks;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
@@ -11,7 +12,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
         {
             Maybe<T> maybe = T.Value;
 
-            var maybe2 = await maybe.Map(ExpectAndReturn_ValueTask(T.Value, T.Value2));
+            var maybe2 = await maybe.Map(valueTask: ExpectAndReturn_ValueTask(T.Value, T.Value2));
 
             maybe2.HasValue.Should().BeTrue();
             maybe2.Value.Should().Be(T.Value2);
@@ -22,7 +23,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
         {
             Maybe<T> maybe = null;
 
-            var maybe2 = await maybe.Map(ExpectAndReturn_ValueTask(null, T.Value2));
+            var maybe2 = await maybe.Map(valueTask: ExpectAndReturn_ValueTask(null, T.Value2));
 
             maybe2.HasValue.Should().BeFalse();
         }

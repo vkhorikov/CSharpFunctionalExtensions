@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.ValueTasks
 {
     public static partial class ResultExtensions
     {
@@ -11,11 +11,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static ValueTask<Result<TR>> SelectMany<T, TK, TR>(
             this Result<T> result,
-            Func<T, ValueTask<Result<TK>>> func,
+            Func<T, ValueTask<Result<TK>>> valueTask,
             Func<T, TK, TR> project)
         {
             return result
-                .Bind(func)
+                .Bind(valueTask)
                 .Map(x => project(result.Value, x));
         }
 
@@ -24,11 +24,11 @@ namespace CSharpFunctionalExtensions
         /// </summary>
         public static ValueTask<Result<TR, TE>> SelectMany<T, TK, TE, TR>(
             this Result<T, TE> result,
-            Func<T, ValueTask<Result<TK, TE>>> func,
+            Func<T, ValueTask<Result<TK, TE>>> valueTask,
             Func<T, TK, TR> project)
         {
             return result
-                .Bind(func)
+                .Bind(valueTask)
                 .Map(x => project(result.Value, x));
         }
     }

@@ -2,12 +2,12 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.ValueTasks
 {
     public static partial class AsyncResultExtensionsLeftOperand
     {
         /// <summary>
-        ///     Returns the result of the given <paramref name="onSuccess"/> function if the calling Result is a success. Otherwise, it returns the result of the given <paramref name="onFailure"/> function.
+        ///     Returns the result of the given <paramref name="onSuccess"/> valueTask action if the calling Result is a success. Otherwise, it returns the result of the given <paramref name="onFailure"/> valueTask action.
         /// </summary>
         public static async ValueTask<K> Match<T, K, E>(this ValueTask<Result<T, E>> resultTask, Func<T, K> onSuccess, Func<E, K> onFailure)
         {
@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        ///     Returns the result of the given <paramref name="onSuccess"/> function if the calling Result is a success. Otherwise, it returns the result of the given <paramref name="onFailure"/> function.
+        ///     Returns the result of the given <paramref name="onSuccess"/> valueTask action if the calling Result is a success. Otherwise, it returns the result of the given <paramref name="onFailure"/> valueTask action.
         /// </summary>
         public static async ValueTask<K> Match<K, T>(this ValueTask<Result<T>> resultTask, Func<T, K> onSuccess, Func<string, K> onFailure)
         {
@@ -23,7 +23,7 @@ namespace CSharpFunctionalExtensions
         }
 
         /// <summary>
-        ///     Returns the result of the given <paramref name="onSuccess"/> function if the calling Result is a success. Otherwise, it returns the result of the given <paramref name="onFailure"/> function.
+        ///     Returns the result of the given <paramref name="onSuccess"/> valueTask action if the calling Result is a success. Otherwise, it returns the result of the given <paramref name="onFailure"/> valueTask action.
         /// </summary>
         public static async ValueTask<T> Match<T>(this ValueTask<Result> resultTask, Func<T> onSuccess, Func<string, T> onFailure)
         {

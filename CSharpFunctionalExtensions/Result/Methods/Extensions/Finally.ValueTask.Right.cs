@@ -2,40 +2,40 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.ValueTasks
 {
     public static partial class AsyncResultExtensionsRightOperand
     {
         /// <summary>
-        ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
+        ///     Passes the result to the given valueTask action (regardless of success/failure state) to yield a final output value.
         /// </summary>
-        public static async ValueTask<T> Finally<T>(this Result result, Func<Result, ValueTask<T>> func)
+        public static async ValueTask<T> Finally<T>(this Result result, Func<Result, ValueTask<T>> valueTask)
         {
-            return await func(result);
+            return await valueTask(result);
         }
 
         /// <summary>
-        ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
+        ///     Passes the result to the given valueTask action (regardless of success/failure state) to yield a final output value.
         /// </summary>
-        public static async ValueTask<K> Finally<T, K>(this Result<T> result, Func<Result<T>, ValueTask<K>> func)
+        public static async ValueTask<K> Finally<T, K>(this Result<T> result, Func<Result<T>, ValueTask<K>> valueTask)
         {
-            return await func(result);
+            return await valueTask(result);
         }
 
         /// <summary>
-        ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
+        ///     Passes the result to the given valueTask action (regardless of success/failure state) to yield a final output value.
         /// </summary>
-        public static async ValueTask<K> Finally<K, E>(this UnitResult<E> result, Func<UnitResult<E>, ValueTask<K>> func)
+        public static async ValueTask<K> Finally<K, E>(this UnitResult<E> result, Func<UnitResult<E>, ValueTask<K>> valueTask)
         {
-            return await func(result);
+            return await valueTask(result);
         }
 
         /// <summary>
-        ///     Passes the result to the given function (regardless of success/failure state) to yield a final output value.
+        ///     Passes the result to the given valueTask action (regardless of success/failure state) to yield a final output value.
         /// </summary>
-        public static async ValueTask<K> Finally<T, K, E>(this Result<T, E> result, Func<Result<T, E>, ValueTask<K>> func)
+        public static async ValueTask<K> Finally<T, K, E>(this Result<T, E> result, Func<Result<T, E>, ValueTask<K>> valueTask)
         {
-            return await func(result);
+            return await valueTask(result);
         }
     }
 }

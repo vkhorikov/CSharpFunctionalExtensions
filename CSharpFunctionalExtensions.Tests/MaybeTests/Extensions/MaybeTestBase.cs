@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions.Tests.ResultTests;
+using CSharpFunctionalExtensions.ValueTasks;
 using FluentAssertions;
 
 namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
