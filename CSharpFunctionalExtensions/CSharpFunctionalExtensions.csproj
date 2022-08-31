@@ -78,6 +78,9 @@
     <Compile Update="Result\Methods\Extensions\MapError.Task.Right.cs">
       <DependentUpon>MapError.Task.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\MapError.Task.Left.cs">
+      <DependentUpon>MapError.Task.cs</DependentUpon>
+    </Compile>
     <Compile Update="Result\Methods\Extensions\MapError.ValueTask.Right.cs">
       <DependentUpon>MapError.ValueTask.cs</DependentUpon>
     </Compile>
@@ -101,9 +104,6 @@
     </Compile>
     <Compile Update="Result\Methods\Extensions\BindIf.ValueTask.cs">
       <DependentUpon>BindIf.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\MapError.Task.Left.cs">
-      <DependentUpon>MapError.ValueTask.cs</DependentUpon>
     </Compile>
     <Compile Update="Maybe\Extensions\Bind.Task.cs">
       <DependentUpon>Bind.cs</DependentUpon>
@@ -246,9 +246,6 @@
     <Compile Update="Result\Methods\Extensions\TapIf.Task.cs">
       <DependentUpon>TapIf.cs</DependentUpon>
     </Compile>
-    <Compile Update="Result\Methods\Extensions\Map.ValueTask.Right.cs">
-      <DependentUpon>Map.ValueTask.cs</DependentUpon>
-    </Compile>
     <Compile Update="Result\Methods\Extensions\TapIf.ValueTask.Right.cs">
       <DependentUpon>TapIf.ValueTask.cs</DependentUpon>
     </Compile>
@@ -382,6 +379,9 @@
       <DependentUpon>Map.Task.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Extensions\Map.ValueTask.Left.cs">
+      <DependentUpon>Map.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\Map.ValueTask.Right.cs">
       <DependentUpon>Map.ValueTask.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Extensions\Map.ValueTask.cs">
