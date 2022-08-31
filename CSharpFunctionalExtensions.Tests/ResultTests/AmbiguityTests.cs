@@ -23,16 +23,16 @@ public class AmbiguityTests
             .Bind(async _ => await GetTask());
     }
 
-    private ValueTask<Result<Profile>> GetProfileAsync() =>
-        Result.Try(valueTask: async () =>
+    private Task<Result<Profile>> GetProfileAsync() =>
+        Result.Try(async () =>
         {
             await Task.Yield();
 
             return new Profile();
         });
 
-    private ValueTask<Result<Profile, Error>> GetProfileWithErrorAsync() =>
-        Result.Try(valueTask: async () =>
+    private Task<Result<Profile, Error>> GetProfileWithErrorAsync() =>
+        Result.Try(async () =>
         {
             await Task.Yield();
 
