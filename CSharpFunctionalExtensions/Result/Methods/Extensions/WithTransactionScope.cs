@@ -16,13 +16,15 @@ namespace CSharpFunctionalExtensions
         private static T WithTransactionScope<T>(Func<T> f)
             where T : IResult
         {
-            using (var trans = new TransactionScope(TransactionScopeOption.Required, _transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
+            using (var trans = new TransactionScope(TransactionScopeOption.Required, _transactionOptions,
+                       TransactionScopeAsyncFlowOption.Enabled))
             {
                 var result = f();
                 if (result.IsSuccess)
                 {
                     trans.Complete();
                 }
+
                 return result;
             }
         }
@@ -30,18 +32,26 @@ namespace CSharpFunctionalExtensions
         private static async Task<T> WithTransactionScope<T>(Func<Task<T>> f)
             where T : IResult
         {
-            using (var trans = new TransactionScope(TransactionScopeOption.Required, _transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
+            using (var trans = new TransactionScope(TransactionScopeOption.Required, _transactionOptions,
+                       TransactionScopeAsyncFlowOption.Enabled))
             {
                 var result = await f().DefaultAwait();
                 if (result.IsSuccess)
                 {
                     trans.Complete();
                 }
+
                 return result;
             }
         }
-        
-        #if NET5_0_OR_GREATER
+    }
+}
+
+#if NET5_0_OR_GREATER
+namespace CSharpFunctionalExtensions.ValueTasks
+{
+    public static partial class ResultExtensions
+    {
         private static async ValueTask<T> WithTransactionScope<T>(Func<ValueTask<T>> f)
             where T : IResult
         {
@@ -52,10 +62,11 @@ namespace CSharpFunctionalExtensions
                 {
                     trans.Complete();
                 }
+
                 return result;
             }
         }
-        #endif
     }
 }
+    #endif
 #endif

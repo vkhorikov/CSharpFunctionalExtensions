@@ -14,12 +14,10 @@ namespace CSharpFunctionalExtensions
     {
         public static Task<T> AsCompletedTask<T>(this T obj) => Task.FromResult(obj);
 
-        public static ConfiguredTaskAwaitable DefaultAwait(this System.Threading.Tasks.Task task) => task.ConfigureAwait(Result.Configuration.DefaultConfigureAwait);
+        public static ConfiguredTaskAwaitable DefaultAwait(this System.Threading.Tasks.Task task) =>
+            task.ConfigureAwait(Result.Configuration.DefaultConfigureAwait);
 
-        public static ConfiguredTaskAwaitable<T> DefaultAwait<T>(this Task<T> task) => task.ConfigureAwait(Result.Configuration.DefaultConfigureAwait);
-        
-        #if NET5_0_OR_GREATER
-        public static ValueTask<T> AsCompletedValueTask<T>(this T obj) => ValueTask.FromResult(obj);
-        #endif
+        public static ConfiguredTaskAwaitable<T> DefaultAwait<T>(this Task<T> task) =>
+            task.ConfigureAwait(Result.Configuration.DefaultConfigureAwait);
     }
 }

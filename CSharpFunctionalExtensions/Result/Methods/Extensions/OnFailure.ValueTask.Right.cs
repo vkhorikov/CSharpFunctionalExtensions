@@ -2,18 +2,18 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.ValueTasks
 {
     public static partial class AsyncResultExtensionsRightOperand
     {
         /// <summary>
         ///     Executes the given action if the calling result is a failure. Returns the calling result.
         /// </summary>
-        public static async ValueTask<Result<T>> OnFailure<T>(this Result<T> result, Func<ValueTask> func)
+        public static async ValueTask<Result<T>> OnFailure<T>(this Result<T> result, Func<ValueTask> valueTask)
         {
             if (result.IsFailure)
             {
-                await func();
+                await valueTask();
             }
 
             return result;
@@ -22,11 +22,11 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Executes the given action if the calling result is a failure. Returns the calling result.
         /// </summary>
-        public static async ValueTask<Result<T, E>> OnFailure<T, E>(this Result<T, E> result, Func<ValueTask> func)
+        public static async ValueTask<Result<T, E>> OnFailure<T, E>(this Result<T, E> result, Func<ValueTask> valueTask)
         {
             if (result.IsFailure)
             {
-                await func();
+                await valueTask();
             }
 
             return result;
@@ -35,11 +35,11 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Executes the given action if the calling result is a failure. Returns the calling result.
         /// </summary>
-        public static async ValueTask<Result> OnFailure(this Result result, Func<ValueTask> func)
+        public static async ValueTask<Result> OnFailure(this Result result, Func<ValueTask> valueTask)
         {
             if (result.IsFailure)
             {
-                await func();
+                await valueTask();
             }
 
             return result;
@@ -48,11 +48,11 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Executes the given action if the calling result is a failure. Returns the calling result.
         /// </summary>
-        public static async ValueTask<Result> OnFailure(this Result result, Func<string, ValueTask> func)
+        public static async ValueTask<Result> OnFailure(this Result result, Func<string, ValueTask> valueTask)
         {
             if (result.IsFailure)
             {
-                await func(result.Error);
+                await valueTask(result.Error);
             }
 
             return result;
@@ -61,11 +61,11 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Executes the given action if the calling result is a failure. Returns the calling result.
         /// </summary>
-        public static async ValueTask<UnitResult<E>> OnFailure<E>(this UnitResult<E> result, Func<ValueTask> func)
+        public static async ValueTask<UnitResult<E>> OnFailure<E>(this UnitResult<E> result, Func<ValueTask> valueTask)
         {
             if (result.IsFailure)
             {
-                await func();
+                await valueTask();
             }
 
             return result;
@@ -74,11 +74,11 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Executes the given action if the calling result is a failure. Returns the calling result.
         /// </summary>
-        public static async ValueTask<UnitResult<E>> OnFailure<E>(this UnitResult<E> result, Func<E, ValueTask> func)
+        public static async ValueTask<UnitResult<E>> OnFailure<E>(this UnitResult<E> result, Func<E, ValueTask> valueTask)
         {
             if (result.IsFailure)
             {
-                await func(result.Error);
+                await valueTask(result.Error);
             }
 
             return result;
@@ -87,11 +87,11 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Executes the given action if the calling result is a failure. Returns the calling result.
         /// </summary>
-        public static async ValueTask<Result<T>> OnFailure<T>(this Result<T> result, Func<string, ValueTask> func)
+        public static async ValueTask<Result<T>> OnFailure<T>(this Result<T> result, Func<string, ValueTask> valueTask)
         {
             if (result.IsFailure)
             {
-                await func(result.Error);
+                await valueTask(result.Error);
             }
 
             return result;
@@ -100,11 +100,11 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Executes the given action if the calling result is a failure. Returns the calling result.
         /// </summary>
-        public static async ValueTask<Result<T, E>> OnFailure<T, E>(this Result<T, E> result, Func<E, ValueTask> func)
+        public static async ValueTask<Result<T, E>> OnFailure<T, E>(this Result<T, E> result, Func<E, ValueTask> valueTask)
         {
             if (result.IsFailure)
             {
-                await func(result.Error);
+                await valueTask(result.Error);
             }
 
             return result;

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using CSharpFunctionalExtensions.ValueTasks;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions

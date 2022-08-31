@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using CSharpFunctionalExtensions.ValueTasks;
 using FluentAssertions;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions

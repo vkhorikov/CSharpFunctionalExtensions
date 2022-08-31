@@ -2,16 +2,16 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CSharpFunctionalExtensions
+namespace CSharpFunctionalExtensions.ValueTasks
 {
     public static partial class MaybeExtensions
     {
-        public static async ValueTask<Maybe<K>> Map<T, K>(this Maybe<T> maybe, Func<T, ValueTask<K>> selector)
+        public static async ValueTask<Maybe<K>> Map<T, K>(this Maybe<T> maybe, Func<T, ValueTask<K>> valueTask)
         {
             if (maybe.HasNoValue)
                 return Maybe<K>.None;
 
-            return await selector(maybe.GetValueOrThrow());
+            return await valueTask(maybe.GetValueOrThrow());
         }
     }
 }

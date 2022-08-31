@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CSharpFunctionalExtensions.Tests.ResultTests.Methods.Try;
+using CSharpFunctionalExtensions.ValueTasks;
 using FluentAssertions;
 using Xunit;
 
