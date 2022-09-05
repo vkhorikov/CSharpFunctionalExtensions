@@ -1,6 +1,7 @@
-2.33.2
+2.33.3
 New features:
 * None
 
 Fixed issues:
-* #437 Added missing TapIf ValueTask
+* #433 Removed Result.Try overloads for ValueTasks to preserve backward compatibility
+* #441 IReadOnlyDictionary.TryFind() not working in .NET 6

@@ -474,16 +474,7 @@
     <Compile Update="Result\Methods\Extensions\OnSuccessTry.Task.Left.cs">
       <DependentUpon>OnSuccessTry.Task.cs</DependentUpon>
     </Compile>
-    <Compile Update="Result\Methods\Extensions\OnSuccessTry.ValueTask.Right.cs">
-      <DependentUpon>OnSuccessTry.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnSuccessTry.ValueTask.Left.cs">
-      <DependentUpon>OnSuccessTry.ValueTask.cs</DependentUpon>
-    </Compile>
     <Compile Update="Result\Methods\Extensions\OnSuccessTry.Task.cs">
-      <DependentUpon>OnSuccessTry.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnSuccessTry.ValueTask.cs">
       <DependentUpon>OnSuccessTry.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Extensions\SelectMany.Task.Left.cs">
@@ -527,9 +518,6 @@
     </Compile>
     <Compile Update="Result\Methods\FailureIf.Task.cs">
       <DependentUpon>FailureIf.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Try.ValueTask.cs">
-      <DependentUpon>Try.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Try.Task.cs">
       <DependentUpon>Try.cs</DependentUpon>

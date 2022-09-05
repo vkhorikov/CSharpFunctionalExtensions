@@ -133,9 +133,6 @@
     <Compile Update="ResultTests\Extensions\TapTests.Base.cs">
       <DependentUpon>TapTests.cs</DependentUpon>
     </Compile>
-    <Compile Update="ResultTests\Methods\TryTests.ValueTask.cs">
-      <DependentUpon>TryTests.cs</DependentUpon>
-    </Compile>
     <Compile Update="ResultTests\Methods\TryTests.Task.cs">
       <DependentUpon>TryTests.cs</DependentUpon>
     </Compile>
@@ -282,15 +279,6 @@
     </Compile>
     <Compile Update="ResultTests\Extensions\OnFailureTests.ValueTask.cs">
       <DependentUpon>OnFailureTests.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ResultTests\Extensions\OnSuccessTryTests.ValueTask.Right.cs">
-      <DependentUpon>OnSuccessTryTests.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ResultTests\Extensions\OnSuccessTryTests.ValueTask.Left.cs">
-      <DependentUpon>OnSuccessTryTests.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ResultTests\Extensions\OnSuccessTryTests.ValueTask.cs">
-      <DependentUpon>OnSuccessTryTests.cs</DependentUpon>
     </Compile>
     <Compile Update="ResultTests\Extensions\TapTests.ValueTask.Right.cs">
       <DependentUpon>TapTests.ValueTask.cs</DependentUpon>
