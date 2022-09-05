@@ -1,4 +1,4 @@
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
 using System.Runtime.CompilerServices;
 #endif
 #if NET_5_0_OR_GREATER
@@ -9,7 +9,7 @@ namespace CSharpFunctionalExtensions
 {
     partial struct Result
     {
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
@@ -25,7 +25,7 @@ namespace CSharpFunctionalExtensions
 
     partial struct Result<T>
     {
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetValue(
@@ -38,7 +38,7 @@ namespace CSharpFunctionalExtensions
             return IsSuccess;
         }
 
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
@@ -51,7 +51,7 @@ namespace CSharpFunctionalExtensions
             return IsFailure;
         }
 
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetValue(
@@ -70,7 +70,7 @@ namespace CSharpFunctionalExtensions
             return IsSuccess;
         }
 
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
@@ -93,7 +93,7 @@ namespace CSharpFunctionalExtensions
     partial struct Result<T, E>
     {
 
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetValue(
@@ -106,7 +106,7 @@ namespace CSharpFunctionalExtensions
             return IsSuccess;
         }
 
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
@@ -119,7 +119,7 @@ namespace CSharpFunctionalExtensions
             return IsFailure;
         }
 
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetValue(
@@ -138,7 +138,7 @@ namespace CSharpFunctionalExtensions
             return IsSuccess;
         }
 
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
@@ -160,7 +160,7 @@ namespace CSharpFunctionalExtensions
 
     partial struct UnitResult<E>
     {
-#if NETCORE || NETSTANDARD || NET45_OR_GREATER
+#if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
