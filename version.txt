@@ -1,7 +1,6 @@
-2.33.3
+2.34.0
 New features:
-* None
+* #445 Add BindTry extensions
 
 Fixed issues:
-* #433 Removed Result.Try overloads for ValueTasks to preserve backward compatibility
-* #441 IReadOnlyDictionary.TryFind() not working in .NET 6
+* None
