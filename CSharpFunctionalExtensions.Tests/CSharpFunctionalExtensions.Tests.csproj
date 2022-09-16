@@ -481,5 +481,26 @@
 	<Compile Update="ResultTests\Extensions\BindTryTests.ValueTask.Right.cs">
 		<DependentUpon>BindTryTests.ValueTask.cs</DependentUpon>
 	</Compile>
+	<Compile Update="ResultTests\Extensions\MapTryTests.Task.cs">
+		<DependentUpon>MapTryTests.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\MapTryTests.ValueTask.cs">
+		<DependentUpon>MapTryTests.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\MapTryTests.Base.cs">
+		<DependentUpon>MapTryTests.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\MapTryTests.Task.Left.cs">
+		<DependentUpon>MapTryTests.Task.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\MapTryTests.Task.Right.cs">
+		<DependentUpon>MapTryTests.Task.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\MapTryTests.ValueTask.Left.cs">
+		<DependentUpon>MapTryTests.ValueTask.cs</DependentUpon>
+	</Compile>
+	<Compile Update="ResultTests\Extensions\MapTryTests.ValueTask.Right.cs">
+		<DependentUpon>MapTryTests.ValueTask.cs</DependentUpon>
+	</Compile>
   </ItemGroup>  
 </Project>
