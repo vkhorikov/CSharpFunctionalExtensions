@@ -7,6 +7,7 @@ using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests
 {
+    [Collection(NonParallelTestCollectionDefinition.Name)]
     public class CombineTests : TestBase
     {
         [Fact]

@@ -540,5 +540,23 @@
 	<Compile Update="Result\Methods\Extensions\BindTry.ValueTask.Right.cs">
 		<DependentUpon>BindTry.ValueTask.cs</DependentUpon>
 	</Compile>
+	<Compile Update="Result\Methods\Extensions\MapTry.Task.cs">
+		<DependentUpon>MapTry.cs</DependentUpon>
+	</Compile>
+	<Compile Update="Result\Methods\Extensions\MapTry.ValueTask.cs">
+		<DependentUpon>MapTry.cs</DependentUpon>
+	</Compile>
+	<Compile Update="Result\Methods\Extensions\MapTry.Task.Left.cs">
+		<DependentUpon>MapTry.Task.cs</DependentUpon>
+	</Compile>
+	<Compile Update="Result\Methods\Extensions\MapTry.Task.Right.cs">
+		<DependentUpon>MapTry.Task.cs</DependentUpon>
+	</Compile>
+	<Compile Update="Result\Methods\Extensions\MapTry.ValueTask.Left.cs">
+		<DependentUpon>MapTry.ValueTask.cs</DependentUpon>
+	</Compile>
+	<Compile Update="Result\Methods\Extensions\MapTry.ValueTask.Right.cs">
+		<DependentUpon>MapTry.ValueTask.cs</DependentUpon>
+	</Compile>
   </ItemGroup> 
 </Project>

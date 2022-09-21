@@ -4,6 +4,7 @@ using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Methods.Try
 {
+    [Collection(NonParallelTestCollectionDefinition.Name)]
     public class TryTestBaseTestsTask : TryTestBaseTask
     {
         [Fact]
@@ -33,7 +34,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Methods.Try
             result.Error.Should().Be(ErrorHandlerMessage);
         }
 
-        [Fact]
+        [Fact]        
         public async Task ResultTry_Async_execute_action_failed_with_configured_default_error_handler_failed_result_expected()
         {
             var defaultTryErrorHandler = Result.Configuration.DefaultTryErrorHandler;
