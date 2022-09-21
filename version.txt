@@ -1,6 +1,6 @@
-2.34.0
+2.34.1
 New features:
-* #445 Add BindTry extensions
+* #446 MapTry feature
 
 Fixed issues:
 * None
