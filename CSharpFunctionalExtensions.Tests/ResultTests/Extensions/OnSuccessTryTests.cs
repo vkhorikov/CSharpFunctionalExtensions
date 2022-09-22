@@ -132,7 +132,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void OnSuccessTry_T_E_execute_function_success_without_error_handler_function_result_expected()
         {
             var success = Result.Success<T, E>(T.Value);
-            var result = success.OnSuccessTry(Func_T, ErrorHandler_E);
+            var result = success.Bind(_ => UnitResult.Success<E>()).MapTry(Func_T, ErrorHandler_E);// OnSuccessTry(Func_T, ErrorHandler_E);
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(T.Value);
