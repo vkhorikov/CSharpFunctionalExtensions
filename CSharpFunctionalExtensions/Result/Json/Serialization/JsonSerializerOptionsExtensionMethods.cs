@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using C2i.Common.C2iCSharpFunctionalExtensions.FunctionalApiResult;
+
+using System.Text.Json;
 
 namespace CSharpFunctionalExtensions.Json.Serialization
 {
@@ -7,8 +9,10 @@ namespace CSharpFunctionalExtensions.Json.Serialization
         public static JsonSerializerOptions AddCSharpFunctionalExtensionsConverters(this JsonSerializerOptions options)
         {
             options.Converters.Add(new ResultJsonConverter());
-            options.Converters.Add(new ResultJsonConverterFactory());
+            options.Converters.Add(new ResultOfTJsonConverterFactory());
+            options.Converters.Add(new ResultOfTEJsonConverterFactory());
             options.Converters.Add(new UnitResultJsonConverterFactory());
+
             return options;
         }
     }

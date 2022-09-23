@@ -124,6 +124,20 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Json.Serialization
         }
 
         [Fact]
+        public async Task ReadResultAsyncOfTE_EmptyResponseMessageContent_Failure()
+        {
+            // Assign
+            HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
+            httpResponseMessage.Content = new StringContent(string.Empty);
+
+            // Act
+            var result = await httpResponseMessage.ReadResultAsync<int, bool>();
+
+            // Assert
+            result.IsSuccess.Should().BeFalse();
+        }
+
+        [Fact]
         public async Task ReadUnitResultAsyncOfT_EmptyResponseMessageContent_Failure()
         {
             // Assign
@@ -215,6 +229,20 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Json.Serialization
             result.Error.Should().Be(DtoMessages.ContentJsonNotResult);
         }
 
+        [Fact]
+        public async Task ReadResultAsyncOfTE_JsonInt_Failure()
+        {
+            // Assign
+            HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
+            httpResponseMessage.Content = JsonContent.Create(8);
+
+            // Act
+            var result = await httpResponseMessage.ReadResultAsync<string>();
+
+            // Assert
+            result.IsSuccess.Should().BeFalse();
+        }
+
         [Fact(Skip = "Fails when building on Linux")]
         public async Task ReadResultAsync_JsonObject_Failure()
         {
@@ -276,6 +304,22 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Json.Serialization
         }
 
         [Fact]
+        public async Task ReadResultAsyncOfTE_JsonResultDtoOfSuccess_Success()
+        {
+            // Assign
+            const string value = "Great Success";
+            HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
+            httpResponseMessage.Content = JsonContent.Create(ResultDto.Success<string, int>(value));
+
+            // Act
+            var result = await httpResponseMessage.ReadResultAsync<string, int>();
+
+            // Assert
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be(value);
+        }
+
+        [Fact]
         public async Task ReadUnitResultAsyncOfT_JsonResultDtoOfSuccess_Success()
         {
             // Assign
@@ -321,6 +365,22 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Json.Serialization
         }
 
         [Fact]
+        public async Task ReadResultAsyncOfTE_JsonResultDtoOfFailure_Failure()
+        {
+            // Assign
+            const int error = 7;
+            HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
+            httpResponseMessage.Content = JsonContent.Create(ResultDto.Failure<string, int>(error));
+
+            // Act
+            var result = await httpResponseMessage.ReadResultAsync<string, int>();
+
+            // Assert
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be(error);
+        }
+
+        [Fact]
         public async Task ReadUnitResultAsyncOfT_JsonResultDtoOfFailure_Failure()
         {
             // Assign
@@ -341,7 +401,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Json.Serialization
         {
             // Assign
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
-            httpResponseMessage.Content = new StringContent("{ \"Error\": null }");
+            httpResponseMessage.Content = new StringContent("{ \"IsSuccess\": true }");
 
             // Act
             var result = await httpResponseMessage.ReadResultAsync();
@@ -356,7 +416,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Json.Serialization
             // Assign
             const string value = "Great Success";
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
-            httpResponseMessage.Content = new StringContent($"{{ \"Error\": null, \"Value\": \"{value}\"}}");
+            httpResponseMessage.Content = new StringContent($"{{ \"IsSuccess\": true, \"Value\": \"{value}\"}}");
 
             // Act
             var result = await httpResponseMessage.ReadResultAsync<string>();
@@ -371,7 +431,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Json.Serialization
         {
             // Assign
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
-            httpResponseMessage.Content = new StringContent($"{{ \"Error\": null }}");
+            httpResponseMessage.Content = new StringContent($"{{ \"IsSuccess\": true }}");
 
             // Act
             var result = await httpResponseMessage.ReadUnitResultAsync<UnitResultError>();

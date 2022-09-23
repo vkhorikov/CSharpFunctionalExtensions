@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace CSharpFunctionalExtensions.Json.Serialization
 {
@@ -13,7 +12,7 @@ namespace CSharpFunctionalExtensions.Json.Serialization
         /// </summary>
         public static UnitResultDto<E> Failure<E>(E error)
         {
-            return new UnitResultDto<E>(error);
+            return new UnitResultDto<E>(false, error);
         }
 
         /// <summary>
@@ -21,13 +20,9 @@ namespace CSharpFunctionalExtensions.Json.Serialization
         /// </summary>
         public static UnitResultDto<E> Success<E>()
         {
-            return new UnitResultDto<E>();
+            return new UnitResultDto<E>(true);
         }
     }
 
-    internal record UnitResultDto<E>([property:Required] E? Error = default)
-    {
-        [JsonIgnore]
-        public bool IsSuccess => Error is null;
-    }
+    internal record UnitResultDto<E>([property:Required] bool IsSuccess, [property:Required] E? Error = default);
 }
