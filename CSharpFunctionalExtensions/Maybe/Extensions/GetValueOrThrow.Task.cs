@@ -14,7 +14,7 @@ namespace CSharpFunctionalExtensions
         ///     Returns <paramref name="maybeTask" />'s inner value if it has one, otherwise throws an InvalidOperationException
         ///     with <paramref name="errorMessage" />
         /// </summary>
-        /// <exception cref="InvalidOperationException">Maybe has no value.</exception>
+        /// <exception cref="System.InvalidOperationException">Maybe has no value.</exception>
         public static async Task<T> GetValueOrThrow<T>(this Task<Maybe<T>> maybeTask, string errorMessage)
         {
             var maybe = await maybeTask.DefaultAwait();
