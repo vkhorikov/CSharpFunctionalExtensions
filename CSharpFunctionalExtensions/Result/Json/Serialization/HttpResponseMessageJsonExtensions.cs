@@ -43,15 +43,30 @@ namespace CSharpFunctionalExtensions.Json.Serialization
                   .Bind(result => result);
         }
 
+        public static async Task<Result<T, E>> ReadResultAsync<T, E>(this HttpResponseMessage response, bool ensureSuccessStatusCode = true, CancellationToken cancellationToken = default(CancellationToken))
+            where E : new()
+        {
+            if (response is null ||
+                (ensureSuccessStatusCode && !response.IsSuccessStatusCode))
+            {
+                return Result.Failure<T, E>(new());
+            }
+
+            try
+            {
+                return await response.Content.ReadFromJsonAsync<Result<T, E>>(CSharpFunctionalExtensionsJsonSerializerOptions.Options, cancellationToken);
+            }
+            catch (JsonException)
+            {
+                return Result.Failure<T, E>(new());
+            }
+        }
+
         public static async Task<UnitResult<E>> ReadUnitResultAsync<E>(this HttpResponseMessage? response, bool ensureSuccessStatusCode = true, CancellationToken cancellationToken = default(CancellationToken))
             where E : new()
         {
-            if (response is null)
-            {
-                return UnitResult.Failure<E>(new());
-            }
-
-            if (ensureSuccessStatusCode && !response.IsSuccessStatusCode)
+            if (response is null ||
+                (ensureSuccessStatusCode && !response.IsSuccessStatusCode))
             {
                 return UnitResult.Failure<E>(new());
             }
