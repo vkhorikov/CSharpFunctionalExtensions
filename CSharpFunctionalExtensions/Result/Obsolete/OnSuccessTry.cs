@@ -25,5 +25,13 @@ namespace CSharpFunctionalExtensions
         {
             return result.MapTry(func, errorHandler);
         }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Explicitly cast to UnitResult<E> and use MapTry() instead.")]
+        public static Result<T, E> OnSuccessTry<T, E>(this Result<T, E> result, Func<T> func, Func<Exception, E> errorHandler)
+        {
+            UnitResult<E> unitResult = result;
+            return unitResult.MapTry(func, errorHandler);
+        }
     }
 }

@@ -7,8 +7,8 @@ using Xunit;
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 {
     public class OnSuccessTryTestBaseTests_Task_Right : TryTestBaseTask
-    {
-       [Fact]
+    {       
+        [Fact]
         public async Task OnSuccess_Task_Right_execute_action_success_without_error_handler_function_result_expected()
         {
             var success = Result.Success();
@@ -28,7 +28,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
                 .And.Subject.Error.Should()
                 .Be(ErrorMessage);
         }
-
+        
         [Fact]
         public async Task OnSuccess_Task_Right_execute_action_failed_with_error_handler_failed_result_expected()
         {
@@ -37,6 +37,17 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(ErrorHandlerMessage);
+        }
+
+        [Fact]
+        public async Task OnSuccessTry_Task_Right_execute_action_on_faiulre_failed_with_error_from_failure()
+        {
+            var failure = Result.Failure(ErrorMessage);
+            var result = await failure.OnSuccessTry(Throwing_Func_Task, ErrorHandler);
+
+            result.IsFailure.Should().BeTrue();
+            FuncExecuted.Should().BeFalse();
+            result.Error.Should().Be(ErrorMessage);
         }
 
         [Fact] 
@@ -97,7 +108,18 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(ErrorHandlerMessage);
         }
-        
+
+        [Fact]
+        public async Task OnSuccessTry_Task_Right_T_execute_action_on_faiulre_failed_with_error_from_failure()
+        {
+            var failure = Result.Failure<T>(ErrorMessage);
+            var result = await failure.OnSuccessTry(Throwing_Func_T_Task, ErrorHandler);
+
+            result.IsFailure.Should().BeTrue();
+            FuncExecuted.Should().BeFalse();
+            result.Error.Should().Be(ErrorMessage);
+        }
+
         [Fact]
         public async Task OnSuccess_Task_Right_T_K_execute_function_success_without_error_handler_function_result_expected()
         {

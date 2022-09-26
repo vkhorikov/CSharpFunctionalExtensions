@@ -12,13 +12,6 @@ namespace CSharpFunctionalExtensions
             return result.OnSuccessTry(action, errorHandler);
         }
 
-        public static async Task<Result<T, E>> OnSuccessTry<T, E>(this Task<Result<T, E>> task, Func<T> func,
-            Func<Exception, E> errorHandler = null)
-        {
-            var result = await task.DefaultAwait();
-            return result.OnSuccessTry(func, errorHandler);
-        }
-
         public static async Task<Result> OnSuccessTry<T>(this Task<Result<T>> task, Action<T> action,
             Func<Exception, string> errorHandler = null)
         {

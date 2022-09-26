@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="results">
         ///     The Results to be combined.</param>
         /// <param name="errorMessagesSeparator">
-        ///     A string that is used to separate any concatenated error messages. If omitted, the default <see cref="Result.ErrorMessagesSeparator" /> is used.</param>
+        ///     A string that is used to separate any concatenated error messages. If omitted, the default <see cref="Result.Configuration.ErrorMessagesSeparator" /> is used.</param>
         /// <returns>
         ///     A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
         public static Result Combine(IEnumerable<Result> results, string errorMessagesSeparator = null)
@@ -32,7 +32,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="results">
         ///     The Results to be combined.</param>
         /// <param name="errorMessagesSeparator">
-        ///     A string that is used to separate any concatenated error messages. If omitted, the default <see cref="Result.ErrorMessagesSeparator" /> is used.</param>
+        ///     A string that is used to separate any concatenated error messages. If omitted, the default <see cref="Result.Configuration.ErrorMessagesSeparator" /> is used.</param>
         /// <returns>
         ///     A Result that is a success when all the input <paramref name="results"/> are also successes.</returns>
         public static Result Combine<T>(IEnumerable<Result<T>> results, string errorMessagesSeparator = null)
@@ -135,7 +135,7 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Combines several results (and any error messages) into a single result.
         ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.
-        ///     Error messages are concatenated with the default <see cref="Result.ErrorMessagesSeparator" /> between each message.</summary>
+        ///     Error messages are concatenated with the default <see cref="Result.Configuration.ErrorMessagesSeparator" /> between each message.</summary>
         /// <param name="results">
         ///     The Results to be combined.</param>
         /// <returns>
@@ -146,7 +146,7 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         ///     Combines several results (and any error messages) into a single result.
         ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.
-        ///     Error messages are concatenated with the default <see cref="Result.ErrorMessagesSeparator" /> between each message.</summary>
+        ///     Error messages are concatenated with the default <see cref="Result.Configuration.ErrorMessagesSeparator" /> between each message.</summary>
         /// <param name="results">
         ///     The Results to be combined.</param>
         /// <returns>
@@ -172,7 +172,7 @@ namespace CSharpFunctionalExtensions
         ///     Combines several results (and any error messages) into a single result.
         ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.</summary>
         /// <param name="errorMessagesSeparator">
-        ///     A string that is used to separate any concatenated error messages. If omitted, the default <see cref="Result.ErrorMessagesSeparator" /> is used.</param>
+        ///     A string that is used to separate any concatenated error messages. If omitted, the default <see cref="Result.Configuration.ErrorMessagesSeparator" /> is used.</param>
         /// <param name="results">
         ///     The Results to be combined.</param>
         /// <returns>
@@ -184,7 +184,7 @@ namespace CSharpFunctionalExtensions
         ///     Combines several results (and any error messages) into a single result.
         ///     The returned result will be a failure if any of the input <paramref name="results"/> are failures.</summary>
         /// <param name="errorMessagesSeparator">
-        ///     A string that is used to separate any concatenated error messages. If omitted, the default <see cref="Result.ErrorMessagesSeparator" /> is used.</param>
+        ///     A string that is used to separate any concatenated error messages. If omitted, the default <see cref="Result.Configuration.ErrorMessagesSeparator" /> is used.</param>
         /// <param name="results">
         ///     The Results to be combined.</param>
         /// <returns>

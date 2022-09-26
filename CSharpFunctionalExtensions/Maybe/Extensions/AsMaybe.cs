@@ -32,7 +32,7 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         /// Wraps the class instance in a <see cref="Maybe{T}"/>.
         /// </summary>
-        /// <returns>Returns <see cref="Maybe.None"/> if the class instance is null, otherwise returns <see cref="Maybe.From(T)"/>.</returns>
+        /// <returns>Returns <see cref="Maybe.None"/> if the class instance is null, otherwise returns <see cref="Maybe.From{T}(T)"/>.</returns>
         public static Maybe<T> AsMaybe<T>(this T? value)
             where T : class
         {
