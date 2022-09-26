@@ -1,6 +1,6 @@
-2.34.1
+2.34.2
 New features:
-* #446 MapTry feature
+* #447 Add support for Result T,E
 
 Fixed issues:
 * None

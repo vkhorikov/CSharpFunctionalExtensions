@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace CSharpFunctionalExtensions.Json.Serialization
 {
-    internal class ResultJsonConverterFactory : JsonConverterFactory
+    internal class ResultOfTJsonConverterFactory : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
         {
@@ -18,14 +18,14 @@ namespace CSharpFunctionalExtensions.Json.Serialization
         {
             Type wrappedType = typeToConvert.GetGenericArguments()[0];
 
-            var genericResultType = typeof(ResultJsonConverterOfT<>).MakeGenericType(wrappedType);
+            var genericResultType = typeof(ResultOfTJsonConverter<>).MakeGenericType(wrappedType);
             JsonConverter? converter = Activator.CreateInstance(genericResultType) as JsonConverter;
 
             return converter!;
         }
     }
 
-    internal class ResultJsonConverterOfT<T> : JsonConverter<Result<T>>
+    internal class ResultOfTJsonConverter<T> : JsonConverter<Result<T>>
     {
         public override Result<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
