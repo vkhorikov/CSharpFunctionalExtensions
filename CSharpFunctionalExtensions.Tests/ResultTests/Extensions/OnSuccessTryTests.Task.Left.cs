@@ -35,7 +35,16 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(ErrorHandlerMessage);
         }
+        [Fact]
+        public async Task OnSuccessTry_Task_Left_execute_throwing_action_on_faiulre_failed_with_error_from_failure()
+        {
+            var failure = Result.Failure(ErrorMessage).AsTask();
+            var result = await failure.OnSuccessTry(Throwing_Action, ErrorHandler);
 
+            result.IsFailure.Should().BeTrue();
+            FuncExecuted.Should().BeFalse();
+            result.Error.Should().Be(ErrorMessage);
+        }
         [Fact] 
         public async Task OnSuccessTry_Task_Left_T_execute_function_success_without_error_handler_function_result_expected()
         {
@@ -94,7 +103,18 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(ErrorHandlerMessage);
         }
-        
+
+        [Fact]
+        public async Task OnSuccessTry_Task_Left_T_execute_throwing_action_on_faiulre_failed_with_error_from_failure()
+        {
+            var failure = Result.Failure<T>(ErrorMessage).AsTask();
+            var result = await failure.OnSuccessTry(Throwing_Action_T, ErrorHandler);
+
+            result.IsFailure.Should().BeTrue();
+            FuncExecuted.Should().BeFalse();
+            result.Error.Should().Be(ErrorMessage);
+        }
+
         [Fact]
         public async Task OnSuccessTry_Task_Left_T_K_execute_function_success_without_error_handler_function_result_expected()
         {
