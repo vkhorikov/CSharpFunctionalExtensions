@@ -1,6 +1,6 @@
-2.34.2
+2.34.3
 New features:
-* #447 Add support for Result T,E
+* #448 Refine OnSuccessTry extensions
 
 Fixed issues:
 * None
