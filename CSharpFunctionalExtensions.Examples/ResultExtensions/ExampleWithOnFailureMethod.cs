@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Check(customer => paymentGateway.ChargePayment(customer, moneyAmount))
                 .Bind(
                     customer => database.Save(customer)
-                        .OnFailure(() => paymentGateway.RollbackLastTransaction()))
+                        .TapError(() => paymentGateway.RollbackLastTransaction()))
                 .Finally(result => result.IsSuccess ? "OK" : result.Error);
         }
 
