@@ -45,4 +45,5 @@ namespace CSharpFunctionalExtensions
         [Obsolete("Use TapError() instead.")]
         public static Task<Result<T, E>> OnFailure<T, E>(this Result<T, E> result, Func<E, Task> func)
             => result.TapError(func);
+    }
 }
