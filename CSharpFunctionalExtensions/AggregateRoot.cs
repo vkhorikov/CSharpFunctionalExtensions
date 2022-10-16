@@ -2,7 +2,12 @@ using System.Collections.Generic;
 
 namespace CSharpFunctionalExtensions
 {
-    public abstract class AggregateRoot<TDomainEvent> : Entity
+    public interface IAggregateRoot<TDomainEvent>
+    {
+        IReadOnlyList<TDomainEvent> DomainEvents { get; }
+    }
+
+    public abstract class AggregateRoot<TDomainEvent> : Entity, IAggregateRoot<TDomainEvent>
     {
         private readonly List<TDomainEvent> _domainEvents = new List<TDomainEvent>();
         public virtual IReadOnlyList<TDomainEvent> DomainEvents => _domainEvents;
