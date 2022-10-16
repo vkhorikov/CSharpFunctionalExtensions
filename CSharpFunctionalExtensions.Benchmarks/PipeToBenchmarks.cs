@@ -8,8 +8,6 @@ namespace CSharpFunctionalExtensionss.Benchmarks;
 [MemoryDiagnoser]
 public class PipeToBenchmark
 {
-
-        
     [Benchmark]
     public void NativeCode()
     {
