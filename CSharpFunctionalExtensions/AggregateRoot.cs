@@ -4,13 +4,13 @@ namespace CSharpFunctionalExtensions
 {
     public interface IAggregateRoot<TDomainEvent>
     {
-        IReadOnlyList<TDomainEvent> DomainEvents { get; }
+        IEnumerable<TDomainEvent> DomainEvents { get; }
     }
 
     public abstract class AggregateRoot<TDomainEvent> : Entity, IAggregateRoot<TDomainEvent>
     {
         private readonly List<TDomainEvent> _domainEvents = new List<TDomainEvent>();
-        public virtual IReadOnlyList<TDomainEvent> DomainEvents => _domainEvents;
+        public virtual IEnumerable<TDomainEvent> DomainEvents => _domainEvents;
 
         protected virtual void Raise(TDomainEvent newEvent)
         {
