@@ -1,6 +1,6 @@
-2.34.3
+2.35.0
 New features:
-* #448 Refine OnSuccessTry extensions
+* #450 Rename OnFailure to TapError
 
 Fixed issues:
 * None
