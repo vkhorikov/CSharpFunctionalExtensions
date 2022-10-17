@@ -35,7 +35,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
             return await GetByIdAsync(id)
                 .ToResult("Customer with such Id is not found: " + id)
                 .Ensure(customer => customer.CanBePromoted(), "Need to ask manager")
-                .OnFailure(error => Log(error))
+                .TapError(error => Log(error))
                 .OnFailureCompensate(() => AskManager(id))
                 .Tap(customer => Log("Manager approved promotion"))
                 .Tap(customer => customer.PromoteAsync())

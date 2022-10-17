@@ -513,6 +513,24 @@
     <Compile Update="Result\Methods\Extensions\Tap.Task.cs">
       <DependentUpon>Tap.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\TapError.Task.Left.cs">
+      <DependentUpon>TapError.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapError.Task.Right.cs">
+      <DependentUpon>TapError.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapError.ValueTask.Left.cs">
+      <DependentUpon>TapError.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapError.ValueTask.Right.cs">
+      <DependentUpon>TapError.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapError.ValueTask.cs">
+      <DependentUpon>TapError.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapError.Task.cs">
+      <DependentUpon>TapError.cs</DependentUpon>
+    </Compile>
     <Compile Update="Result\Methods\FailureIf.ValueTask.cs">
       <DependentUpon>FailureIf.cs</DependentUpon>
     </Compile>
@@ -522,41 +540,41 @@
     <Compile Update="Result\Methods\Try.Task.cs">
       <DependentUpon>Try.cs</DependentUpon>
     </Compile>
-	<Compile Update="Result\Methods\Extensions\BindTry.Task.cs">
-		<DependentUpon>BindTry.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\BindTry.ValueTask.cs">
-		<DependentUpon>BindTry.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\BindTry.Task.Left.cs">
-		<DependentUpon>BindTry.Task.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\BindTry.Task.Right.cs">
-		<DependentUpon>BindTry.Task.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\BindTry.ValueTask.Left.cs">
-		<DependentUpon>BindTry.ValueTask.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\BindTry.ValueTask.Right.cs">
-		<DependentUpon>BindTry.ValueTask.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\MapTry.Task.cs">
-		<DependentUpon>MapTry.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\MapTry.ValueTask.cs">
-		<DependentUpon>MapTry.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\MapTry.Task.Left.cs">
-		<DependentUpon>MapTry.Task.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\MapTry.Task.Right.cs">
-		<DependentUpon>MapTry.Task.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\MapTry.ValueTask.Left.cs">
-		<DependentUpon>MapTry.ValueTask.cs</DependentUpon>
-	</Compile>
-	<Compile Update="Result\Methods\Extensions\MapTry.ValueTask.Right.cs">
-		<DependentUpon>MapTry.ValueTask.cs</DependentUpon>
-	</Compile>
-  </ItemGroup> 
+    <Compile Update="Result\Methods\Extensions\BindTry.Task.cs">
+      <DependentUpon>BindTry.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\BindTry.ValueTask.cs">
+      <DependentUpon>BindTry.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\BindTry.Task.Left.cs">
+      <DependentUpon>BindTry.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\BindTry.Task.Right.cs">
+      <DependentUpon>BindTry.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\BindTry.ValueTask.Left.cs">
+      <DependentUpon>BindTry.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\BindTry.ValueTask.Right.cs">
+      <DependentUpon>BindTry.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapTry.Task.cs">
+      <DependentUpon>MapTry.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapTry.ValueTask.cs">
+      <DependentUpon>MapTry.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapTry.Task.Left.cs">
+      <DependentUpon>MapTry.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapTry.Task.Right.cs">
+      <DependentUpon>MapTry.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapTry.ValueTask.Left.cs">
+      <DependentUpon>MapTry.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapTry.ValueTask.Right.cs">
+      <DependentUpon>MapTry.ValueTask.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

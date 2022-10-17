@@ -1,130 +1,51 @@
 #if NET5_0_OR_GREATER
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions.ValueTasks
 {
-    public static partial class AsyncResultExtensionsBothOperands
+    public static partial class ResultExtensions
     {
-        /// <summary>
-        ///     Executes the given action if the calling result is a failure. Returns the calling result.
-        /// </summary>
-        public static async ValueTask<Result<T, E>> OnFailure<T, E>(this ValueTask<Result<T, E>> resultTask, Func<ValueTask> valueTask)
-        {
-            Result<T, E> result = await resultTask;
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Use TapError() instead.")]
+        public static ValueTask<Result<T, E>> OnFailure<T, E>(this ValueTask<Result<T, E>> resultTask, Func<ValueTask> valueTask)
+            => resultTask.TapError(valueTask);
 
-            if (result.IsFailure)
-            {
-                await valueTask();
-            }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Use TapError() instead.")]
+        public static ValueTask<Result<T>> OnFailure<T>(this ValueTask<Result<T>> resultTask, Func<ValueTask> valueTask)
+            => resultTask.TapError(valueTask);
 
-            return result;
-        }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Use TapError() instead.")]
+        public static ValueTask<Result> OnFailure(this ValueTask<Result> resultTask, Func<ValueTask> valueTask)
+            => resultTask.TapError(valueTask);
 
-        /// <summary>
-        ///     Executes the given action if the calling result is a failure. Returns the calling result.
-        /// </summary>
-        public static async ValueTask<Result<T>> OnFailure<T>(this ValueTask<Result<T>> resultTask, Func<ValueTask> valueTask)
-        {
-            Result<T> result = await resultTask;
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Use TapError() instead.")]
+        public static ValueTask<Result> OnFailure(this ValueTask<Result> resultTask, Func<string, ValueTask> valueTask)
+            => resultTask.TapError(valueTask);
 
-            if (result.IsFailure)
-            {
-                await valueTask();
-            }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Use TapError() instead.")]
+        public static ValueTask<UnitResult<E>> OnFailure<E>(this ValueTask<UnitResult<E>> resultTask, Func<E, ValueTask> valueTask)
+            => resultTask.TapError(valueTask);
 
-            return result;
-        }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Use TapError() instead.")]
+        public static ValueTask<UnitResult<E>> OnFailure<E>(this ValueTask<UnitResult<E>> resultTask, Func<ValueTask> valueTask)
+            => resultTask.TapError(valueTask);
 
-        /// <summary>
-        ///     Executes the given action if the calling result is a failure. Returns the calling result.
-        /// </summary>
-        public static async ValueTask<Result> OnFailure(this ValueTask<Result> resultTask, Func<ValueTask> valueTask)
-        {
-            Result result = await resultTask;
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Use TapError() instead.")]
+        public static ValueTask<Result<T>> OnFailure<T>(this ValueTask<Result<T>> resultTask, Func<string, ValueTask> valueTask)
+            => resultTask.TapError(valueTask);
 
-            if (result.IsFailure)
-            {
-                await valueTask();
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        ///     Executes the given action if the calling result is a failure. Returns the calling result.
-        /// </summary>
-        public static async ValueTask<Result> OnFailure(this ValueTask<Result> resultTask, Func<string, ValueTask> valueTask)
-        {
-            Result result = await resultTask;
-
-            if (result.IsFailure)
-            {
-                await valueTask(result.Error);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        ///     Executes the given action if the calling result is a failure. Returns the calling result.
-        /// </summary>
-        public static async ValueTask<UnitResult<E>> OnFailure<E>(this ValueTask<UnitResult<E>> resultTask, Func<E, ValueTask> valueTask)
-        {
-            UnitResult<E> result = await resultTask;
-
-            if (result.IsFailure)
-            {
-                await valueTask(result.Error);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        ///     Executes the given action if the calling result is a failure. Returns the calling result.
-        /// </summary>
-        public static async ValueTask<UnitResult<E>> OnFailure<E>(this ValueTask<UnitResult<E>> resultTask, Func<ValueTask> valueTask)
-        {
-            UnitResult<E> result = await resultTask;
-
-            if (result.IsFailure)
-            {
-                await valueTask();
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        ///     Executes the given action if the calling result is a failure. Returns the calling result.
-        /// </summary>
-        public static async ValueTask<Result<T>> OnFailure<T>(this ValueTask<Result<T>> resultTask, Func<string, ValueTask> valueTask)
-        {
-            Result<T> result = await resultTask;
-
-            if (result.IsFailure)
-            {
-                await valueTask(result.Error);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        ///     Executes the given action if the calling result is a failure. Returns the calling result.
-        /// </summary>
-        public static async ValueTask<Result<T, E>> OnFailure<T, E>(this ValueTask<Result<T, E>> resultTask, Func<E, ValueTask> valueTask)
-        {
-            Result<T, E> result = await resultTask;
-
-            if (result.IsFailure)
-            {
-                await valueTask(result.Error);
-            }
-
-            return result;
-        }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Use TapError() instead.")]
+        public static ValueTask<Result<T, E>> OnFailure<T, E>(this ValueTask<Result<T, E>> resultTask, Func<E, ValueTask> valueTask)
+            => resultTask.TapError(valueTask);
     }
 }
 #endif

@@ -2,9 +2,9 @@ using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions.Examples.ResultExtensions
 {
-    public class ExampleWithOnFailureMethod
+    public class ExampleWithTapErrorMethod
     {
-        public string OnFailure_non_async(int customerId, decimal moneyAmount)
+        public string TapError_non_async(int customerId, decimal moneyAmount)
         {
             var paymentGateway = new PaymentGateway();
             var database = new Database();
@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions.Examples.ResultExtensions
                 .Check(customer => paymentGateway.ChargePayment(customer, moneyAmount))
                 .Bind(
                     customer => database.Save(customer)
-                        .OnFailure(() => paymentGateway.RollbackLastTransaction()))
+                        .TapError(() => paymentGateway.RollbackLastTransaction()))
                 .Finally(result => result.IsSuccess ? "OK" : result.Error);
         }
 
