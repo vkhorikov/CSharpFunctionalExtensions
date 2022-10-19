@@ -130,6 +130,27 @@
     <Compile Update="ResultTests\Extensions\OnSuccessTryTests.Task.cs">
       <DependentUpon>OnSuccessTryTests.cs</DependentUpon>
     </Compile>
+    <Compile Update="ResultTests\Extensions\TapErrorIfTests.Base.cs">
+      <DependentUpon>TapErrorIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapErrorIfTests.Task.cs">
+      <DependentUpon>TapErrorIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapErrorIfTests.Task.Left.cs">
+      <DependentUpon>TapErrorIfTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapErrorIfTests.Task.Right.cs">
+      <DependentUpon>TapErrorIfTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapErrorIfTests.ValueTask.cs">
+      <DependentUpon>TapErrorIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapErrorIfTests.ValueTask.Left.cs">
+      <DependentUpon>TapErrorIfTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\TapErrorIfTests.ValueTask.Right.cs">
+      <DependentUpon>TapErrorIfTests.ValueTask.cs</DependentUpon>
+    </Compile>
     <Compile Update="ResultTests\Extensions\TapTests.Task.Right.cs">
       <DependentUpon>TapTests.Task.cs</DependentUpon>
     </Compile>
