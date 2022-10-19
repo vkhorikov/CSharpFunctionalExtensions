@@ -531,6 +531,24 @@
     <Compile Update="Result\Methods\Extensions\TapError.Task.cs">
       <DependentUpon>TapError.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\TapErrorIf.Task.cs">
+      <DependentUpon>TapErrorIf.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapErrorIf.Task.Left.cs">
+      <DependentUpon>TapErrorIf.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapErrorIf.Task.Right.cs">
+      <DependentUpon>TapErrorIf.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapErrorIf.ValueTask.cs">
+      <DependentUpon>TapErrorIf.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapErrorIf.ValueTask.Left.cs">
+      <DependentUpon>TapErrorIf.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapErrorIf.ValueTask.Right.cs">
+      <DependentUpon>TapErrorIf.ValueTask.cs</DependentUpon>
+    </Compile>
     <Compile Update="Result\Methods\FailureIf.ValueTask.cs">
       <DependentUpon>FailureIf.cs</DependentUpon>
     </Compile>
