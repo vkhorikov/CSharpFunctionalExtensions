@@ -1,6 +1,6 @@
-2.35.0
+2.35.1
 New features:
-* #450 Rename OnFailure to TapError
+* #454 Add TapErrorIf
 
 Fixed issues:
 * None
