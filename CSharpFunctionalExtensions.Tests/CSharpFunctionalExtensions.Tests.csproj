@@ -292,6 +292,27 @@
     <Compile Update="ResultTests\Extensions\EnsureTests.ValueTask.Left.cs">
       <DependentUpon>EnsureTests.ValueTask.cs</DependentUpon>
     </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureNotNull.ValueTask.Left.cs">
+      <DependentUpon>EnsureNotNull.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureNotNull.ValueTask.Right.cs">
+      <DependentUpon>EnsureNotNull.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureNotNull.ValueTask.cs">
+      <DependentUpon>EnsureNotNull.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureNotNull.Task.Left.cs">
+      <DependentUpon>EnsureNotNull.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureNotNull.Task.Right.cs">
+      <DependentUpon>EnsureNotNull.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureNotNull.Task.cs">
+      <DependentUpon>EnsureNotNull.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\EnsureNotNull.Base.cs">
+      <DependentUpon>EnsureNotNull.cs</DependentUpon>
+    </Compile>
     <Compile Update="ResultTests\Extensions\CheckTests.ValueTask.Right.cs">
       <DependentUpon>CheckTests.ValueTask.cs</DependentUpon>
     </Compile>
