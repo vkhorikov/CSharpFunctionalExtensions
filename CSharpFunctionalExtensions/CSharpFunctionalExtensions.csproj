@@ -339,7 +339,7 @@
     <Compile Update="Result\Methods\Extensions\Combine.ValueTask.cs">
       <DependentUpon>Combine.cs</DependentUpon>
     </Compile>
-	  <Compile Update="Result\Methods\Extensions\Ensure.Task.Left.cs">
+    <Compile Update="Result\Methods\Extensions\Ensure.Task.Left.cs">
       <DependentUpon>Ensure.Task.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Extensions\Ensure.Task.Right.cs">
