@@ -1,6 +1,6 @@
-2.35.1
+2.36.0
 New features:
-* #454 Add TapErrorIf
+* #366 EnsureNotNull
 
 Fixed issues:
 * None
