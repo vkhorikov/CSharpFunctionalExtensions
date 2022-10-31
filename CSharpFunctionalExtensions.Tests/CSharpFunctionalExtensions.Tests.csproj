@@ -34,6 +34,27 @@
     <Compile Update="ResultTests\Extensions\MapTests.Task.Right.cs">
       <DependentUpon>MapTests.Task.cs</DependentUpon>
     </Compile>
+    <Compile Update="ResultTests\Extensions\MapIfTests.Base.cs">
+      <DependentUpon>MapIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapIfTests.Task.cs">
+      <DependentUpon>MapIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapIfTests.Task.Left.cs">
+      <DependentUpon>MapIfTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapIfTests.Task.Right.cs">
+      <DependentUpon>MapIfTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapIfTests.ValueTask.cs">
+      <DependentUpon>MapIfTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapIfTests.ValueTask.Left.cs">
+      <DependentUpon>MapIfTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\MapIfTests.ValueTask.Right.cs">
+      <DependentUpon>MapIfTests.ValueTask.cs</DependentUpon>
+    </Compile>
     <Compile Update="ResultTests\Extensions\MapErrorTests.Task.Left.cs">
       <DependentUpon>MapErrorTests.Task.cs</DependentUpon>
     </Compile>
