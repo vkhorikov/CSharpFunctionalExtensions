@@ -120,6 +120,24 @@
     <Compile Update="Maybe\Extensions\Map.Task.cs">
       <DependentUpon>Map.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\MapIf.Task.cs">
+      <DependentUpon>MapIf.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapIf.Task.Right.cs">
+      <DependentUpon>MapIf.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapIf.Task.Left.cs">
+      <DependentUpon>MapIf.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapIf.ValueTask.Right.cs">
+      <DependentUpon>MapIf.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapIf.ValueTask.Left.cs">
+      <DependentUpon>MapIf.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\MapIf.ValueTask.cs">
+      <DependentUpon>MapIf.cs</DependentUpon>
+    </Compile>
     <Compile Update="Maybe\Extensions\Or.Task.cs">
       <DependentUpon>Or.cs</DependentUpon>
     </Compile>
