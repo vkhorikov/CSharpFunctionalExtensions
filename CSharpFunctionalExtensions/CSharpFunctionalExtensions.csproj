@@ -357,6 +357,24 @@
     <Compile Update="Result\Methods\Extensions\Ensure.ValueTask.cs">
       <DependentUpon>Ensure.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\EnsureNotNull.Task.Left.cs">
+      <DependentUpon>EnsureNotNull.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\EnsureNotNull.Task.Right.cs">
+      <DependentUpon>EnsureNotNull.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\EnsureNotNull.ValueTask.Left.cs">
+      <DependentUpon>EnsureNotNull.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\EnsureNotNull.ValueTask.Right.cs">
+      <DependentUpon>EnsureNotNull.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\EnsureNotNull.ValueTask.cs">
+      <DependentUpon>EnsureNotNull.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\EnsureNotNull.Task.cs">
+      <DependentUpon>EnsureNotNull.cs</DependentUpon>
+    </Compile>
     <Compile Update="Result\Methods\Extensions\Finally.Task.Right.cs">
       <DependentUpon>Finally.Task.cs</DependentUpon>
     </Compile>
