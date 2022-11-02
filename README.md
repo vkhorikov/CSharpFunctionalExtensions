@@ -547,21 +547,26 @@ Console.WriteLine(bananaInventory.MapError(ErrorEnhancer).ToString()); // "Faile
 
 ## Testing
 
-For extension methods on top of this library's `Result` and `Maybe` that you can use in tests,
-you can use [FluentAssertions](https://fluentassertions.com/)
-with [this NuGet package](https://www.nuget.org/packages/FluentAssertions.CSharpFunctionalExtensions/) ([GitHub link](https://github.com/pedromtcosta/FluentAssertions.CSharpFunctionalExtensions)).
+### CSharpFunctionalExtensions.FluentAssertions
 
-Example:
+A small set of extensions to make test assertions more fluent when using CSharpFunctionalExtensions! Check out the [repo for this library](https://github.com/NitroDevs/CSharpFunctionalExtensions.FluentAssertions) more information!
+
+Includes custom assertions for
+- Maybe
+- Result
+- Result<T>
+- Result<T, E>
+- UnitResult
+
+#### Example
 
 ```csharp
-// Arrange
-var myClass = new MyClass();
+var result = Result.Success(420);
 
-// Act
-Result result = myClass.TheMethod();
-
-// Assert
-result.Should().BeSuccess();
+result.Should().Succeed(); // passes
+result.Should().SucceedWith(420); // passes
+result.Should().SucceedWith(69); // throws
+result.Should().Fail(); // throws
 ```
 
 ## Read or Watch more about these ideas
