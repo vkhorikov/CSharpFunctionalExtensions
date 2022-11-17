@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 #if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
 using System.Runtime.CompilerServices;
@@ -17,6 +18,8 @@ namespace CSharpFunctionalExtensions
         private readonly bool _isValueSet;
 
         private readonly T _value;
+
+        private readonly IEqualityComparer<T> _equalityComparer;
 
         /// <summary>
         /// Returns the inner value if there's one, otherwise throws an InvalidOperationException with <paramref name="errorMessage"/>
@@ -65,17 +68,19 @@ namespace CSharpFunctionalExtensions
         public bool HasValue => _isValueSet;
         public bool HasNoValue => !HasValue;
 
-        private Maybe(T value)
+        private Maybe(T value, IEqualityComparer<T> equalityComparer = null)
         {
             if (value == null)
             {
                 _isValueSet = false;
                 _value = default;
+                _equalityComparer = EqualityComparer<T>.Default;
                 return;
             }
 
             _isValueSet = true;
             _value = value;
+            _equalityComparer = equalityComparer ?? EqualityComparer<T>.Default;
         }
 
         public static implicit operator Maybe<T>(T value)
@@ -90,9 +95,9 @@ namespace CSharpFunctionalExtensions
 
         public static implicit operator Maybe<T>(Maybe value) => None;
 
-        public static Maybe<T> From(T obj)
+        public static Maybe<T> From(T obj, IEqualityComparer<T> equalityComparer = null)
         {
-            return new Maybe<T>(obj);
+            return new Maybe<T>(obj, equalityComparer);
         }
 
         public static bool operator ==(Maybe<T> maybe, T value)
@@ -150,7 +155,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue || other.HasNoValue)
                 return false;
 
-            return EqualityComparer<T>.Default.Equals(_value, other._value);
+            return _equalityComparer.Equals(_value, other._value);
         }
 
         public override int GetHashCode()
@@ -158,7 +163,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue)
                 return 0;
 
-            return _value.GetHashCode();
+            return _equalityComparer.GetHashCode(_value);
         }
 
         public override string ToString()
