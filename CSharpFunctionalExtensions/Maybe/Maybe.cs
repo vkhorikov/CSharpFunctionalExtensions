@@ -142,7 +142,7 @@ namespace CSharpFunctionalExtensions
             return false;
         }
 
-        public bool Equals(Maybe<T> other)
+        public bool Equals(Maybe<T> other, IEqualityComparer<T> comparer = null)
         {
             if (HasNoValue && other.HasNoValue)
                 return true;
@@ -150,15 +150,15 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue || other.HasNoValue)
                 return false;
 
-            return EqualityComparer<T>.Default.Equals(_value, other._value);
+            return comparer.Equals(_value, other._value) ?? EqualityComparer<T>.Default.Equals(_value, other._value);
         }
 
-        public override int GetHashCode()
+        public override int GetHashCode(IEqualityComparer<T> comparer = null)
         {
             if (HasNoValue)
                 return 0;
 
-            return _value.GetHashCode();
+            return comparer.GetHashCode(_value) ?? _value.GetHashCode();
         }
 
         public override string ToString()
