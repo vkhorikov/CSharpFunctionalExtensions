@@ -150,7 +150,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue || other.HasNoValue)
                 return false;
 
-            return comparer.Equals(_value, other._value) ?? EqualityComparer<T>.Default.Equals(_value, other._value);
+            return comparer?.Equals(_value, other._value) ?? EqualityComparer<T>.Default.Equals(_value, other._value);
         }
 
         public override int GetHashCode(IEqualityComparer<T> comparer = null)
@@ -158,7 +158,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue)
                 return 0;
 
-            return comparer.GetHashCode(_value) ?? _value.GetHashCode();
+            return comparer?.GetHashCode(_value) ?? _value.GetHashCode();
         }
 
         public override string ToString()
