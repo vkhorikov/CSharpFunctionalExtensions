@@ -100,6 +100,11 @@ namespace CSharpFunctionalExtensions
             return new Maybe<T>(obj, equalityComparer);
         }
 
+        public static Maybe<T> From(T obj)
+        {
+            return new Maybe<T>(obj);
+        }
+
         public static bool operator ==(Maybe<T> maybe, T value)
         {
             if (value is Maybe<T>)
