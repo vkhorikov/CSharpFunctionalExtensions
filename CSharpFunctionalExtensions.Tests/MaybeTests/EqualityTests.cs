@@ -51,8 +51,8 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         [Fact]
         public void Two_maybes_of_the_same_content_are_comparable_by_comparer()
         {
-            Maybe<DummyClassWithoutEqualsOverrides> maybe1 = Maybe<DummyClassWithoutEqualsOverrides>.From(new DummyClassWithoutEqualsOverrides(1), new DummyComparer());
-            Maybe<DummyClassWithoutEqualsOverrides> maybe2 = Maybe<DummyClassWithoutEqualsOverrides>.From(new DummyClassWithoutEqualsOverrides(1), new DummyComparer());
+            Maybe<DummyClassWithoutEqualsOverrides> maybe1 = Maybe<DummyClassWithoutEqualsOverrides>.From(new DummyClassWithoutEqualsOverrides(1));
+            Maybe<DummyClassWithoutEqualsOverrides> maybe2 = Maybe<DummyClassWithoutEqualsOverrides>.From(new DummyClassWithoutEqualsOverrides(1));
 
             bool equals1 = maybe1.Equals(maybe2);
             bool equals2 = ((object)maybe1).Equals(maybe2);
@@ -60,11 +60,17 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             bool equals4 = maybe1 != maybe2;
             bool equals5 = maybe1.GetHashCode() == maybe2.GetHashCode();
 
-            equals1.Should().BeTrue();
-            equals2.Should().BeTrue();
-            equals3.Should().BeTrue();
-            equals4.Should().BeFalse();
-            equals5.Should().BeTrue();
+            var comparer = new MaybeEqualityComparer<DummyClassWithoutEqualsOverrides>(new DummyComparer());
+            bool equals6 = comparer.Equals(maybe1, maybe2);
+            bool equals7 = comparer.GetHashCode(maybe1) == comparer.GetHashCode(maybe2);
+
+            equals1.Should().BeFalse();
+            equals2.Should().BeFalse();
+            equals3.Should().BeFalse();
+            equals4.Should().BeTrue();
+            equals5.Should().BeFalse();
+            equals6.Should().BeTrue();
+            equals7.Should().BeTrue();
         }
 
         [Fact]
