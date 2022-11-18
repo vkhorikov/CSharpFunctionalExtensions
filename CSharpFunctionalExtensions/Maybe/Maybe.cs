@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 #if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
 using System.Runtime.CompilerServices;
