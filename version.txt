@@ -1,6 +1,6 @@
-2.36.1
+2.37.0
 New features:
-* #458 Add MapIf
+* #465 Adding optional IEqualityComparer for Maybe
 
 Fixed issues:
 * None

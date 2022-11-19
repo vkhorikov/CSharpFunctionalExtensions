@@ -584,6 +584,7 @@ result.Should().Fail(); // throws
 
 A big thanks to the project contributors!
 
+- [Julien Aspirot](https://github.com/julienasp)
 - [Kyle McMaster](https://github.com/KyleMcMaster)
 - [Vinícius Beloni Cubas](https://github.com/vinibeloni)
 - [rutkowskit](https://github.com/rutkowskit)
