@@ -78,6 +78,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
 
             result1.Should().NotBe(0);
             result2.Should().NotBe(0);
+            Math.Sign(result1).Should().NotBe(Math.Sign(result2));
         }
 
         [Fact]
@@ -91,6 +92,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
 
             result1.Should().NotBe(0);
             result2.Should().NotBe(0);
+            Math.Sign(result1).Should().NotBe(Math.Sign(result2));
         }
 
         [Fact]
@@ -104,6 +106,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
 
             result1.Should().NotBe(0);
             result2.Should().NotBe(0);
+            Math.Sign(result1).Should().NotBe(Math.Sign(result2));
         }
 
         [Fact]
