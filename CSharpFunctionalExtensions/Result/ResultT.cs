@@ -36,6 +36,14 @@ namespace CSharpFunctionalExtensions
             ResultCommonLogic.GetObjectData(this, info);
         }
 
+        public T GetValueOrDefault(T defaultValue = default)
+        {
+            if (IsFailure)
+                return defaultValue;
+
+            return Value;
+        }
+
         public static implicit operator Result<T>(T value)
         {
             if (value is IResult<T> result)
