@@ -109,7 +109,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 _components = components;
             }
 
-            protected override IEnumerable<object> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetEqualityComponents()
             {
                 return _components;
             }
@@ -124,7 +124,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 Value = value;
             }
 
-            protected override IEnumerable<object> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetEqualityComponents()
             {
                 yield return Value;
             }
@@ -139,7 +139,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 Value = value;
             }
 
-            protected override IEnumerable<object> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetEqualityComponents()
             {
                 yield return Value;
             }
@@ -156,7 +156,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 Amount = amount;
             }
 
-            protected override IEnumerable<object> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetEqualityComponents()
             {
                 yield return Currency.ToUpper();
                 yield return Math.Round(Amount, 2);
@@ -174,7 +174,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 City = city;
             }
 
-            protected override IEnumerable<object> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetEqualityComponents()
             {
                 yield return Street;
                 yield return City;

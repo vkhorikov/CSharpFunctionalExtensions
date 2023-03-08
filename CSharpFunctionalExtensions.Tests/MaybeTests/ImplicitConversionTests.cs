@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
@@ -35,7 +36,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             {
             }
 
-            protected override IEnumerable<object> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetEqualityComponents()
             {
                 yield return Value.ToLower();
             }

@@ -5,6 +5,7 @@ namespace CSharpFunctionalExtensions
 {
     [Serializable]
     public abstract class SimpleValueObject<T> : ValueObject
+        where T : IComparable
     {
         public T Value { get; }
 
@@ -13,7 +14,7 @@ namespace CSharpFunctionalExtensions
             Value = value;
         }
 
-        protected override IEnumerable<object> GetEqualityComponents()
+        protected override IEnumerable<IComparable> GetEqualityComponents()
         {
             yield return Value;
         }

@@ -151,7 +151,7 @@ namespace CSharpFunctionalExtensions.Tests.EntityTests
                 Value2 = value2;
             }
 
-            protected override IEnumerable<object> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetEqualityComponents()
             {
                 yield return Value1;
                 yield return Value2;
