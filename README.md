@@ -160,7 +160,7 @@ Console.WriteLine(noFruit.ToString()); // "No value"
 
 Use case: Procedurally accessing the inner value of the Maybe
 
-**Note**: Call this will throw a `InvalidOperationException` if there is no value
+**Note**: Calling this will throw a `InvalidOperationException` if there is no value
 
 ```csharp
 Maybe<string> apple = "apple";
@@ -168,6 +168,7 @@ Maybe<string> noFruit = Maybe<string>.None;
 
 Console.WriteLine(apple.GetValueOrThrow()); // "apple";
 Console.WriteLine(noFruit.GetValueOrThrow()); // throws InvalidOperationException !!
+Console.WriteLine(noFruit.GetValueOrThrow(new CustomException())); // throws CustomException !!
 ```
 
 #### HasValue and HasNoValue

@@ -30,6 +30,18 @@ namespace CSharpFunctionalExtensions
             return _value;
         }
 
+        /// <summary>
+        /// Returns the inner value if there's one, otherwise throws a custom exception with <paramref name="exception"/>
+        /// </summary>
+        /// <exception cref="Exception">Maybe has no value.</exception>
+        public T GetValueOrThrow(Exception exception)
+        {
+            if (HasNoValue)
+                throw exception;
+
+            return _value;
+        }
+
         public T GetValueOrDefault(T defaultValue = default)
         {
             if (HasNoValue)
