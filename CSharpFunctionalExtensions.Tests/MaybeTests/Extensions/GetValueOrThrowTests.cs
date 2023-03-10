@@ -29,10 +29,10 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             Func<int> func = () =>
             {
                 var maybe = Maybe<int>.None;
-                return maybe.GetValueOrThrow(new DumnmyDomainException(errorMessage));
+                return maybe.GetValueOrThrow(new DummyDomainException(errorMessage));
             };
 
-            func.Should().Throw<DumnmyDomainException>().WithMessage(errorMessage);
+            func.Should().Throw<DummyDomainException>().WithMessage(errorMessage);
         }
 
         [Fact]
@@ -47,9 +47,9 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             result.Should().Be(value);
         }
 
-        private class DumnmyDomainException : Exception
+        private class DummyDomainException : Exception
         {
-            public DumnmyDomainException(string message) 
+            public DummyDomainException(string message) 
                 : base(message)
             {
             }
