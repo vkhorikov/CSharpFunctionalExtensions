@@ -630,5 +630,23 @@
     <Compile Update="Result\Methods\Extensions\MapTry.ValueTask.Right.cs">
       <DependentUpon>MapTry.ValueTask.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\GetValueOrDefault.Task.cs">
+	  <DependentUpon>GetValueOrDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\GetValueOrDefault.Task.Right.cs">
+      <DependentUpon>GetValueOrDefault.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\GetValueOrDefault.Task.Left.cs">
+      <DependentUpon>GetValueOrDefault.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\GetValueOrDefault.ValueTask.Right.cs">
+      <DependentUpon>GetValueOrDefault.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\GetValueOrDefault.ValueTask.Left.cs">
+      <DependentUpon>GetValueOrDefault.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\GetValueOrDefault.ValueTask.cs">
+      <DependentUpon>GetValueOrDefault.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
