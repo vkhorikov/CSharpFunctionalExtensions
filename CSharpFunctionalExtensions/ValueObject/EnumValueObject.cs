@@ -7,7 +7,7 @@ namespace CSharpFunctionalExtensions
 {
     public abstract class EnumValueObject<TEnumeration, TId> : ValueObject
         where TEnumeration : EnumValueObject<TEnumeration, TId>
-        where TId : struct
+        where TId : struct, IComparable
     {
         private int? _cachedHashCode;
         
@@ -111,7 +111,7 @@ namespace CSharpFunctionalExtensions
 
         public override string ToString() => Name;
 
-        protected override IEnumerable<object> GetEqualityComponents()
+        protected override IEnumerable<IComparable> GetEqualityComponents()
         {
             yield return Id;
         }
@@ -224,7 +224,7 @@ namespace CSharpFunctionalExtensions
 
         public override string ToString() => Id;
 
-        protected override IEnumerable<object> GetEqualityComponents()
+        protected override IEnumerable<IComparable> GetEqualityComponents()
         {
             yield return Id;
         }

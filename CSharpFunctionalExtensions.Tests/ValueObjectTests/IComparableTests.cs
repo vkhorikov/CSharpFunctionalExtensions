@@ -78,6 +78,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
 
             result1.Should().NotBe(0);
             result2.Should().NotBe(0);
+            Math.Sign(result1).Should().NotBe(Math.Sign(result2));
         }
 
         [Fact]
@@ -91,6 +92,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
 
             result1.Should().NotBe(0);
             result2.Should().NotBe(0);
+            Math.Sign(result1).Should().NotBe(Math.Sign(result2));
         }
 
         [Fact]
@@ -104,6 +106,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
 
             result1.Should().NotBe(0);
             result2.Should().NotBe(0);
+            Math.Sign(result1).Should().NotBe(Math.Sign(result2));
         }
 
         [Fact]
@@ -129,7 +132,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 _components = components;
             }
 
-            protected override IEnumerable<object> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetEqualityComponents()
             {
                 yield return _components.Length;
                 foreach (string component in _components)
@@ -148,9 +151,9 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 SomeProperty = someProperty;
             }
 
-            protected override IEnumerable<object> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetEqualityComponents()
             {
-                yield return SomeProperty;
+                yield return SomeProperty.GetHashCode();
             }
         }
 
@@ -167,7 +170,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 Suffix = suffix;
             }
 
-            protected override IEnumerable<object> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetEqualityComponents()
             {
                 yield return First;
                 yield return Last;
