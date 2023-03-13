@@ -1,6 +1,7 @@
-2.37.0
+2.38.0
 New features:
-* #465 Adding optional IEqualityComparer for Maybe
+* #489 Add GetValueOrDefault to Result
+* #492 add a method overload for GetValueOrThrow, that enables a custom exception
 
 Fixed issues:
-* None
+* #490 Fix symmetry violation of ValueObject comparison
