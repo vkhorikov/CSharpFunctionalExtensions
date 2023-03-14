@@ -1,7 +1,6 @@
-2.38.0
+2.38.1
 New features:
-* #489 Add GetValueOrDefault to Result
-* #492 add a method overload for GetValueOrThrow, that enables a custom exception
+* #494 Add ToResult extension to Nullable
 
 Fixed issues:
-* #490 Fix symmetry violation of ValueObject comparison
+* None
