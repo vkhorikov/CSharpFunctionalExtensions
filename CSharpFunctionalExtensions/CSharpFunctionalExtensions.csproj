@@ -462,24 +462,6 @@
     <Compile Update="Result\Methods\Extensions\Match.Task.cs">
       <DependentUpon>Match.cs</DependentUpon>
     </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.Task.Left.cs">
-      <DependentUpon>OnFailure.Task.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.Task.Right.cs">
-      <DependentUpon>OnFailure.Task.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.ValueTask.Left.cs">
-      <DependentUpon>OnFailure.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.ValueTask.Right.cs">
-      <DependentUpon>OnFailure.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.ValueTask.cs">
-      <DependentUpon>OnFailure.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.Task.cs">
-      <DependentUpon>OnFailure.cs</DependentUpon>
-    </Compile>
     <Compile Update="Result\Methods\Extensions\OnFailureCompensate.Task.Right.cs">
       <DependentUpon>OnFailureCompensate.Task.cs</DependentUpon>
     </Compile>
