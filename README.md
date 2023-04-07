@@ -580,6 +580,7 @@ result.Should().Fail(); // throws
 ## Related Projects
 
 - [Typescript Functional Extensions](https://github.com/seangwright/typescript-functional-extensions)
+- [UniTask extensions for Unity](https://github.com/Razenpok/CSharpFunctionalExtensions.UniTask)
 
 ## Contributors
 
