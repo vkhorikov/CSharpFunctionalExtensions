@@ -32,6 +32,15 @@ namespace CSharpFunctionalExtensions.ValueTasks
             return await (await resultTask)
                 .Match(onSuccessValueTask, onFailureValueTask);
         }
+        
+        /// <summary>
+        ///     Returns the result of the given <paramref name="onSuccessValueTask"/> valueTask action if the calling Result is a success. Otherwise, it returns the result of the given <paramref name="onFailureValueTask"/> valueTask action.
+        /// </summary>
+        public static async ValueTask<K> Match<K, E>(this ValueTask<UnitResult<E>> resultTask, Func<ValueTask<K>> onSuccessValueTask, Func<E, ValueTask<K>> onFailureValueTask)
+        {
+            return await (await resultTask)
+                .Match(onSuccessValueTask, onFailureValueTask);
+        }
 
         /// <summary>
         ///     Invokes the given <paramref name="onSuccessValueTask"/> action if the calling Result is a success. Otherwise, it invokes the given <paramref name="onFailureValueTask"/> action.
