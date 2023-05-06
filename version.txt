@@ -1,6 +1,6 @@
-2.38.1
+2.39.0
 New features:
-* #494 Add ToResult extension to Nullable
+* #502 Allow returning a value from Match for UnitResult
 
 Fixed issues:
 * None
