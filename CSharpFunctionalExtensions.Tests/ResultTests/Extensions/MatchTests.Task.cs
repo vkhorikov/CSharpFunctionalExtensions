@@ -157,5 +157,25 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             AssertFailure();
         }
+        
+        [Fact]
+        public async Task Match_Task_UnitResult_E_Success_Returns_K()
+        {
+            var result = UnitResult.Success<E>().AsTask();
+
+            await result.Match(OnSuccess_K_Task, OnFailure_E_K_Task);
+
+            AssertSuccess();
+        }
+
+        [Fact]
+        public async Task Match_Task_UnitResult_E_Failure_Returns_K()
+        {
+            var result = UnitResult.Failure(E.Value).AsTask();
+
+            await result.Match(OnSuccess_K_Task, OnFailure_E_K_Task);
+
+            AssertFailure();
+        }
     }
 }
