@@ -276,6 +276,24 @@
     <Compile Update="Result\Methods\Extensions\TapIf.ValueTask.cs">
       <DependentUpon>TapIf.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\TapTry.Task.cs">
+      <DependentUpon>TapTry.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapTry.Task.Left.cs">
+      <DependentUpon>TapTry.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapTry.Task.Right.cs">
+      <DependentUpon>TapTry.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapIfTry.Task.cs">
+      <DependentUpon>TapIfTry.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapIfTry.Task.Left.cs">
+      <DependentUpon>TapIfTry.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\TapIfTry.Task.Right.cs">
+      <DependentUpon>TapIfTry.Task.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
