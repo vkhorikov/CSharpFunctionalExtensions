@@ -1,6 +1,6 @@
-2.39.1
+2.39.2
 New features:
-* #505 Adding TapTry and TapTryIf
+* #506 Adding Task support to TapTry and TapIfTry
 
 Fixed issues:
 * None
