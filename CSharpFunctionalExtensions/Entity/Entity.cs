@@ -1,6 +1,6 @@
 ﻿namespace CSharpFunctionalExtensions
 {
-    public abstract class Entity<TId>
+    public abstract class Entity<TId> : IEntity<TId>
     {
         public virtual TId Id { get; protected set; }
 
@@ -30,7 +30,7 @@
             return Id.Equals(other.Id);
         }
 
-        private bool IsTransient()
+        public bool IsTransient()
         {
             return Id is null || Id.Equals(default(TId));
         }
