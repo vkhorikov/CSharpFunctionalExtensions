@@ -1,6 +1,8 @@
-﻿namespace CSharpFunctionalExtensions
+﻿using System;
+
+namespace CSharpFunctionalExtensions
 {
-    public abstract class Entity<TId>
+    public abstract class Entity<TId> : IComparable, IComparable<Entity<TId>> where TId : IComparable<TId>
     {
         public virtual TId Id { get; protected set; }
 
@@ -54,6 +56,22 @@
         public override int GetHashCode()
         {
             return (ValueObject.GetUnproxiedType(this).ToString() + Id).GetHashCode();
+        }
+
+        public virtual int CompareTo(Entity<TId> other)
+        {
+            if (other is null)
+                return 1;
+
+            if (ReferenceEquals(this, other))
+                return 0;
+
+            return Id.CompareTo(other.Id);
+        }
+
+        public virtual int CompareTo(object other)
+        {
+            return CompareTo(other as Entity<TId>);
         }
     }
 

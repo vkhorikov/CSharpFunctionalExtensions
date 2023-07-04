@@ -59,8 +59,8 @@ namespace CSharpFunctionalExtensions
             return
                 GetEqualityComponents().Zip(
                     other.GetEqualityComponents(),
-                    (left, rigth) =>
-                        left?.CompareTo(rigth) ?? (rigth is null ? 0 : -1))
+                    (left, right) =>
+                        left?.CompareTo(right) ?? (right is null ? 0 : -1))
                 .FirstOrDefault(cmp => cmp != 0);
         }
 
