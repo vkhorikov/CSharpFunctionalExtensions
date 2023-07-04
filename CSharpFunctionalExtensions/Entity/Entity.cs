@@ -2,7 +2,8 @@
 
 namespace CSharpFunctionalExtensions
 {
-    public abstract class Entity<TId> : IComparable, IComparable<Entity<TId>> where TId : IComparable<TId>
+    public abstract class Entity<TId> : IComparable, IComparable<Entity<TId>>
+        where TId : IComparable<TId>
     {
         public virtual TId Id { get; protected set; }
 

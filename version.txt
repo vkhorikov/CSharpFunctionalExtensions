@@ -1,6 +1,6 @@
-2.39.2
+2.40.0
 New features:
-* #506 Adding Task support to TapTry and TapIfTry
+* #510 Make Entity implement IComparable
 
 Fixed issues:
 * None
