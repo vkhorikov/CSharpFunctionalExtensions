@@ -1,7 +1,7 @@
 #if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
 using System.Runtime.CompilerServices;
 #endif
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
 #endif
 
@@ -13,7 +13,7 @@ namespace CSharpFunctionalExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
             out string error)
@@ -29,7 +29,7 @@ namespace CSharpFunctionalExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetValue(
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
             out T value)
@@ -42,7 +42,7 @@ namespace CSharpFunctionalExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
             out string error)
@@ -55,11 +55,11 @@ namespace CSharpFunctionalExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetValue(
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
             out T value,
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(false), MaybeNullWhen(true)]
 #endif
             out string error
@@ -74,11 +74,11 @@ namespace CSharpFunctionalExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
             out string error,
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(false), MaybeNullWhen(true)]
 #endif
             out T value
@@ -97,7 +97,7 @@ namespace CSharpFunctionalExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetValue(
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
             out T value)
@@ -110,7 +110,7 @@ namespace CSharpFunctionalExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
             out E error)
@@ -123,11 +123,11 @@ namespace CSharpFunctionalExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetValue(
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
             out T value,
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(false), MaybeNullWhen(true)]
 #endif
             out E error
@@ -142,11 +142,11 @@ namespace CSharpFunctionalExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
             out E error,
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(false), MaybeNullWhen(true)]
 #endif
             out T value
@@ -164,7 +164,7 @@ namespace CSharpFunctionalExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public bool TryGetError(
-#if NET_5_0_OR_GREATER
+#if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
             out E error)
