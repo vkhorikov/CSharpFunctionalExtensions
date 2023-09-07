@@ -1,6 +1,6 @@
-2.40.0
+2.40.1
 New features:
-* #510 Make Entity implement IComparable
+* None
 
 Fixed issues:
-* None
+* #513 fix preprocessor conditions
