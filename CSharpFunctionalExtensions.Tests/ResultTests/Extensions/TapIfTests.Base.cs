@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using System;
+using FluentAssertions;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 {
@@ -122,6 +124,17 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         {
             predicateExecuted = true;
             return b;
+        }
+
+        protected Func<bool> GetPredicate(bool value)
+        {
+            return () =>
+            {
+                predicateExecuted.Should().BeFalse();
+
+                predicateExecuted = true;
+                return value;
+            };
         }
     }
 }
