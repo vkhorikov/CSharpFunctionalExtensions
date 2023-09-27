@@ -146,6 +146,21 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         [InlineData(true, false)]
         [InlineData(false, true)]
         [InlineData(false, false)]
+        public void TapIf_Task_Left_executes_action_per_predicate_and_returns_self(bool isSuccess, bool condition)
+        {
+            Result result = Result.SuccessIf(isSuccess, condition, ErrorMessage);
+
+            var returned = result.AsTask().TapIf(GetPredicate(condition), Action).Result;
+
+            actionExecuted.Should().Be(isSuccess && condition);
+            result.Should().Be(returned);
+        }
+
+        [Theory]
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
         public void TapIf_Task_Left_T_executes_action_T_per_predicate_and_returns_self(bool isSuccess, bool condition)
         {
             Result<bool> result = Result.SuccessIf(isSuccess, condition, ErrorMessage);
