@@ -586,6 +586,7 @@ result.Should().Fail(); // throws
 
 A big thanks to the project contributors!
 
+- [Scheichsbeutel](https://github.com/Scheichsbeutel)
 - [Alexey Malinin](https://github.com/TechnoBerry)
 - [Robert Larkins](https://github.com/robertlarkins)
 - [tinytownsoftware](https://github.com/tinytownsoftware)

@@ -1,6 +1,6 @@
-2.40.1
+2.40.2
 New features:
-* None
+* #517 Proposal for a TapIf overload
 
 Fixed issues:
-* #513 fix preprocessor conditions
+* None
