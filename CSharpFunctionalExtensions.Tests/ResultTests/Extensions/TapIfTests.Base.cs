@@ -71,7 +71,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             actionExecuted = true;
             return Result.Success().AsTask();
         }
-
+        
         protected Task<Result<K>> Task_Func_Result_K(bool _)
         {
             actionExecuted = true;
@@ -135,6 +135,12 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
                 predicateExecuted = true;
                 return value;
             };
+        }
+        
+        protected Task<bool> Task_Predicate(bool a)
+        {
+            predicateExecuted = true;
+            return Task.FromResult(a);
         }
     }
 }

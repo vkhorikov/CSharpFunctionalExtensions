@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
@@ -138,6 +139,38 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             Result<bool, E> result = Result.SuccessIf(isSuccess, condition, E.Value);
 
             var returned = result.AsTask().TapIf(Predicate, Task_Action_T).Result;
+
+            predicateExecuted.Should().Be(isSuccess);
+            actionExecuted.Should().Be(isSuccess && condition);
+            result.Should().Be(returned);
+        }
+        
+        [Theory]
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public async Task TapIf_Task_T_E_executes_action_Task_T_per_predicate_and_returns_self(bool isSuccess, bool condition)
+        {
+            Result<bool, E> result = Result.SuccessIf(isSuccess, condition, E.Value);
+
+            var returned = await result.AsTask().TapIf(() => Task_Predicate(condition), Task_Action_T);
+
+            predicateExecuted.Should().Be(isSuccess);
+            actionExecuted.Should().Be(isSuccess && condition);
+            result.Should().Be(returned);
+        }
+
+        [Theory]
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public async Task TapIf_Task_T_E_executes_action_Task_T_per_predicate_T_and_returns_self(bool isSuccess, bool condition)
+        {
+            Result<bool, E> result = Result.SuccessIf(isSuccess, condition, E.Value);
+
+            var returned = await result.AsTask().TapIf(Task_Predicate, Task_Action_T);
 
             predicateExecuted.Should().Be(isSuccess);
             actionExecuted.Should().Be(isSuccess && condition);
