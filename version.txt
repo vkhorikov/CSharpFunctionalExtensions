@@ -1,6 +1,6 @@
-2.40.2
+2.40.3
 New features:
-* #517 Proposal for a TapIf overload
+* #520 Add two additional TapIf.Task functions
 
 Fixed issues:
 * None
