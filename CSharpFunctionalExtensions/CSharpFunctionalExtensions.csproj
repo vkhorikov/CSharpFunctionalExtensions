@@ -6,7 +6,7 @@
     <Description>CSharpFunctionalExtensions - functional extensions for C#</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>C# Functional</PackageTags>
-    <PackageLicense>https://github.com/vkhorikov/CSharpFunctionalExtensions/blob/master/LICENSE</PackageLicense>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://enterprisecraftsmanship.com/ps-func</PackageProjectUrl>
     <RepositoryUrl>https://github.com/vkhorikov/CSharpFunctionalExtensions/</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
