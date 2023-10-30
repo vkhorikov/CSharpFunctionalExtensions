@@ -570,6 +570,16 @@ result.Should().SucceedWith(69); // throws
 result.Should().Fail(); // throws
 ```
 
+## Analyzers
+
+### [CSharpFunctionalExtensions.Analyzers](https://github.com/AlmarAubel/CSharpFunctionalExtensions.Analyzers)
+A Roslyn analyzer package that provides warnings and recommendations to prevent misuse of `Result` objects in `CSharpFunctionalExtensions`. Ensures more robust implementation when working with Result types.
+
+Available on [NuGet](https://www.nuget.org/packages/CSharpFunctionalExtensions.Analyzers)
+```bash
+dotnet add package CSharpFunctionalExtensions.Analyzers
+```
+
 ## Read or Watch more about these ideas
 
 - [Functional C#: Primitive obsession](https://enterprisecraftsmanship.com/2015/03/07/functional-c-primitive-obsession/)
