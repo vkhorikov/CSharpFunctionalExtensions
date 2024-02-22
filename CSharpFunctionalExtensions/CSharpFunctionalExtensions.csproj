@@ -118,7 +118,13 @@
       <DependentUpon>GetValueOrDefault.cs</DependentUpon>
     </Compile>
     <Compile Update="Maybe\Extensions\Map.Task.cs">
-      <DependentUpon>Map.cs</DependentUpon>
+	    <DependentUpon>Map.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\AsMaybe.Task.cs">
+	    <DependentUpon>AsMaybe.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\AsMaybe.ValueTask.cs">
+	    <DependentUpon>AsMaybe.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Extensions\MapIf.Task.cs">
       <DependentUpon>MapIf.cs</DependentUpon>
