@@ -397,6 +397,12 @@
     <Compile Update="ResultTests\Extensions\MatchTests.ValueTask.cs">
       <DependentUpon>MatchTests.cs</DependentUpon>
     </Compile>
+    <Compile Update="MaybeTests\Extensions\AsMaybeTests.Task.cs">
+      <DependentUpon>AsMaybeTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\AsMaybeTests.ValueTask.cs">
+      <DependentUpon>AsMaybeTests.cs</DependentUpon>
+    </Compile>
     <Compile Update="MaybeTests\Extensions\BindTests.Task.Right.cs">
       <DependentUpon>BindTests.Task.cs</DependentUpon>
     </Compile>
