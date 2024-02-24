@@ -121,27 +121,6 @@
     <Compile Update="ResultTests\Extensions\FinallyTests.Base.cs">
       <DependentUpon>FinallyTests.cs</DependentUpon>
     </Compile>
-    <Compile Update="ResultTests\Extensions\OnFailureTests.ValueTask.Left.cs">
-      <DependentUpon>OnFailureTests.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ResultTests\Extensions\OnFailureTests.ValueTask.Right.cs">
-      <DependentUpon>OnFailureTests.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ResultTests\Extensions\OnFailureTests.ValueTask.cs">
-      <DependentUpon>OnFailureTests.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ResultTests\Extensions\OnFailureTests.Task.Left.cs">
-      <DependentUpon>OnFailureTests.Task.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ResultTests\Extensions\OnFailureTests.Task.Right.cs">
-      <DependentUpon>OnFailureTests.Task.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ResultTests\Extensions\OnFailureTests.Task.cs">
-      <DependentUpon>OnFailureTests.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ResultTests\Extensions\OnFailureTests.Base.cs">
-      <DependentUpon>OnFailureTests.cs</DependentUpon>
-    </Compile>
     <Compile Update="ResultTests\Extensions\OnSuccessTryTests.Task.Left.cs">
       <DependentUpon>OnSuccessTryTests.Task.cs</DependentUpon>
     </Compile>

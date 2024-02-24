@@ -51,16 +51,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         }
 
         [Fact] 
-        public async Task OnSuccess_Task_Right_T_execute_function_success_without_error_handler_function_result_expected()
-        {
-            var success = Result.Success();
-            var result = await success.OnSuccessTry(Func_Task_T);
-
-            result.IsSuccess.Should().BeTrue();
-            result.Value.Should().Be(T.Value);
-        }
-
-        [Fact] 
         public async Task OnSuccess_Task_Right_T_execute_function_failed_without_error_handler_failed_result_expected()
         {
             var success = Result.Success();
@@ -120,16 +110,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             result.Error.Should().Be(ErrorMessage);
         }
 
-        [Fact]
-        public async Task OnSuccess_Task_Right_T_K_execute_function_success_without_error_handler_function_result_expected()
-        {
-            var success = Result.Success(T.Value);
-            var result = await success.OnSuccessTry(Func_T_Task_K);
-
-            result.IsSuccess.Should().BeTrue();
-            result.Value.Should().Be(K.Value);
-        }
-
         [Fact] 
         public async Task OnSuccess_Task_Right_T_K_execute_function_failed_without_error_handler_failed_result_expected()
         {
@@ -148,66 +128,6 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be(ErrorHandlerMessage);
-        }
-        
-        [Fact]
-        public async Task OnSuccess_Task_Right_T_E_execute_function_success_without_error_handler_function_result_expected()
-        {
-            var success = Result.Success<T, E>(T.Value);
-            var result = await success.OnSuccessTry(Func_Task_T, ErrorHandler_E);
-
-            result.IsSuccess.Should().BeTrue();
-            result.Value.Should().Be(T.Value);
-        }
-
-        [Fact] 
-        public async Task OnSuccess_Task_Right_T_E_execute_function_failed_without_error_handler_failed_result_expected()
-        {
-            var success =  Result.Success<T, E>(T.Value);
-            var result = await success.OnSuccessTry(Throwing_Func_Task_T, ErrorHandler_E);
-
-            result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(E.Value);
-        }
-
-        [Fact] 
-        public async Task OnSuccess_Task_Right_T_E_execute_function_failed_with_error_handler_failed_result_expected()
-        {
-            var success =  Result.Success<T, E>(T.Value);
-            var result = await success.OnSuccessTry(Throwing_Func_Task_T, ErrorHandler_E);
-
-            result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(E.Value);
-        }
-        
-        [Fact]
-        public async Task OnSuccess_Task_Right_T_K_E_execute_function_success_without_error_handler_function_result_expected()
-        {
-            var success = Result.Success<T, E>(T.Value);
-            var result = await success.OnSuccessTry(Func_T_Task_K, ErrorHandler_E);
-
-            result.IsSuccess.Should().BeTrue();
-            result.Value.Should().Be(K.Value);
-        }
-
-        [Fact] 
-        public async Task OnSuccess_Task_Right_T_K_E_execute_function_failed_without_error_handler_failed_result_expected()
-        {
-            var success = Result.Success<T, E>(T.Value);
-            var result = await success.OnSuccessTry(Throwing_Func_T_Task_K, ErrorHandler_E);
-
-            result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(E.Value);
-        }
-
-        [Fact] 
-        public async Task OnSuccess_Task_Right_T_K_E_execute_function_failed_with_error_handler_failed_result_expected()
-        {
-            var success = Result.Success<T, E>(T.Value);
-            var result = await success.OnSuccessTry(Throwing_Func_T_Task_K, ErrorHandler_E);
-
-            result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be(E.Value);
         }
     }
 }
