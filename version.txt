@@ -1,6 +1,6 @@
-2.40.3
+2.41.0
 New features:
-* #520 Add two additional TapIf.Task functions
+* #531 Added Task and ValueTask versions for AsMaybe
 
 Fixed issues:
 * None
