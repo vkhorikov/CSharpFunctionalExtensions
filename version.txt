@@ -1,6 +1,6 @@
-2.41.0
+2.42.0
 New features:
-* #531 Added Task and ValueTask versions for AsMaybe
+* #540 Add BindZip to return the Tuple of merged Binds
 
 Fixed issues:
 * None

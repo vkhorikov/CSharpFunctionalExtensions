@@ -596,6 +596,7 @@ dotnet add package CSharpFunctionalExtensions.Analyzers
 
 A big thanks to the project contributors!
 
+- [Pavel Zemlianikin](https://github.com/PNZeml)
 - [Simon Lang](https://github.com/redx177)
 - [Nils Vreman](https://github.com/NilsVreman)
 - [Scheichsbeutel](https://github.com/Scheichsbeutel)
