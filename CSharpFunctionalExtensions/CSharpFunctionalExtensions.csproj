@@ -300,6 +300,9 @@
     <Compile Update="Result\Methods\Extensions\TapIfTry.Task.Right.cs">
       <DependentUpon>TapIfTry.Task.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\BindZip.Task.cs">
+      <DependentUpon>BindZip.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
