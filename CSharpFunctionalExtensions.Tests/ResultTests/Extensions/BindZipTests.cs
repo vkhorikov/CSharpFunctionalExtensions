@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Runtime.CompilerServices;
+using FluentAssertions;
 using FluentAssertions.Execution;
 using Xunit;
 
@@ -11,14 +12,28 @@ public class BindZipTests : BindTestsBase
     {
         Result<(T, K)> output = Success_T(T.Value).BindZip(_ => Success_K());
 
-        using var _ = new AssertionScope();
+        using (var _ = new AssertionScope())
+        {
+            AssertSuccess(output);
 
-        AssertSuccess(output);
+            (var _, var _, (T t, K k)) = output;
+            t.Should().Be(T.Value);
+            k.Should().Be(K.Value);
+        }
+    }
 
-        (var _, var _, (T first, K second)) = output;
+    [Fact]
+    public void BindZip_T_With_Bind_K_eight_times_returns_success()
+    {
+        Result<(T, K, K, K, K, K, K, K)> output = Success_T(T.Value)
+            .BindZip(_                     => Success_K())
+            .BindZip((_, _)                => Success_K())
+            .BindZip((_, _, _)             => Success_K())
+            .BindZip((_, _, _, _)          => Success_K())
+            .BindZip((_, _, _, _, _)       => Success_K())
+            .BindZip((_, _, _, _, _, _)    => Success_K())
+            .BindZip((_, _, _, _, _, _, _) => Success_K());
 
-        first.Should().Be(T.Value);
-
-        second.Should().Be(K.Value);
+        ((ITuple)output.Value).Length.Should().Be(8);
     }
 }

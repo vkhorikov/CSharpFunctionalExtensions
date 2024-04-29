@@ -303,6 +303,12 @@
     <Compile Update="Result\Methods\Extensions\BindZip.Task.cs">
       <DependentUpon>BindZip.cs</DependentUpon>
     </Compile>
+    <Compile Update="Result\Methods\Extensions\BindZip.Task.Left.cs">
+      <DependentUpon>BindZip.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\BindZip.Task.Right.cs">
+      <DependentUpon>BindZip.Task.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

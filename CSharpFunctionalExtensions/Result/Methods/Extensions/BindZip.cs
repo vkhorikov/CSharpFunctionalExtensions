@@ -6,9 +6,11 @@ namespace CSharpFunctionalExtensions
     public static partial class ResultExtensions
     {
         /// <summary>
-        ///     Selects result from the return value of a given function and merge into combined result.
+        ///     Selects result from the return value of a given function. If the calling Result is a success,
+        ///     values of both results zip into a tuple. If the calling Result is a failure, a new failure
+        ///     result is returned instead.
         /// </summary>
-        public static Result<(T, K)> BindZip<T, K>(
+        public static Result<(T First, K Second)> BindZip<T, K>(
             this Result<T> result, Func<T, Result<K>> func
         ) {
             if (result.IsFailure)
@@ -23,7 +25,7 @@ namespace CSharpFunctionalExtensions
                 : Result.Success((result.Value, result2.Value));
         }
 
-        public static Result<ValueTuple<T, K>, E> BindZip<T, K, E>(
+        public static Result<(T First, K Second), E> BindZip<T, K, E>(
             this Result<T, E> result, Func<T, Result<K, E>> func
         ) {
             if (result.IsFailure)
@@ -38,7 +40,7 @@ namespace CSharpFunctionalExtensions
                 : Result.Success<(T, K), E>((result.Value, r2.Value));
         }
         
-        public static Result<(T1, T2, K)> BindZip<T1, T2, K>(
+        public static Result<(T1 First, T2 Second, K Third)> BindZip<T1, T2, K>(
             this Result<(T1, T2)> result, Func<T1, T2, Result<K>> func
         ) {
             if (result.IsFailure)
@@ -54,7 +56,7 @@ namespace CSharpFunctionalExtensions
                 : Result.Success((v.Item1, v.Item2, r2.Value));
         }
 
-        public static Result<(T1, T2, K), E> BindZip<T1, T2, K, E>(
+        public static Result<(T1 First, T2 Second, K Third), E> BindZip<T1, T2, K, E>(
             this Result<(T1, T2), E> result, Func<T1, T2, Result<K, E>> func
         ) {
             if (result.IsFailure)
