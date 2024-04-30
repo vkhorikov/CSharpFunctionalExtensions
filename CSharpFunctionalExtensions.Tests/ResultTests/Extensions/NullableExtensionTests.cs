@@ -41,7 +41,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void Convert_nullable_class_to_result_pass()
         {
             // Arrange
-            MyClass? myClass = new();
+            MyClass myClass = new();
 
             // Act
             var result = myClass.ToResult("MyClass is not set.");
@@ -55,7 +55,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public void Convert_nullable_class_to_result_fail()
         {
             // Arrange
-            MyClass? myClass = default;
+            MyClass myClass = default;
 
             // Act
             var result = myClass.ToResult("MyClass is not set.");
@@ -70,8 +70,8 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public async Task Convert_task_nullable_class_to_result_pass()
         {
             // Arrange
-            MyClass? my = new();
-            var myClassTask = Task.FromResult((MyClass?)my);
+            MyClass my = new();
+            var myClassTask = Task.FromResult(my);
 
             // Act
             var result = await myClassTask.ToResultAsync("MyClass is not set.");
@@ -85,7 +85,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public async Task Convert_task_nullable_class_to_result_fail()
         {
             // Arrange
-            MyClass? my = default;
+            MyClass my = null;
             var myClassTask = Task.FromResult(my);
 
             // Act
@@ -100,9 +100,9 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public async Task Convert_valuetask_nullable_class_to_result_pass()
         {
             // Arrange
-            MyClass? my = new();
+            MyClass my = new();
 
-            var myClassTask = ValueTask.FromResult((MyClass?)my);
+            var myClassTask = ValueTask.FromResult(my);
 
             // Act
             var result = await myClassTask.ToResultAsync("MyClass is not set.");
@@ -116,7 +116,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public async Task Convert_valuetask_nullable_class_to_result_fail()
         {
             // Arrange
-            MyClass? my = null;
+            MyClass my = null;
             var myClassTask = ValueTask.FromResult(my);
 
             // Act
@@ -178,7 +178,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         public async Task Convert_valuetask_nullable_struct_to_result_fail()
         {
             // Arrange
-            MyClass? my = null;
+            MyClass my = null;
             var myClassTask = ValueTask.FromResult(my);
 
             // Act
@@ -194,5 +194,4 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
     {
     }
 }
-
 #endif

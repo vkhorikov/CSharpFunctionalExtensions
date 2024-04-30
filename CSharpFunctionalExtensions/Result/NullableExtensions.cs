@@ -14,7 +14,7 @@ namespace CSharpFunctionalExtensions
 
             return Result.Success<T, E>(nullable.Value);
         }
-        public static Result<T, E> ToResult<T, E>(this T? obj, E error)
+        public static Result<T, E> ToResult<T, E>(this T obj, E error)
             where T : class
         {
             if (obj == null)
@@ -30,7 +30,7 @@ namespace CSharpFunctionalExtensions
             return nullable.ToResult(errors);
         }
 
-        public static async Task<Result<T, E>> ToResultAsync<T, E>(this Task<T?> nullableTask, E errors)
+        public static async Task<Result<T, E>> ToResultAsync<T, E>(this Task<T> nullableTask, E errors)
         where T : class
         {
             var nullable = await nullableTask.ConfigureAwait(false);
@@ -44,7 +44,7 @@ namespace CSharpFunctionalExtensions
             return nullable.ToResult(errors);
         }
 
-        public static async ValueTask<Result<T, E>> ToResultAsync<T, E>(this ValueTask<T?> nullableTask, E errors)
+        public static async ValueTask<Result<T, E>> ToResultAsync<T, E>(this ValueTask<T> nullableTask, E errors)
             where T : class
         {
             var nullable = await nullableTask.ConfigureAwait(false);
@@ -52,5 +52,4 @@ namespace CSharpFunctionalExtensions
         }
     }
 }
-
 #endif

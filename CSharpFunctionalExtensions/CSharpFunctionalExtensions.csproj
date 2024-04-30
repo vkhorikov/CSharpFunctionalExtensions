@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;net461;netstandard2.0;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
     <Authors>Vladimir Khorikov</Authors>
     <Description>CSharpFunctionalExtensions - functional extensions for C#</Description>
@@ -20,12 +20,6 @@
     <NoWarn>1591;1701;1702</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
-    <AssemblyTitle>CSharpFunctionalExtensions .NET 4.5</AssemblyTitle>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
-    <AssemblyTitle>CSharpFunctionalExtensions .NET 4.6.1</AssemblyTitle>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
     <AssemblyTitle>CSharpFunctionalExtensions .NET Standard 2.0</AssemblyTitle>
   </PropertyGroup>
@@ -500,24 +494,6 @@
     </Compile>
     <Compile Update="Result\Methods\Extensions\Match.Task.cs">
       <DependentUpon>Match.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.Task.Left.cs">
-      <DependentUpon>OnFailure.Task.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.Task.Right.cs">
-      <DependentUpon>OnFailure.Task.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.ValueTask.Left.cs">
-      <DependentUpon>OnFailure.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.ValueTask.Right.cs">
-      <DependentUpon>OnFailure.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.ValueTask.cs">
-      <DependentUpon>OnFailure.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Result\Methods\Extensions\OnFailure.Task.cs">
-      <DependentUpon>OnFailure.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Extensions\OnFailureCompensate.Task.Right.cs">
       <DependentUpon>OnFailureCompensate.Task.cs</DependentUpon>
