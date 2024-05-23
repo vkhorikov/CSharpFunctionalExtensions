@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>net40;net45;net461;netstandard2.0;net5.0;net6.0</TargetFrameworks>
+        <PackageId>CSharpFunctionalExtensions.StrongName</PackageId>
+        <Authors>Vladimir Khorikov</Authors>
+        <Description>CSharpFunctionalExtensions - functional extensions for C#</Description>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageTags>C# Functional</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://enterprisecraftsmanship.com/ps-func</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/vkhorikov/CSharpFunctionalExtensions/</RepositoryUrl>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <LangVersion>9.0</LangVersion>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <NoWarn>1591;1701;1702</NoWarn>
+        <AssemblyOriginatorKeyFile>CSharpFunctionalExtensions.snk</AssemblyOriginatorKeyFile>
+        <SignAssembly>true</SignAssembly>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
+        <AssemblyTitle>CSharpFunctionalExtensions (with a strong name) .NET 4.5</AssemblyTitle>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
+        <AssemblyTitle>CSharpFunctionalExtensions (with a strong name) .NET 4.6.1</AssemblyTitle>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+        <AssemblyTitle>CSharpFunctionalExtensions (with a strong name) .NET Standard 2.0</AssemblyTitle>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(TargetFramework)'=='net5.0'">
+        <AssemblyTitle>CSharpFunctionalExtensions (with a strong name) .NET 5.0</AssemblyTitle>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+        <AssemblyTitle>CSharpFunctionalExtensions (with a strong name) .NET 6.0</AssemblyTitle>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)'=='net40'">
+        <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup Condition="!$(DefineConstants.Contains('NET5_0_OR_GREATER')) and !$(DefineConstants.Contains('NETCORE'))">
+        <EmbeddedResource Remove="Result\Json\Serialization\**" />
+        <None Remove="Result\Json\Serialization\**" />
+        <Compile Include="..\CSharpFunctionalExtensions\**\*.cs"
+                 Exclude="..\CSharpFunctionalExtensions\obj\**\*.cs;..\CSharpFunctionalExtensions\Result\Json\Serialization\**"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="$(DefineConstants.Contains('NET5_0_OR_GREATER')) or $(DefineConstants.Contains('NETCORE'))">
+        <Compile Include="..\CSharpFunctionalExtensions\**\*.cs" Exclude="..\CSharpFunctionalExtensions\obj\**\*.cs"/>
+    </ItemGroup>
+
+</Project>

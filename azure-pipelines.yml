@@ -17,7 +17,7 @@ stages:
     displayName: Read versions
     steps:
     - powershell: |
-        $newVersion = Get-Content "$(Build.SourcesDirectory)/$(versionFileName)"  -First 1
+        $newVersion = Get-Content "$(Build.SourcesDirectory)/$(versionFileName)" -First 1
         $releaseInfo = (Get-Content "$(Build.SourcesDirectory)/$(versionFileName)" | Select-Object -Skip 1).Replace('\r\n', '\n')
         echo "##vso[task.setvariable variable=newVersion;isOutput=true]$($newVersion)"
         echo "##vso[task.setvariable variable=releaseInfo;isOutput=true]$($releaseInfo)"
@@ -56,10 +56,14 @@ stages:
     - script: |
         docker create --name build-container build-image
         docker cp build-container:./app/out ./out
+        docker cp build-container:./app/out-sn ./out-sn
       displayName: Copy artifacts
 
     - publish: ./out
       artifact: NuGetPackage
+
+    - publish: ./out-sn
+      artifact: NuGetPackageStrongName
 
   - job: Publish
     dependsOn:
@@ -71,7 +75,7 @@ stages:
       currentVersion: $[ dependencies.Version.outputs['readCurrentVersionStep.currentVersion'] ]
       contentTypeHeader1: 'Content-Type: application/json'
       contentTypeHeader2: 'Content-Type: application/octet-stream'
-      authHeader: 'Authorization: token $(gitHubToken)'
+      authHeader: 'Authorization: Bearer $(gitHubToken)'
       createReleaseRequest: '{ "tag_name": "v$(newVersion)", "target_commitish": "master", "name": "v$(newVersion)", "body": "$(releaseInfo)", "draft": false, "prerelease": false }'
     condition: ne(dependencies.Version.outputs['readNewVersionStep.newVersion'], dependencies.Version.outputs['readCurrentVersionStep.currentVersion'])
     steps:
@@ -84,13 +88,24 @@ stages:
     - download: current
       artifact: NuGetPackage
 
+    - download: current
+      artifact: NuGetPackageStrongName
+
     - script: |
         curl -X POST -s -H '$(contentTypeHeader1)' -H '$(authHeader)' https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases -d '$(createReleaseRequest)'
         $json = Invoke-RestMethod -Method 'GET' -Uri "https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/latest"
         $releaseId = $json.id
-        curl -X POST -s -H '$(contentTypeHeader2)' -H '$(authHeader)' -F 'data=@$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(newVersion).nupkg' https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.$(newVersion).nupkg
+        curl -X POST -s -H '$(contentTypeHeader2)' -H '$(authHeader)' --data-binary '$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(newVersion).nupkg' 'https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.$(newVersion).nupkg'
+        curl -X POST -s -H '$(contentTypeHeader2)' -H '$(authHeader)' --data-binary '$(Pipeline.Workspace)/NuGetPackageStrongName/CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg' 'https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg'
       displayName: Publish to GitHub
+      condition: and(succeeded(), ne(variables.gitHubToken, ''))
 
     - script: |
         dotnet nuget push $(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(newVersion).nupkg --source https://api.nuget.org/v3/index.json --api-key $(nugetToken)
       displayName: Publish to NuGet
+      condition: and(succeeded(), ne(variables.nugetToken, ''))
+
+    - script: |
+        dotnet nuget push $(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg --source https://api.nuget.org/v3/index.json --api-key $(nugetToken)
+      displayName: Publish strong named package to NuGet
+      condition: and(succeeded(), ne(variables.nugetToken, ''))
