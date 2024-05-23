@@ -1,23 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../Common.Build.props"/>
+
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;net461;netstandard2.0;net5.0;net6.0</TargetFrameworks>
     <PackageId>CSharpFunctionalExtensions</PackageId>
-    <Authors>Vladimir Khorikov</Authors>
-    <Description>CSharpFunctionalExtensions - functional extensions for C#</Description>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>C# Functional</PackageTags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://enterprisecraftsmanship.com/ps-func</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/vkhorikov/CSharpFunctionalExtensions/</RepositoryUrl>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <LangVersion>9.0</LangVersion>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <NoWarn>1591;1701;1702</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
@@ -38,14 +23,14 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-    <_Parameter1>CSharpFunctionalExtensions.Tests</_Parameter1>
+      <_Parameter1>CSharpFunctionalExtensions.Tests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
-    <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168" />
+    <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168"/>
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -54,9 +39,9 @@
   </ItemGroup>
 
   <ItemGroup Condition="!$(DefineConstants.Contains('NET5_0_OR_GREATER')) and !$(DefineConstants.Contains('NETCORE'))">
-    <Compile Remove="Result\Json\Serialization\**" />
-    <EmbeddedResource Remove="Result\Json\Serialization\**" />
-    <None Remove="Result\Json\Serialization\**" />
+    <Compile Remove="Result\Json\Serialization\**"/>
+    <EmbeddedResource Remove="Result\Json\Serialization\**"/>
+    <None Remove="Result\Json\Serialization\**"/>
     <Compile Update="Result\Methods\Extensions\BindIf.Task.cs">
       <DependentUpon>BindIf.cs</DependentUpon>
     </Compile>
@@ -118,13 +103,13 @@
       <DependentUpon>GetValueOrDefault.cs</DependentUpon>
     </Compile>
     <Compile Update="Maybe\Extensions\Map.Task.cs">
-	    <DependentUpon>Map.cs</DependentUpon>
+      <DependentUpon>Map.cs</DependentUpon>
     </Compile>
     <Compile Update="Maybe\Extensions\AsMaybe.Task.cs">
-	    <DependentUpon>AsMaybe.cs</DependentUpon>
+      <DependentUpon>AsMaybe.cs</DependentUpon>
     </Compile>
     <Compile Update="Maybe\Extensions\AsMaybe.ValueTask.cs">
-	    <DependentUpon>AsMaybe.cs</DependentUpon>
+      <DependentUpon>AsMaybe.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Extensions\MapIf.Task.cs">
       <DependentUpon>MapIf.cs</DependentUpon>
@@ -664,7 +649,7 @@
       <DependentUpon>MapTry.ValueTask.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Extensions\GetValueOrDefault.Task.cs">
-	  <DependentUpon>GetValueOrDefault.cs</DependentUpon>
+      <DependentUpon>GetValueOrDefault.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Extensions\GetValueOrDefault.Task.Right.cs">
       <DependentUpon>GetValueOrDefault.Task.cs</DependentUpon>

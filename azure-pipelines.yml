@@ -34,6 +34,7 @@ stages:
   - job: BuildAndTest
     displayName: Build and test
     dependsOn: Version
+    condition: succeeded('Version')
     variables:
       newVersion: $[ dependencies.Version.outputs['readNewVersionStep.newVersion'] ]
     steps:
@@ -77,7 +78,7 @@ stages:
       contentTypeHeader2: 'Content-Type: application/octet-stream'
       authHeader: 'Authorization: Bearer $(gitHubToken)'
       createReleaseRequest: '{ "tag_name": "v$(newVersion)", "target_commitish": "master", "name": "v$(newVersion)", "body": "$(releaseInfo)", "draft": false, "prerelease": false }'
-    condition: ne(dependencies.Version.outputs['readNewVersionStep.newVersion'], dependencies.Version.outputs['readCurrentVersionStep.currentVersion'])
+    condition: and(succeeded('Version'), succeeded('BuildAndTest'), ne(dependencies.Version.outputs['readNewVersionStep.newVersion'], dependencies.Version.outputs['readCurrentVersionStep.currentVersion']))
     steps:
     - script: |
         echo $(newVersion)

@@ -3,6 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 as build
 ARG Version
 WORKDIR /app
 
+COPY ./Common.Build.props ./
 COPY ./CSharpFunctionalExtensions/CSharpFunctionalExtensions.csproj ./CSharpFunctionalExtensions/
 COPY ./CSharpFunctionalExtensions.StrongName/CSharpFunctionalExtensions.StrongName.csproj ./CSharpFunctionalExtensions.StrongName/
 COPY ./CSharpFunctionalExtensions.Tests/CSharpFunctionalExtensions.Tests.csproj ./CSharpFunctionalExtensions.Tests/

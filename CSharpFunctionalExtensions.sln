@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Dockerfile = Dockerfile
 		README.md = README.md
 		version.txt = version.txt
+		Common.Build.props = Common.Build.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFunctionalExtensions.StrongName", "CSharpFunctionalExtensions.StrongName\CSharpFunctionalExtensions.StrongName.csproj", "{A86176EF-DCC2-44E5-8F0F-D5F58006DEBB}"
