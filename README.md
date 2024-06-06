@@ -445,6 +445,24 @@ Console.WriteLine(weGotAFruit.Value); // "banana"
 Console.WriteLine(failedToGetAFruit.Error); // "There was no fruit to give"
 ```
 
+#### ToUnitResult
+
+Use case: Representing the lack of an inner value in a Maybe as a failed operation, if an Error is provided
+Use case: Representing the presence of an inner value in a Maybe as a failed operation
+
+**Note**: See `UnitResult` section below
+
+```csharp
+Maybe<Error> error = new Error();
+Maybe<string> noFruit = Maybe<string>.None;
+
+UnitResult<Error> weGotAnError = error.ToUnitResult();
+UnitResult<Error> failedToGetAFruit = noFruit.ToUnitResult(new Error());
+
+Console.WriteLine(weGotAnError.IsFailure); // true
+Console.WriteLine(failedToGetAFruit.IsFailure); // true
+```
+
 ### Result
 
 #### Explicit Construction: Success and Failure
