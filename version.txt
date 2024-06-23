@@ -1,4 +1,4 @@
-2.42.3
+2.42.4
 New features:
 * None
 
