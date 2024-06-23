@@ -22,6 +22,7 @@ PM> Install-Package CSharpFunctionalExtensions
 ```
 
 Also available as a strong named assembly (big thanks to [bothzoli](https://github.com/bothzoli) who made it possible!).
+
 On [NuGet](https://www.nuget.org/packages/CSharpFunctionalExtensions.StrongName/)
 
 
