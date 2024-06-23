@@ -297,6 +297,12 @@
   </ItemGroup>
 
   <ItemGroup>
+   <Compile Update="Maybe\Extensions\ToUnitResultUnit.Task.cs">
+      <DependentUpon>ToUnitResult.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\ToUnitResultUnit.ValueTask.cs">
+      <DependentUpon>ToUnitResult.cs</DependentUpon>
+    </Compile>
     <Compile Update="Result\Methods\Extensions\Bind.Task.Left.cs">
       <DependentUpon>Bind.Task.cs</DependentUpon>
     </Compile>
