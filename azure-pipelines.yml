@@ -107,6 +107,6 @@ stages:
       condition: and(succeeded(), ne(variables.nugetToken, ''))
 
     - script: |
-        dotnet nuget push $(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg --source https://api.nuget.org/v3/index.json --api-key $(nugetToken)
+        dotnet nuget push $(Pipeline.Workspace)/NuGetPackageStrongName/CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg --source https://api.nuget.org/v3/index.json --api-key $(nugetToken)
       displayName: Publish strong named package to NuGet
       condition: and(succeeded(), ne(variables.nugetToken, ''))
