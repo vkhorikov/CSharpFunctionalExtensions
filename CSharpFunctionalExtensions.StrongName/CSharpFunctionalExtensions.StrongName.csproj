@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../Common.Build.props"/>
+
+  <PropertyGroup>
+    <PackageId>CSharpFunctionalExtensions.StrongName</PackageId>
+    <AssemblyOriginatorKeyFile>CSharpFunctionalExtensions.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
+    <AssemblyTitle>CSharpFunctionalExtensions (with a strong name) .NET 4.5</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
+    <AssemblyTitle>CSharpFunctionalExtensions (with a strong name) .NET 4.6.1</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <AssemblyTitle>CSharpFunctionalExtensions (with a strong name) .NET Standard 2.0</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0'">
+    <AssemblyTitle>CSharpFunctionalExtensions (with a strong name) .NET 5.0</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <AssemblyTitle>CSharpFunctionalExtensions (with a strong name) .NET 6.0</AssemblyTitle>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net40'">
+    <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(DefineConstants.Contains('NET5_0_OR_GREATER')) and !$(DefineConstants.Contains('NETCORE'))">
+    <EmbeddedResource Remove="Result\Json\Serialization\**"/>
+    <None Remove="Result\Json\Serialization\**"/>
+    <Compile Include="..\CSharpFunctionalExtensions\**\*.cs"
+             Exclude="..\CSharpFunctionalExtensions\obj\**\*.cs;..\CSharpFunctionalExtensions\Result\Json\Serialization\**"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="$(DefineConstants.Contains('NET5_0_OR_GREATER')) or $(DefineConstants.Contains('NETCORE'))">
+    <Compile Include="..\CSharpFunctionalExtensions\**\*.cs" Exclude="..\CSharpFunctionalExtensions\obj\**\*.cs"/>
+  </ItemGroup>
+
+</Project>
