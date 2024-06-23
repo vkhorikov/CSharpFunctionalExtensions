@@ -21,6 +21,8 @@ or
 PM> Install-Package CSharpFunctionalExtensions
 ```
 
+Also available as a strong named assembly (big thanks to [bothzoli](https://github.com/bothzoli) who made it possible!): [CSharpFunctionalExtensions.StrongName](https://www.nuget.org/packages/CSharpFunctionalExtensions.StrongName)
+
 ## Core Concepts
 
 ### Get rid of primitive obsession
@@ -596,6 +598,7 @@ dotnet add package CSharpFunctionalExtensions.Analyzers
 
 A big thanks to the project contributors!
 
+- [bothzoli](https://github.com/bothzoli)
 - [Pavel Zemlianikin](https://github.com/PNZeml)
 - [Simon Lang](https://github.com/redx177)
 - [Nils Vreman](https://github.com/NilsVreman)
