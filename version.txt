@@ -1,6 +1,6 @@
-2.42.4
+2.42.5
 New features:
-* None
+* # 547 Adding Maybe.ToUnitResult
 
 Fixed issues:
-* #27 Add strong named assembly
+* None
