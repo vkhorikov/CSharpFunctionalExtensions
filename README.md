@@ -457,6 +457,7 @@ Console.WriteLine(failedToGetAFruit.Error); // "There was no fruit to give"
 #### ToUnitResult
 
 Use case: Representing the lack of an inner value in a Maybe as a failed operation, if an Error is provided
+
 Use case: Representing the presence of an inner value in a Maybe as a failed operation
 
 **Note**: See `UnitResult` section below
