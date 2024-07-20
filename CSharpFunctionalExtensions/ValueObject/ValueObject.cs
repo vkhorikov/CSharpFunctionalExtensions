@@ -6,11 +6,11 @@ using System.Linq;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public abstract class ValueObject : IComparable, IComparable<ValueObject>
+    public abstract class ValueObject
     {
         private int? _cachedHashCode;
 
-        protected abstract IEnumerable<IComparable> GetEqualityComponents();
+        protected abstract IEnumerable<object> GetEqualityComponents();
 
         public override bool Equals(object obj)
         {
@@ -40,33 +40,6 @@ namespace CSharpFunctionalExtensions
             }
 
             return _cachedHashCode.Value;
-        }
-
-        
-        public virtual int CompareTo(ValueObject other)
-        {
-            if (other is null)
-                return 1;
-
-            if (ReferenceEquals(this, other))
-                return 0;
-
-            Type thisType = GetUnproxiedType(this);
-            Type otherType = GetUnproxiedType(other);
-            if (thisType != otherType)
-                return string.Compare($"{thisType}", $"{otherType}", StringComparison.Ordinal);
-
-            return
-                GetEqualityComponents().Zip(
-                    other.GetEqualityComponents(),
-                    (left, right) =>
-                        left?.CompareTo(right) ?? (right is null ? 0 : -1))
-                .FirstOrDefault(cmp => cmp != 0);
-        }
-
-        public virtual int CompareTo(object other) 
-        {
-            return CompareTo(other as ValueObject);
         }
 
         public static bool operator ==(ValueObject a, ValueObject b)

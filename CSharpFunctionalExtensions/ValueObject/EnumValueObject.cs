@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace CSharpFunctionalExtensions
 {
-    public abstract class EnumValueObject<TEnumeration, TId> : ValueObject
+    public abstract class EnumValueObject<TEnumeration, TId> : ComparableValueObject
         where TEnumeration : EnumValueObject<TEnumeration, TId>
         where TId : struct, IComparable
     {
@@ -111,7 +111,7 @@ namespace CSharpFunctionalExtensions
 
         public override string ToString() => Name;
 
-        protected override IEnumerable<IComparable> GetEqualityComponents()
+        protected override IEnumerable<IComparable> GetComparableEqualityComponents()
         {
             yield return Id;
         }
@@ -128,7 +128,7 @@ namespace CSharpFunctionalExtensions
         }
     }
     
-    public abstract class EnumValueObject<TEnumeration> : ValueObject
+    public abstract class EnumValueObject<TEnumeration> : ComparableValueObject
         where TEnumeration : EnumValueObject<TEnumeration>
     {
         private int? _cachedHashCode;
@@ -224,7 +224,7 @@ namespace CSharpFunctionalExtensions
 
         public override string ToString() => Id;
 
-        protected override IEnumerable<IComparable> GetEqualityComponents()
+        protected override IEnumerable<IComparable> GetComparableEqualityComponents()
         {
             yield return Id;
         }

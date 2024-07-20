@@ -1,19 +1,19 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace CSharpFunctionalExtensions
 {
-    [Serializable]
-    public abstract class SimpleValueObject<T> : ValueObject
+    public class ComparableSimpleValueObject<T> : ComparableValueObject
+        where T : IComparable
     {
         public T Value { get; }
 
-        protected SimpleValueObject(T value)
+        protected ComparableSimpleValueObject(T value)
         {
             Value = value;
         }
 
-        protected override IEnumerable<object> GetEqualityComponents()
+        protected override IEnumerable<IComparable> GetComparableEqualityComponents()
         {
             yield return Value;
         }
@@ -23,7 +23,7 @@ namespace CSharpFunctionalExtensions
             return Value?.ToString();
         }
 
-        public static implicit operator T(SimpleValueObject<T> valueObject)
+        public static implicit operator T(ComparableSimpleValueObject<T> valueObject)
         {
             return valueObject == null ? default : valueObject.Value;
         }
