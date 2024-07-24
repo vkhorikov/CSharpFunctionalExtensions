@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public readonly partial struct Result : IResult, ISerializable
+    public readonly partial struct Result : IResult, ISerializable, IError<string>
     {
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
