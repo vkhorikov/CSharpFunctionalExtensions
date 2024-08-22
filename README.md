@@ -487,6 +487,15 @@ Result<FruitInventory> failedOperation = Result.Failure<FruitInventory>("Could n
 Result successInventoryUpdate = Result.Success();
 ```
 
+To create a success result of a value you can also use the `Of` method which has overloads for `Func<T>` and `Task<T>`.
+
+```csharp
+Result<Something> something = Result.Of(_service.CreateSomething());
+Result<Something> something = await Result.Of(_service.CreateSomethingAsync());
+Result<Something> something = Result.Of(() => _service.CreateSomething());
+Result<Something> something = await Result.Of(() => _service.CreateSomethingAsync());
+```
+
 #### Conditional Construction: SuccessIf and FailureIf
 
 Use case: Creating successful or failed Results based on expressions or delegates instead of if/else statements or ternary expressions
