@@ -36,16 +36,6 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             emailAddress1.Equals(emailAddress2).Should().BeTrue();
             emailAddress1.GetHashCode().Equals(emailAddress2.GetHashCode()).Should().BeTrue();
         }
-        
-        [Fact]
-        public void Two_Comparable_SVO_of_the_same_content_are_equal()
-        {
-            var emailAddress1 = new ComparableEmailAddress("a@b.com");
-            var emailAddress2 = new ComparableEmailAddress("a@b.com");
-
-            emailAddress1.Equals(emailAddress2).Should().BeTrue();
-            emailAddress1.GetHashCode().Equals(emailAddress2.GetHashCode()).Should().BeTrue();
-        }
 
         [Fact]
         public void It_is_possible_to_override_default_equality_comparison_behavior()
@@ -93,30 +83,12 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
 
             emailAddress1.Equals(emailAddress2).Should().BeFalse();
         }
-        
-        [Fact]
-        public void Equality_of_comparable_simple_value_objects_of_different_values_returns_false()
-        {
-            var emailAddress1 = new ComparableEmailAddress("a@b.com");
-            var emailAddress2 = new ComparableEmailAddress("c@d.com");
-
-            emailAddress1.Equals(emailAddress2).Should().BeFalse();
-        }
 
         [Fact]
         public void Equality_of_simple_value_objects_of_different_types_returns_false()
         {
             var emailAddress1 = new EmailAddress("a@b.com");
             var emailAddress2 = new EmailAddress2("a@b.com");
-
-            emailAddress1.Equals(emailAddress2).Should().BeFalse();
-        }
-        
-        [Fact]
-        public void Equality_of_comparable_simple_value_objects_of_different_types_returns_false()
-        {
-            var emailAddress1 = new ComparableEmailAddress("a@b.com");
-            var emailAddress2 = new ComparableEmailAddress2("a@b.com");
 
             emailAddress1.Equals(emailAddress2).Should().BeFalse();
         }
@@ -346,20 +318,10 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         {
             public EmailAddress(string value) : base(value) { }
         }
-        
-        public class ComparableEmailAddress : ComparableSimpleValueObject<string>
-        {
-            public ComparableEmailAddress(string value) : base(value) { }
-        }
 
         public class EmailAddress2 : SimpleValueObject<string>
         {
             public EmailAddress2(string value) : base(value) { }
-        }
-        
-        public class ComparableEmailAddress2 : ComparableSimpleValueObject<string>
-        {
-            public ComparableEmailAddress2(string value) : base(value) { }
         }
     }
 }

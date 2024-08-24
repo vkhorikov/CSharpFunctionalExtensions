@@ -179,22 +179,22 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         }
 
 
-        private class NameSuffix : ComparableSimpleValueObject<int>
+        private class NameSuffix : SimpleValueObject<int>
         {
             public NameSuffix(int value)
                 : base(value)
             {
             }
         }
-
-        private class VOIntType: ComparableSimpleValueObject<int>
+        
+        private class VOIntType: SimpleValueObject<int>
         {
             public VOIntType(int value) : base(value)
             {
             }
         }
 
-        private class VOStringType : ComparableSimpleValueObject<string>
+        private class VOStringType : SimpleValueObject<string>
         {
             public VOStringType(string value) : base(value)
             {

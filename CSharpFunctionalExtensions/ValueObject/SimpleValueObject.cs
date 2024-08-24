@@ -4,7 +4,8 @@ using System.Collections.Generic;
 namespace CSharpFunctionalExtensions
 {
     [Serializable]
-    public abstract class SimpleValueObject<T> : ValueObject
+    public abstract class SimpleValueObject<T> : ComparableValueObject
+        where T : IComparable
     {
         public T Value { get; }
 
@@ -13,7 +14,7 @@ namespace CSharpFunctionalExtensions
             Value = value;
         }
 
-        protected override IEnumerable<object> GetEqualityComponents()
+        protected override IEnumerable<IComparable> GetComparableEqualityComponents()
         {
             yield return Value;
         }
