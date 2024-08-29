@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 #if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
 using System.Runtime.CompilerServices;
@@ -13,18 +14,18 @@ namespace CSharpFunctionalExtensions
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct Maybe<T> : IEquatable<Maybe<T>>, IEquatable<object>, IMaybe<T>
     {
-        
+
         private readonly bool _isValueSet;
 
-        private readonly T _value;
+        private readonly T? _value;
 
         /// <summary>
         /// Returns the inner value if there's one, otherwise throws an InvalidOperationException with <paramref name="errorMessage"/>
         /// </summary>
         /// <exception cref="InvalidOperationException">Maybe has no value.</exception>
-        public T GetValueOrThrow(string errorMessage = null)
+        public T GetValueOrThrow(string? errorMessage = null)
         {
-            if (HasNoValue)
+            if (_value is null || HasNoValue)
                 throw new InvalidOperationException(errorMessage ?? Configuration.NoValueException);
 
             return _value;
@@ -36,13 +37,13 @@ namespace CSharpFunctionalExtensions
         /// <exception cref="Exception">Maybe has no value.</exception>
         public T GetValueOrThrow(Exception exception)
         {
-            if (HasNoValue)
+            if (_value is null || HasNoValue)
                 throw exception;
 
             return _value;
         }
 
-        public T GetValueOrDefault(T defaultValue = default)
+        public T? GetValueOrDefault(T? defaultValue = default)
         {
             if (HasNoValue)
                 return defaultValue;
@@ -61,7 +62,7 @@ namespace CSharpFunctionalExtensions
 #if NET5_0_OR_GREATER
             [NotNullWhen(true), MaybeNullWhen(false)]
 #endif
-            out T value)
+            out T? value)
         {
             value = _value;
             return _isValueSet;
@@ -77,7 +78,7 @@ namespace CSharpFunctionalExtensions
         public bool HasValue => _isValueSet;
         public bool HasNoValue => !HasValue;
 
-        private Maybe(T value)
+        private Maybe(T? value)
         {
             if (value == null)
             {
@@ -90,7 +91,7 @@ namespace CSharpFunctionalExtensions
             _value = value;
         }
 
-        public static implicit operator Maybe<T>(T value)
+        public static implicit operator Maybe<T>(T? value)
         {
             if (value is Maybe<T> m)
             {
@@ -102,7 +103,7 @@ namespace CSharpFunctionalExtensions
 
         public static implicit operator Maybe<T>(Maybe value) => None;
 
-        public static Maybe<T> From(T obj)
+        public static Maybe<T> From(T? obj)
         {
             return new Maybe<T>(obj);
         }
@@ -112,7 +113,7 @@ namespace CSharpFunctionalExtensions
             if (value is Maybe<T>)
                 return maybe.Equals(value);
 
-            if (maybe.HasNoValue)
+            if (maybe._value is null || maybe.HasNoValue)
                 return value is null;
 
             return maybe._value.Equals(value);
@@ -143,7 +144,7 @@ namespace CSharpFunctionalExtensions
             return !(first == second);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null)
                 return false;
@@ -159,7 +160,7 @@ namespace CSharpFunctionalExtensions
             if (HasNoValue && other.HasNoValue)
                 return true;
 
-            if (HasNoValue || other.HasNoValue)
+            if (_value is null || HasNoValue || other._value is null || other.HasNoValue)
                 return false;
 
             return EqualityComparer<T>.Default.Equals(_value, other._value);
@@ -167,7 +168,7 @@ namespace CSharpFunctionalExtensions
 
         public override int GetHashCode()
         {
-            if (HasNoValue)
+            if (_value is null || HasNoValue)
                 return 0;
 
             return _value.GetHashCode();
@@ -175,10 +176,10 @@ namespace CSharpFunctionalExtensions
 
         public override string ToString()
         {
-            if (HasNoValue)
+            if (_value is null || HasNoValue)
                 return "No value";
 
-            return _value.ToString();
+            return _value.ToString()!;
         }
     }
 
@@ -192,7 +193,7 @@ namespace CSharpFunctionalExtensions
         /// <summary>
         /// Creates a new <see cref="Maybe{T}" /> from the provided <paramref name="value"/>
         /// </summary>
-        public static Maybe<T> From<T>(T value) => Maybe<T>.From(value);
+        public static Maybe<T> From<T>(T? value) => Maybe<T>.From(value);
     }
 
     /// <summary>
