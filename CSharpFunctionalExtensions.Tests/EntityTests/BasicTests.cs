@@ -140,7 +140,7 @@ namespace CSharpFunctionalExtensions.Tests.EntityTests
             }
         }
 
-        public class MyId : ValueObject
+        public class MyId : ComparableValueObject
         {
             public string Value1 { get; }
             public Guid Value2 { get; }
@@ -151,7 +151,7 @@ namespace CSharpFunctionalExtensions.Tests.EntityTests
                 Value2 = value2;
             }
 
-            protected override IEnumerable<IComparable> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetComparableEqualityComponents()
             {
                 yield return Value1;
                 yield return Value2;

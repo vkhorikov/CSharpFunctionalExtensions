@@ -123,7 +123,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             result1.Should().Be(-result2);
         }
 
-        private class VOWithCollection : ValueObject
+        private class VOWithCollection : ComparableValueObject
         {
             readonly string[] _components;
 
@@ -132,7 +132,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 _components = components;
             }
 
-            protected override IEnumerable<IComparable> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetComparableEqualityComponents()
             {
                 yield return _components.Length;
                 foreach (string component in _components)
@@ -142,7 +142,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             }
         }
 
-        private class VOWithObjectProperty : ValueObject
+        private class VOWithObjectProperty : ComparableValueObject
         {
             public object SomeProperty { get; }
 
@@ -151,13 +151,13 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 SomeProperty = someProperty;
             }
 
-            protected override IEnumerable<IComparable> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetComparableEqualityComponents()
             {
                 yield return SomeProperty.GetHashCode();
             }
         }
 
-        private class Name : ValueObject
+        private class Name : ComparableValueObject
         {
             public string First { get; }
             public string Last { get; }
@@ -170,7 +170,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 Suffix = suffix;
             }
 
-            protected override IEnumerable<IComparable> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetComparableEqualityComponents()
             {
                 yield return First;
                 yield return Last;
@@ -186,7 +186,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             {
             }
         }
-
+        
         private class VOIntType: SimpleValueObject<int>
         {
             public VOIntType(int value) : base(value)

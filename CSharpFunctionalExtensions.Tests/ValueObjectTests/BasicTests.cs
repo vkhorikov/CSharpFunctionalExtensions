@@ -46,18 +46,37 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             money1.Equals(money2).Should().BeTrue();
             money1.GetHashCode().Equals(money2.GetHashCode()).Should().BeTrue();
         }
+        
+        [Fact]
+        public void It_is_possible_to_override_default_equality_comparison_behavior_for_comparable()
+        {
+            var money1 = new ComparableMoney("usd", 2.2222m);
+            var money2 = new ComparableMoney("USD", 2.22m);
+
+            money1.Equals(money2).Should().BeTrue();
+            money1.GetHashCode().Equals(money2.GetHashCode()).Should().BeTrue();
+        }
 
         [Fact]
-        public void Comparing_value_objects_of_different_types_returns_false()
+        public void Equality_of_value_objects_of_different_types_returns_false()
         {
             var vo1 = new VO1("1");
             var vo2 = new VO2("1");
 
             vo1.Equals(vo2).Should().BeFalse();
         }
+        
+        [Fact]
+        public void Equality_of_comparable_value_objects_of_different_types_returns_false()
+        {
+            var vo1 = new VO1Comparable("1");
+            var vo2 = new VO2Comparable("1");
+
+            vo1.Equals(vo2).Should().BeFalse();
+        }
 
         [Fact]
-        public void Comparing_simple_value_objects_of_different_values_returns_false()
+        public void Equality_of_simple_value_objects_of_different_values_returns_false()
         {
             var emailAddress1 = new EmailAddress("a@b.com");
             var emailAddress2 = new EmailAddress("c@d.com");
@@ -66,7 +85,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         }
 
         [Fact]
-        public void Comparing_simple_value_objects_of_different_types_returns_false()
+        public void Equality_of_simple_value_objects_of_different_types_returns_false()
         {
             var emailAddress1 = new EmailAddress("a@b.com");
             var emailAddress2 = new EmailAddress2("a@b.com");
@@ -75,7 +94,7 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
         }
 
         [Fact]
-        public void Comparing_value_objects_with_different_collections_returns_false()
+        public void Equality_of_value_objects_with_different_collections_returns_false()
         {
             var vo1 = new VOWithCollection("one", "two");
             var vo2 = new VOWithCollection("one", "three");
@@ -86,12 +105,38 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
             result1.Should().BeFalse();
             result2.Should().BeFalse();
         }
+        
+        [Fact]
+        public void Equality_of_comparable_value_objects_with_different_collections_returns_false()
+        {
+            var vo1 = new ComparableVOWithCollection("one", "two");
+            var vo2 = new ComparableVOWithCollection("one", "three");
+
+            bool result1 = vo1.Equals(vo2);
+            bool result2 = vo2.Equals(vo1);
+
+            result1.Should().BeFalse();
+            result2.Should().BeFalse();
+        }
 
         [Fact]
-        public void Comparing_value_objects_with_collections_of_different_size_returns_false()
+        public void Equality_of_value_objects_with_collections_of_different_size_returns_false()
         {
             var vo1 = new VOWithCollection("one", "two");
             var vo2 = new VOWithCollection("one", "two", "three");
+
+            bool result1 = vo1.Equals(vo2);
+            bool result2 = vo2.Equals(vo1);
+
+            result1.Should().BeFalse();
+            result2.Should().BeFalse();
+        }
+
+        [Fact] 
+        public void Equality_of_comparable_value_objects_with_collections_of_different_size_returns_false()
+        {
+            var vo1 = new ComparableVOWithCollection("one", "two");
+            var vo2 = new ComparableVOWithCollection("one", "two", "three");
 
             bool result1 = vo1.Equals(vo2);
             bool result2 = vo2.Equals(vo1);
@@ -109,7 +154,22 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 _components = components;
             }
 
-            protected override IEnumerable<IComparable> GetEqualityComponents()
+            protected override IEnumerable<object> GetEqualityComponents()
+            {
+                return _components;
+            }
+        }
+        
+        private class ComparableVOWithCollection : ComparableValueObject
+        {
+            readonly string[] _components;
+
+            public ComparableVOWithCollection(params string[] components)
+            {
+                _components = components;
+            }
+
+            protected override IEnumerable<IComparable> GetComparableEqualityComponents()
             {
                 return _components;
             }
@@ -124,7 +184,22 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 Value = value;
             }
 
-            protected override IEnumerable<IComparable> GetEqualityComponents()
+            protected override IEnumerable<object> GetEqualityComponents()
+            {
+                yield return Value;
+            }
+        }
+        
+        public class VO1Comparable : ComparableValueObject
+        {
+            public string Value { get; }
+
+            public VO1Comparable(string value)
+            {
+                Value = value;
+            }
+
+            protected override IEnumerable<IComparable> GetComparableEqualityComponents()
             {
                 yield return Value;
             }
@@ -139,7 +214,22 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 Value = value;
             }
 
-            protected override IEnumerable<IComparable> GetEqualityComponents()
+            protected override IEnumerable<object> GetEqualityComponents()
+            {
+                yield return Value;
+            }
+        }
+        
+        public class VO2Comparable : ComparableValueObject
+        {
+            public string Value { get; }
+
+            public VO2Comparable(string value)
+            {
+                Value = value;
+            }
+
+            protected override IEnumerable<IComparable> GetComparableEqualityComponents()
             {
                 yield return Value;
             }
@@ -156,28 +246,28 @@ namespace CSharpFunctionalExtensions.Tests.ValueObjectTests
                 Amount = amount;
             }
 
-            protected override IEnumerable<IComparable> GetEqualityComponents()
+            protected override IEnumerable<object> GetEqualityComponents()
             {
                 yield return Currency.ToUpper();
                 yield return Math.Round(Amount, 2);
             }
         }
-
-        public class Address2 : ValueObject
+        
+        public class ComparableMoney : ComparableValueObject
         {
-            public string Street { get; }
-            public string City { get; }
+            public string Currency { get; }
+            public decimal Amount { get; }
 
-            public Address2(string street, string city)
+            public ComparableMoney(string currency, decimal amount)
             {
-                Street = street;
-                City = city;
+                Currency = currency;
+                Amount = amount;
             }
 
-            protected override IEnumerable<IComparable> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetComparableEqualityComponents()
             {
-                yield return Street;
-                yield return City;
+                yield return Currency.ToUpper();
+                yield return Math.Round(Amount, 2);
             }
         }
 

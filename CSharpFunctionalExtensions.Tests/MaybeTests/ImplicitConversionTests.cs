@@ -36,7 +36,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             {
             }
 
-            protected override IEnumerable<IComparable> GetEqualityComponents()
+            protected override IEnumerable<IComparable> GetComparableEqualityComponents()
             {
                 yield return Value.ToLower();
             }
