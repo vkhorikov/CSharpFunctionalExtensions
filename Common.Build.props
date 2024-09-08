@@ -4,7 +4,7 @@
     <Authors>Vladimir Khorikov</Authors>
     <Description>CSharpFunctionalExtensions - functional extensions for C#</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>C# Functional</PackageTags>
+    <PackageTags>C# Functional Result Maybe ValueObject</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://enterprisecraftsmanship.com/ps-func</PackageProjectUrl>
     <RepositoryUrl>https://github.com/vkhorikov/CSharpFunctionalExtensions/</RepositoryUrl>
