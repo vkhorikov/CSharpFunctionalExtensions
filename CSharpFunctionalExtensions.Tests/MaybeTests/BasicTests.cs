@@ -205,7 +205,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public void GetValueOrThrww_throws_with_message_if_source_is_empty()
+        public void GetValueOrThrow_throws_with_message_if_source_is_empty()
         {
             const string errorMessage = "Maybe is none";
 
