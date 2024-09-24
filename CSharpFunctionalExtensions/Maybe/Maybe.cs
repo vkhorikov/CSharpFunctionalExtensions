@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 #if NET45_OR_GREATER || NETSTANDARD || NETCORE || NET5_0_OR_GREATER
 using System.Runtime.CompilerServices;
 #endif
@@ -103,9 +104,30 @@ namespace CSharpFunctionalExtensions
 
         public static implicit operator Maybe<T>(Maybe value) => None;
 
-        public static Maybe<T> From(T? obj)
+        public static Maybe<T> From(T? value)
         {
-            return new Maybe<T>(obj);
+            return new Maybe<T>(value);
+        }
+        
+        public static Maybe<T> From(Func<T?> func)
+        {
+            T? value = func();
+            
+            return new Maybe<T>(value);
+        }
+        
+        public static async Task<Maybe<T>> From(Task<T?> valueTask)
+        {
+            T? value = await valueTask;
+            
+            return new Maybe<T>(value);
+        }
+        
+        public static async Task<Maybe<T>> From(Func<Task<T?>> valueTaskFunc)
+        {
+            T? value = await valueTaskFunc();
+            
+            return new Maybe<T>(value);
         }
 
         public static bool operator ==(Maybe<T> maybe, T value)
@@ -188,12 +210,27 @@ namespace CSharpFunctionalExtensions
     /// </summary>
     public readonly struct Maybe
     {
-        public static Maybe None => new Maybe();
+        public static Maybe None => new();
 
         /// <summary>
         /// Creates a new <see cref="Maybe{T}" /> from the provided <paramref name="value"/>
         /// </summary>
         public static Maybe<T> From<T>(T? value) => Maybe<T>.From(value);
+        
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> from the provided <paramref name="func"/>
+        /// </summary>
+        public static Maybe<T> From<T>(Func<T?> func) => Maybe<T>.From(func);
+        
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> from the provided <paramref name="valueTask"/>
+        /// </summary>
+        public static Task<Maybe<T>> From<T>(Task<T?> valueTask) => Maybe<T>.From(valueTask);
+        
+        /// <summary>
+        /// Creates a new <see cref="Maybe{T}" /> from the provided <paramref name="valueTaskFunc"/>
+        /// </summary>
+        public static Task<Maybe<T>> From<T>(Func<Task<T?>> valueTaskFunc) => Maybe<T>.From(valueTaskFunc);
     }
 
     /// <summary>
