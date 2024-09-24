@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿#nullable enable
+
+using FluentAssertions;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -41,7 +43,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             Action action = () =>
             {
-                MyClass myClass = maybe.Value;
+                MyClass _ = maybe.Value;
             };
 
             action.Should().Throw<InvalidOperationException>();
@@ -131,7 +133,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         public async Task Maybe_From_can_create_MaybeT_from_valueTask()
         {
             string value = "value";
-            Task<string> valueTask = Task.FromResult(value);
+            Task<string?> valueTask = Task.FromResult(value)!;
             
             Maybe<string> maybe = await Maybe.From(valueTask);
             
@@ -155,8 +157,8 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         public async Task Maybe_From_can_create_MaybeT_from_valueTaskFunc()
         {
             string value = "value";
-            Task<string> valueTask = Task.FromResult(value);
-            Func<Task<string>> valueTaskFunc = () => valueTask;
+            Task<string?> valueTask = Task.FromResult(value)!;
+            Func<Task<string?>> valueTaskFunc = () => valueTask;
             
             Maybe<string> maybe = await Maybe.From(valueTaskFunc);
             
@@ -167,7 +169,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         [Fact]
         public async Task Maybe_From_can_create_MaybeT_from_valueTask_with_no_value()
         {
-            Task<string?> valueTask = Task.FromResult((string?) null);
+            Task<string?> valueTask = Task.FromResult<string?>(null);
             
             Maybe<string> maybe = await Maybe.From(valueTask);
             
@@ -187,7 +189,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         [Fact]
         public async Task Maybe_From_can_create_MaybeT_from_valueTaskFunc_with_no_value()
         {
-            Task<string?> valueTask = Task.FromResult((string?) null);
+            Task<string?> valueTask = Task.FromResult<string?>(null);
             Func<Task<string?>> valueTaskFunc = () => valueTask;
             
             Maybe<string> maybe = await Maybe.From(valueTaskFunc);
@@ -237,7 +239,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             Action act = () =>
             {
-                var (hasValue, value) = maybe;
+                (bool _, int _) = maybe;
             };
             
             act.Should().NotThrow();
