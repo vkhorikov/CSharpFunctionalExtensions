@@ -1,9 +1,5 @@
-3.0.0
+3.1.0
 Updates:
-* #552 Separate comparable types (breaking change)
-* #554 Remove EOL .NET frameworks and obsolete methods (breaking change)
-* #555 Add IError to the Result struct
-* #558 GetValueOrDefault for Result
-* #560 Add Result.Of methods
-* #561 Improve null handling of Maybe
-* #563 Add async overloads of Maybe.Match
+* #565 Add allocation-free Maybe.Bind overload
+* #569 Add async & func overloads for Maybe.From
+* Nullability handling improvements in Maybe
