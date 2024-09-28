@@ -1,5 +1,8 @@
-﻿using FluentAssertions;
+﻿#nullable enable
+
+using FluentAssertions;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.MaybeTests
@@ -40,7 +43,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             Action action = () =>
             {
-                MyClass myClass = maybe.Value;
+                MyClass _ = maybe.Value;
             };
 
             action.Should().Throw<InvalidOperationException>();
@@ -125,6 +128,74 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
             withoutTypeParam.Should().Be(withTypeParam);
             withoutTypeParam.Should().NotBe(differentValueTypeParam);
         }
+        
+        [Fact]
+        public async Task Maybe_From_can_create_MaybeT_from_valueTask()
+        {
+            string value = "value";
+            Task<string?> valueTask = Task.FromResult(value)!;
+            
+            Maybe<string> maybe = await Maybe.From(valueTask);
+            
+            maybe.HasValue.Should().BeTrue();
+            maybe.Value.Should().Be(value);
+        }
+
+        [Fact]
+        public void Maybe_From_can_create_MaybeT_from_func()
+        {
+            string value = "value";
+            Func<string> func = () => value;
+            
+            Maybe<string> maybe = Maybe.From(func);
+            
+            maybe.HasValue.Should().BeTrue();
+            maybe.Value.Should().Be(value);
+        }
+        
+        [Fact]
+        public async Task Maybe_From_can_create_MaybeT_from_valueTaskFunc()
+        {
+            string value = "value";
+            Task<string?> valueTask = Task.FromResult(value)!;
+            Func<Task<string?>> valueTaskFunc = () => valueTask;
+            
+            Maybe<string> maybe = await Maybe.From(valueTaskFunc);
+            
+            maybe.HasValue.Should().BeTrue();
+            maybe.Value.Should().Be(value);
+        }
+        
+        [Fact]
+        public async Task Maybe_From_can_create_MaybeT_from_valueTask_with_no_value()
+        {
+            Task<string?> valueTask = Task.FromResult<string?>(null);
+            
+            Maybe<string> maybe = await Maybe.From(valueTask);
+            
+            maybe.HasValue.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Maybe_From_can_create_MaybeT_from_func_with_no_value()
+        {
+            Func<string?> func = () => null;
+            
+            Maybe<string> maybe = Maybe.From(func);
+            
+            maybe.HasValue.Should().BeFalse();
+        }
+        
+        [Fact]
+        public async Task Maybe_From_can_create_MaybeT_from_valueTaskFunc_with_no_value()
+        {
+            Task<string?> valueTask = Task.FromResult<string?>(null);
+            Func<Task<string?>> valueTaskFunc = () => valueTask;
+            
+            Maybe<string> maybe = await Maybe.From(valueTaskFunc);
+            
+            maybe.HasValue.Should().BeFalse();
+        }
 
         [Fact]
         public void Can_cast_non_generic_maybe_none_to_maybe_none()
@@ -136,7 +207,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
         }
 
         [Fact]
-        public void GetValueOrThrww_throws_with_message_if_source_is_empty()
+        public void GetValueOrThrow_throws_with_message_if_source_is_empty()
         {
             const string errorMessage = "Maybe is none";
 
@@ -168,7 +239,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests
 
             Action act = () =>
             {
-                var (hasValue, value) = maybe;
+                (bool _, int _) = maybe;
             };
             
             act.Should().NotThrow();
