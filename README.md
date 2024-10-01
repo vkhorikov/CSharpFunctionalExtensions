@@ -313,7 +313,7 @@ IEnumerable<Maybe<string>> unknownFruits = new[] { "apple", Maybe<string>.None, 
 IEnumerable<string> knownFruits = unknownFruits.Choose();
 IEnumerable<string> fruitResponses = unknownFruits.Choose(fruit => $"Delicious {fruit}");
 
-Console.WriteLine(string.Join(", ", fruits)) // "apple, banana"
+Console.WriteLine(string.Join(", ", knownFruits)) // "apple, banana"
 Console.WriteLine(string.Join(", ", fruitResponses)) // "Delicious apple, Delicious banana"
 ```
 
