@@ -1,11 +1,11 @@
-﻿using FluentAssertions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CSharpFunctionalExtensions.ValueTasks;
+using FluentAssertions;
 using Xunit;
 
-namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions 
+namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 {
-    public class MapTests_ValueTask_Left : MapTestsBase 
+    public class MapTests_ValueTask_Left : MapTestsBase
     {
         [Fact]
         public async Task Map_ValueTask_Left_executes_on_success_returns_new_success()
@@ -88,6 +88,149 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
         {
             ValueTask<UnitResult<E>> result = UnitResult.Failure(E.Value).AsValueTask();
             Result<K, E> actual = await result.Map(Func_K);
+
+            actual.IsSuccess.Should().BeFalse();
+            actual.Error.Should().Be(E.Value);
+            FuncExecuted.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task Map_ValueTask_Left_with_context_executes_on_success_and_passes_correct_context()
+        {
+            ValueTask<Result> result = Result.Success().AsValueTask();
+            Result<K> actual = await result.Map(
+                context =>
+                {
+                    context.Should().Be(ContextMessage);
+                    return Func_K();
+                },
+                ContextMessage
+            );
+
+            actual.IsSuccess.Should().BeTrue();
+            actual.Value.Should().Be(K.Value);
+            FuncExecuted.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Map_ValueTask_Left_with_context_executes_on_failure_and_passes_correct_context()
+        {
+            ValueTask<Result> result = Result.Failure(ErrorMessage).AsValueTask();
+            Result<K> actual = await result.Map(
+                context =>
+                {
+                    context.Should().Be(ContextMessage);
+                    return Func_K();
+                },
+                ContextMessage
+            );
+
+            actual.IsSuccess.Should().BeFalse();
+            FuncExecuted.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task Map_ValueTask_Left_T_with_context_executes_on_success_and_passes_correct_context()
+        {
+            ValueTask<Result<T>> result = Result.Success(T.Value).AsValueTask();
+            Result<K> actual = await result.Map(
+                (value, context) =>
+                {
+                    context.Should().Be(ContextMessage);
+                    return Func_T_K(value);
+                },
+                ContextMessage
+            );
+
+            actual.IsSuccess.Should().BeTrue();
+            actual.Value.Should().Be(K.Value);
+            FuncExecuted.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Map_ValueTask_Left_T_with_context_executes_on_failure_and_passes_correct_context()
+        {
+            ValueTask<Result<T>> result = Result.Failure<T>(ErrorMessage).AsValueTask();
+            Result<K> actual = await result.Map(
+                (value, context) =>
+                {
+                    context.Should().Be(ContextMessage);
+                    return Func_T_K(value);
+                },
+                ContextMessage
+            );
+
+            actual.IsSuccess.Should().BeFalse();
+            actual.Error.Should().Be(ErrorMessage);
+            FuncExecuted.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task Map_ValueTask_Left_T_E_with_context_executes_on_success_and_passes_correct_context()
+        {
+            ValueTask<Result<T, E>> result = Result.Success<T, E>(T.Value).AsValueTask();
+            Result<K, E> actual = await result.Map(
+                (value, context) =>
+                {
+                    context.Should().Be(ContextMessage);
+                    return Func_T_K(value);
+                },
+                ContextMessage
+            );
+
+            actual.IsSuccess.Should().BeTrue();
+            actual.Value.Should().Be(K.Value);
+            FuncExecuted.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Map_ValueTask_Left_T_E_with_context_executes_on_failure_and_passes_correct_context()
+        {
+            ValueTask<Result<T, E>> result = Result.Failure<T, E>(E.Value).AsValueTask();
+            Result<K, E> actual = await result.Map(
+                (value, context) =>
+                {
+                    context.Should().Be(ContextMessage);
+                    return Func_T_K(value);
+                },
+                ContextMessage
+            );
+
+            actual.IsSuccess.Should().BeFalse();
+            actual.Error.Should().Be(E.Value);
+            FuncExecuted.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task Map_ValueTask_Left_UnitResult_E_with_context_executes_on_success_and_passes_correct_context()
+        {
+            ValueTask<UnitResult<E>> result = UnitResult.Success<E>().AsValueTask();
+            Result<K, E> actual = await result.Map(
+                context =>
+                {
+                    context.Should().Be(ContextMessage);
+                    return Func_K();
+                },
+                ContextMessage
+            );
+
+            actual.IsSuccess.Should().BeTrue();
+            actual.Value.Should().Be(K.Value);
+            FuncExecuted.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Map_ValueTask_Left_UnitResult_E_with_context_executes_on_failure_and_passes_correct_context()
+        {
+            ValueTask<UnitResult<E>> result = UnitResult.Failure(E.Value).AsValueTask();
+            Result<K, E> actual = await result.Map(
+                context =>
+                {
+                    context.Should().Be(ContextMessage);
+                    return Func_K();
+                },
+                ContextMessage
+            );
 
             actual.IsSuccess.Should().BeFalse();
             actual.Error.Should().Be(E.Value);
