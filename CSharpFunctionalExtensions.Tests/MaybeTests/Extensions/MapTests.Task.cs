@@ -26,5 +26,25 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
 
             maybe2.HasValue.Should().BeFalse();
         }
+
+        [Fact]
+        public async Task Map_Task_provides_context_to_selector()
+        {
+            Maybe<T> maybe = T.Value;
+            var context = 5;
+
+            var maybe2 = await maybe
+                .AsTask()
+                .Map(
+                    (value, ctx) =>
+                    {
+                        ctx.Should().Be(context);
+                        return value.AsTask();
+                    },
+                    context
+                );
+
+            maybe2.HasValue.Should().BeTrue();
+        }
     }
 }
