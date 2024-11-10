@@ -11,7 +11,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions;
 public class MatchTests_ValueTask : MatchTestsBase
 {
     [Fact]
-    public async ValueTask Match_follows_some_branch_where_there_is_a_value()
+    public async Task Match_follows_some_branch_where_there_is_a_value()
     {
         Maybe<T> maybe = T.Value;
         var cancellationToken = GetCancellationToken();
@@ -30,7 +30,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_provides_context_to_some_selector()
+    public async Task Match_provides_context_to_some_selector()
     {
         Maybe<T> maybe = T.Value;
         var cancellationToken = GetCancellationToken();
@@ -57,7 +57,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_follows_none_branch_where_is_no_value()
+    public async Task Match_follows_none_branch_where_is_no_value()
     {
         Maybe<T> maybe = null;
         var cancellationToken = GetCancellationToken();
@@ -75,7 +75,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_provides_context_to_none_selector()
+    public async Task Match_provides_context_to_none_selector()
     {
         Maybe<T> maybe = null;
         var cancellationToken = GetCancellationToken();
@@ -101,7 +101,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_for_deconstruct_kv_follows_some_branch_where_is_no_value()
+    public async Task Match_for_deconstruct_kv_follows_some_branch_where_is_no_value()
     {
         Maybe<KeyValuePair<int, string>> maybe = Maybe<KeyValuePair<int, string>>.From(
             new KeyValuePair<int, string>(42, "Matrix")
@@ -122,7 +122,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_for_deconstruct_kv_provides_context_to_some_selector()
+    public async Task Match_for_deconstruct_kv_provides_context_to_some_selector()
     {
         Maybe<KeyValuePair<int, string>> maybe = Maybe<KeyValuePair<int, string>>.From(
             new KeyValuePair<int, string>(42, "Matrix")
@@ -151,7 +151,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_for_deconstruct_kv_follows_none_branch_where_is_no_value()
+    public async Task Match_for_deconstruct_kv_follows_none_branch_where_is_no_value()
     {
         Maybe<KeyValuePair<int, string>> maybe = Maybe<KeyValuePair<int, string>>.None;
         var cancellationToken = GetCancellationToken();
@@ -169,7 +169,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_for_deconstruct_kv_provides_context_to_none_selector()
+    public async Task Match_for_deconstruct_kv_provides_context_to_none_selector()
     {
         Maybe<KeyValuePair<int, string>> maybe = Maybe<KeyValuePair<int, string>>.None;
         var cancellationToken = GetCancellationToken();
@@ -195,7 +195,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_for_deconstruct_kv_follows_some_branch_where_is_a_return_value()
+    public async Task Match_for_deconstruct_kv_follows_some_branch_where_is_a_return_value()
     {
         Maybe<KeyValuePair<int, string>> maybe = Maybe<KeyValuePair<int, string>>.From(
             new KeyValuePair<int, string>(42, "Matrix")
@@ -218,7 +218,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_for_deconstruct_kv_with_return_value_provides_context_to_some_selector()
+    public async Task Match_for_deconstruct_kv_with_return_value_provides_context_to_some_selector()
     {
         Maybe<KeyValuePair<int, string>> maybe = Maybe<KeyValuePair<int, string>>.From(
             new KeyValuePair<int, string>(42, "Matrix")
@@ -246,7 +246,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_for_deconstruct_kv_follows_none_branch_where_is_a_return_value()
+    public async Task Match_for_deconstruct_kv_follows_none_branch_where_is_a_return_value()
     {
         Maybe<KeyValuePair<int, string>> maybe = Maybe<KeyValuePair<int, string>>.None;
         var cancellationToken = GetCancellationToken();
@@ -266,7 +266,7 @@ public class MatchTests_ValueTask : MatchTestsBase
     }
 
     [Fact]
-    public async ValueTask Match_for_deconstruct_kv_with_return_value_provides_context_to_none_selector()
+    public async Task Match_for_deconstruct_kv_with_return_value_provides_context_to_none_selector()
     {
         Maybe<KeyValuePair<int, string>> maybe = Maybe<KeyValuePair<int, string>>.None;
         var context = 5;
