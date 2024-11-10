@@ -12,5 +12,16 @@ namespace CSharpFunctionalExtensions
 
             return selector(maybe.GetValueOrThrow());
         }
+
+        public static Task<Maybe<K>> Bind<T, K, TContext>(
+                this Maybe<T> maybe,
+                Func<T, TContext, Task<Maybe<K>>> selector,
+                TContext context)
+        {
+            if (maybe.HasNoValue)
+                return Maybe<K>.None.AsCompletedTask();
+
+            return selector(maybe.GetValueOrThrow(), context);
+        }
     }
 }
