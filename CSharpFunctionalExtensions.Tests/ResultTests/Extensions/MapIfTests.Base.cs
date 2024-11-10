@@ -15,14 +15,15 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             predicateExecuted = false;
         }
 
-        protected Func<T, T> GetAction() => value =>
-        {
-            actionExecuted.Should().BeFalse();
-            value.Should().Be(T.Value);
+        protected Func<T, T> GetAction() =>
+            value =>
+            {
+                actionExecuted.Should().BeFalse();
+                value.Should().Be(T.Value);
 
-            actionExecuted = true;
-            return T.Value2;
-        };
+                actionExecuted = true;
+                return T.Value2;
+            };
 
         protected Func<T, Task<T>> GetTaskAction()
         {
@@ -69,5 +70,7 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
 
             return Result.SuccessIf(isSuccess, T.Value2, E.Value2);
         }
+
+        protected readonly string ContextMessage = "Context data";
     }
 }
