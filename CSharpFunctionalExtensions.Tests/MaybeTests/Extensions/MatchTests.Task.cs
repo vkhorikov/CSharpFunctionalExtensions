@@ -208,7 +208,7 @@ public class MatchTests_Task : MatchTestsBase
                 intValue.Should().Be(42);
                 stringValue.Should().Be("Matrix");
 
-                return Task.FromResult(intValue);
+                return intValue.AsTask();
             },
             None: _ => throw new FieldAccessException("Accessed None path while maybe has value"),
             cancellationToken
@@ -233,7 +233,7 @@ public class MatchTests_Task : MatchTestsBase
                 ctx.Should().Be(context);
                 contextAsserted = true;
 
-                return Task.FromResult(intValue);
+                return intValue.AsTask();
             },
             None: (_, _) =>
                 throw new FieldAccessException("Accessed None path while maybe has value"),
@@ -257,7 +257,7 @@ public class MatchTests_Task : MatchTestsBase
             None: (ct) =>
             {
                 ct.Should().Be(cancellationToken);
-                return Task.FromResult(-1);
+                return (-1).AsTask();
             },
             cancellationToken
         );
@@ -281,7 +281,7 @@ public class MatchTests_Task : MatchTestsBase
                 ctx.Should().Be(context);
                 contextAsserted = true;
 
-                return Task.FromResult(-1);
+                return (-1).AsTask();
             },
             context: context,
             cancellationToken
