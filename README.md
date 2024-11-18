@@ -633,6 +633,7 @@ dotnet add package CSharpFunctionalExtensions.Analyzers
 
 A big thanks to the project contributors!
 
+- [Chris C](https://github.com/ToInvertedResult)
 - [Marcin Jahn](https://github.com/marcinjahn)
 - [Jannes Kaspar-Müller](https://github.com/JKamue)
 - [dbuckin1](https://github.com/dbuckin1)

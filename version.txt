@@ -1,5 +1,4 @@
-3.1.0
+3.2.0
 Updates:
-* #565 Add allocation-free Maybe.Bind overload
-* #569 Add async & func overloads for Maybe.From
-* Nullability handling improvements in Maybe
+* #567 Select overload for Result to use in LINQ
+* #579 allocation-free overloads of Maybe.Match
