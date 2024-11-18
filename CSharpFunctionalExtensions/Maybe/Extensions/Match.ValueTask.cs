@@ -20,6 +20,19 @@ namespace CSharpFunctionalExtensions
                 : await None(cancellationToken);
         }
 
+        public static async ValueTask<TE> Match<TE, T, TContext>(
+            this Maybe<T> maybe,
+            Func<T, TContext, CancellationToken, ValueTask<TE>> Some,
+            Func<TContext, CancellationToken, ValueTask<TE>> None,
+            TContext context,
+            CancellationToken cancellationToken = default
+        )
+        {
+            return maybe.HasValue
+                ? await Some(maybe.GetValueOrThrow(), context, cancellationToken)
+                : await None(context, cancellationToken);
+        }
+
         public static async ValueTask Match<T>(
             this Maybe<T> maybe,
             Func<T, CancellationToken, ValueTask> Some,
@@ -31,6 +44,20 @@ namespace CSharpFunctionalExtensions
                 await Some(maybe.GetValueOrThrow(), cancellationToken);
             else
                 await None(cancellationToken);
+        }
+
+        public static async ValueTask Match<T, TContext>(
+            this Maybe<T> maybe,
+            Func<T, TContext, CancellationToken, ValueTask> Some,
+            Func<TContext, CancellationToken, ValueTask> None,
+            TContext context,
+            CancellationToken cancellationToken = default
+        )
+        {
+            if (maybe.HasValue)
+                await Some(maybe.GetValueOrThrow(), context, cancellationToken);
+            else
+                await None(context, cancellationToken);
         }
 
         public static async ValueTask<TE> Match<TE, TKey, TValue>(
@@ -47,6 +74,24 @@ namespace CSharpFunctionalExtensions
                     cancellationToken
                 )
                 : await None.Invoke(cancellationToken);
+        }
+
+        public static async ValueTask<TE> Match<TE, TKey, TValue, TContext>(
+            this Maybe<KeyValuePair<TKey, TValue>> maybe,
+            Func<TKey, TValue, TContext, CancellationToken, ValueTask<TE>> Some,
+            Func<TContext, CancellationToken, ValueTask<TE>> None,
+            TContext context,
+            CancellationToken cancellationToken = default
+        )
+        {
+            return maybe.HasValue
+                ? await Some.Invoke(
+                    maybe.GetValueOrThrow().Key,
+                    maybe.GetValueOrThrow().Value,
+                    context,
+                    cancellationToken
+                )
+                : await None.Invoke(context, cancellationToken);
         }
 
         public static async ValueTask Match<TKey, TValue>(
@@ -67,6 +112,29 @@ namespace CSharpFunctionalExtensions
             else
             {
                 await None.Invoke(cancellationToken);
+            }
+        }
+
+        public static async ValueTask Match<TKey, TValue, TContext>(
+            this Maybe<KeyValuePair<TKey, TValue>> maybe,
+            Func<TKey, TValue, TContext, CancellationToken, ValueTask> Some,
+            Func<TContext, CancellationToken, ValueTask> None,
+            TContext context,
+            CancellationToken cancellationToken = default
+        )
+        {
+            if (maybe.HasValue)
+            {
+                await Some.Invoke(
+                    maybe.GetValueOrThrow().Key,
+                    maybe.GetValueOrThrow().Value,
+                    context,
+                    cancellationToken
+                );
+            }
+            else
+            {
+                await None.Invoke(context, cancellationToken);
             }
         }
     }
