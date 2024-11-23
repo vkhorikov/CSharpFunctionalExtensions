@@ -23,7 +23,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
         {
             var maybe = Maybe<T>.From(T.Value);
 
-            var result = await maybe.AsValueTask().ToResult("Error".AsValueTask());
+            var result = await maybe.AsValueTask().ToResult("Error");
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(T.Value);
