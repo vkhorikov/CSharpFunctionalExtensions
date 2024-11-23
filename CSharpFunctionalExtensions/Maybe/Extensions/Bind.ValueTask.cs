@@ -11,6 +11,15 @@ namespace CSharpFunctionalExtensions.ValueTasks
             Maybe<T> maybe = await maybeTask;
             return await maybe.Bind(selector);
         }
+
+        public static async ValueTask<Maybe<K>> Bind<T, K, TContext>(
+                this ValueTask<Maybe<T>> maybeTask,
+                Func<T, TContext, ValueTask<Maybe<K>>> selector,
+                TContext context)
+        {
+            Maybe<T> maybe = await maybeTask;
+            return await maybe.Bind(selector, context);
+        }
     }
 }
 #endif
