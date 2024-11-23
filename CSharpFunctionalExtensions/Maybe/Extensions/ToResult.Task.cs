@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
 {
@@ -14,6 +15,12 @@ namespace CSharpFunctionalExtensions
         {
             var maybe = await maybeTask.DefaultAwait();
             return maybe.ToResult(error);
+        }
+
+        public static async Task<Result<T, E>> ToResult<T, E>(this Task<Maybe<T>> maybeTask, Func<E> errorFunc)
+        {
+            var maybe = await maybeTask.DefaultAwait();
+            return maybe.ToResult(errorFunc);
         }
     }
 }
