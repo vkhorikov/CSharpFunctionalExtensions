@@ -44,6 +44,14 @@ stages:
     - script: |
         docker create --name build-container build-image
         docker cp build-container:./app/CSharpFunctionalExtensions.Tests/TestResults ./testresults
+
+        # This will make sure that the pipeline fails if the tests were not executed for any reason
+        if [ ./testresults/testresults.trx ] && [ $(grep -E "<UnitTestResult" ./testresults/testresults.trx -c) -gt 0 ]; then
+          echo "Test results results found"
+        else
+          echo "No test results found"
+          exit 1
+        fi
       displayName: Extract test results
 
     - task: PublishTestResults@2
