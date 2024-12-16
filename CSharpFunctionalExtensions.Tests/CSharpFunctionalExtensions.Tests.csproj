@@ -445,12 +445,6 @@
     <Compile Update="MaybeTests\Extensions\OrTests.Task.cs">
       <DependentUpon>OrTests.cs</DependentUpon>
     </Compile>
-    <Compile Update="MaybeTests\Extensions\ToResultTests.ValueTask.Left.cs">
-      <DependentUpon>ToResultTests.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="MaybeTests\Extensions\ToResultTests.Task.Left.cs">
-      <DependentUpon>ToResultTests.Task.cs</DependentUpon>
-    </Compile>
     <Compile Update="MaybeTests\Extensions\ToResultTests.ValueTask.cs">
       <DependentUpon>ToResultTests.cs</DependentUpon>
     </Compile>
