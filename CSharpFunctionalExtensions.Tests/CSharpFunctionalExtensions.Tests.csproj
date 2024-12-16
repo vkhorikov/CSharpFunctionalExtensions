@@ -574,5 +574,11 @@
     <Compile Update="ResultTests\Extensions\MapTryTests.ValueTask.Right.cs">
       <DependentUpon>MapTryTests.ValueTask.cs</DependentUpon>
     </Compile>
+    <Compile Update="MaybeTests\Extensions\ToInvertedResultTests.Task.cs">
+      <DependentUpon>ToInvertedResultTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ToInvertedResultTests.ValueTask.cs">
+      <DependentUpon>ToInvertedResultTests.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
