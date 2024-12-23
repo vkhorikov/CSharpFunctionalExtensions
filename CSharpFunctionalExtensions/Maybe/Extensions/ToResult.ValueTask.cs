@@ -17,6 +17,12 @@ namespace CSharpFunctionalExtensions.ValueTasks
             Maybe<T> maybe = await maybeTask;
             return maybe.ToResult(error);
         }
+
+        public static async ValueTask<Result<T, E>> ToResult<T, E>(this ValueTask<Maybe<T>> maybeTask, Func<E> errorFunc)
+        {
+            Maybe<T> maybe = await maybeTask;
+            return maybe.ToResult(errorFunc);
+        }
     }
 }
 #endif
