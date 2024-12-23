@@ -1,4 +1,4 @@
-3.2.0
+3.3.0
 Updates:
-* #567 Select overload for Result to use in LINQ
-* #579 allocation-free overloads of Maybe.Match
+* Multiple allocation-free overloads of Map Bind etc
+* #586 Fixed failing tests and the pipeline where it ignored those failures
