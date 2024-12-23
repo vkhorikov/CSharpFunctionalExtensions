@@ -39,7 +39,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
         [Fact]
         public void Bind_provides_context_to_selector()
         {
-            Maybe<T> maybe = null;
+            Maybe<T> maybe = T.Value;
             var context = 5;
 
             var maybe2 = maybe.Bind(
@@ -51,7 +51,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
                 context
             );
 
-            maybe2.HasValue.Should().BeFalse();
+            maybe2.HasValue.Should().BeTrue();
         }
 
         [Fact]
