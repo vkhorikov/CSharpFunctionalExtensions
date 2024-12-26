@@ -56,10 +56,11 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
         {
             Maybe<T> maybe = null;
 
-            var result = await maybe.AsValueTask().ToResult(() => E.Value);
+            var result = await maybe.AsValueTask().ToResult(ErrorFunc);
 
             result.IsSuccess.Should().BeFalse();
             result.Error.Should().Be(E.Value);
+            AssertErrorFuncCalled();
         }
 
         [Fact]
@@ -67,10 +68,11 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
         {
             var maybe = Maybe<T>.From(T.Value);
 
-            var result = await maybe.AsValueTask().ToResult(() => E.Value);
+            var result = await maybe.AsValueTask().ToResult(ErrorFunc);
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be(T.Value);
+            AssertErrorFuncNotCalled();
         }
     }
 }

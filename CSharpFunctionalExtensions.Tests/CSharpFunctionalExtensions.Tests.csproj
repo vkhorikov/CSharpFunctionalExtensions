@@ -29,14 +29,8 @@
     <Compile Update="MaybeTests\Extensions\ToUnitResultTests.Task.cs">
       <DependentUpon>ToUnitResultTests.cs</DependentUpon>
     </Compile>
-    <Compile Update="MaybeTests\Extensions\ToUnitResultTests.Task.Left.cs">
-      <DependentUpon>ToUnitResultTests.Task.cs</DependentUpon>
-    </Compile>
     <Compile Update="MaybeTests\Extensions\ToUnitResultTests.ValueTask.cs">
       <DependentUpon>ToUnitResultTests.cs</DependentUpon>
-    </Compile>
-    <Compile Update="MaybeTests\Extensions\ToUnitResultTests.ValueTask.Left.cs">
-      <DependentUpon>ToUnitResultTests.ValueTask.cs</DependentUpon>
     </Compile>
     <Compile Update="ResultTests\Extensions\MapTests.Task.cs">
       <DependentUpon>MapTests.cs</DependentUpon>
