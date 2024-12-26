@@ -1,4 +1,5 @@
 ﻿#if NET5_0_OR_GREATER
+using System;
 using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions.ValueTasks
@@ -15,6 +16,12 @@ namespace CSharpFunctionalExtensions.ValueTasks
         {
             Maybe<T> maybe = await maybeTask;
             return maybe.ToResult(error);
+        }
+
+        public static async ValueTask<Result<T, E>> ToResult<T, E>(this ValueTask<Maybe<T>> maybeTask, Func<E> errorFunc)
+        {
+            Maybe<T> maybe = await maybeTask;
+            return maybe.ToResult(errorFunc);
         }
     }
 }

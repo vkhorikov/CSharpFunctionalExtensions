@@ -1,4 +1,6 @@
-﻿namespace CSharpFunctionalExtensions
+﻿using System;
+
+namespace CSharpFunctionalExtensions
 {
     public static partial class MaybeExtensions
     {
@@ -14,6 +16,14 @@
         {
             if (maybe.HasNoValue)
                 return Result.Failure<T, E>(error);
+
+            return Result.Success<T, E>(maybe.GetValueOrThrow());
+        }
+
+        public static Result<T, E> ToResult<T, E>(in this Maybe<T> maybe, Func<E> errorFunc)
+        {
+            if (maybe.HasNoValue)
+                return Result.Failure<T, E>(errorFunc());
 
             return Result.Success<T, E>(maybe.GetValueOrThrow());
         }
