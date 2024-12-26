@@ -19,5 +19,13 @@ namespace CSharpFunctionalExtensions
         
             return UnitResult.Success<E>();
         }
+        
+        public static UnitResult<E> ToInvertedResult<T, E>(in this Maybe<T> maybe, Func<E> errorFunc)
+        {
+            if (maybe.HasValue)
+                return UnitResult.Failure(errorFunc());
+        
+            return UnitResult.Success<E>();
+        }
     }
 }

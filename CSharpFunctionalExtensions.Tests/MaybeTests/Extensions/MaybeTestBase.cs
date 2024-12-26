@@ -8,6 +8,24 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
 {
     public class MaybeTestBase : TestBase
     {
+        private bool errorFuncExecuted;
+
+        protected E ErrorFunc()
+        {
+            errorFuncExecuted = true;
+            return E.Value;
+        }
+
+        protected void AssertErrorFuncCalled()
+        {
+            errorFuncExecuted.Should().BeTrue();
+        }
+
+        protected void AssertErrorFuncNotCalled()
+        {
+            errorFuncExecuted.Should().BeFalse();
+        }
+        
         protected static Func<T, R> ExpectAndReturn<R>(T expected, R result)
         {
             return actual =>
