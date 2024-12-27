@@ -1,4 +1,3 @@
-3.3.0
+3.4.0
 Updates:
-* Multiple allocation-free overloads of Map Bind etc
-* #586 Fixed failing tests and the pipeline where it ignored those failures
+* #588 Create ToInvertedResult extension methods on Maybe
