@@ -29,14 +29,8 @@
     <Compile Update="MaybeTests\Extensions\ToUnitResultTests.Task.cs">
       <DependentUpon>ToUnitResultTests.cs</DependentUpon>
     </Compile>
-    <Compile Update="MaybeTests\Extensions\ToUnitResultTests.Task.Left.cs">
-      <DependentUpon>ToUnitResultTests.Task.cs</DependentUpon>
-    </Compile>
     <Compile Update="MaybeTests\Extensions\ToUnitResultTests.ValueTask.cs">
       <DependentUpon>ToUnitResultTests.cs</DependentUpon>
-    </Compile>
-    <Compile Update="MaybeTests\Extensions\ToUnitResultTests.ValueTask.Left.cs">
-      <DependentUpon>ToUnitResultTests.ValueTask.cs</DependentUpon>
     </Compile>
     <Compile Update="ResultTests\Extensions\MapTests.Task.cs">
       <DependentUpon>MapTests.cs</DependentUpon>
@@ -446,12 +440,6 @@
     <Compile Update="MaybeTests\Extensions\OrTests.Task.cs">
       <DependentUpon>OrTests.cs</DependentUpon>
     </Compile>
-    <Compile Update="MaybeTests\Extensions\ToResultTests.ValueTask.Left.cs">
-      <DependentUpon>ToResultTests.ValueTask.cs</DependentUpon>
-    </Compile>
-    <Compile Update="MaybeTests\Extensions\ToResultTests.Task.Left.cs">
-      <DependentUpon>ToResultTests.Task.cs</DependentUpon>
-    </Compile>
     <Compile Update="MaybeTests\Extensions\ToResultTests.ValueTask.cs">
       <DependentUpon>ToResultTests.cs</DependentUpon>
     </Compile>
@@ -574,6 +562,12 @@
     </Compile>
     <Compile Update="ResultTests\Extensions\MapTryTests.ValueTask.Right.cs">
       <DependentUpon>MapTryTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ToInvertedResultTests.Task.cs">
+      <DependentUpon>ToInvertedResultTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\ToInvertedResultTests.ValueTask.cs">
+      <DependentUpon>ToInvertedResultTests.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
