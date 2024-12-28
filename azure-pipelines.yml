@@ -82,6 +82,8 @@ stages:
       releaseInfo: $[ dependencies.Version.outputs['readNewVersionStep.releaseInfo'] ]
       newVersion: $[ dependencies.Version.outputs['readNewVersionStep.newVersion'] ]
       currentVersion: $[ dependencies.Version.outputs['readCurrentVersionStep.currentVersion'] ]
+      acceptHeader: 'Accept: application/vnd.github+json'
+      apiVersionHeader: 'X-GitHub-Api-Version: 2022-11-28'
       contentTypeHeader1: 'Content-Type: application/json'
       contentTypeHeader2: 'Content-Type: application/octet-stream'
       authHeader: 'Authorization: Bearer $(gitHubToken)'
@@ -104,8 +106,8 @@ stages:
         curl -X POST -s -H '$(contentTypeHeader1)' -H '$(authHeader)' https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases -d '$(createReleaseRequest)'
         $json = Invoke-RestMethod -Method 'GET' -Uri "https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/latest"
         $releaseId = $json.id
-        curl -X POST -s -H '$(contentTypeHeader2)' -H '$(authHeader)' --data-binary '$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(newVersion).nupkg' 'https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.$(newVersion).nupkg'
-        curl -X POST -s -H '$(contentTypeHeader2)' -H '$(authHeader)' --data-binary '$(Pipeline.Workspace)/NuGetPackageStrongName/CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg' 'https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg'
+        curl -X POST -s -H '$(acceptHeader)' -H '$(apiVersionHeader)' -H '$(contentTypeHeader2)' -H '$(authHeader)' --data-binary '@$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(newVersion).nupkg' 'https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.$(newVersion).nupkg'
+        curl -X POST -s -H '$(acceptHeader)' -H '$(apiVersionHeader)' -H '$(contentTypeHeader2)' -H '$(authHeader)' --data-binary '@$(Pipeline.Workspace)/NuGetPackageStrongName/CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg' 'https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg'
       displayName: Publish to GitHub
       condition: and(succeeded(), ne(variables.gitHubToken, ''))
 
