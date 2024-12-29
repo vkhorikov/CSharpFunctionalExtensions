@@ -104,10 +104,9 @@ stages:
 
     - script: |
         curl -X POST -s -H '$(contentTypeHeader1)' -H '$(authHeader)' https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases -d '$(createReleaseRequest)'
-        $json = Invoke-RestMethod -Method 'GET' -Uri "https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/latest"
-        $releaseId = $json.id
-        curl -X POST -s -H '$(acceptHeader)' -H '$(apiVersionHeader)' -H '$(contentTypeHeader2)' -H '$(authHeader)' --data-binary '@$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(newVersion).nupkg' 'https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.$(newVersion).nupkg'
-        curl -X POST -s -H '$(acceptHeader)' -H '$(apiVersionHeader)' -H '$(contentTypeHeader2)' -H '$(authHeader)' --data-binary '@$(Pipeline.Workspace)/NuGetPackageStrongName/CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg' 'https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$(releaseId)/assets?name=CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg'
+        releaseId=$(curl -s https://api.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/latest | grep -o '"id": [0-9]*' | head -n 1 | sed 's/"id": //')
+        curl -X POST -s -H '$(acceptHeader)' -H '$(apiVersionHeader)' -H '$(contentTypeHeader2)' -H '$(authHeader)' --data-binary '@$(Pipeline.Workspace)/NuGetPackage/CSharpFunctionalExtensions.$(newVersion).nupkg' "https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$releaseId/assets?name=CSharpFunctionalExtensions.$(newVersion).nupkg"
+        curl -X POST -s -H '$(acceptHeader)' -H '$(apiVersionHeader)' -H '$(contentTypeHeader2)' -H '$(authHeader)' --data-binary '@$(Pipeline.Workspace)/NuGetPackageStrongName/CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg' "https://uploads.github.com/repos/vkhorikov/CSharpFunctionalExtensions/releases/$releaseId/assets?name=CSharpFunctionalExtensions.StrongName.$(newVersion).nupkg"
       displayName: Publish to GitHub
       condition: and(succeeded(), ne(variables.gitHubToken, ''))
 
