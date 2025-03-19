@@ -585,7 +585,7 @@ Console.WriteLine(bananaInventory.MapError(ErrorEnhancer).ToString()); // "Faile
 
 ## Testing
 
-### CSharpFunctionalExtensions.FluentAssertions
+### [CSharpFunctionalExtensions.FluentAssertions](https://github.com/NitroDevs/CSharpFunctionalExtensions.FluentAssertions)
 
 A small set of extensions to make test assertions more fluent when using CSharpFunctionalExtensions! Check out the [repo for this library](https://github.com/NitroDevs/CSharpFunctionalExtensions.FluentAssertions) more information!
 
