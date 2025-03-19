@@ -607,6 +607,36 @@ result.Should().SucceedWith(69); // throws
 result.Should().Fail(); // throws
 ```
 
+## Web APIs / HttpResults
+
+### [CSharpFunctionalExtensions.HttpResults](https://github.com/co-IT/CSharpFunctionalExtensions.HttpResults)
+
+This library provides convenient extension methods to seamlessly map Results from [CSharpFunctionalExtensions](https://github.com/vkhorikov/CSharpFunctionalExtensions) to HttpResults. With this, it streamlines your Web API resulting in cleaner, more fluent code.
+
+#### Key Benefits
+
+- ⚙️ **Zero Configuration:** Get started immediately — the mapping works out of the box without any configuration.
+- 🛠️ **Customizable Mappings:** Tailor default mappings or define custom mappings for specific use cases.
+- 🔗 **Fluent API:** Maintain a smooth, railway-oriented flow by chaining HttpResult mappings at the end of your Result chain.
+- 🧱 **Separation of Domain and HTTP Errors:** Keeps domain errors distinct from HTTP errors, improving maintainability and clarity between business logic and web API concerns.
+- ⚡ **Minimal APIs & Controllers Support:** Works with both Minimal APIs and traditional controllers in ASP.NET.
+- 📦 **Full Support for ASP.NET Results:** Supports all built-in HTTP response types in ASP.NET, including `Ok`, `Created`, `NoContent`, `Accepted`, `FileStream`, and more.
+- 🦺 **Typed Results:** Utilizes `TypedResults` for consistent, type-safe API responses.
+- 📑 **OpenAPI Ready:** Ensures accurate OpenAPI generation for clear and reliable API documentation.
+- 🛡️ **RFC Compliance:** Default mappings adhere to the RFC 9457 standard (`ProblemDetails`), ensuring your API errors are standardized and interoperable.
+- 🧑‍💻 **Developer-Friendly:** Includes built-in analyzers and source generators to speed up development and reduce errors.
+
+#### Example
+
+```csharp
+app.MapGet("/books", (BookService service) =>
+    service.Get()       //Result<Book[]>
+      .ToOkHttpResult() //Results<Ok<Book[]>, ProblemHttpResult>
+);
+```
+
+Check the repo out [here](https://github.com/co-IT/CSharpFunctionalExtensions.HttpResults).
+
 ## Analyzers
 
 ### [CSharpFunctionalExtensions.Analyzers](https://github.com/AlmarAubel/CSharpFunctionalExtensions.Analyzers)
