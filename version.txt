@@ -1,3 +1,3 @@
-3.5.1
+3.6.0
 Updates:
-* #597 ResultAsMaybe
+* #599 Add extensions for Bind optional, ensure not, map, optional, required
