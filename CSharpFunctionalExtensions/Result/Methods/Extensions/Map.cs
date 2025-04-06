@@ -107,5 +107,25 @@ namespace CSharpFunctionalExtensions
 
             return Result.Success(func(context));
         }
+
+        public static Result<Maybe<K>> Map<T, K>(
+            this Result<Maybe<T>> result,
+            Func<T, K> func)
+        {
+            if (result.IsFailure)
+                return Result.Failure<Maybe<K>>(result.Error);
+
+            return Result.Success<Maybe<K>>(result.Value.Map(func));
+        }
+        
+        public static Result<Maybe<K>, E> Map<T, K, E>(
+            this Result<Maybe<T>, E> result,
+            Func<T, K> func)
+        {
+            if (result.IsFailure)
+                return Result.Failure<Maybe<K>, E>(result.Error);
+
+            return Result.Success<Maybe<K>, E>(result.Value.Map(func));
+        }
     }
 }
