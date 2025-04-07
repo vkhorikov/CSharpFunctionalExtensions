@@ -2,7 +2,7 @@ using Xunit;
 
 namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions;
 
-public class BindOptional
+public class BindOptionalTests
 {
     [Fact]
     public void BindOptional_with_value_returns_value()

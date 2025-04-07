@@ -2,7 +2,7 @@ using FluentAssertions;
 using FluentAssertions.Common;
 using Xunit;
 
-namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions;
+namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions;
 
 public class BindOptionalTests
 {
