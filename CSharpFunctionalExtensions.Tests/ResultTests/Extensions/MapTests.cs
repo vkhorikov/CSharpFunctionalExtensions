@@ -234,5 +234,29 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             actual.Error.Should().Be(E.Value);
             FuncExecuted.Should().BeFalse();
         }
+
+        [Fact]
+        public void Map_Result_Maybe_to_Maybe_Succeeds()
+        {
+            
+        }
+        
+        [Fact]
+        public void Map_Result_Maybe_to_Maybe_Fails()
+        {
+            
+        }
+        
+        [Fact]
+        public void Map_Result_E_Maybe_to_Maybe_Succeeds()
+        {
+            
+        }
+        
+        [Fact]
+        public void Map_Result_E_Maybe_to_Maybe_Fails()
+        {
+            
+        }
     }
 }
