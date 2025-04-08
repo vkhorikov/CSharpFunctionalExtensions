@@ -234,5 +234,61 @@ namespace CSharpFunctionalExtensions.Tests.ResultTests.Extensions
             actual.Error.Should().Be(E.Value);
             FuncExecuted.Should().BeFalse();
         }
+        
+        [Fact]
+        public void Map_Result_Maybe_from_success()
+        {
+            var result = Result.Success<Maybe<int>>(Maybe.From(1))
+                .Map(v => v * 2);
+            result.IsSuccess.Should().BeTrue();
+            result.Value.HasValue.Should().BeTrue();
+            result.Value.Value.Should().Be(2);
+        }
+        
+        [Fact]
+        public void Map_Result_Maybe_from_failure()
+        {
+            var result = Result.Failure<Maybe<int>>("empty")
+                .Map(v => v * 2);
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().BeEquivalentTo("empty");
+        }
+
+        [Fact]
+        public void Map_Result_Maybe_from_none()
+        {
+            var result = Result.Success(Maybe<int>.None)
+                .Map(v => v * 2);
+            result.IsSuccess.Should().BeTrue();
+            result.Value.HasValue.Should().BeFalse();
+        }
+        
+        [Fact]
+        public void Map_Result_E_Maybe_from_success()
+        {
+            var result = Result.Success<Maybe<int>, string>(Maybe.From(1))
+                .Map(v => v * 2);
+            result.IsSuccess.Should().BeTrue();
+            result.Value.HasValue.Should().BeTrue();
+            result.Value.Value.Should().Be(2);
+        }
+        
+        [Fact]
+        public void Map_Result_E_Maybe_from_failure()
+        {
+            var result = Result.Failure<Maybe<int>, string>("error")
+                .Map(v => v * 2);
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be("error");
+        }
+        
+        [Fact]
+        public void Map_Result_E_Maybe_from_none()
+        {
+            var result = Result.Success<Maybe<int>, string>(Maybe<int>.None)
+                .Map(v => v * 2);
+            result.IsSuccess.Should().BeTrue();
+            result.Value.HasValue.Should().BeFalse();
+        }
     }
 }
