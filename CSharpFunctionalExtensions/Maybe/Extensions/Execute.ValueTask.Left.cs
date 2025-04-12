@@ -1,4 +1,4 @@
-﻿#if NET5_0_OR_GREATER
+#if NET5_0_OR_GREATER
 using System;
 using System.Threading.Tasks;
 
@@ -13,6 +13,7 @@ namespace CSharpFunctionalExtensions.ValueTasks
         /// <param name="action"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
+        [Obsolete("Use TapValue instead")]
         public static async Task Execute<T>(this ValueTask<Maybe<T>> maybeTask, Action<T> action)
         {
             var maybe = await maybeTask;
