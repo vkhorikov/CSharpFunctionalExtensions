@@ -1,3 +1,6 @@
+using FluentAssertions;
+using Xunit;
+
 namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
 {
     public class TapTests : MaybeTestBase
