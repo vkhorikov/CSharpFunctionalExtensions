@@ -9,11 +9,12 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
         public void Tap_does_not_execute_action_if_no_value()
         {
             Maybe<T> maybe = null;
+            var executed = false;
 
-            var returnedMaybe = maybe.Tap(value => maybe = T.Value);
+            var returnedMaybe = maybe.Tap(value => executed = true);
 
-            maybe.HasNoValue.Should().BeTrue();
-            returnedMaybe.Should().BeSameAs(maybe);
+            executed.Should().BeFalse();
+            returnedMaybe.HasNoValue.Should().BeTrue();
         }
 
         [Fact]
@@ -24,7 +25,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             var returnedMaybe = maybe.Tap(value => value.Should().Be(T.Value));
 
             maybe.Value.Should().Be(T.Value);
-            returnedMaybe.Should().BeSameAs(maybe);
+            returnedMaybe.Value.Should().BeSameAs(maybe.Value);
         }
     }
 }

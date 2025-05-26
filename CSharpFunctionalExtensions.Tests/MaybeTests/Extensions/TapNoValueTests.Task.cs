@@ -15,14 +15,10 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
 
             var returnedMaybe = await maybe
                 .AsTask()
-                .TapNoValue(() =>
-                {
-                    property = "Some value";
-                    return Task.CompletedTask;
-                });
+                .TapNoValue(() => property = "Some value");
 
             property.Should().Be("Some value");
-            returnedMaybe.Should().BeSameAs(maybe);
+            returnedMaybe.HasNoValue.Should().BeTrue();
         }
     }
 }

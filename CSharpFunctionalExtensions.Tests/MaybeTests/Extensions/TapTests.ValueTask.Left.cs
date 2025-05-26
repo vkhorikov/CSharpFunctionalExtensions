@@ -11,11 +11,12 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
         public async Task Tap_ValueTask_Lef_does_not_execute_action_if_no_value()
         {
             Maybe<T> maybe = null;
+            var executed = false;
 
-            var returnedMaybe = await maybe.AsValueTask().Tap(value => maybe = T.Value);
+            var returnedMaybe = await maybe.AsValueTask().Tap(value => executed = true);
 
-            maybe.HasNoValue.Should().BeTrue();
-            returnedMaybe.Should().BeSameAs(maybe);
+            executed.Should().BeFalse();
+            returnedMaybe.HasNoValue.Should().BeTrue();
         }
 
         [Fact]
@@ -26,7 +27,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             var returnedMaybe = await maybe.AsValueTask().Tap(value => value.Should().Be(T.Value));
 
             maybe.Value.Should().Be(T.Value);
-            returnedMaybe.Should().BeSameAs(maybe);
+            returnedMaybe.Value.Should().BeSameAs(maybe.Value);
         }
     }
 }

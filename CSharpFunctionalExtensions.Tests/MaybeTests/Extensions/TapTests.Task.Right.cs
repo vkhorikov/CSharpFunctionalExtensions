@@ -18,7 +18,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             });
 
             maybe.HasNoValue.Should().BeTrue();
-            returnedMaybe.Should().BeSameAs(maybe);
+            returnedMaybe.HasNoValue.Should().BeTrue();
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             });
 
             maybe.Value.Should().Be(T.Value);
-            returnedMaybe.Should().BeSameAs(maybe);
+            returnedMaybe.Value.Should().BeSameAs(maybe.Value);
         }
     }
 }

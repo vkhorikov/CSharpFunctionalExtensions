@@ -15,7 +15,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             var returnedMaybe = maybe.TapNoValue(() => property = "Some value");
 
             property.Should().Be("Some value");
-            returnedMaybe.Should().BeSameAs(maybe);
+            returnedMaybe.HasNoValue.Should().BeTrue();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             });
 
             property.Should().Be("Some value");
-            returnedMaybe.Should().BeSameAs(maybe);
+            returnedMaybe.HasNoValue.Should().BeTrue();
         }
     }
 }
