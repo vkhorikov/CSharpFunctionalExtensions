@@ -20,6 +20,10 @@
       <_Parameter1>CSharpFunctionalExtensions.Tests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
+	
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR $(TargetFramework)=='netstandard2.0'">
+    <PackageReference Include="System.ValueTuple" Version="4.*" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
