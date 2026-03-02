@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
 namespace CSharpFunctionalExtensions
@@ -11,6 +11,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="maybeTask"></param>
         /// <param name="action"></param>
         /// <typeparam name="T"></typeparam>
+        [Obsolete("Use TapNoValue instead")]
         public static async Task ExecuteNoValue<T>(this Task<Maybe<T>> maybeTask, Action action)
         {
             var maybe = await maybeTask.DefaultAwait();

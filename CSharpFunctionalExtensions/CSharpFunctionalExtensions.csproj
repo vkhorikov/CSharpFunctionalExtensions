@@ -28,7 +28,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="!$(DefineConstants.Contains('NET5_0_OR_GREATER')) and !$(DefineConstants.Contains('NETCORE'))">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
     <Compile Remove="Result\Json\Serialization\**"/>
     <EmbeddedResource Remove="Result\Json\Serialization\**"/>
     <None Remove="Result\Json\Serialization\**"/>
@@ -196,6 +196,42 @@
     </Compile>
     <Compile Update="Maybe\Extensions\ExecuteNoValue.ValueTask.Left.cs">
       <DependentUpon>ExecuteNoValue.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\Tap.Task.cs">
+      <DependentUpon>Tap.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\Tap.Task.Left.cs">
+      <DependentUpon>Tap.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\Tap.Task.Right.cs">
+      <DependentUpon>Tap.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\Tap.ValueTask.cs">
+      <DependentUpon>Tap.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\Tap.ValueTask.Left.cs">
+      <DependentUpon>Tap.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\Tap.ValueTask.Right.cs">
+      <DependentUpon>Tap.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\TapNoValue.Task.cs">
+      <DependentUpon>TapNoValue.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\TapNoValue.Task.Left.cs">
+      <DependentUpon>TapNoValue.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\TapNoValue.Task.Right.cs">
+      <DependentUpon>TapNoValue.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\TapNoValue.ValueTask.cs">
+      <DependentUpon>TapNoValue.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\TapNoValue.ValueTask.Left.cs">
+      <DependentUpon>TapNoValue.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\TapNoValue.ValueTask.Right.cs">
+      <DependentUpon>TapNoValue.ValueTask.cs</DependentUpon>
     </Compile>
     <Compile Update="Maybe\Extensions\GetValueOrDefault.Task.Right.cs">
       <DependentUpon>GetValueOrDefault.Task.cs</DependentUpon>

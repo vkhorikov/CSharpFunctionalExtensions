@@ -481,6 +481,42 @@
     <Compile Update="MaybeTests\Extensions\ExecuteNoValueTests.ValueTask.cs">
       <DependentUpon>ExecuteNoValueTests.cs</DependentUpon>
     </Compile>
+    <Compile Update="MaybeTests\Extensions\TapTests.Task.cs">
+      <DependentUpon>TapTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapTests.Task.Left.cs">
+      <DependentUpon>TapTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapTests.Task.Right.cs">
+      <DependentUpon>TapTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapTests.ValueTask.cs">
+      <DependentUpon>TapTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapTests.ValueTask.Left.cs">
+      <DependentUpon>TapTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapTests.ValueTask.Right.cs">
+      <DependentUpon>TapTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapNoValueTests.Task.cs">
+      <DependentUpon>TapNoValueTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapNoValueTests.Task.Left.cs">
+      <DependentUpon>TapNoValueTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapNoValueTests.Task.Right.cs">
+      <DependentUpon>TapNoValueTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapNoValueTests.ValueTask.cs">
+      <DependentUpon>TapNoValueTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapNoValueTests.ValueTask.Left.cs">
+      <DependentUpon>TapNoValueTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\TapNoValueTests.ValueTask.Right.cs">
+      <DependentUpon>TapNoValueTests.ValueTask.cs</DependentUpon>
+    </Compile>
     <Compile Update="MaybeTests\Extensions\BindTests.ValueTask.Left.cs">
       <DependentUpon>BindTests.ValueTask.cs</DependentUpon>
     </Compile>

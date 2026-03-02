@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace CSharpFunctionalExtensions
 {
@@ -10,6 +10,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="maybe"></param>
         /// <param name="action"></param>
         /// <typeparam name="T"></typeparam>
+        [Obsolete("Use TapNoValue instead")]
         public static void ExecuteNoValue<T>(in this Maybe<T> maybe, Action action)
         {
             if (maybe.HasValue)
