@@ -604,5 +604,35 @@
     <Compile Update="MaybeTests\Extensions\ToInvertedResultTests.ValueTask.cs">
       <DependentUpon>ToInvertedResultTests.cs</DependentUpon>
     </Compile>
+    <Compile Update="MaybeTests\Extensions\SelectTests.Task.cs">
+      <DependentUpon>SelectTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\SelectTests.ValueTask.cs">
+      <DependentUpon>SelectTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\SelectManyTests.Task.cs">
+      <DependentUpon>SelectManyTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\SelectManyTests.Task.Left.cs">
+      <DependentUpon>SelectManyTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\SelectManyTests.Task.Right.cs">
+      <DependentUpon>SelectManyTests.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\SelectManyTests.ValueTask.cs">
+      <DependentUpon>SelectManyTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\SelectManyTests.ValueTask.Left.cs">
+      <DependentUpon>SelectManyTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="MaybeTests\Extensions\SelectManyTests.ValueTask.Right.cs">
+      <DependentUpon>SelectManyTests.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\SelectTests.Task.cs">
+      <DependentUpon>SelectTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ResultTests\Extensions\SelectTests.ValueTask.cs">
+      <DependentUpon>SelectTests.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
