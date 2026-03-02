@@ -19,3 +19,4 @@ project.fragment.lock.json
 .vs
 /CSharpFunctionalExtensions/CSharpFunctionalExtensions.xml
 *ncrunch*
+.claude

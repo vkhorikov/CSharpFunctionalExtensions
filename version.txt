@@ -1,3 +1,4 @@
-3.6.0
+3.7.0
 Updates:
-* #599 Add extensions for Bind optional, ensure not, map, optional, required
+* #608 Improve linq query support
+* #602 Add Tap extensions to Maybe
