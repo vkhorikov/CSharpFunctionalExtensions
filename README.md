@@ -583,6 +583,75 @@ Console.WriteLine(appleInventory.MapError(ErrorEnhancer).ToString()); // "Succes
 Console.WriteLine(bananaInventory.MapError(ErrorEnhancer).ToString()); // "Failed operation: Could not find any bananas"
 ```
 
+### Linq query syntax
+
+Lots of functional languages provide syntax sugars to make (Monadic) compositions of Maybe/Result types
+more readable, examples include:
+
+- Haskell's do-notation:
+  ```haskell
+	foo = do
+	  x <- Just 1
+	  y <- Just 2
+	  return x + y
+  ```
+- Scala's for-comprehension:
+  ```scala
+	def foo = for {
+	  x <- Some(1)
+	  y <- Some(2)
+	} yield x + y
+  ```
+- F# computation expressions (`option` isn't in the stdlib, but it's trivial to define ourselves):
+  ```fsharp
+	let foo = option {
+	  let! x = Some 1
+	  let! y = Some 2
+      return x + y
+	}
+  ```
+
+C# wasn't designed as a functional language from the beginning, but surprisingly we can do the same using 
+the Linq query syntax.
+
+Let's say the following `Create` factory methods do some validation and return `Result<T>`.
+
+With method chaining:
+```csharp
+var customer = CustomerName
+	.Create("jsmith")
+	.Bind(name =>
+		Email.Create("jsmith@example.com").Map(email => new Customer(name, email))
+	);
+```
+
+Rewrite using the Linq query syntax:
+```csharp
+var customer =
+	from name in CustomerName.Create("jsmith")
+	from email in Email.Create("jsmith@example.com")
+	select new Customer(name, email);
+```
+
+They are technically the same, but the latter is more readable.
+
+And this also works with `async` methods:
+
+```csharp
+var billing = await (
+	from customer in _customerRepository.GetByIdAsync(id) // Task<Result<Customer>>
+	from billingInfo in _paymentGateway.ChargeCustomerAsync(customer, amount) // Task<Result<BillingInfo>>
+	select billingInfo // Result<BillingInfo>
+);
+```
+
+Which is equivalent to:
+```csharp
+var billing = await _customerRepository
+	.GetByIdAsync(id)
+	.Bind(customer => _paymentGateway.ChargeCustomerAsync(customer, amount));
+```
+
 ## Testing
 
 ### [CSharpFunctionalExtensions.FluentAssertions](https://github.com/NitroDevs/CSharpFunctionalExtensions.FluentAssertions)

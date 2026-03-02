@@ -233,6 +233,30 @@
     <Compile Update="Maybe\Extensions\TapNoValue.ValueTask.Right.cs">
       <DependentUpon>TapNoValue.ValueTask.cs</DependentUpon>
     </Compile>
+    <Compile Update="Maybe\Extensions\Select.Task.cs">
+      <DependentUpon>Select.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\Select.ValueTask.cs">
+      <DependentUpon>Select.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\SelectMany.Task.cs">
+      <DependentUpon>SelectMany.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\SelectMany.Task.Left.cs">
+      <DependentUpon>SelectMany.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\SelectMany.Task.Right.cs">
+      <DependentUpon>SelectMany.Task.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\SelectMany.ValueTask.cs">
+      <DependentUpon>SelectMany.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\SelectMany.ValueTask.Left.cs">
+      <DependentUpon>SelectMany.ValueTask.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Maybe\Extensions\SelectMany.ValueTask.Right.cs">
+      <DependentUpon>SelectMany.ValueTask.cs</DependentUpon>
+    </Compile>
     <Compile Update="Maybe\Extensions\GetValueOrDefault.Task.Right.cs">
       <DependentUpon>GetValueOrDefault.Task.cs</DependentUpon>
     </Compile>
@@ -553,6 +577,12 @@
     </Compile>
     <Compile Update="Result\Methods\Extensions\OnSuccessTry.Task.cs">
       <DependentUpon>OnSuccessTry.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\Select.Task.cs">
+      <DependentUpon>Select.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Result\Methods\Extensions\Select.ValueTask.cs">
+      <DependentUpon>Select.cs</DependentUpon>
     </Compile>
     <Compile Update="Result\Methods\Extensions\SelectMany.Task.Left.cs">
       <DependentUpon>SelectMany.Task.cs</DependentUpon>
