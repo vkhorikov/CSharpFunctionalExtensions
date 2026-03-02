@@ -7,7 +7,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
     public class TapTests_Task_Left : MaybeTestBase
     {
         [Fact]
-        public async Task Tap_Task_Lef_does_not_execute_action_if_no_value()
+        public async Task Tap_Task_Left_does_not_execute_action_if_no_value()
         {
             Maybe<T> maybe = null;
             var executed = false;
@@ -19,7 +19,7 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
         }
 
         [Fact]
-        public async Task Tap_Task_Lef_executes_action_if_value()
+        public async Task Tap_Task_Left_executes_action_if_value()
         {
             Maybe<T> maybe = T.Value;
 

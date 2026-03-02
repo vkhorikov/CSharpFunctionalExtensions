@@ -18,5 +18,18 @@ namespace CSharpFunctionalExtensions.Tests.MaybeTests.Extensions
             property.Should().Be("Some value");
             returnedMaybe.HasNoValue.Should().BeTrue();
         }
+
+        [Fact]
+        public async Task TapNoValue_Task_Left_does_not_execute_action_when_has_value()
+        {
+            var executed = false;
+
+            Maybe<T> maybe = T.Value;
+
+            var returnedMaybe = await maybe.AsTask().TapNoValue(() => executed = true);
+
+            executed.Should().BeFalse();
+            returnedMaybe.Value.Should().BeSameAs(maybe.Value);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions
         /// <param name="action"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        [Obsolete("Use TapValue instead")]
+        [Obsolete("Use Tap instead")]
         public static async Task Execute<T>(this Task<Maybe<T>> maybeTask, Action<T> action)
         {
             var maybe = await maybeTask.DefaultAwait();

@@ -14,7 +14,7 @@ namespace CSharpFunctionalExtensions.ValueTasks
         /// <param name="valueTask"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns>The calling maybe</returns>
-        public static async Task<Maybe<T>> TapNoValue<T>(
+        public static async ValueTask<Maybe<T>> TapNoValue<T>(
             this ValueTask<Maybe<T>> maybeTask,
             Func<ValueTask> valueTask
         )

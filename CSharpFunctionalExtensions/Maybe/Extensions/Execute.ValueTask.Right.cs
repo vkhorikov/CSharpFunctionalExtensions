@@ -12,7 +12,7 @@ namespace CSharpFunctionalExtensions.ValueTasks
         /// <param name="maybe"></param>
         /// <param name="valueTask"></param>
         /// <typeparam name="T"></typeparam>
-        [Obsolete("Use TapValue instead")]
+        [Obsolete("Use Tap instead")]
         public static async Task Execute<T>(this Maybe<T> maybe, Func<T, ValueTask> valueTask)
         {
             if (maybe.HasNoValue)
